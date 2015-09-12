@@ -111,12 +111,15 @@ namespace Butler
                   new PlayerReportsJob( TimeKeeper ),
 
 #endregion
+
+#region Regular Always jobs
                   new RunReportJob( TimeKeeper ),
-                  new LogCleanupJob(),
-                  new UpdateTflJob(), //  regular - always
-                  new TflDataBackupJob(), //  regular - always
-                  new DropboxCopyToReginaJob(),  //,
-                  new MediaListsPublishJob() //  regular - always
+                  new LogCleanupJob(), 
+                  new UpdateTflJob(),  
+                  new TflDataBackupJob(),  
+                  new DropboxCopyToReginaJob(), 
+                  new MediaListsPublishJob()  
+#endregion
                };
 
             if (Passes == 0)
