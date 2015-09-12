@@ -1,0 +1,8 @@
+﻿Script to create a new job
+==========================
+1.  Identify a need for a regular job
+2.  Create a <something>Job : Job in the Models folder
+3.  In constructor set a Name and optionally a Report if its a Reporting type of job (see DepthChartJob)
+4.  Check old RosterGrid report to see how old code was utilised
+5.  Create a new class like HotListReporter that takes lists of configs and runs the old code. Inherit from RosterGridReport.
+6.  Create a unit test to exercise the new class

@@ -1,0 +1,4285 @@
+Test Name:	TestDoAssignRolesJob
+Test Outcome:	Passed
+Result StandardOutput:	
+Constructing Assign Roles ...
+
+
+Debug Trace:
+Data Librarian connected to Provider=VFPOLEDB.1;Data Source=g:\\tfl\\nfl\\team.dbf
+   NFLWeek:Constructor Week 2:2014 has 16 games
+   LoadTeamList: Loading 2014 team List
+   LoadTeamList: Loaded 32 teams.
+   Setting Ace to Chris Johnson
+   Setting Ace to Chris Ivory
+   R1 (2): CJohnson + CIvory + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Chris Johnson             : S : RB,3D
+   Chris Ivory               : S : RB
+   Bilal Powell              : R : RB,3D
+   Chris Johnson             : S :  13 :  54.2% : S : RB,3D
+   Chris Ivory               : S :  10 :  41.7% : S : RB
+   Bilal Powell              : R :   1 :   4.2% : R : RB,3D
+          Setting Backup to Michael Vick
+          Setting Backup to David Garrard
+         Setting Starter to Geno Smith
+      Examining Rec Kellen Winslow
+      Examining Rec Sloan Thomas
+      Examining Rec Richard Owens
+      Examining Rec Dante Ridgeway
+      Examining Rec Josh Cribbs
+      Examining Rec Chris Davis
+      Examining Rec Eric Decker
+         Setting W1 to Eric Decker
+      Examining Rec David Nelson
+         Setting W3 to David Nelson
+      Examining Rec Jeff Cumberland
+         Setting TE to Jeff Cumberland
+      Examining Rec Greg Salas
+      Examining Rec Jeremy Kerley
+         Setting W2 to Jeremy Kerley
+      Examining Rec Konrad Reuland
+      Examining Rec Zach Sudfeld
+      Examining Rec Saalim Hakim
+      Examining Rec Jace Amaro*
+      Examining Rec Jalen Saunders*
+      Examining Rec Shaq Evans*
+      Examining Rec Walt Powell*
+   Q1 (1): Geno Smith
+   Q2 (2): David Garrard
+   W1 (1): Eric Decker
+   W2 (1): Jeremy Kerley
+   W3 (1): David Nelson
+   TE (1): Jeff Cumberland
+   Kellen Winslow            : R : TE
+   Sloan Thomas              :   : DL
+   Richard Owens             : R : TE
+   Dante Ridgeway            : R : WR
+   Josh Cribbs               : R : WR
+   Chris Davis               :   : FB
+   Eric Decker               : S : WR,PR,W1
+   David Nelson              : S : WR,W3
+   Jeff Cumberland           : S : TE
+   Greg Salas                : B : WR
+   Jeremy Kerley             : S : WR,PR,KR,W2
+   Konrad Reuland            : R : TE
+   Zach Sudfeld              : R : TE
+   Saalim Hakim              : R : WR,KR
+   Jace Amaro*               : B : TE
+   Jalen Saunders*           : R : WR,PR
+   Shaq Evans*               : R : WR
+   Walt Powell*              : R : WR
+   Geno Smith                : S :   0 : 100.0% : S : QB
+   Michael Vick              : B :   0 :   0.0% : B : QB
+   David Garrard             : B :   0 :   0.0% : B : QB
+   Eric Decker               : S :  74 :  52.5% : S : WR,PR,W1
+   Jeremy Kerley             : S :  38 :  27.0% : S : WR,PR,KR,W2
+   David Nelson              : S :  17 :  12.1% : S : WR,W3
+   Greg Salas                : B :  12 :   8.5% : B : WR
+   Walt Powell*              : R :   0 :   0.0% : R : WR
+   Jalen Saunders*           : R :   0 :   0.0% : R : WR,PR
+   Shaq Evans*               : R :   0 :   0.0% : R : WR
+   Saalim Hakim              : R :   0 :   0.0% : R : WR,KR
+   Dante Ridgeway            : R :   0 :   0.0% : R : WR
+   Josh Cribbs               : R :   0 :   0.0% : R : WR
+   Jeff Cumberland           : S :  50 :  87.7% : S : TE
+   Jace Amaro*               : B :   7 :  12.3% : B : TE
+   Kellen Winslow            : R :   0 :   0.0% : R : TE
+   Konrad Reuland            : R :   0 :   0.0% : R : TE
+   Richard Owens             : R :   0 :   0.0% : R : TE
+   Zach Sudfeld              : R :   0 :   0.0% : R : TE
+   Setting Ace to Giovani Bernard
+   Setting Backup to Jeremy Hill*
+   R1 (1): Giovani Bernard
+   R2 (1): JHill
+   Ace back : Giovani Bernard
+   R2       : Jeremy Hill*
+   Goaline  : 
+   Cedric Peerman            : D : HB,KR
+   Giovani Bernard           : S : RB
+   Rex Burkhead              : D : RB
+   Jeremy Hill*              : B : RB
+   Giovani Bernard           : S :  14 :  77.8% : S : RB
+   Jeremy Hill*              : B :   4 :  22.2% : B : RB
+   Cedric Peerman            : D :   0 :   0.0% : D : HB,KR
+   Rex Burkhead              : D :   0 :   0.0% : D : RB
+          Setting Backup to Jason Campbell
+         Setting Starter to Andy Dalton
+      Examining Rec Doug Gabriel
+      Examining Rec Antonio Chatman
+      Examining Rec Alex E Smith
+      Examining Rec Ben Utecht
+      Examining Rec Reggie McNeal
+      Examining Rec Benny Brazell
+      Examining Rec Glenn Holt
+      Examining Rec Brandon Tate
+      Examining Rec Freddie Brown
+      Examining Rec Maurice Purify
+      Examining Rec Jermaine Gresham
+      Examining Rec A.J. Green
+         Setting W1 to A.J. Green
+      Examining Rec Dane Sanzenbacher
+      Examining Rec Mohamed Sanu
+         Setting W2 to Mohamed Sanu
+      Examining Rec Marvin Jones
+      Examining Rec Tyler Eifert
+         Setting TE to Tyler Eifert
+      Examining Rec James Wright*
+   Q1 (1): Andy Dalton
+   Q2 (1): Jason Campbell
+   W1 (1): A.J. Green
+   W2 (1): Mohamed Sanu
+   W3 (0): none
+   TE (1): Tyler Eifert
+   Doug Gabriel              : R : WR
+   Antonio Chatman           : R : WR,PR
+   Alex E Smith              : R : TE/FB
+   Ben Utecht                : R : TE
+   Reggie McNeal             : R : WR
+   Benny Brazell             : R : WR
+   Glenn Holt                : R : WR
+   Brandon Tate              : S : WR,KR,KR,P,PR,K
+   Freddie Brown             : R : WR
+   Maurice Purify            : R : WR
+   Jermaine Gresham          : B : TE
+   A.J. Green                : S : WR,W1
+   Dane Sanzenbacher         : R : WR
+   Mohamed Sanu              : S : WR,W2
+   Marvin Jones              : I : WR
+   Tyler Eifert              : S : TE
+   James Wright*             : R : WR
+   Andy Dalton               : S :   0 : 100.0% : S : QB
+   AJ McCarron*              : I :   0 :   0.0% : I : QB
+   Jason Campbell            : B :   0 :   0.0% : B : QB
+   A.J. Green                : S : 131 :  70.4% : S : WR,W1
+   Mohamed Sanu              : S :  36 :  19.4% : S : WR,W2
+   Brandon Tate              : S :  19 :  10.2% : S : WR,KR,KR,P,PR,K,W3
+   Maurice Purify            : R :   0 :   0.0% : R : WR
+   James Wright*             : R :   0 :   0.0% : R : WR
+   Dane Sanzenbacher         : R :   0 :   0.0% : R : WR
+   Marvin Jones              : I :   0 :   0.0% : I : WR
+   Doug Gabriel              : R :   0 :   0.0% : R : WR
+   Antonio Chatman           : R :   0 :   0.0% : R : WR,PR
+   Glenn Holt                : R :   0 :   0.0% : R : WR
+   Freddie Brown             : R :   0 :   0.0% : R : WR
+   Reggie McNeal             : R :   0 :   0.0% : R : WR
+   Benny Brazell             : R :   0 :   0.0% : R : WR
+   Tyler Eifert              : S :  37 :  69.8% : S : TE
+   Jermaine Gresham          : B :  16 :  30.2% : B : TE
+   Ben Utecht                : R :   0 :   0.0% : R : TE
+   Alex E Smith              : R :   0 :   0.0% : R : TE/FB
+   Setting Ace to Justin Forsett
+   Setting Ace to Bernard Pierce
+   R1 (2): JForsett + BPierce + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Ricky Williams            : D : RB
+   PJ Daniels                : D : DE
+   Cory Ross                 : D : OG
+   Ray Rice                  : D : RB
+   Justin Forsett            : S : RB,3D
+   Pierce Bernard            : D : RB
+   Bernard Pierce            : S : RB
+   Lorenzo Taliaferro*       : D : RB
+   Justin Forsett            : S :  11 :  64.7% : S : RB,3D
+   Bernard Pierce            : S :   6 :  35.3% : S : RB
+   Lorenzo Taliaferro*       : D :   0 :   0.0% : D : RB
+   Pierce Bernard            : D :   0 :   0.0% : D : RB
+   PJ Daniels                : D :   0 :   0.0% : D : DE
+   Ricky Williams            : D :   0 :   0.0% : D : RB
+   Ray Rice                  : D :   0 :   0.0% : D : RB
+   Cory Ross                 : D :   0 :   0.0% : D : OG
+         Setting Starter to Joe Flacco
+          Setting Backup to Tyrod Taylor
+      Examining Rec Brandon Stokley
+      Examining Rec Steve Smith
+         Setting W1 to Steve Smith
+      Examining Rec LJ Smith
+      Examining Rec David Tyree
+      Examining Rec Kris Wilson
+      Examining Rec Clarence Moore
+      Examining Rec Derek Abney
+      Examining Rec Daniel Wilcox
+      Examining Rec Billy Bajema
+      Examining Rec Owen Daniels
+      Examining Rec Jacoby Jones
+      Examining Rec Jonathan Stupar
+      Examining Rec Ed Dickson
+      Examining Rec Dennis Pitta
+         Setting TE to Dennis Pitta
+      Examining Rec Torrey Smith
+         Setting W2 to Torrey Smith
+      Examining Rec Deonte Thompson
+      Examining Rec Aaron Mellette
+      Examining Rec Marlon Brown
+      Examining Rec Crockett Gillmore*
+      Examining Rec Mike Campanaro*
+      Examining Rec Kamar Aiken
+         Setting W3 to Kamar Aiken
+   Q1 (1): Joe Flacco
+   Q2 (1): Tyrod Taylor
+   W1 (1): Steve Smith
+   W2 (1): Torrey Smith
+   W3 (1): Kamar Aiken
+   TE (1): Dennis Pitta
+   Brandon Stokley           : R : WR
+   Steve Smith               : S : WR,W1
+   LJ Smith                  : R : TE
+   David Tyree               : R : WR
+   Kris Wilson               : R : TE
+   Clarence Moore            : R : WR
+   Derek Abney               : R : WR
+   Daniel Wilcox             : R : TE
+   Billy Bajema              : R : TE
+   Owen Daniels              : B : TE
+   Jacoby Jones              : B : WR,PR,KR
+   Jonathan Stupar           : R : TE
+   Ed Dickson                : R : TE
+   Dennis Pitta              : S : TE
+   Torrey Smith              : S : WR,W2
+   Deonte Thompson           : R : WR/RS,KR
+   Aaron Mellette            : R : WR
+   Marlon Brown              : R : WR
+   Crockett Gillmore*        : R : TE
+   Mike Campanaro*           : R : WR
+   Kamar Aiken               : S : WR,W3
+   Joe Flacco                : S :   0 : 100.0% : S : QB
+   Tyrod Taylor              : B :   0 :   0.0% : B : QB
+   Steve Smith               : S : 118 :  55.1% : S : WR,W1
+   Torrey Smith              : S :  50 :  23.4% : S : WR,W2
+   Kamar Aiken               : S :  30 :  14.0% : S : WR,W3
+   Jacoby Jones              : B :  16 :   7.5% : B : WR,PR,KR
+   Deonte Thompson           : R :   0 :   0.0% : R : WR/RS,KR
+   Aaron Mellette            : R :   0 :   0.0% : R : WR
+   Mike Campanaro*           : R :   0 :   0.0% : R : WR
+   Brandon Stokley           : R :   0 :   0.0% : R : WR
+   Marlon Brown              : R :   0 :   0.0% : R : WR
+   Derek Abney               : R :   0 :   0.0% : R : WR
+   Clarence Moore            : R :   0 :   0.0% : R : WR
+   David Tyree               : R :   0 :   0.0% : R : WR
+   Dennis Pitta              : S :  83 :  70.9% : S : TE
+   Owen Daniels              : B :  34 :  29.1% : B : TE
+   Kris Wilson               : R :   0 :   0.0% : R : TE
+   Daniel Wilcox             : R :   0 :   0.0% : R : TE
+   Billy Bajema              : R :   0 :   0.0% : R : TE
+   Jonathan Stupar           : R :   0 :   0.0% : R : TE
+   LJ Smith                  : R :   0 :   0.0% : R : TE
+   Ed Dickson                : R :   0 :   0.0% : R : TE
+   Crockett Gillmore*        : R :   0 :   0.0% : R : TE
+   Setting Ace to LeVeon Bell
+   Setting Backup to LaGarrette Blount
+   R1 (1): LeVeon Bell
+   R2 (1): LBlount
+   Ace back : LeVeon Bell
+   R2       : LaGarrette Blount
+   Goaline  : 
+   Najeh Davenport           : D : 
+   Carey Davis               : D : C
+   Felix Jones               : D : RB,KR,KR
+   LaRod Stephens-Howlin     : D : RB,KR
+   LaGarrette Blount         : B : RB,KR
+   LeVeon Bell               : S : RB
+   LeVeon Bell               : S :  21 :  84.0% : S : RB
+   LaGarrette Blount         : B :   4 :  16.0% : B : RB,KR
+   Najeh Davenport           : D :   0 :   0.0% : D : 
+   LaRod Stephens-Howlin     : D :   0 :   0.0% : D : RB,KR
+   Carey Davis               : D :   0 :   0.0% : D : C
+   Felix Jones               : D :   0 :   0.0% : D : RB,KR,KR
+         Setting Starter to Ben Roethlisberger
+          Setting Backup to Bruce Gradkowski
+          Setting Backup to Landry Jones
+      Examining Rec Plaxico Burress
+      Examining Rec Arnaz Battle
+      Examining Rec Matt Kranchick
+      Examining Rec Sean McHugh
+      Examining Rec Heath Miller
+         Setting TE to Heath Miller
+      Examining Rec Lance Moore
+      Examining Rec Walter Young
+      Examining Rec Matt Spaeth
+      Examining Rec Darrius Heyward-Bey
+      Examining Rec Antonio Brown
+         Setting W1 to Antonio Brown
+      Examining Rec Michael Palmer
+      Examining Rec Richard Gordon
+      Examining Rec David Paulson
+      Examining Rec Markus Wheaton
+         Setting W2 to Markus Wheaton
+      Examining Rec Derek Moye
+      Examining Rec Dri Archer*
+      Examining Rec Martavis Bryant*
+      Examining Rec Rob Blanchflower*
+   Q1 (1): Ben Roethlisberger
+   Q2 (2): Landry Jones
+   W1 (1): Antonio Brown
+   W2 (1): Markus Wheaton
+   W3 (0): none
+   TE (1): Heath Miller
+   Plaxico Burress           : R : WR
+   Arnaz Battle              : R : WR
+   Matt Kranchick            : R : TE
+   Sean McHugh               : R : TE
+   Heath Miller              : S : TE
+   Lance Moore               : R : WR,PR
+   Walter Young              : R : WR
+   Matt Spaeth               : R : TE
+   Darrius Heyward-Bey       : R : WR
+   Antonio Brown             : S : WR,PR,W1
+   Michael Palmer            : R : TE
+   Richard Gordon            : R : TE
+   David Paulson             : R : TE
+   Markus Wheaton            : S : WR,KR,W2
+   Derek Moye                : R : WR
+   Dri Archer*               : R : WR,KR
+   Martavis Bryant*          : R : WR
+   Rob Blanchflower*         : R : TE
+   Ben Roethlisberger        : S :   0 : 100.0% : S : QB
+   Landry Jones              : B :   0 :   0.0% : B : QB
+   Bruce Gradkowski          : B :   0 :   0.0% : B : QB
+   Antonio Brown             : S : 116 :  54.5% : S : WR,PR,W1
+   Markus Wheaton            : S :  97 :  45.5% : S : WR,KR,W2
+   Dri Archer*               : R :   0 :   0.0% : R : WR,KR
+   Derek Moye                : R :   0 :   0.0% : R : WR
+   Martavis Bryant*          : R :   0 :   0.0% : R : WR
+   Plaxico Burress           : R :   0 :   0.0% : R : WR
+   Arnaz Battle              : R :   0 :   0.0% : R : WR
+   Darrius Heyward-Bey       : R :   0 :   0.0% : R : WR
+   Lance Moore               : R :   0 :   0.0% : R : WR,PR
+   Walter Young              : R :   0 :   0.0% : R : WR
+   Heath Miller              : S :  26 : 100.0% : S : TE
+   Sean McHugh               : R :   0 :   0.0% : R : TE
+   Matt Spaeth               : R :   0 :   0.0% : R : TE
+   Rob Blanchflower*         : R :   0 :   0.0% : R : TE
+   David Paulson             : R :   0 :   0.0% : R : TE
+   Richard Gordon            : R :   0 :   0.0% : R : TE
+   Michael Palmer            : R :   0 :   0.0% : R : TE
+   Matt Kranchick            : R :   0 :   0.0% : R : TE
+   Setting Ace to Maurice Jones-Drew
+   Setting Ace to Darren McFadden
+   R1 (2): MJones-Drew + DMcFadden + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Maurice Jones-Drew        : S : RB
+   Darren McFadden           : S : RB
+   Taiwan Jones              : D : RB,KR
+   Latavius Murray           : D : RB,KR
+   Jamize Olawale            : D : RB
+   Maurice Jones-Drew        : S :   9 :  69.2% : S : RB
+   Darren McFadden           : S :   4 :  30.8% : S : RB
+   Jamize Olawale            : D :   0 :   0.0% : D : RB
+   Latavius Murray           : D :   0 :   0.0% : D : RB,KR
+   Taiwan Jones              : D :   0 :   0.0% : D : RB,KR
+          Setting Backup to Matt Schaub
+          Setting Backup to Matthew McGloin
+         Setting Starter to Derek Carr*
+      Examining Rec Tim Dwight
+      Examining Rec Alvis Whitted
+      Examining Rec Tony Stewart
+      Examining Rec Carlos Francis
+      Examining Rec Kevin McMahan
+      Examining Rec John Madsen
+      Examining Rec James Jones
+         Setting W2 to James Jones
+      Examining Rec Arman Shields
+      Examining Rec Duke Calhoun
+      Examining Rec Jeron Mastrud
+      Examining Rec Denarius Moore
+      Examining Rec David Ausberry
+      Examining Rec Rod Streater
+         Setting W1 to Rod Streater
+      Examining Rec Andre Holmes
+      Examining Rec Nick Kasa
+      Examining Rec Mychal Rivera
+         Setting TE to Mychal Rivera
+      Examining Rec Brice Butler
+      Examining Rec Greg Jenkins
+      Examining Rec Brian Leonhardt*
+   Q1 (1): Derek Carr*
+   Q2 (2): Matthew McGloin
+   W1 (1): Rod Streater
+   W2 (1): James Jones
+   W3 (0): none
+   TE (1): Mychal Rivera
+   Tim Dwight                : R : WR
+   Alvis Whitted             : R : WR
+   Tony Stewart              : R : TE
+   Carlos Francis            : R : WR
+   Kevin McMahan             : R : WR
+   John Madsen               :   : DT
+   James Jones               : S : WR,W2
+   Arman Shields             : R : WR
+   Duke Calhoun              : R : WR
+   Jeron Mastrud             : R : TE
+   Denarius Moore            : B : WR,PR
+   David Ausberry            : R : TE
+   Rod Streater              : S : WR,W1
+   Andre Holmes              : R : WR
+   Nick Kasa                 : R : TE
+   Mychal Rivera             : S : TE
+   Brice Butler              : R : WR
+   Greg Jenkins              : R : WR,PR
+   Brian Leonhardt*          : B : TE
+   Derek Carr*               : S :   0 : 100.0% : S : QB
+   Matt Schaub               : B :   0 :   0.0% : B : QB
+   Matthew McGloin           : B :   0 :   0.0% : B : QB
+   Rod Streater              : S :  46 :  52.3% : S : WR,W1
+   James Jones               : S :  34 :  38.6% : S : WR,W2
+   Denarius Moore            : B :   8 :   9.1% : B : WR,PR
+   Andre Holmes              : R :   0 :   0.0% : R : WR
+   Brice Butler              : R :   0 :   0.0% : R : WR
+   Greg Jenkins              : R :   0 :   0.0% : R : WR,PR
+   Carlos Francis            : R :   0 :   0.0% : R : WR
+   Tim Dwight                : R :   0 :   0.0% : R : WR
+   Alvis Whitted             : R :   0 :   0.0% : R : WR
+   Kevin McMahan             : R :   0 :   0.0% : R : WR
+   Duke Calhoun              : R :   0 :   0.0% : R : WR
+   Arman Shields             : R :   0 :   0.0% : R : WR
+   Mychal Rivera             : S :  31 :  72.1% : S : TE
+   Brian Leonhardt*          : B :  12 :  27.9% : B : TE
+   Jeron Mastrud             : R :   0 :   0.0% : R : TE
+   David Ausberry            : R :   0 :   0.0% : R : TE
+   Tony Stewart              : R :   0 :   0.0% : R : TE
+   Nick Kasa                 : R :   0 :   0.0% : R : TE
+   Setting Ace to Marshawn Lynch
+   Setting Backup to Robert Turbin
+   R1 (1): Marshawn Lynch
+   R2 (1): RTurbin
+   Ace back : Marshawn Lynch
+   R2       : Robert Turbin
+   Goaline  : 
+   Marshawn Lynch            : S : RB
+   Robert Turbin             : B : RB,3D,KR
+   Christine Michael         : I : RB
+   Spencer Ware              : D : RB
+   Derrick Coleman           : D : RB
+   Kiero Small*              : D : RB
+   Marshawn Lynch            : S :  20 :  76.9% : S : RB
+   Robert Turbin             : B :   6 :  23.1% : B : RB,3D,KR
+   Derrick Coleman           : D :   0 :   0.0% : D : RB
+   Kiero Small*              : D :   0 :   0.0% : D : RB
+   Christine Michael         : I :   0 :   0.0% : I : RB
+   Spencer Ware              : D :   0 :   0.0% : D : RB
+          Setting Backup to Tarvaris Jackson
+         Setting Starter to Russell Wilson
+      Examining Rec Chris Baker
+      Examining Rec John Owens
+      Examining Rec Zach Miller
+         Setting TE to Zach Miller
+      Examining Rec Courtney Taylor
+      Examining Rec Michael Bumpus
+      Examining Rec Percy Harvin
+         Setting W1 to Percy Harvin
+      Examining Rec Doug Baldwin
+         Setting W3 to Doug Baldwin
+      Examining Rec Ricardo Lockette
+         Setting W2 to Ricardo Lockette
+      Examining Rec Jermaine Kearse
+      Examining Rec David Gilreath
+      Examining Rec Luke Willson
+      Examining Rec Paul Richardson*
+      Examining Rec Kevin Norwood*
+   Q1 (1): Russell Wilson
+   Q2 (1): Tarvaris Jackson
+   W1 (1): Percy Harvin
+   W2 (1): Ricardo Lockette
+   W3 (1): Doug Baldwin
+   TE (1): Zach Miller
+   Chris Baker               : R : TE
+   John Owens                : R : TE
+   Zach Miller               : S : TE
+   Courtney Taylor           :   : S
+   Michael Bumpus            :   : 
+   Percy Harvin              : S : WR,KR,W1
+   Doug Baldwin              : S : WR,W3
+   Ricardo Lockette          : S : WR,W2
+   Jermaine Kearse           : B : WR,KR
+   David Gilreath            : R : WR
+   Luke Willson              : B : TE
+   Paul Richardson*          : R : WR
+   Kevin Norwood*            : R : WR
+   Russell Wilson            : S :   0 : 100.0% : S : QB
+   Tarvaris Jackson          : B :   0 :   0.0% : B : QB
+   Percy Harvin              : S :  59 :  49.6% : S : WR,KR,W1
+   Ricardo Lockette          : S :  38 :  31.9% : S : WR,W2
+   Doug Baldwin              : S :  14 :  11.8% : S : WR,W3
+   Jermaine Kearse           : B :   8 :   6.7% : B : WR,KR
+   Kevin Norwood*            : R :   0 :   0.0% : R : WR
+   Paul Richardson*          : R :   0 :   0.0% : R : WR
+   David Gilreath            : R :   0 :   0.0% : R : WR
+   Zach Miller               : S :  42 :  97.7% : S : TE
+   Luke Willson              : B :   1 :   2.3% : B : TE
+   Chris Baker               : R :   0 :   0.0% : R : TE
+   John Owens                : R :   0 :   0.0% : R : TE
+   Setting Ace to Darren Sproles
+   Setting Ace to LeSean McCoy
+   R1 (2): DSproles + LMcCoy + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Reno Mahe                 : D : RB,PR
+   Darren Sproles            : S : RB,PR,KR,3D
+   Tony Hunt                 : D : RB
+   LeSean McCoy              : S : RB
+   Stnley Havili             : D : RB
+   Bryce Brown               : D : RB
+   Chris Polk                : I : RB
+   LeSean McCoy              : S :  21 :  65.6% : S : RB
+   Darren Sproles            : S :  11 :  34.4% : S : RB,PR,KR,3D
+   Bryce Brown               : D :   0 :   0.0% : D : RB
+   Chris Polk                : I :   0 :   0.0% : I : RB
+   Stnley Havili             : D :   0 :   0.0% : D : RB
+   Tony Hunt                 : D :   0 :   0.0% : D : RB
+   Reno Mahe                 : D :   0 :   0.0% : D : RB,PR
+          Setting Backup to Mark Sanchez
+         Setting Starter to Nick Foles
+          Setting Backup to Matt Barkley
+      Examining Rec Brent Celek
+      Examining Rec Jeremy Maclin
+         Setting W1 to Jeremy Maclin
+      Examining Rec James Casey
+      Examining Rec Arrelious Benn
+      Examining Rec Riley Cooper
+         Setting W3 to Riley Cooper
+      Examining Rec Jeff Maehl
+      Examining Rec Zach Ertz
+         Setting TE to Zach Ertz
+      Examining Rec Jordan Matthews*
+         Setting W2 to Jordan Matthews*
+      Examining Rec Josh Huff*
+   Q1 (1): Nick Foles
+   Q2 (2): Matt Barkley
+   W1 (1): Jeremy Maclin
+   W2 (1): Jordan Matthews*
+   W3 (1): Riley Cooper
+   TE (1): Zach Ertz
+   Brent Celek               : B : TE
+   Jeremy Maclin             : S : WR,W1
+   James Casey               : B : FB,KR
+   Arrelious Benn            : I : WR
+   Riley Cooper              : S : WR,W3
+   Jeff Maehl                : B : WR
+   Zach Ertz                 : S : TE
+   Jordan Matthews*          : S : WR,W2
+   Josh Huff*                : R : WR
+   Nick Foles                : S :   0 : 100.0% : S : QB
+   Matt Barkley              : B :   0 :   0.0% : B : QB
+   Mark Sanchez              : B :   0 :   0.0% : B : QB
+   Jeremy Maclin             : S :  97 :  55.4% : S : WR,W1
+   Jordan Matthews*          : S :  37 :  21.1% : S : WR,W2
+   Riley Cooper              : S :  29 :  16.6% : S : WR,W3
+   Jeff Maehl                : B :  12 :   6.9% : B : WR
+   Josh Huff*                : R :   0 :   0.0% : R : WR
+   Arrelious Benn            : I :   0 :   0.0% : I : WR
+   Zach Ertz                 : S :  77 :  83.7% : S : TE
+   Brent Celek               : B :  15 :  16.3% : B : TE
+   Setting Ace to James Starks
+   Setting Ace to Eddie Lacy
+   R1 (2): JStarks + ELacy + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Vernand Morency           : D : RB
+   Joe McKnight              : D : RB,KR
+   James Starks              : S : RB
+   DuJuan Harris             : R : RB
+   Eddie Lacy                : S : RB
+   Eddie Lacy                : S :  12 :  60.0% : S : RB
+   James Starks              : S :   7 :  35.0% : S : RB
+   DuJuan Harris             : R :   1 :   5.0% : R : RB
+   Vernand Morency           : D :   0 :   0.0% : D : RB
+   Joe McKnight              : D :   0 :   0.0% : D : RB,KR
+         Setting Starter to Aaron Rodgers
+          Setting Backup to Seneca Wallace
+          Setting Backup to Matt Flynn
+          Setting Backup to Scott Tolzien
+      Examining Rec Jordy Nelson
+         Setting W1 to Jordy Nelson
+      Examining Rec Jermichael Finley
+      Examining Rec Andrew Quarless
+         Setting TE to Andrew Quarless
+      Examining Rec Randall Cobb
+         Setting W2 to Randall Cobb
+      Examining Rec Ryan Taylor
+      Examining Rec Jarrett Boykin
+      Examining Rec Brandon Bostick
+      Examining Rec Davante Adams*
+      Examining Rec Richard Rodgers*
+      Examining Rec Jared Abbrederis*
+      Examining Rec Jeff Janis*
+   Q1 (1): Aaron Rodgers
+   Q2 (3): Scott Tolzien
+   W1 (1): Jordy Nelson
+   W2 (1): Randall Cobb
+   W3 (0): none
+   TE (1): Andrew Quarless
+   Jordy Nelson              : S : WR,W1
+   Jermichael Finley         : R : TE
+   Andrew Quarless           : S : TE
+   Randall Cobb              : S : WR,W2
+   Ryan Taylor               : R : TE
+   Jarrett Boykin            : R : WR
+   Brandon Bostick           : I : TE
+   Davante Adams*            : R : WR
+   Richard Rodgers*          : R : TE
+   Jared Abbrederis*         : I : WR
+   Jeff Janis*               : R : WR
+   Aaron Rodgers             : S :   0 : 100.0% : S : QB
+   Scott Tolzien             : B :   0 :   0.0% : B : QB
+   Matt Flynn                : B :   0 :   0.0% : B : QB
+   Seneca Wallace            : B :   0 :   0.0% : B : QB
+   Jordy Nelson              : S :  83 :  58.9% : S : WR,W1
+   Randall Cobb              : S :  58 :  41.1% : S : WR,W2
+   Davante Adams*            : R :   0 :   0.0% : R : WR
+   Jeff Janis*               : R :   0 :   0.0% : R : WR
+   Jared Abbrederis*         : I :   0 :   0.0% : I : WR
+   Jarrett Boykin            : R :   0 :   0.0% : R : WR
+   Andrew Quarless           : S :  26 : 100.0% : S : TE
+   Ryan Taylor               : R :   0 :   0.0% : R : TE
+   Jermichael Finley         : R :   0 :   0.0% : R : TE
+   Brandon Bostick           : I :   0 :   0.0% : I : TE
+   Richard Rodgers*          : R :   0 :   0.0% : R : TE
+   Setting Ace to Adrian Peterson
+   R1 (1): Adrian Peterson
+   R2 (0): 
+   Ace back : Adrian Peterson
+   R2       : 
+   Goaline  : 
+   Adrian Peterson           : S : HB
+   Matt Asiata               : R : RB,KR
+   Zach Line                 : D : RB
+   Jerick McKinnon*          : R : RB
+   Adrian Peterson           : S :  21 :  87.5% : S : HB
+   Matt Asiata               : R :   2 :   8.3% : R : RB,KR
+   Jerick McKinnon*          : R :   1 :   4.2% : R : RB
+   Zach Line                 : D :   0 :   0.0% : D : RB
+         Setting Starter to Matt Cassel
+          Setting Backup to Christian Ponder
+          Setting Backup to Teddy Bridgewater*
+      Examining Rec Jim Kleinsasser
+      Examining Rec Greg Lewis
+      Examining Rec Greg Jennings
+         Setting W1 to Greg Jennings
+      Examining Rec Hank Baskett
+      Examining Rec Jerome Simpson
+      Examining Rec Kyle Rudolph
+         Setting TE to Kyle Rudolph
+      Examining Rec Jarius Wright
+         Setting W3 to Jarius Wright
+      Examining Rec Lestar Jean
+      Examining Rec Cordarrell Patterson
+         Setting W2 to Cordarrell Patterson
+      Examining Rec MarQueis Gray
+   Q1 (1): Matt Cassel
+   Q2 (2): Teddy Bridgewater*
+   W1 (1): Greg Jennings
+   W2 (1): Cordarrell Patterson
+   W3 (1): Jarius Wright
+   TE (1): Kyle Rudolph
+   Jim Kleinsasser           : R : TE
+   Greg Lewis                : R : WR
+   Greg Jennings             : S : WR,W1
+   Hank Baskett              : R : WR
+   Jerome Simpson            : X : WR
+   Kyle Rudolph              : S : TE
+   Jarius Wright             : S : WR,W3
+   Lestar Jean               : I : WR
+   Cordarrell Patterson      : S : WR,KR,W2
+   MarQueis Gray             : R : TE
+   Matt Cassel               : S :   0 : 100.0% : S : QB
+   Teddy Bridgewater*        : B :   0 :   0.0% : B : QB
+   Christian Ponder          : B :   0 :   0.0% : B : QB
+   Greg Jennings             : S :  58 :  53.2% : S : WR,W1
+   Cordarrell Patterson      : S :  26 :  23.9% : S : WR,KR,W2
+   Jarius Wright             : S :  25 :  22.9% : S : WR,W3
+   Lestar Jean               : I :   0 :   0.0% : I : WR
+   Greg Lewis                : R :   0 :   0.0% : R : WR
+   Jerome Simpson            : X :   0 :   0.0% : X : WR
+   Hank Baskett              : R :   0 :   0.0% : R : WR
+   Kyle Rudolph              : S :  16 : 100.0% : S : TE
+   Jim Kleinsasser           : R :   0 :   0.0% : R : TE
+   MarQueis Gray             : R :   0 :   0.0% : R : TE
+   Setting Ace to Steven Jackson
+   Setting Backup to Jacquizz Rodgers
+   R1 (1): Steven Jackson
+   R2 (1): JRodgers
+   Ace back : Steven Jackson
+   R2       : Jacquizz Rodgers
+   Goaline  : 
+   Steven Jackson            : S : HB
+   Antone Smith              : R : RB
+   Jacquizz Rodgers          : B : RB,3D,KR
+   Patrick DiMarco           : D : RB
+   Devonta Freeman*          : R : RB
+   Steven Jackson            : S :  12 :  54.5% : S : HB
+   Jacquizz Rodgers          : B :   6 :  27.3% : B : RB,3D,KR
+   Devonta Freeman*          : R :   2 :   9.1% : R : RB
+   Antone Smith              : R :   2 :   9.1% : R : RB
+   Patrick DiMarco           : D :   0 :   0.0% : D : RB
+         Setting Starter to Matt Ryan
+          Setting Backup to Taylor Yates
+          Setting Backup to Sean Renfree
+      Examining Rec Reginald Kelly
+      Examining Rec Brian Finneran
+      Examining Rec Roddy White
+         Setting W2 to Roddy White
+      Examining Rec Courtney Roby
+      Examining Rec Romby Bryant
+      Examining Rec Harry Douglas
+         Setting W3 to Harry Douglas
+      Examining Rec Eric Weems
+      Examining Rec Jason Rader
+      Examining Rec Brian Robiskie
+      Examining Rec Chase Coffman
+      Examining Rec Julio Jones
+         Setting W1 to Julio Jones
+      Examining Rec DJ Davis
+      Examining Rec Levine Toilolo
+         Setting TE to Levine Toilolo
+      Examining Rec Drew Davis
+   Q1 (1): Matt Ryan
+   Q2 (2): Sean Renfree
+   W1 (1): Julio Jones
+   W2 (1): Roddy White
+   W3 (1): Harry Douglas
+   TE (1): Levine Toilolo
+   Reginald Kelly            : R : TE
+   Brian Finneran            : R : WR
+   Roddy White               : S : WR,W2
+   Courtney Roby             : R : WR
+   Romby Bryant              : R : WR
+   Harry Douglas             : S : WR,PR,W3
+   Eric Weems                : R : WR/KR
+   Jason Rader               : R : TE
+   Brian Robiskie            : R : WR
+   Chase Coffman             : R : TE
+   Julio Jones               : S : WR,W1
+   DJ Davis                  : R : WR
+   Levine Toilolo            : S : TE
+   Drew Davis                : R : WR
+   Matt Ryan                 : S :   0 : 100.0% : S : QB
+   Sean Renfree              : B :   0 :   0.0% : B : QB
+   Taylor Yates              : B :   0 :   0.0% : B : QB
+   Julio Jones               : S : 116 :  45.1% : S : WR,W1
+   Roddy White               : S :  72 :  28.0% : S : WR,W2
+   Harry Douglas             : S :  69 :  26.8% : S : WR,PR,W3
+   Brian Robiskie            : R :   0 :   0.0% : R : WR
+   Drew Davis                : R :   0 :   0.0% : R : WR
+   DJ Davis                  : R :   0 :   0.0% : R : WR
+   Courtney Roby             : R :   0 :   0.0% : R : WR
+   Brian Finneran            : R :   0 :   0.0% : R : WR
+   Eric Weems                : R :   0 :   0.0% : R : WR/KR
+   Romby Bryant              : R :   0 :   0.0% : R : WR
+   Levine Toilolo            : S :  19 : 100.0% : S : TE
+   Reginald Kelly            : R :   0 :   0.0% : R : TE
+   Jason Rader               : R :   0 :   0.0% : R : TE
+   Chase Coffman             : R :   0 :   0.0% : R : TE
+   Setting Ace to Zac Stacy
+   Setting Ace to Benny Cunningham
+   R1 (2): ZStacy + BCunningham + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Zac Stacy                 : S : RB
+   Benny Cunningham          : S : RB,KR
+   Tre Mason*                : D : RB
+   Zac Stacy                 : S :  11 :  68.8% : S : RB
+   Benny Cunningham          : S :   5 :  31.3% : S : RB,KR
+   Tre Mason*                : D :   0 :   0.0% : D : RB
+         Setting Starter to Shaun Hill
+          Setting Backup to Case Keenum
+         Setting Starter to Austin Davis
+      Examining Rec Dante Hall
+      Examining Rec Mark Clayton
+      Examining Rec Jordan Kent
+      Examining Rec Darcy Johnson
+      Examining Rec Kenny Britt
+      Examining Rec Jared Cook
+         Setting TE to Jared Cook
+      Examining Rec Brooks Foster
+      Examining Rec Lance Kendricks
+      Examining Rec Austin Pettis
+      Examining Rec Brian Quick
+         Setting W1 to Brian Quick
+      Examining Rec Chris Givens
+         Setting W3 to Chris Givens
+      Examining Rec Cory Harkey
+      Examining Rec Tavon Austin
+         Setting W2 to Tavon Austin
+      Examining Rec Stedman Bailey
+   Q1 (2): Austin Davis
+   Q2 (1): Case Keenum
+   W1 (1): Brian Quick
+   W2 (1): Tavon Austin
+   W3 (1): Chris Givens
+   TE (1): Jared Cook
+   Dante Hall                : R : WR,PR,KR,P
+   Mark Clayton              : R : WR
+   Jordan Kent               : R : WR
+   Darcy Johnson             : R : TE
+   Kenny Britt               : R : WR
+   Jared Cook                : S : TE
+   Brooks Foster             : R : WR
+   Lance Kendricks           : B : WR
+   Austin Pettis             : R : WR
+   Brian Quick               : S : WR,W1
+   Chris Givens              : S : WR,KR,W3
+   Cory Harkey               : B : TE
+   Tavon Austin              : S : WR,PR,KR,W2
+   Stedman Bailey            : R : WR
+   Austin Davis              : S :   0 :  70.3% : S : QB
+   Shaun Hill                : S :   0 :  29.7% : S : QB
+   Case Keenum               : B :   0 :   0.0% : B : QB
+   Sam Bradford              : I :   0 :   0.0% : I : QB
+   Brian Quick               : S :  99 :  56.6% : S : WR,W1
+   Tavon Austin              : S :  34 :  19.4% : S : WR,PR,KR,W2
+   Chris Givens              : S :  30 :  17.1% : S : WR,KR,W3
+   Lance Kendricks           : B :  12 :   6.9% : B : WR
+   Stedman Bailey            : R :   0 :   0.0% : R : WR
+   Austin Pettis             : R :   0 :   0.0% : R : WR
+   Jordan Kent               : R :   0 :   0.0% : R : WR
+   Mark Clayton              : R :   0 :   0.0% : R : WR
+   Dante Hall                : R :   0 :   0.0% : R : WR,PR,KR,P
+   Brooks Foster             : R :   0 :   0.0% : R : WR
+   Kenny Britt               : R :   0 :   0.0% : R : WR
+   Jared Cook                : S :  56 :  93.3% : S : TE
+   Cory Harkey               : B :   4 :   6.7% : B : TE
+   Darcy Johnson             : R :   0 :   0.0% : R : TE
+   Setting Ace to Mark Ingram
+   Setting Backup to Pierre Thomas
+   Setting Backup to Khiry Robinson
+   R1 (1): Mark Ingram
+   R2 (2): KRobinson
+   Ace back : Mark Ingram
+   R2       : Khiry Robinson
+   Goaline  : 
+   Pierre Thomas             : B : RB,KR
+   Olaniyi Sobomehin         : D : G
+   Mark Ingram               : S : RB
+   Travaris Cadet            : D : RB,KR,PR
+   Khiry Robinson            : B : RB
+   Mark Ingram               : S :  13 :  50.0% : S : RB
+   Pierre Thomas             : B :   7 :  26.9% : B : RB,KR
+   Khiry Robinson            : B :   6 :  23.1% : B : RB
+   Olaniyi Sobomehin         : D :   0 :   0.0% : D : G
+   Travaris Cadet            : D :   0 :   0.0% : D : RB,KR,PR
+         Setting Starter to Drew Brees
+          Setting Backup to Luke McCown
+      Examining Rec Mark Campbell
+      Examining Rec Dan Campbell
+      Examining Rec Billy Miller
+      Examining Rec Eric Johnson
+      Examining Rec Ben Watson
+      Examining Rec Tim Euhus
+      Examining Rec John Gilmore
+      Examining Rec David Thomas
+      Examining Rec Mike Hass
+      Examining Rec Marques Colston
+         Setting W1 to Marques Colston
+      Examining Rec Robert Meachem
+      Examining Rec Jimmy Graham
+         Setting TE to Jimmy Graham
+      Examining Rec Nick Toon
+      Examining Rec Joe Morgan
+      Examining Rec Kenny Stills
+      Examining Rec Josh Hill
+      Examining Rec Brandin Cooks*
+         Setting W2 to Brandin Cooks*
+   Q1 (1): Drew Brees
+   Q2 (1): Luke McCown
+   W1 (1): Marques Colston
+   W2 (1): Brandin Cooks*
+   W3 (0): none
+   TE (1): Jimmy Graham
+   Mark Campbell             :   : 
+   Dan Campbell              : R : TE
+   Billy Miller              : R : TE
+   Eric Johnson              : R : TE
+   Ben Watson                : R : TE
+   Tim Euhus                 : R : TE
+   John Gilmore              : R : TE
+   David Thomas              : R : TE
+   Mike Hass                 : R : WR
+   Marques Colston           : S : WR,W1
+   Robert Meachem            : R : WR
+   Jimmy Graham              : S : TE
+   Nick Toon                 : R : WR
+   Joe Morgan                : R : WR
+   Kenny Stills              : I : WR
+   Josh Hill                 : R : TE
+   Brandin Cooks*            : S : WR,PR,W2
+   Drew Brees                : S :   0 : 100.0% : S : QB
+   Luke McCown               : B :   0 :   0.0% : B : QB
+   Marques Colston           : S : 110 :  58.8% : S : WR,W1
+   Brandin Cooks*            : S :  77 :  41.2% : S : WR,PR,W2
+   Robert Meachem            : R :   0 :   0.0% : R : WR
+   Joe Morgan                : R :   0 :   0.0% : R : WR
+   Nick Toon                 : R :   0 :   0.0% : R : WR
+   Kenny Stills              : I :   0 :   0.0% : I : WR
+   Mike Hass                 : R :   0 :   0.0% : R : WR
+   Jimmy Graham              : S :  82 : 100.0% : S : TE
+   Billy Miller              : R :   0 :   0.0% : R : TE
+   Dan Campbell              : R :   0 :   0.0% : R : TE
+   Ben Watson                : R :   0 :   0.0% : R : TE
+   David Thomas              : R :   0 :   0.0% : R : TE
+   John Gilmore              : R :   0 :   0.0% : R : TE
+   Tim Euhus                 : R :   0 :   0.0% : R : TE
+   Josh Hill                 : R :   0 :   0.0% : R : TE
+   Eric Johnson              : R :   0 :   0.0% : R : TE
+   Setting Ace to Toby Gerhart
+   Setting Backup to Jordan Todman
+   R1 (1): Toby Gerhart
+   R2 (1): JTodman
+   Ace back : Toby Gerhart
+   R2       : Jordan Todman
+   Goaline  : 
+   Toby Gerhart              : S : RB
+   Keith Toston              : D : RB
+   Jordan Todman             : B : RB,3D,KR
+   Storm Johnson*            : D : RB
+   Toby Gerhart              : S :  18 :  85.7% : S : RB
+   Jordan Todman             : B :   3 :  14.3% : B : RB,3D,KR
+   Storm Johnson*            : D :   0 :   0.0% : D : RB
+   Keith Toston              : D :   0 :   0.0% : D : RB
+         Setting Starter to Chad Henne
+          Setting Backup to Nathan Enderle
+          Setting Backup to Blake Bortles*
+      Examining Rec Mickey Shuler
+      Examining Rec Troy Williamson
+      Examining Rec Chad Owens
+      Examining Rec Marcedes Lewis
+         Setting TE to Marcedes Lewis
+      Examining Rec Laurent Robinson
+      Examining Rec Isaac Smolko
+      Examining Rec Gijon Robinson
+      Examining Rec Clay Harbor
+      Examining Rec Carlton Mitchell
+      Examining Rec Chad Hall
+      Examining Rec Cecil Shorts
+      Examining Rec Tandon Doss
+      Examining Rec Chastin West
+      Examining Rec Justin Blackmon
+      Examining Rec Mike Brown
+         Setting W3 to Mike Brown
+      Examining Rec Ace Sanders
+      Examining Rec Denard Robinson
+      Examining Rec Marqise Lee*
+         Setting W2 to Marqise Lee*
+      Examining Rec Allen Robinson*
+      Examining Rec Allen Hurns*
+         Setting W1 to Allen Hurns*
+   Q1 (1): Chad Henne
+   Q2 (2): Blake Bortles*
+   W1 (1): Allen Hurns*
+   W2 (1): Marqise Lee*
+   W3 (1): Mike Brown
+   TE (1): Marcedes Lewis
+   Mickey Shuler             : R : TE
+   Troy Williamson           : R : WR
+   Chad Owens                : R : WR,PR,KR
+   Marcedes Lewis            : S : TE
+   Laurent Robinson          : R : WR
+   Isaac Smolko              :   : S
+   Gijon Robinson            : R : TE
+   Clay Harbor               : I : TE
+   Carlton Mitchell          : R : WR
+   Chad Hall                 : R : WR
+   Cecil Shorts              : R : WR
+   Tandon Doss               : I : WR,PR
+   Chastin West              : R : WR
+   Justin Blackmon           : X : WR
+   Mike Brown                : S : WR,PR,W3
+   Ace Sanders               : I : WR,PR
+   Denard Robinson           : B : WR
+   Marqise Lee*              : S : WR,W2
+   Allen Robinson*           : R : WR
+   Allen Hurns*              : S : WR,W1
+   Chad Henne                : S :   0 : 100.0% : S : QB
+   Blake Bortles*            : B :   0 :   0.0% : B : QB
+   Nathan Enderle            : B :   0 :   0.0% : B : QB
+   Allen Hurns*              : S : 110 :  52.1% : S : WR,W1
+   Marqise Lee*              : S :  62 :  29.4% : S : WR,W2
+   Mike Brown                : S :  36 :  17.1% : S : WR,PR,W3
+   Denard Robinson           : B :   3 :   1.4% : B : WR
+   Justin Blackmon           : X :   0 :   0.0% : X : WR
+   Chastin West              : R :   0 :   0.0% : R : WR
+   Tandon Doss               : I :   0 :   0.0% : I : WR,PR
+   Allen Robinson*           : R :   0 :   0.0% : R : WR
+   Ace Sanders               : I :   0 :   0.0% : I : WR,PR
+   Cecil Shorts              : R :   0 :   0.0% : R : WR
+   Laurent Robinson          : R :   0 :   0.0% : R : WR
+   Troy Williamson           : R :   0 :   0.0% : R : WR
+   Chad Owens                : R :   0 :   0.0% : R : WR,PR,KR
+   Carlton Mitchell          : R :   0 :   0.0% : R : WR
+   Chad Hall                 : R :   0 :   0.0% : R : WR
+   Marcedes Lewis            : S :  35 : 100.0% : S : TE
+   Gijon Robinson            : R :   0 :   0.0% : R : TE
+   Clay Harbor               : I :   0 :   0.0% : I : TE
+   Mickey Shuler             : R :   0 :   0.0% : R : TE
+   Setting Ace to Terrance West*
+   Setting Backup to Ben Tate
+   Setting Backup to Isaiah Crowell*
+   R1 (1): Terrance West*
+   R2 (2): ICrowell
+   Ace back : Terrance West*
+   R2       : Isaiah Crowell*
+   Goaline  : 
+   Willis McGahee            : D : RB
+   Ben Tate                  : B : RB
+   Terrance West*            : S : RB
+   Isaiah Crowell*           : B : RB
+   Ray Agnew*                : R : RB
+   Terrance West*            : S :  16 :  57.1% : S : RB
+   Ben Tate                  : B :   6 :  21.4% : B : RB
+   Isaiah Crowell*           : B :   5 :  17.9% : B : RB
+   Ray Agnew*                : R :   1 :   3.6% : R : RB
+   Willis McGahee            : D :   0 :   0.0% : D : RB
+         Setting Starter to Brian Hoyer
+          Setting Backup to Johnny Manziel*
+      Examining Rec Bobby Engram
+      Examining Rec Robert Royal
+      Examining Rec Michael Gaines
+      Examining Rec Miles Austin
+         Setting W2 to Miles Austin
+      Examining Rec Syndric Steptoe
+      Examining Rec Greg Estandia
+      Examining Rec Gary Barnidge
+      Examining Rec Steve Sanders
+      Examining Rec Jake Allen
+      Examining Rec Jim Dray
+      Examining Rec Marlon Moore
+      Examining Rec Jordan Cameron
+         Setting TE to Jordan Cameron
+      Examining Rec Andrew Hawkins
+         Setting W1 to Andrew Hawkins
+      Examining Rec Travis Benjamin
+         Setting W3 to Travis Benjamin
+      Examining Rec Brad Smelley
+      Examining Rec Josh Gordon
+      Examining Rec LaRon Byrd
+      Examining Rec Taylor Gabriel*
+   Q1 (1): Brian Hoyer
+   Q2 (1): Johnny Manziel*
+   W1 (1): Andrew Hawkins
+   W2 (1): Miles Austin
+   W3 (1): Travis Benjamin
+   TE (1): Jordan Cameron
+   Bobby Engram              : R : WR
+   Robert Royal              : R : TE
+   Michael Gaines            : R : TE
+   Miles Austin              : S : WR,W2
+   Syndric Steptoe           : R : WR
+   Greg Estandia             : R : TE
+   Gary Barnidge             : B : TE
+   Steve Sanders             : R : WR
+   Jake Allen                :   : CB
+   Jim Dray                  : B : TE
+   Marlon Moore              : R : WR
+   Jordan Cameron            : S : TE
+   Andrew Hawkins            : S : WR,W1
+   Travis Benjamin           : S : WR,PR,,KR,W3
+   Brad Smelley              : R : TE
+   Josh Gordon               : X : WR
+   LaRon Byrd                : R : WR
+   Taylor Gabriel*           : B : WR
+   Brian Hoyer               : S :   0 : 100.0% : S : QB
+   Johnny Manziel*           : B :   0 :   0.0% : B : QB
+   Andrew Hawkins            : S :  87 :  62.1% : S : WR,W1
+   Miles Austin              : S :  20 :  14.3% : S : WR,W2
+   Travis Benjamin           : S :  20 :  14.3% : S : WR,PR,,KR,W3
+   Taylor Gabriel*           : B :  13 :   9.3% : B : WR
+   Marlon Moore              : R :   0 :   0.0% : R : WR
+   LaRon Byrd                : R :   0 :   0.0% : R : WR
+   Bobby Engram              : R :   0 :   0.0% : R : WR
+   Josh Gordon               : X :   0 :   0.0% : X : WR
+   Syndric Steptoe           : R :   0 :   0.0% : R : WR
+   Steve Sanders             : R :   0 :   0.0% : R : WR
+   Jordan Cameron            : S :  47 :  52.2% : S : TE
+   Jim Dray                  : B :  30 :  33.3% : B : TE
+   Gary Barnidge             : B :  13 :  14.4% : B : TE
+   Michael Gaines            : R :   0 :   0.0% : R : TE
+   Robert Royal              : R :   0 :   0.0% : R : TE
+   Greg Estandia             : R :   0 :   0.0% : R : TE
+   Brad Smelley              : R :   0 :   0.0% : R : TE
+   Setting Ace to CJ Spiller
+   Setting Backup to Fred Jackson
+   Setting Backup to Anthony Dixon
+   R1 (1): CJ Spiller
+   R2 (2): ADixon
+   Ace back : CJ Spiller
+   R2       : Anthony Dixon
+   Goaline  : 
+   Shaud Williams            : D : 
+   Fred Jackson              : B : RB,PR
+   CJ Spiller                : S : RB,PR,KR
+   Anthony Dixon             : B : RB,KR
+   Garrison Sanborn          : D : RB
+   CJ Spiller                : S :  15 :  55.6% : S : RB,PR,KR
+   Fred Jackson              : B :   7 :  25.9% : B : RB,PR
+   Anthony Dixon             : B :   5 :  18.5% : B : RB,KR
+   Garrison Sanborn          : D :   0 :   0.0% : D : RB
+   Shaud Williams            : D :   0 :   0.0% : D : 
+          Setting Backup to Kyle Orton
+         Setting Starter to EJ Manuel
+      Examining Rec Peerless Price
+      Examining Rec Josh Reed
+      Examining Rec Ryan Neufeld
+      Examining Rec Jonathan Smith
+      Examining Rec Rod Trafford
+      Examining Rec Kevin Everett
+      Examining Rec Joe Klopfenstein
+      Examining Rec Tim Massaquoi
+      Examining Rec Scott Chandler
+         Setting TE to Scott Chandler
+      Examining Rec Justin Jenkins
+      Examining Rec Mike Williams
+         Setting W2 to Mike Williams
+      Examining Rec Marcus Easley
+      Examining Rec Lee Smith
+      Examining Rec Robert Woods
+         Setting W1 to Robert Woods
+      Examining Rec Marquise Goodwin
+      Examining Rec Chris Gragg
+      Examining Rec Chris Hogan
+      Examining Rec Sammy Watkins*
+         Setting W3 to Sammy Watkins*
+   Q1 (1): EJ Manuel
+   Q2 (1): Kyle Orton
+   W1 (1): Robert Woods
+   W2 (1): Mike Williams
+   W3 (1): Sammy Watkins*
+   TE (1): Scott Chandler
+   Peerless Price            : R : WR
+   Josh Reed                 :   : 
+   Ryan Neufeld              :   : 
+   Jonathan Smith            :   : T
+   Rod Trafford              : R : TE
+   Kevin Everett             : R : TE
+   Joe Klopfenstein          : R : TE
+   Tim Massaquoi             : R : TE
+   Scott Chandler            : S : TE
+   Justin Jenkins            :   : 17
+   Mike Williams             : S : WR,W2
+   Marcus Easley             : R : WR,KR
+   Lee Smith                 : R : TE
+   Robert Woods              : S : WR,PR,KR,W1
+   Marquise Goodwin          : R : WR,KR
+   Chris Gragg               : R : TE
+   Chris Hogan               : R : WR
+   Sammy Watkins*            : S : WR,W3
+   EJ Manuel                 : S :   0 : 100.0% : S : QB
+   Kyle Orton                : B :   0 :   0.0% : B : QB
+   Robert Woods              : S :  78 :  53.8% : S : WR,PR,KR,W1
+   Mike Williams             : S :  36 :  24.8% : S : WR,W2
+   Sammy Watkins*            : S :  31 :  21.4% : S : WR,W3
+   Marcus Easley             : R :   0 :   0.0% : R : WR,KR
+   Marquise Goodwin          : R :   0 :   0.0% : R : WR,KR
+   Chris Hogan               : R :   0 :   0.0% : R : WR
+   Peerless Price            : R :   0 :   0.0% : R : WR
+   2014:01 is a bye week for BB
+   Lee Smith                 : R :   0 :   0.0% : R : TE
+   Chris Gragg               : R :   0 :   0.0% : R : TE
+   Rod Trafford              : R :   0 :   0.0% : R : TE
+   Tim Massaquoi             : R :   0 :   0.0% : R : TE
+   Scott Chandler            : R :   0 :   0.0% : R : TE
+   Kevin Everett             : R :   0 :   0.0% : R : TE
+   Joe Klopfenstein          : R :   0 :   0.0% : R : TE
+   Setting Ace to Ahmad Bradshaw
+   Setting Ace to Trent Richardson
+   R1 (2): ABradshaw + TRichardson + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Mewelde Moore             : D : RB
+   Anthony Davis             : D : ILB
+   Ahmad Bradshaw            : S : RB
+   Tashard Choice            : D : RB
+   Deji Karim                : D : RB
+   Trent Richardson          : S : RB
+   Vick Ballard              : I : RB
+   Dan Herron                : D : RB
+   Trent Richardson          : S :   6 :  66.7% : S : RB
+   Ahmad Bradshaw            : S :   3 :  33.3% : S : RB
+   Dan Herron                : D :   0 :   0.0% : D : RB
+   Vick Ballard              : I :   0 :   0.0% : I : RB
+   Deji Karim                : D :   0 :   0.0% : D : RB
+   Mewelde Moore             : D :   0 :   0.0% : D : RB
+   Anthony Davis             : D :   0 :   0.0% : D : ILB
+   Tashard Choice            : D :   0 :   0.0% : D : RB
+          Setting Backup to Kerry Collins
+          Setting Backup to Matt Hasselbeck
+         Setting Starter to Andrew Luck
+      Examining Rec Ricky Proehl
+      Examining Rec Reggie Wayne
+         Setting W1 to Reggie Wayne
+      Examining Rec Aaron Moorehead
+      Examining Rec Kerry Wright
+      Examining Rec Anthony Gonzalez
+      Examining Rec Tom Santi
+      Examining Rec Hakeem Nicks
+         Setting W3 to Hakeem Nicks
+      Examining Rec Anthony Hill
+      Examining Rec Quan Cosby
+      Examining Rec Samuel Giguere
+      Examining Rec Weslye Saunders
+      Examining Rec Coby Fleener
+      Examining Rec Dwayne Allen
+         Setting TE to Dwayne Allen
+      Examining Rec TY Hilton
+         Setting W2 to TY Hilton
+      Examining Rec Justice Cunningham
+      Examining Rec Griff Whalen
+      Examining Rec Jack Doyle
+      Examining Rec Da'Rick Rogers
+      Examining Rec Donte Moncrief*
+   Q1 (1): Andrew Luck
+   Q2 (2): Matt Hasselbeck
+   W1 (1): Reggie Wayne
+   W2 (1): TY Hilton
+   W3 (1): Hakeem Nicks
+   TE (1): Dwayne Allen
+   Ricky Proehl              : R : WR
+   Reggie Wayne              : S : WR,W1
+   Aaron Moorehead           : R : WR
+   Kerry Wright              : R : WR
+   Anthony Gonzalez          : R : WR
+   Tom Santi                 : R : TE
+   Hakeem Nicks              : S : WR,W3
+   Anthony Hill              : R : TE
+   Quan Cosby                : R : WR
+   Samuel Giguere            : R : WR
+   Weslye Saunders           : R : TE
+   Coby Fleener              : B : TE
+   Dwayne Allen              : S : TE
+   TY Hilton                 : S : WR,PR,W2
+   Justice Cunningham        : R : TE
+   Griff Whalen              : R : WR,PR
+   Jack Doyle                : R : TE
+   Da'Rick Rogers            : R : WR
+   Donte Moncrief*           : B : WR
+   Andrew Luck               : S :   0 : 100.0% : S : QB
+   Kerry Collins             : B :   0 :   0.0% : B : QB
+   Matt Hasselbeck           : B :   0 :   0.0% : B : QB
+   Reggie Wayne              : S :  98 :  53.3% : S : WR,W1
+   TY Hilton                 : S :  41 :  22.3% : S : WR,PR,W2
+   Hakeem Nicks              : S :  36 :  19.6% : S : WR,W3
+   Donte Moncrief*           : B :   9 :   4.9% : B : WR
+   Da'Rick Rogers            : R :   0 :   0.0% : R : WR
+   Ricky Proehl              : R :   0 :   0.0% : R : WR
+   Griff Whalen              : R :   0 :   0.0% : R : WR,PR
+   Anthony Gonzalez          : R :   0 :   0.0% : R : WR
+   Aaron Moorehead           : R :   0 :   0.0% : R : WR
+   Kerry Wright              : R :   0 :   0.0% : R : WR
+   Samuel Giguere            : R :   0 :   0.0% : R : WR
+   Quan Cosby                : R :   0 :   0.0% : R : WR
+   Dwayne Allen              : S :  64 :  75.3% : S : TE
+   Coby Fleener              : B :  21 :  24.7% : B : TE
+   Anthony Hill              : R :   0 :   0.0% : R : TE
+   Weslye Saunders           : R :   0 :   0.0% : R : TE
+   Tom Santi                 : R :   0 :   0.0% : R : TE
+   Justice Cunningham        : R :   0 :   0.0% : R : TE
+   Jack Doyle                : R :   0 :   0.0% : R : TE
+   Setting Ace to Knowshon Moreno
+   Setting Ace to Lamar Miller
+   R1 (2): KMoreno + LMiller + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Lorenzo Diamond           : D : TE
+   Knowshon Moreno           : S : 3D,RB
+   Lamar Miller              : S : RB,3D
+   Mike Gillislee            : I : RB
+   Knowshon Moreno           : S :  24 :  68.6% : S : 3D,RB
+   Lamar Miller              : S :  11 :  31.4% : S : RB,3D
+   Mike Gillislee            : I :   0 :   0.0% : I : RB
+   Lorenzo Diamond           : D :   0 :   0.0% : D : TE
+          Setting Backup to Matt Moore
+         Setting Starter to Ryan Tannehill
+      Examining Rec Cliff Russell
+      Examining Rec Aaron Halterman
+      Examining Rec Dustin Keller
+      Examining Rec Mike Wallace
+         Setting W1 to Mike Wallace
+      Examining Rec Brian Hartline
+         Setting W2 to Brian Hartline
+      Examining Rec Brandon Gibson
+      Examining Rec Edmond Gates
+      Examining Rec Charles Clay
+         Setting TE to Charles Clay
+      Examining Rec Joe Hastings
+      Examining Rec Rishard Matthews
+      Examining Rec Marcus Thigpen
+      Examining Rec Kevin Cone
+      Examining Rec Dion Sims
+      Examining Rec Jarvis Landry*
+      Examining Rec Arthur Lynch*
+      Examining Rec Gator Hoskins*
+   Q1 (1): Ryan Tannehill
+   Q2 (1): Matt Moore
+   W1 (1): Mike Wallace
+   W2 (1): Brian Hartline
+   W3 (0): none
+   TE (1): Charles Clay
+   Cliff Russell             : R : WR
+   Aaron Halterman           : R : TE
+   Dustin Keller             : R : TE
+   Mike Wallace              : S : WR,W1
+   Brian Hartline            : S : WR,W2
+   Brandon Gibson            : B : WR
+   Edmond Gates              : R : WR
+   Charles Clay              : S : TE
+   Joe Hastings              : R : WR
+   Rishard Matthews          : R : WR
+   Marcus Thigpen            : R : WR
+   Kevin Cone                : R : WR
+   Dion Sims                 : B : TE
+   Jarvis Landry*            : R : WR,PR,KR
+   Arthur Lynch*             : I : TE
+   Gator Hoskins*            : B : TE
+   Ryan Tannehill            : S :   0 : 100.0% : S : QB
+   Matt Moore                : B :   0 :   0.0% : B : QB
+   Mike Wallace              : S :  81 :  69.8% : S : WR,W1
+   Brian Hartline            : S :  26 :  22.4% : S : WR,W2
+   Brandon Gibson            : B :   9 :   7.8% : B : WR
+   Kevin Cone                : R :   0 :   0.0% : R : WR
+   Marcus Thigpen            : R :   0 :   0.0% : R : WR
+   Jarvis Landry*            : R :   0 :   0.0% : R : WR,PR,KR
+   Rishard Matthews          : R :   0 :   0.0% : R : WR
+   Cliff Russell             : R :   0 :   0.0% : R : WR
+   Joe Hastings              : R :   0 :   0.0% : R : WR
+   Edmond Gates              : R :   0 :   0.0% : R : WR
+   Charles Clay              : S :  27 :  62.8% : S : TE
+   Dion Sims                 : B :   9 :  20.9% : B : TE
+   Gator Hoskins*            : B :   7 :  16.3% : B : TE
+   Aaron Halterman           : R :   0 :   0.0% : R : TE
+   Dustin Keller             : R :   0 :   0.0% : R : TE
+   Arthur Lynch*             : I :   0 :   0.0% : I : TE
+   Setting Ace to Shane Vereen
+   Setting Ace to Stevan Ridley
+   R1 (2): SVereen + SRidley + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Shane Vereen              : S : RB,3D
+   Stevan Ridley             : S : RB
+   Brandon Bolden            : B : RB
+   James White*              : D : RB
+   Tyler Gaffney*            : I : RB
+   Stevan Ridley             : S :   8 :  47.1% : S : RB
+   Shane Vereen              : S :   7 :  41.2% : S : RB,3D
+   Brandon Bolden            : B :   2 :  11.8% : B : RB
+   Tyler Gaffney*            : I :   0 :   0.0% : I : RB
+   James White*              : D :   0 :   0.0% : D : RB
+         Setting Starter to Tom Brady
+          Setting Backup to Jimmy Garoppolo*
+      Examining Rec Deion Branch
+      Examining Rec Brandon Childress
+      Examining Rec Garrett Mills
+      Examining Rec Kelvin Kight
+      Examining Rec Matt Slater
+      Examining Rec Austin Collie
+      Examining Rec Julian Edelman
+         Setting W1 to Julian Edelman
+      Examining Rec Danny Amendola
+         Setting W3 to Danny Amendola
+      Examining Rec Matthew Mulligan
+      Examining Rec Rob Gronkowski
+         Setting TE to Rob Gronkowski
+      Examining Rec Brandon LaFell
+      Examining Rec Michael Hoomanawanui
+      Examining Rec Jesse Holley
+      Examining Rec Aaron Dobson
+      Examining Rec Kenbrell Thompkins
+         Setting W2 to Kenbrell Thompkins
+      Examining Rec Timothy Wright
+      Examining Rec Brian Tyms
+   Q1 (1): Tom Brady
+   Q2 (1): Jimmy Garoppolo*
+   W1 (1): Julian Edelman
+   W2 (1): Kenbrell Thompkins
+   W3 (1): Danny Amendola
+   TE (1): Rob Gronkowski
+   Deion Branch              : R : WR
+   Brandon Childress         : R : WR
+   Garrett Mills             : R : TE
+   Kelvin Kight              : R : WR
+   Matt Slater               : R : WR
+   Austin Collie             : R : WR
+   Julian Edelman            : S : WR,PR,W1
+   Danny Amendola            : S : WR,PR,W3
+   Matthew Mulligan          : R : TE
+   Rob Gronkowski            : S : TE
+   Brandon LaFell            : R : WR
+   Michael Hoomanawanui      : R : TE
+   Jesse Holley              : R : WR
+   Aaron Dobson              : R : WR
+   Kenbrell Thompkins        : S : WR,W2
+   Timothy Wright            : B : TE
+   Brian Tyms                : X : WR
+   Tom Brady                 : S :   0 : 100.0% : S : QB
+   Jimmy Garoppolo*          : B :   0 :   0.0% : B : QB
+   Julian Edelman            : S :  95 :  64.2% : S : WR,PR,W1
+   Kenbrell Thompkins        : S :  37 :  25.0% : S : WR,W2
+   Danny Amendola            : S :  16 :  10.8% : S : WR,PR,W3
+   Brandon LaFell            : R :   0 :   0.0% : R : WR
+   Brian Tyms                : X :   0 :   0.0% : X : WR
+   Jesse Holley              : R :   0 :   0.0% : R : WR
+   Aaron Dobson              : R :   0 :   0.0% : R : WR
+   Brandon Childress         : R :   0 :   0.0% : R : WR
+   Deion Branch              : R :   0 :   0.0% : R : WR
+   Kelvin Kight              : R :   0 :   0.0% : R : WR
+   Austin Collie             : R :   0 :   0.0% : R : WR
+   Matt Slater               : R :   0 :   0.0% : R : WR
+   Rob Gronkowski            : S :  40 :  72.7% : S : TE
+   Timothy Wright            : B :  15 :  27.3% : B : TE
+   Matthew Mulligan          : R :   0 :   0.0% : R : TE
+   Michael Hoomanawanui      : R :   0 :   0.0% : R : TE
+   Garrett Mills             : R :   0 :   0.0% : R : TE
+   Setting Ace to Shonn Greene
+   Setting Backup to Bishop Sankey*
+   R1 (1): Shonn Greene
+   R2 (1): BSankey
+   Ace back : Shonn Greene
+   R2       : Bishop Sankey*
+   Goaline  : 
+   Leon Washington           : R : RB,KR,PR
+   Chris Barclay             : D : RB,KR
+   Jackie Battle             : D : RB
+   Shonn Greene              : S : RB
+   Jamie Harper              : D : RB
+   Collin Mooney             : D : RB
+   Bishop Sankey*            : B : RB
+   Shonn Greene              : S :  15 :  65.2% : S : RB
+   Bishop Sankey*            : B :   6 :  26.1% : B : RB
+   Leon Washington           : R :   2 :   8.7% : R : RB,KR,PR
+   Collin Mooney             : D :   0 :   0.0% : D : RB
+   Jackie Battle             : D :   0 :   0.0% : D : RB
+   Chris Barclay             : D :   0 :   0.0% : D : RB,KR
+   Jamie Harper              : D :   0 :   0.0% : D : RB
+          Setting Backup to Charlie Whitehurst
+          Setting Backup to John Skelton
+         Setting Starter to Jake Locker
+          Setting Backup to Dominique Davis
+          Setting Backup to Zach Mettenberger*
+      Examining Rec Visanthe Shiancoe
+      Examining Rec Kevin Walter
+      Examining Rec O.J. Small
+      Examining Rec Nate Washington
+         Setting W2 to Nate Washington
+      Examining Rec Derek Hagan
+      Examining Rec Jonathan Orr
+      Examining Rec Delanie Walker
+         Setting TE to Delanie Walker
+      Examining Rec Craig Stevens
+      Examining Rec Darius Reynaud
+      Examining Rec Dexter McCluster
+      Examining Rec Kris Durham
+      Examining Rec Kendall Wright
+         Setting W3 to Kendall Wright
+      Examining Rec TJ Graham
+      Examining Rec Taylor Thompson
+      Examining Rec Justin Hunter
+         Setting W1 to Justin Hunter
+   Q1 (1): Jake Locker
+   Q2 (4): Zach Mettenberger*
+   W1 (1): Justin Hunter
+   W2 (1): Nate Washington
+   W3 (1): Kendall Wright
+   TE (1): Delanie Walker
+   Visanthe Shiancoe         : R : TE
+   Kevin Walter              : R : WR
+   O.J. Small                : R : WR
+   Nate Washington           : S : WR,W2
+   Derek Hagan               : B : WR
+   Jonathan Orr              : R : WR
+   Delanie Walker            : S : TE
+   Craig Stevens             : R : TE
+   Darius Reynaud            :   : RB,KR,PR,PR,PR,
+   Dexter McCluster          : B : WR,PR
+   Kris Durham               : R : WR
+   Kendall Wright            : S : WR,W3
+   TJ Graham                 : R : WR
+   Taylor Thompson           : B : TE
+   Justin Hunter             : S : WR,W1
+   Jake Locker               : S :   0 : 100.0% : S : QB
+   Zach Mettenberger*        : B :   0 :   0.0% : B : QB
+   Dominique Davis           : B :   0 :   0.0% : B : QB
+   Charlie Whitehurst        : B :   0 :   0.0% : B : QB
+   John Skelton              : B :   0 :   0.0% : B : QB
+   Justin Hunter             : S :  63 :  32.5% : S : WR,W1
+   Nate Washington           : S :  59 :  30.4% : S : WR,W2
+   Kendall Wright            : S :  46 :  23.7% : S : WR,W3
+   Dexter McCluster          : B :  17 :   8.8% : B : WR,PR
+   Derek Hagan               : B :   9 :   4.6% : B : WR
+   Kris Durham               : R :   0 :   0.0% : R : WR
+   TJ Graham                 : R :   0 :   0.0% : R : WR
+   Jonathan Orr              : R :   0 :   0.0% : R : WR
+   O.J. Small                : R :   0 :   0.0% : R : WR
+   Kevin Walter              : R :   0 :   0.0% : R : WR
+   Delanie Walker            : S :  37 :  60.7% : S : TE
+   Taylor Thompson           : B :  24 :  39.3% : B : TE
+   Craig Stevens             : R :   0 :   0.0% : R : TE
+   Visanthe Shiancoe         : R :   0 :   0.0% : R : TE
+   Setting Ace to Montee Ball
+   Setting Backup to CJ Anderson
+   R1 (1): Montee Ball
+   R2 (1): CAnderson
+   Ace back : Montee Ball
+   R2       : CJ Anderson
+   Goaline  : 
+   Ronnie Hillman            : D : RB
+   Montee Ball               : S : RB
+   CJ Anderson               : B : RB
+   Montee Ball               : S :  23 :  85.2% : S : RB
+   CJ Anderson               : B :   4 :  14.8% : B : RB
+   Ronnie Hillman            : D :   0 :   0.0% : D : RB
+         Setting Starter to Peyton Manning
+          Setting Backup to Brock Osweiler
+      Examining Rec Jeb Putzier
+      Examining Rec Rashaun Woods
+      Examining Rec Wes Welker
+      Examining Rec Joel Dreessen
+      Examining Rec Todd Devoe
+      Examining Rec Andre Caldwell
+         Setting W3 to Andre Caldwell
+      Examining Rec Jacob Tamme
+      Examining Rec Demaryius Thomas
+         Setting W2 to Demaryius Thomas
+      Examining Rec Emmanuel Sanders
+         Setting W1 to Emmanuel Sanders
+      Examining Rec Julius Thomas
+         Setting TE to Julius Thomas
+      Examining Rec Virgil Green
+      Examining Rec Nathan Palmer
+      Examining Rec Cody Latimer*
+   Q1 (1): Peyton Manning
+   Q2 (1): Brock Osweiler
+   W1 (1): Emmanuel Sanders
+   W2 (1): Demaryius Thomas
+   W3 (1): Andre Caldwell
+   TE (1): Julius Thomas
+   Jeb Putzier               : R : TE
+   Rashaun Woods             : R : WR
+   Wes Welker                : X : WR,PR
+   Joel Dreessen             : R : TE
+   Todd Devoe                : R : WR
+   Andre Caldwell            : S : WR,KR,W3
+   Jacob Tamme               : R : TE
+   Demaryius Thomas          : S : WR,W2
+   Emmanuel Sanders          : S : WR,W1
+   Julius Thomas             : S : TE
+   Virgil Green              : B : TE
+   Nathan Palmer             : R : WR
+   Cody Latimer*             : R : WR
+   Peyton Manning            : S :   0 : 100.0% : S : QB
+   Brock Osweiler            : B :   0 :   0.0% : B : QB
+   Emmanuel Sanders          : S :  77 :  54.6% : S : WR,W1
+   Demaryius Thomas          : S :  48 :  34.0% : S : WR,W2
+   Andre Caldwell            : S :  16 :  11.3% : S : WR,KR,W3
+   Cody Latimer*             : R :   0 :   0.0% : R : WR
+   Nathan Palmer             : R :   0 :   0.0% : R : WR
+   Wes Welker                : X :   0 :   0.0% : X : WR,PR
+   Rashaun Woods             : R :   0 :   0.0% : R : WR
+   Todd Devoe                : R :   0 :   0.0% : R : WR
+   Julius Thomas             : S : 104 :  92.9% : S : TE
+   Virgil Green              : B :   8 :   7.1% : B : TE
+   Jacob Tamme               : R :   0 :   0.0% : R : TE
+   Jeb Putzier               : R :   0 :   0.0% : R : TE
+   Joel Dreessen             : R :   0 :   0.0% : R : TE
+   Setting Ace to Jamaal Charles
+   Setting Backup to Cyrus Gray
+   R1 (1): Jamaal Charles
+   R2 (1): CGray
+   Ace back : Jamaal Charles
+   R2       : Cyrus Gray
+   Goaline  : 
+   Thomas Jones              : D : RB
+   B.J. Sams                 : D : RB
+   Jamaal Charles            : S : RB
+   Cyrus Gray                : B : RB
+   Knile Davis               : R : RB,KR
+   De'Anthony Thomas*        : D : RB,PR
+   Jamaal Charles            : S :   7 :  70.0% : S : RB
+   Cyrus Gray                : B :   2 :  20.0% : B : RB
+   Knile Davis               : R :   1 :  10.0% : R : RB,KR
+   De'Anthony Thomas*        : D :   0 :   0.0% : D : RB,PR
+   B.J. Sams                 : D :   0 :   0.0% : D : RB
+   Thomas Jones              : D :   0 :   0.0% : D : RB
+         Setting Starter to Alex Smith
+          Setting Backup to Chase Daniel
+          Setting Backup to Aaron Murray*
+      Examining Rec Anthony Becht
+      Examining Rec Eddie Drummond
+      Examining Rec Jerheme Urban
+      Examining Rec Anthony Fasano
+      Examining Rec Marques Hagans
+      Examining Rec Jeff Webb
+      Examining Rec Dwayne Bowe
+      Examining Rec Kevin Boss
+      Examining Rec Donnie Avery
+         Setting W1 to Donnie Avery
+      Examining Rec Kyle Williams
+      Examining Rec Verran Tucker
+      Examining Rec Kevin Brock
+      Examining Rec AJ Jenkins
+      Examining Rec Junior Hemingway
+      Examining Rec Travis Kelce
+         Setting TE to Travis Kelce
+      Examining Rec Junior Hemmingway
+      Examining Rec Sean McGrath
+      Examining Rec Frankie Hammond*
+         Setting W2 to Frankie Hammond*
+   Q1 (1): Alex Smith
+   Q2 (2): Aaron Murray*
+   W1 (1): Donnie Avery
+   W2 (1): Frankie Hammond*
+   W3 (0): none
+   TE (1): Travis Kelce
+   Anthony Becht             : R : TE
+   Eddie Drummond            : R : WR
+   Jerheme Urban             : R : WR
+   Anthony Fasano            : B : TE
+   Marques Hagans            : R : WR
+   Jeff Webb                 :   : QB
+   Dwayne Bowe               : R : WR
+   Kevin Boss                : R : TE
+   Donnie Avery              : S : WR,W1
+   Kyle Williams             : I : WR
+   Verran Tucker             : R : WR
+   Kevin Brock               : R : TE
+   AJ Jenkins                : R : WR
+   Junior Hemingway          : R : WR
+   Travis Kelce              : S : TE
+   Junior Hemmingway         : R : WR
+   Sean McGrath              : R : TE
+   Frankie Hammond*          : S : WR,PR,W2
+   Alex Smith                : S :   0 : 100.0% : S : QB
+   Chase Daniel              : B :   0 :   0.0% : B : QB
+   Aaron Murray*             : B :   0 :   0.0% : B : QB
+   Donnie Avery              : S :  84 :  79.2% : S : WR,W1
+   Frankie Hammond*          : S :  22 :  20.8% : S : WR,PR,W2
+   AJ Jenkins                : R :   0 :   0.0% : R : WR
+   Junior Hemingway          : R :   0 :   0.0% : R : WR
+   Verran Tucker             : R :   0 :   0.0% : R : WR
+   Junior Hemmingway         : R :   0 :   0.0% : R : WR
+   Marques Hagans            : R :   0 :   0.0% : R : WR
+   Jerheme Urban             : R :   0 :   0.0% : R : WR
+   Eddie Drummond            : R :   0 :   0.0% : R : WR
+   Kyle Williams             : I :   0 :   0.0% : I : WR
+   Dwayne Bowe               : R :   0 :   0.0% : R : WR
+   Travis Kelce              : S :  49 :  62.8% : S : TE
+   Anthony Fasano            : B :  29 :  37.2% : B : TE
+   Kevin Boss                : R :   0 :   0.0% : R : TE
+   Kevin Brock               : R :   0 :   0.0% : R : TE
+   Anthony Becht             : R :   0 :   0.0% : R : TE
+   Sean McGrath              : R :   0 :   0.0% : R : TE
+   Setting Ace to Ryan Mathews
+   Setting Backup to Danny Woodhead
+   R1 (1): Ryan Mathews
+   R2 (1): DWoodhead
+   Ace back : Ryan Mathews
+   R2       : Danny Woodhead
+   Goaline  : 
+   Marcus Thomas             : D : DL
+   Donald Brown              : R : RB
+   Danny Woodhead            : B : RB,3D,KR
+   Ryan Mathews              : S : RB
+   Marion Grice*             : D : RB
+   Ryan Mathews              : S :  12 :  60.0% : S : RB
+   Danny Woodhead            : B :   6 :  30.0% : B : RB,3D,KR
+   Donald Brown              : R :   2 :  10.0% : R : RB
+   Marion Grice*             : D :   0 :   0.0% : D : RB
+   Marcus Thomas             : D :   0 :   0.0% : D : DL
+         Setting Starter to Philip Rivers
+          Setting Backup to Kellen Clemens
+      Examining Rec Az-Zahir Hakim
+      Examining Rec Kelley Washington
+      Examining Rec Antonio Gates
+         Setting TE to Antonio Gates
+      Examining Rec Malcom Floyd
+         Setting W1 to Malcom Floyd
+      Examining Rec Eddie Royal
+         Setting W3 to Eddie Royal
+      Examining Rec John Phillips
+      Examining Rec Demetrius Byrd
+      Examining Rec David Johnson
+      Examining Rec Danario Alexander
+      Examining Rec Seyi Ajirotutu
+      Examining Rec Gary Banks
+      Examining Rec Ladarius Green
+      Examining Rec Brad Taylor
+      Examining Rec Keenan Allen
+         Setting W2 to Keenan Allen
+   Q1 (1): Philip Rivers
+   Q2 (1): Kellen Clemens
+   W1 (1): Malcom Floyd
+   W2 (1): Keenan Allen
+   W3 (1): Eddie Royal
+   TE (1): Antonio Gates
+   Az-Zahir Hakim            : R : WR
+   Kelley Washington         : R : WR
+   Antonio Gates             : S : TE
+   Malcom Floyd              : S : WR,W1
+   Eddie Royal               : S : WR,PR,W3
+   John Phillips             : I : TE
+   Demetrius Byrd            : R : WR
+   David Johnson             : R : TE
+   Danario Alexander         : R : WR
+   Seyi Ajirotutu            : R : WR
+   Gary Banks                : R : WR
+   Ladarius Green            : B : TE
+   Brad Taylor               : B : SS
+   Keenan Allen              : S : WR,PR,W2
+   Philip Rivers             : S :   0 : 100.0% : S : QB
+   Kellen Clemens            : B :   0 :   0.0% : B : QB
+   Malcom Floyd              : S :  50 :  46.7% : S : WR,W1
+   Keenan Allen              : S :  37 :  34.6% : S : WR,PR,W2
+   Eddie Royal               : S :  20 :  18.7% : S : WR,PR,W3
+   Gary Banks                : R :   0 :   0.0% : R : WR
+   Seyi Ajirotutu            : R :   0 :   0.0% : R : WR
+   Az-Zahir Hakim            : R :   0 :   0.0% : R : WR
+   Danario Alexander         : R :   0 :   0.0% : R : WR
+   Kelley Washington         : R :   0 :   0.0% : R : WR
+   Demetrius Byrd            : R :   0 :   0.0% : R : WR
+   Antonio Gates             : S :  81 :  77.1% : S : TE
+   Ladarius Green            : B :  24 :  22.9% : B : TE
+   David Johnson             : R :   0 :   0.0% : R : TE
+   John Phillips             : I :   0 :   0.0% : I : TE
+   Setting Ace to DeMarco Murray
+   R1 (1): DeMarco Murray
+   R2 (0): 
+   Ace back : DeMarco Murray
+   R2       : 
+   Goaline  : 
+   DeMarco Murray            : S : RB
+   Phillip Tanner            : D : RB
+   Lance Dunbar              : D : RB
+   Joseph Randle             : D : RB
+   DeMarco Murray            : S :  22 : 100.0% : S : RB
+   Joseph Randle             : D :   0 :   0.0% : D : RB
+   Lance Dunbar              : D :   0 :   0.0% : D : RB
+   Phillip Tanner            : D :   0 :   0.0% : D : RB
+         Setting Starter to Tony Romo
+      Examining Rec Jason Witten
+         Setting TE to Jason Witten
+      Examining Rec Manuel Johnson
+      Examining Rec Dez Bryant
+         Setting W2 to Dez Bryant
+      Examining Rec Dwayne Harris
+         Setting W1 to Dwayne Harris
+      Examining Rec James Hanna
+      Examining Rec Cole Beasley
+      Examining Rec Gavin Escobar
+      Examining Rec Terrance Williams
+         Setting W3 to Terrance Williams
+      Examining Rec Devin Street*
+   Q1 (1): Tony Romo
+   Q2 (0): none
+   W1 (1): Dwayne Harris
+   W2 (1): Dez Bryant
+   W3 (1): Terrance Williams
+   TE (1): Jason Witten
+   Jason Witten              : S : TE
+   Manuel Johnson            :   : S
+   Dez Bryant                : S : WR,W2
+   Dwayne Harris             : S : WR,PR,KR,PR,,W1
+   James Hanna               : R : TE
+   Cole Beasley              : B : WR,KR,PR
+   Gavin Escobar             : R : TE
+   Terrance Williams         : S : WR,KR,W3
+   Devin Street*             : B : WR
+   Tony Romo                 : S :   0 : 100.0% : S : QB
+   Dwayne Harris             : S :  56 :  25.3% : S : WR,PR,KR,PR,,W1
+   Dez Bryant                : S :  55 :  24.9% : S : WR,W2
+   Terrance Williams         : S :  50 :  22.6% : S : WR,KR,W3
+   Cole Beasley              : B :  42 :  19.0% : B : WR,KR,PR
+   Devin Street*             : B :  18 :   8.1% : B : WR
+   Jason Witten              : S :  14 : 100.0% : S : TE
+   James Hanna               : R :   0 :   0.0% : R : TE
+   Gavin Escobar             : R :   0 :   0.0% : R : TE
+   Setting Ace to Rashad Jennings
+   Setting Backup to Andre Williams*
+   R1 (1): Rashad Jennings
+   R2 (1): AWilliams
+   Ace back : Rashad Jennings
+   R2       : Andre Williams*
+   Goaline  : Rashad Jennings
+   Brandon Jacobs            : D : RB
+   Peyton Hillis             : I : RB
+   Rashad Jennings           : S : RB,SH
+   Kregg Lumpkin             : D : RB
+   David Wilson              : I : RB,KR
+   Andre Williams*           : B : RB
+   Rashad Jennings           : S :  16 :  76.2% : S : RB,SH
+   Andre Williams*           : B :   5 :  23.8% : B : RB
+   David Wilson              : I :   0 :   0.0% : I : RB,KR
+   Brandon Jacobs            : D :   0 :   0.0% : D : RB
+   Peyton Hillis             : I :   0 :   0.0% : I : RB
+   Kregg Lumpkin             : D :   0 :   0.0% : D : RB
+         Setting Starter to Eli Manning
+          Setting Backup to Ryan Nassib
+      Examining Rec Michael Clayton
+      Examining Rec Tony Jackson
+      Examining Rec Mike Jennings
+      Examining Rec Mario Manningham
+      Examining Rec Daniel Fells
+      Examining Rec Bear Pascoe
+      Examining Rec Trindon Holliday
+      Examining Rec Jerrel Jernigan
+         Setting W1 to Jerrel Jernigan
+      Examining Rec Victor Cruz
+         Setting W2 to Victor Cruz
+      Examining Rec Rueben Randle
+      Examining Rec Adrien Robinson
+      Examining Rec Larry Donnell
+         Setting TE to Larry Donnell
+      Examining Rec Odell Beckham*
+      Examining Rec Corey Washington*
+   Q1 (1): Eli Manning
+   Q2 (1): Ryan Nassib
+   W1 (1): Jerrel Jernigan
+   W2 (1): Victor Cruz
+   W3 (0): none
+   TE (1): Larry Donnell
+   Michael Clayton           : R : WR
+   Tony Jackson              : R : TE
+   Mike Jennings             :   : S
+   Mario Manningham          : I : WR
+   Daniel Fells              : B : TE
+   Bear Pascoe               : R : TE
+   Trindon Holliday          : I : WR,PR,KR
+   Jerrel Jernigan           : S : WR,KR,W1
+   Victor Cruz               : S : WR,W2
+   Rueben Randle             : B : WR,PR
+   Adrien Robinson           : R : TE
+   Larry Donnell             : S : TE
+   Odell Beckham*            : R : WR
+   Corey Washington*         : R : WR
+   Eli Manning               : S :   0 : 100.0% : S : QB
+   Ryan Nassib               : B :   0 :   0.0% : B : QB
+   Jerrel Jernigan           : S :  25 :  50.0% : S : WR,KR,W1
+   Victor Cruz               : S :  24 :  48.0% : S : WR,W2
+   Rueben Randle             : B :   1 :   2.0% : B : WR,PR
+   Corey Washington*         : R :   0 :   0.0% : R : WR
+   Odell Beckham*            : R :   0 :   0.0% : R : WR
+   Michael Clayton           : R :   0 :   0.0% : R : WR
+   Mario Manningham          : I :   0 :   0.0% : I : WR
+   Trindon Holliday          : I :   0 :   0.0% : I : WR,PR,KR
+   Larry Donnell             : S :  56 :  88.9% : S : TE
+   Daniel Fells              : B :   7 :  11.1% : B : TE
+   Bear Pascoe               : R :   0 :   0.0% : R : TE
+   Adrien Robinson           : R :   0 :   0.0% : R : TE
+   Tony Jackson              : R :   0 :   0.0% : R : TE
+   Setting Ace to Jonathan Dwyer
+   Setting Ace to Andre Ellington
+   R1 (2): JDwyer + AEllington + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Jonathan Dwyer            : S : RB,3D
+   Jerome Johnson            : D : SS
+   Stepfan Taylor            : R : RB,
+   Andre Ellington           : S : RB,3D
+   Andre Ellington           : S :  13 :  61.9% : S : RB,3D
+   Jonathan Dwyer            : S :   7 :  33.3% : S : RB,3D
+   Stepfan Taylor            : R :   1 :   4.8% : R : RB,
+   Jerome Johnson            : D :   0 :   0.0% : D : SS
+         Setting Starter to Carson Palmer
+          Setting Backup to Drew Stanton
+          Setting Backup to Logan Thomas*
+      Examining Rec Sean Morey
+      Examining Rec Larry Fitzgerald
+      Examining Rec LeRon McCoy
+      Examining Rec Jeff King
+      Examining Rec Ted Ginn Jr.
+         Setting W3 to Ted Ginn Jr.
+      Examining Rec John Carlson
+         Setting TE to John Carlson
+      Examining Rec Robert Housler
+         Setting TE to Robert Housler
+      Examining Rec Michael Floyd
+         Setting W1 to Michael Floyd
+      Examining Rec D.C. Jefferson
+      Examining Rec Jaron Brown
+      Examining Rec Troy Niklas*
+      Examining Rec John Brown*
+         Setting W2 to John Brown*
+   Q1 (1): Carson Palmer
+   Q2 (2): Logan Thomas*
+   W1 (1): Michael Floyd
+   W2 (1): John Brown*
+   W3 (1): Ted Ginn Jr.
+   TE (2): Robert Housler
+   Sean Morey                : R : WR
+   Larry Fitzgerald          : B : WR
+   LeRon McCoy               : R : WR
+   Jeff King                 : R : TE
+   Ted Ginn Jr.              : S : WR,PR,KR,W3
+   John Carlson              : S : TE
+   Robert Housler            : S : TE
+   Michael Floyd             : S : WR,W1
+   D.C. Jefferson            : R : TE
+   Jaron Brown               : B : WR
+   Troy Niklas*              : R : TE
+   John Brown*               : S : WR,W2
+   Carson Palmer             : S :   0 : 100.0% : S : QB
+   Logan Thomas*             : B :   0 :   0.0% : B : QB
+   Drew Stanton              : B :   0 :   0.0% : B : QB
+   Michael Floyd             : S : 119 :  58.0% : S : WR,W1
+   John Brown*               : S :  29 :  14.1% : S : WR,W2
+   Ted Ginn Jr.              : S :  29 :  14.1% : S : WR,PR,KR,W3
+   Larry Fitzgerald          : B :  22 :  10.7% : B : WR
+   Jaron Brown               : B :   6 :   2.9% : B : WR
+   Sean Morey                : R :   0 :   0.0% : R : WR
+   LeRon McCoy               : R :   0 :   0.0% : R : WR
+   John Carlson              : S :  20 :  55.6% : S : TE
+   Robert Housler            : S :  16 :  44.4% : S : TE
+   Troy Niklas*              : R :   0 :   0.0% : R : TE
+   D.C. Jefferson            : R :   0 :   0.0% : R : TE
+   Jeff King                 : R :   0 :   0.0% : R : TE
+   Setting Ace to Alfred Morris
+   Setting Backup to Roy Helu
+   R1 (1): Alfred Morris
+   R2 (1): RHelu
+   Ace back : Alfred Morris
+   R2       : Roy Helu
+   Goaline  : 
+   Marcus Mason              : D : RB
+   Chad Simpson              : D : S
+   Roy Helu                  : B : RB,3D
+   Alfred Morris             : S : RB
+   Alfred Morris             : S :  14 :  77.8% : S : RB
+   Roy Helu                  : B :   4 :  22.2% : B : RB,3D
+   Marcus Mason              : D :   0 :   0.0% : D : RB
+   Chad Simpson              : D :   0 :   0.0% : D : S
+          Setting Backup to Pat White
+          Setting Backup to Colt McCoy
+          Setting Backup to Jonathan Crompton
+         Setting Starter to Robert Griffin III
+          Setting Backup to Kirk Cousins
+      Examining Rec Brian Kozlowski
+      Examining Rec Todd Yoder
+      Examining Rec Santana Moss
+      Examining Rec Roydell Williams
+      Examining Rec R Parson
+      Examining Rec David Anderson
+      Examining Rec Fred Davis
+      Examining Rec DeSean Jackson
+         Setting W2 to DeSean Jackson
+      Examining Rec Pierre Garcon
+         Setting W1 to Pierre Garcon
+      Examining Rec Eddie Williams
+      Examining Rec Marko Mitchell
+      Examining Rec Andre Roberts
+         Setting W3 to Andre Roberts
+      Examining Rec Logan Paulsen
+      Examining Rec Leonard Hankerson
+      Examining Rec Niles Paul
+         Setting TE to Niles Paul
+      Examining Rec Aldrick Robinson
+      Examining Rec Jordan Reed
+      Examining Rec Ryan Grant*
+   Q1 (1): Robert Griffin III
+   Q2 (4): Kirk Cousins
+   W1 (1): Pierre Garcon
+   W2 (1): DeSean Jackson
+   W3 (1): Andre Roberts
+   TE (1): Niles Paul
+   Brian Kozlowski           :   : 
+   Todd Yoder                : R : TE
+   Santana Moss              : R : WR,PR
+   Roydell Williams          : R : WR
+   R Parson                  : R : WR,KR
+   David Anderson            :   : QB
+   Fred Davis                : R : TE
+   DeSean Jackson            : S : WR,PR,W2
+   Pierre Garcon             : S : WR,W1
+   Eddie Williams            :   : C/G
+   Marko Mitchell            :   : LB
+   Andre Roberts             : S : WR,PR,KR,W3
+   Logan Paulsen             : R : TE
+   Leonard Hankerson         : I : WR
+   Niles Paul                : S : TE,KR,KR
+   Aldrick Robinson          : R : WR
+   Jordan Reed               : B : TE
+   Ryan Grant*               : R : WR
+   Robert Griffin III        : S :   0 : 100.0% : S : QB
+   Jonathan Crompton         : B :   0 :   0.0% : B : QB
+   Kirk Cousins              : B :   0 :   0.0% : B : QB
+   Colt McCoy                : B :   0 :   0.0% : B : QB
+   Pat White                 : B :   0 :   0.0% : B : QB
+   Pierre Garcon             : S :  77 :  47.8% : S : WR,W1
+   DeSean Jackson            : S :  62 :  38.5% : S : WR,PR,W2
+   Andre Roberts             : S :  22 :  13.7% : S : WR,PR,KR,W3
+   Leonard Hankerson         : I :   0 :   0.0% : I : WR
+   Ryan Grant*               : R :   0 :   0.0% : R : WR
+   Aldrick Robinson          : R :   0 :   0.0% : R : WR
+   Roydell Williams          : R :   0 :   0.0% : R : WR
+   R Parson                  : R :   0 :   0.0% : R : WR,KR
+   Santana Moss              : R :   0 :   0.0% : R : WR,PR
+   Niles Paul                : S :  86 :  95.6% : S : TE,KR,KR
+   Jordan Reed               : B :   4 :   4.4% : B : TE
+   Fred Davis                : R :   0 :   0.0% : R : TE
+   Todd Yoder                : R :   0 :   0.0% : R : TE
+   Logan Paulsen             : R :   0 :   0.0% : R : TE
+   Setting Ace to Matt Forte
+   R1 (1): Matt Forte
+   R2 (0): 
+   Ace back : Matt Forte
+   R2       : 
+   Goaline  : 
+   Lorenzo Booker            : D : RB
+   Matt Forte                : S : RB
+   Kahlil Bell               : D : RB
+   Shaun Draughn             : D : RB
+   Ka Deem Carey*            : R : RB
+   Matt Forte                : S :  17 :  94.4% : S : RB
+   Ka Deem Carey*            : R :   1 :   5.6% : R : RB
+   Lorenzo Booker            : D :   0 :   0.0% : D : RB
+   Shaun Draughn             : D :   0 :   0.0% : D : RB
+   Kahlil Bell               : D :   0 :   0.0% : D : RB
+         Setting Starter to Jay Cutler
+          Setting Backup to Jimmy Clausen
+          Setting Backup to David Fales*
+      Examining Rec Gabe Reid
+      Examining Rec Santonio Holmes
+         Setting W3 to Santonio Holmes
+      Examining Rec Brandon Marshall
+         Setting W1 to Brandon Marshall
+      Examining Rec Michael Spurlock
+      Examining Rec Dante Rosario
+      Examining Rec Martellus Bennett
+         Setting TE to Martellus Bennett
+      Examining Rec Josh Morgan
+      Examining Rec Juaquin Iglesias
+      Examining Rec Zach Miller
+      Examining Rec Alshon Jeffery
+         Setting W2 to Alshon Jeffery
+      Examining Rec Kyle Adams
+      Examining Rec Marquess Wilson
+      Examining Rec Joe Anderson
+   Q1 (1): Jay Cutler
+   Q2 (2): David Fales*
+   W1 (1): Brandon Marshall
+   W2 (1): Alshon Jeffery
+   W3 (1): Santonio Holmes
+   TE (1): Martellus Bennett
+   Gabe Reid                 : R : TE
+   Santonio Holmes           : S : WR,PR,W3
+   Brandon Marshall          : S : WR,W1
+   Michael Spurlock          : B : WR,KR,PR
+   Dante Rosario             : B : TE
+   Martellus Bennett         : S : TE
+   Josh Morgan               : B : WR,PR,KR
+   Juaquin Iglesias          : R : WR
+   Zach Miller               : I : TE
+   Alshon Jeffery            : S : WR,W2
+   Kyle Adams                : R : TE
+   Marquess Wilson           : I : WR
+   Joe Anderson              : R : WR
+   Jay Cutler                : S :   0 : 100.0% : S : QB
+   David Fales*              : B :   0 :   0.0% : B : QB
+   Jimmy Clausen             : B :   0 :   0.0% : B : QB
+   Brandon Marshall          : S :  71 :  39.4% : S : WR,W1
+   Alshon Jeffery            : S :  71 :  39.4% : S : WR,W2
+   Santonio Holmes           : S :  21 :  11.7% : S : WR,PR,W3
+   Josh Morgan               : B :   9 :   5.0% : B : WR,PR,KR
+   Michael Spurlock          : B :   8 :   4.4% : B : WR,KR,PR
+   Joe Anderson              : R :   0 :   0.0% : R : WR
+   Marquess Wilson           : I :   0 :   0.0% : I : WR
+   Juaquin Iglesias          : R :   0 :   0.0% : R : WR
+   Martellus Bennett         : S :  70 :  85.4% : S : TE
+   Dante Rosario             : B :  12 :  14.6% : B : TE
+   Gabe Reid                 : R :   0 :   0.0% : R : TE
+   Kyle Adams                : R :   0 :   0.0% : R : TE
+   Zach Miller               : I :   0 :   0.0% : I : TE
+   Setting Ace to Reggie Bush
+   Setting Ace to Joique Bell
+   R1 (2): RBush + JBell + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Rudi Johnson              : D : 
+   Arlen Harris              : D : CB
+   Reggie Bush               : S : RB,3D
+   Joique Bell               : S : RB,KR
+   Theo Riddick              : R : RB
+   Joique Bell               : S :  15 :  60.0% : S : RB,KR
+   Reggie Bush               : S :   9 :  36.0% : S : RB,3D
+   Theo Riddick              : R :   1 :   4.0% : R : RB
+   Rudi Johnson              : D :   0 :   0.0% : D : 
+   Arlen Harris              : D :   0 :   0.0% : D : CB
+         Setting Starter to Matthew Stafford
+      Examining Rec Shaun McDonald
+      Examining Rec Scottie Vines
+      Examining Rec Brian Clark
+      Examining Rec Calvin Johnson
+         Setting W1 to Calvin Johnson
+      Examining Rec John Standeford
+      Examining Rec Brandon Pettigrew
+      Examining Rec Nate Hughes
+      Examining Rec Kevin Ogletree
+      Examining Rec Jake Nordin
+      Examining Rec Golden Tate
+         Setting W2 to Golden Tate
+      Examining Rec Jonathan Baldwin
+      Examining Rec Ryan Broyles
+      Examining Rec Corey Fuller
+      Examining Rec Michael Williams
+      Examining Rec Joseph Fauria
+         Setting TE to Joseph Fauria
+      Examining Rec Jeremy Ross
+      Examining Rec Eric Ebron*
+      Examining Rec T.J. Jones*
+   Q1 (1): Matthew Stafford
+   Q2 (0): none
+   W1 (1): Calvin Johnson
+   W2 (1): Golden Tate
+   W3 (0): none
+   TE (1): Joseph Fauria
+   Shaun McDonald            : R : WR
+   Scottie Vines             : R : WR
+   Brian Clark               : R : WR
+   Calvin Johnson            : S : WR,W1
+   John Standeford           : R : WR
+   Brandon Pettigrew         : B : TE
+   Nate Hughes               : R : WR
+   Kevin Ogletree            : R : WR
+   Jake Nordin               :   : FB
+   Golden Tate               : S : WR,PR,KR,W2
+   Jonathan Baldwin          : R : WR
+   Ryan Broyles              : R : WR
+   Corey Fuller              : R : WR
+   Michael Williams          : R : TE
+   Joseph Fauria             : S : TE
+   Jeremy Ross               : R : WR,PR,KR
+   Eric Ebron*               : R : TE
+   T.J. Jones*               : R : WR
+   Matthew Stafford          : S :   0 : 100.0% : S : QB
+   Calvin Johnson            : S : 164 :  63.8% : S : WR,W1
+   Golden Tate               : S :  93 :  36.2% : S : WR,PR,KR,W2
+   Corey Fuller              : R :   0 :   0.0% : R : WR
+   Ryan Broyles              : R :   0 :   0.0% : R : WR
+   T.J. Jones*               : R :   0 :   0.0% : R : WR
+   Jonathan Baldwin          : R :   0 :   0.0% : R : WR
+   Jeremy Ross               : R :   0 :   0.0% : R : WR,PR,KR
+   Brian Clark               : R :   0 :   0.0% : R : WR
+   John Standeford           : R :   0 :   0.0% : R : WR
+   Shaun McDonald            : R :   0 :   0.0% : R : WR
+   Scottie Vines             : R :   0 :   0.0% : R : WR
+   Kevin Ogletree            : R :   0 :   0.0% : R : WR
+   Nate Hughes               : R :   0 :   0.0% : R : WR
+   Joseph Fauria             : S :  26 :  74.3% : S : TE
+   Brandon Pettigrew         : B :   9 :  25.7% : B : TE
+   Michael Williams          : R :   0 :   0.0% : R : TE
+   Eric Ebron*               : R :   0 :   0.0% : R : TE
+   Setting Ace to Doug Martin
+   Setting Ace to Bobby Rainey
+   R1 (2): DMartin + BRainey + 
+   R2 (0): 
+   Ace back : 
+   R2       : 
+   Goaline  : 
+   Brian Leonard             : D : HB,3D
+   Danny Ware                : D : RB
+   Doug Martin               : S : RB,3D
+   Mike James                : D : RB
+   Bobby Rainey              : S : RB
+   Charles Sims*             : I : RB
+   Doug Martin               : S :   9 :  69.2% : S : RB,3D
+   Bobby Rainey              : S :   4 :  30.8% : S : RB
+   Charles Sims*             : I :   0 :   0.0% : I : RB
+   Mike James                : D :   0 :   0.0% : D : RB
+   Danny Ware                : D :   0 :   0.0% : D : RB
+   Brian Leonard             : D :   0 :   0.0% : D : HB,3D
+         Setting Starter to Josh McCown
+          Setting Backup to Dan Orlovsky
+          Setting Backup to Mike Glennon
+      Examining Rec Vincent Jackson
+         Setting W2 to Vincent Jackson
+      Examining Rec TJ Williams
+      Examining Rec Byron Storer
+      Examining Rec Lavelle Hawkins
+      Examining Rec Louis Murphy
+      Examining Rec Brandon Myers
+         Setting TE to Brandon Myers
+      Examining Rec Tom Crabtree
+      Examining Rec Luke Stocker
+      Examining Rec Chris Owusu
+         Setting W3 to Chris Owusu
+      Examining Rec Mike Evans*
+         Setting W1 to Mike Evans*
+      Examining Rec Austin Seferian-Jenkin*
+      Examining Rec Robert Herron*
+   Q1 (1): Josh McCown
+   Q2 (2): Mike Glennon
+   W1 (1): Mike Evans*
+   W2 (1): Vincent Jackson
+   W3 (1): Chris Owusu
+   TE (1): Brandon Myers
+   Vincent Jackson           : S : WR,W2
+   TJ Williams               :   : CB
+   Byron Storer              :   : FB
+   Lavelle Hawkins           : R : WR,KR
+   Louis Murphy              : R : WR,PR
+   Brandon Myers             : S : TE
+   Tom Crabtree              : R : TE
+   Luke Stocker              : B : TE
+   Chris Owusu               : S : WR,W3
+   Mike Evans*               : S : WR,W1
+   Austin Seferian-Jenkin*   : B : TE
+   Robert Herron*            : R : WR
+   Josh McCown               : S :   0 : 100.0% : S : QB
+   Mike Glennon              : B :   0 :   0.0% : B : QB
+   Dan Orlovsky              : B :   0 :   0.0% : B : QB
+   Mike Evans*               : S :  37 :  39.8% : S : WR,W1
+   Vincent Jackson           : S :  36 :  38.7% : S : WR,W2
+   Chris Owusu               : S :  20 :  21.5% : S : WR,W3
+   Robert Herron*            : R :   0 :   0.0% : R : WR
+   Lavelle Hawkins           : R :   0 :   0.0% : R : WR,KR
+   Louis Murphy              : R :   0 :   0.0% : R : WR,PR
+   Brandon Myers             : S :  41 :  54.7% : S : TE
+   Austin Seferian-Jenkin*   : B :  26 :  34.7% : B : TE
+   Luke Stocker              : B :   8 :  10.7% : B : TE
+   Tom Crabtree              : R :   0 :   0.0% : R : TE
+   Setting Ace to Frank Gore
+   Setting Backup to Carlos Hyde*
+   R1 (1): Frank Gore
+   R2 (1): CHyde
+   Ace back : Frank Gore
+   R2       : Carlos Hyde*
+   Goaline  : 
+   Frank Gore                : S : RB
+   LaMichael James           : R : RB,KR,PR
+   Marcus Lattimore          : I : RB
+   Carlos Hyde*              : B : RB
+   Frank Gore                : S :  16 :  64.0% : S : RB
+   Carlos Hyde*              : B :   7 :  28.0% : B : RB
+   LaMichael James           : R :   2 :   8.0% : R : RB,KR,PR
+   Marcus Lattimore          : I :   0 :   0.0% : I : RB
+          Setting Backup to Josh Johnson
+          Setting Backup to Blaine Gabbert
+         Setting Starter to Colin Kaepernick
+      Examining Rec Anquan Boldin
+         Setting W1 to Anquan Boldin
+      Examining Rec Justin Peelle
+      Examining Rec Brandon Lloyd
+      Examining Rec Vernon Davis
+         Setting TE to Vernon Davis
+      Examining Rec Steve Johnson
+         Setting W2 to Steve Johnson
+      Examining Rec Michael Crabtree
+         Setting W3 to Michael Crabtree
+      Examining Rec Garrett Celek
+      Examining Rec Vance McDonald
+      Examining Rec Quinton Patton
+      Examining Rec Bruce Ellington*
+   Q1 (1): Colin Kaepernick
+   Q2 (2): Blaine Gabbert
+   W1 (1): Anquan Boldin
+   W2 (1): Steve Johnson
+   W3 (1): Michael Crabtree
+   TE (1): Vernon Davis
+   Anquan Boldin             : S : WR,W1
+   Justin Peelle             : R : TE
+   Brandon Lloyd             : R : WR
+   Vernon Davis              : S : TE
+   Steve Johnson             : S : WR,W2
+   Michael Crabtree          : S : WR,W3
+   Garrett Celek             : R : TE
+   Vance McDonald            : R : TE
+   Quinton Patton            : R : WR
+   Bruce Ellington*          : R : WR,PR
+   Colin Kaepernick          : S :   0 : 100.0% : S : QB
+   Josh Johnson              : B :   0 :   0.0% : B : QB
+   Blaine Gabbert            : B :   0 :   0.0% : B : QB
+   Anquan Boldin             : S :  99 :  63.1% : S : WR,W1
+   Steve Johnson             : S :  33 :  21.0% : S : WR,W2
+   Michael Crabtree          : S :  25 :  15.9% : S : WR,W3
+   Quinton Patton            : R :   0 :   0.0% : R : WR
+   Bruce Ellington*          : R :   0 :   0.0% : R : WR,PR
+   Brandon Lloyd             : R :   0 :   0.0% : R : WR
+   Vernon Davis              : S :  44 : 100.0% : S : TE
+   Justin Peelle             : R :   0 :   0.0% : R : TE
+   Garrett Celek             : R :   0 :   0.0% : R : TE
+   Vance McDonald            : R :   0 :   0.0% : R : TE
+   Setting Ace to DeAngelo Williams
+   Setting Backup to Jonathan Stewart
+   Setting Backup to Mike Tolbert
+   R1 (1): DeAngelo Williams
+   R2 (2): MTolbert
+   Ace back : DeAngelo Williams
+   R2       : Mike Tolbert
+   Goaline  : 
+   DeAngelo Williams         : S : RB,3D
+   Jonathan Stewart          : B : RB,3D
+   Mike Tolbert              : B : RB
+   Fozzy Whittaker           : D : RB,KR
+   DeAngelo Williams         : S :  14 :  46.7% : S : RB,3D
+   Jonathan Stewart          : B :   9 :  30.0% : B : RB,3D
+   Mike Tolbert              : B :   7 :  23.3% : B : RB
+   Fozzy Whittaker           : D :   0 :   0.0% : D : RB,KR
+         Setting Starter to Derek Anderson
+          Setting Backup to Joe Webb
+          Setting Backup to Cam Newton
+      Examining Rec Christian Fauria
+      Examining Rec Kris Mangum
+      Examining Rec Karl Hankton
+      Examining Rec Jeremy Shockey
+      Examining Rec Ben Hartsock
+      Examining Rec Jerricho Cotchery
+         Setting W2 to Jerricho Cotchery
+      Examining Rec Drew Carter
+      Examining Rec Jason Avant
+      Examining Rec Greg Olsen
+         Setting TE to Greg Olsen
+      Examining Rec Richie Brockel
+      Examining Rec Kelvin Benjamin*
+         Setting W1 to Kelvin Benjamin*
+   Q1 (1): Derek Anderson
+   Q2 (2): Cam Newton
+   W1 (1): Kelvin Benjamin*
+   W2 (1): Jerricho Cotchery
+   W3 (0): none
+   TE (1): Greg Olsen
+   Christian Fauria          : R : TE
+   Kris Mangum               : R : TE
+   Karl Hankton              : R : WR
+   Jeremy Shockey            : R : TE
+   Ben Hartsock              : R : TE
+   Jerricho Cotchery         : S : WR,W2
+   Drew Carter               : R : WR
+   Jason Avant               : R : WR
+   Greg Olsen                : S : TE
+   Richie Brockel            : R : TE-FB
+   Kelvin Benjamin*          : S : WR,W1
+   Derek Anderson            : S :   0 : 100.0% : S : QB
+   Cam Newton                : B :   0 :   0.0% : B : QB
+   Joe Webb                  : B :   0 :   0.0% : B : QB
+   Kelvin Benjamin*          : S :  92 :  74.2% : S : WR,W1
+   Jerricho Cotchery         : S :  32 :  25.8% : S : WR,W2
+   Jason Avant               : R :   0 :   0.0% : R : WR
+   Drew Carter               : R :   0 :   0.0% : R : WR
+   Karl Hankton              : R :   0 :   0.0% : R : WR
+   Greg Olsen                : S :  83 : 100.0% : S : TE
+   Jeremy Shockey            : R :   0 :   0.0% : R : TE
+   Ben Hartsock              : R :   0 :   0.0% : R : TE
+   Kris Mangum               : R :   0 :   0.0% : R : TE
+   Christian Fauria          : R :   0 :   0.0% : R : TE
+   Richie Brockel            : R :   0 :   0.0% : R : TE-FB
+   Setting Ace to Arian Foster
+   R1 (1): Arian Foster
+   R2 (0): 
+   Ace back : Arian Foster
+   R2       : 
+   Goaline  : 
+   Derrick Ward              : D : RB
+   Ronnie Brown              : D : RB,KR
+   Arian Foster              : S : RB
+   Jonathan Grimes           : R : RB
+   Alfred Blue*              : R : RB
+   Arian Foster              : S :  27 :  93.1% : S : RB
+   Jonathan Grimes           : R :   1 :   3.4% : R : RB
+   Alfred Blue*              : R :   1 :   3.4% : R : RB
+   Derrick Ward              : D :   0 :   0.0% : D : RB
+   Ronnie Brown              : D :   0 :   0.0% : D : RB,KR
+         Setting Starter to Ryan Fitzpatrick
+          Setting Backup to Ryan Mallett
+          Setting Backup to Tom Savage*
+      Examining Rec Mark Bruener
+      Examining Rec Chris Taylor
+      Examining Rec Andre Davis
+      Examining Rec Andre Johnson
+         Setting W1 to Andre Johnson
+      Examining Rec Edell Shepherd
+      Examining Rec Jerome Mathis
+      Examining Rec Donovan Morgan
+      Examining Rec Garrett Graham
+      Examining Rec DeVier Posey
+      Examining Rec Keshawn Martin
+      Examining Rec Damaris Johnson
+      Examining Rec DeAndre Hopkins
+         Setting W2 to DeAndre Hopkins
+      Examining Rec Alan Bonner
+      Examining Rec Ryan Griffin
+         Setting TE to Ryan Griffin
+      Examining Rec C.J. Fiedorowicz*
+   Q1 (1): Ryan Fitzpatrick
+   Q2 (2): Tom Savage*
+   W1 (1): Andre Johnson
+   W2 (1): DeAndre Hopkins
+   W3 (0): none
+   TE (1): Ryan Griffin
+   Mark Bruener              : R : TE
+   Chris Taylor              :   : S
+   Andre Davis               : R : WR
+   Andre Johnson             : S : WR,W1
+   Edell Shepherd            : R : WR
+   Jerome Mathis             : R : WR
+   Donovan Morgan            : R : WR,PR
+   Garrett Graham            : R : TE
+   DeVier Posey              : R : WR
+   Keshawn Martin            : R : WR,KR,PR
+   Damaris Johnson           : B : WR,PR,KR
+   DeAndre Hopkins           : S : WR,W2
+   Alan Bonner               : R : WR
+   Ryan Griffin              : S : TE
+   C.J. Fiedorowicz*         : R : TE
+   Ryan Fitzpatrick          : S :   0 : 100.0% : S : QB
+   Ryan Mallett              : B :   0 :   0.0% : B : QB
+   Tom Savage*               : B :   0 :   0.0% : B : QB
+   Andre Johnson             : S :  93 :  50.8% : S : WR,W1
+   DeAndre Hopkins           : S :  89 :  48.6% : S : WR,W2
+   Damaris Johnson           : B :   1 :   0.5% : B : WR,PR,KR
+   Keshawn Martin            : R :   0 :   0.0% : R : WR,KR,PR
+   DeVier Posey              : R :   0 :   0.0% : R : WR
+   Alan Bonner               : R :   0 :   0.0% : R : WR
+   Andre Davis               : R :   0 :   0.0% : R : WR
+   Edell Shepherd            : R :   0 :   0.0% : R : WR
+   Donovan Morgan            : R :   0 :   0.0% : R : WR,PR
+   Jerome Mathis             : R :   0 :   0.0% : R : WR
+   Ryan Griffin              : S :   6 : 100.0% : S : TE
+   Mark Bruener              : R :   0 :   0.0% : R : TE
+   Garrett Graham            : R :   0 :   0.0% : R : TE
+   C.J. Fiedorowicz*         : R :   0 :   0.0% : R : TE
+   Role Assignment Report
+   R1 (2): CJohnson + CIvory + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Chris Johnson             : S : RB,3D
+Chris Ivory               : S : RB
+Bilal Powell              : R : RB,3D
+
+
+   Chris Johnson             : S :  13 :  54.2% : S : RB,3D
+   Chris Ivory               : S :  10 :  41.7% : S : RB
+   Bilal Powell              : R :   1 :   4.2% : R : RB,3D
+   Q1 (1): Geno Smith
+Q2 (2): David Garrard
+W1 (1): Eric Decker
+W2 (1): Jeremy Kerley
+W3 (1): David Nelson
+TE (1): Jeff Cumberland
+Kellen Winslow            : R : TE
+Sloan Thomas              :   : DL
+Richard Owens             : R : TE
+Dante Ridgeway            : R : WR
+Josh Cribbs               : R : WR
+Chris Davis               :   : FB
+Eric Decker               : S : WR,PR,W1
+David Nelson              : S : WR,W3
+Jeff Cumberland           : S : TE
+Greg Salas                : B : WR
+Jeremy Kerley             : S : WR,PR,KR,W2
+Konrad Reuland            : R : TE
+Zach Sudfeld              : R : TE
+Saalim Hakim              : R : WR,KR
+Jace Amaro*               : B : TE
+Jalen Saunders*           : R : WR,PR
+Shaq Evans*               : R : WR
+Walt Powell*              : R : WR
+
+
+   Geno Smith                : S :   0 : 100.0% : S : QB
+   Michael Vick              : B :   0 :   0.0% : B : QB
+   David Garrard             : B :   0 :   0.0% : B : QB
+   Eric Decker               : S :  74 :  52.5% : S : WR,PR,W1
+   Jeremy Kerley             : S :  38 :  27.0% : S : WR,PR,KR,W2
+   David Nelson              : S :  17 :  12.1% : S : WR,W3
+   Greg Salas                : B :  12 :   8.5% : B : WR
+   Walt Powell*              : R :   0 :   0.0% : R : WR
+   Jalen Saunders*           : R :   0 :   0.0% : R : WR,PR
+   Shaq Evans*               : R :   0 :   0.0% : R : WR
+   Saalim Hakim              : R :   0 :   0.0% : R : WR,KR
+   Dante Ridgeway            : R :   0 :   0.0% : R : WR
+   Josh Cribbs               : R :   0 :   0.0% : R : WR
+   Jeff Cumberland           : S :  50 :  87.7% : S : TE
+   Jace Amaro*               : B :   7 :  12.3% : B : TE
+   Kellen Winslow            : R :   0 :   0.0% : R : TE
+   Konrad Reuland            : R :   0 :   0.0% : R : TE
+   Richard Owens             : R :   0 :   0.0% : R : TE
+   Zach Sudfeld              : R :   0 :   0.0% : R : TE
+   R1 (1): Giovani Bernard
+R2 (1): JHill
+Ace back : Giovani Bernard
+R2       : Jeremy Hill*
+Goaline  : 
+Cedric Peerman            : D : HB,KR
+Giovani Bernard           : S : RB
+Rex Burkhead              : D : RB
+Jeremy Hill*              : B : RB
+
+
+   Giovani Bernard           : S :  14 :  77.8% : S : RB
+   Jeremy Hill*              : B :   4 :  22.2% : B : RB
+   Cedric Peerman            : D :   0 :   0.0% : D : HB,KR
+   Rex Burkhead              : D :   0 :   0.0% : D : RB
+   Q1 (1): Andy Dalton
+Q2 (1): Jason Campbell
+W1 (1): A.J. Green
+W2 (1): Mohamed Sanu
+W3 (0): none
+TE (1): Tyler Eifert
+Doug Gabriel              : R : WR
+Antonio Chatman           : R : WR,PR
+Alex E Smith              : R : TE/FB
+Ben Utecht                : R : TE
+Reggie McNeal             : R : WR
+Benny Brazell             : R : WR
+Glenn Holt                : R : WR
+Brandon Tate              : S : WR,KR,KR,P,PR,K
+Freddie Brown             : R : WR
+Maurice Purify            : R : WR
+Jermaine Gresham          : B : TE
+A.J. Green                : S : WR,W1
+Dane Sanzenbacher         : R : WR
+Mohamed Sanu              : S : WR,W2
+Marvin Jones              : I : WR
+Tyler Eifert              : S : TE
+James Wright*             : R : WR
+
+
+   Andy Dalton               : S :   0 : 100.0% : S : QB
+   AJ McCarron*              : I :   0 :   0.0% : I : QB
+   Jason Campbell            : B :   0 :   0.0% : B : QB
+   A.J. Green                : S : 131 :  70.4% : S : WR,W1
+   Mohamed Sanu              : S :  36 :  19.4% : S : WR,W2
+   Brandon Tate              : S :  19 :  10.2% : S : WR,KR,KR,P,PR,K,W3
+   Maurice Purify            : R :   0 :   0.0% : R : WR
+   James Wright*             : R :   0 :   0.0% : R : WR
+   Dane Sanzenbacher         : R :   0 :   0.0% : R : WR
+   Marvin Jones              : I :   0 :   0.0% : I : WR
+   Doug Gabriel              : R :   0 :   0.0% : R : WR
+   Antonio Chatman           : R :   0 :   0.0% : R : WR,PR
+   Glenn Holt                : R :   0 :   0.0% : R : WR
+   Freddie Brown             : R :   0 :   0.0% : R : WR
+   Reggie McNeal             : R :   0 :   0.0% : R : WR
+   Benny Brazell             : R :   0 :   0.0% : R : WR
+   Tyler Eifert              : S :  37 :  69.8% : S : TE
+   Jermaine Gresham          : B :  16 :  30.2% : B : TE
+   Ben Utecht                : R :   0 :   0.0% : R : TE
+   Alex E Smith              : R :   0 :   0.0% : R : TE/FB
+   R1 (2): JForsett + BPierce + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Ricky Williams            : D : RB
+PJ Daniels                : D : DE
+Cory Ross                 : D : OG
+Ray Rice                  : D : RB
+Justin Forsett            : S : RB,3D
+Pierce Bernard            : D : RB
+Bernard Pierce            : S : RB
+Lorenzo Taliaferro*       : D : RB
+
+
+   Justin Forsett            : S :  11 :  64.7% : S : RB,3D
+   Bernard Pierce            : S :   6 :  35.3% : S : RB
+   Lorenzo Taliaferro*       : D :   0 :   0.0% : D : RB
+   Pierce Bernard            : D :   0 :   0.0% : D : RB
+   PJ Daniels                : D :   0 :   0.0% : D : DE
+   Ricky Williams            : D :   0 :   0.0% : D : RB
+   Ray Rice                  : D :   0 :   0.0% : D : RB
+   Cory Ross                 : D :   0 :   0.0% : D : OG
+   Q1 (1): Joe Flacco
+Q2 (1): Tyrod Taylor
+W1 (1): Steve Smith
+W2 (1): Torrey Smith
+W3 (1): Kamar Aiken
+TE (1): Dennis Pitta
+Brandon Stokley           : R : WR
+Steve Smith               : S : WR,W1
+LJ Smith                  : R : TE
+David Tyree               : R : WR
+Kris Wilson               : R : TE
+Clarence Moore            : R : WR
+Derek Abney               : R : WR
+Daniel Wilcox             : R : TE
+Billy Bajema              : R : TE
+Owen Daniels              : B : TE
+Jacoby Jones              : B : WR,PR,KR
+Jonathan Stupar           : R : TE
+Ed Dickson                : R : TE
+Dennis Pitta              : S : TE
+Torrey Smith              : S : WR,W2
+Deonte Thompson           : R : WR/RS,KR
+Aaron Mellette            : R : WR
+Marlon Brown              : R : WR
+Crockett Gillmore*        : R : TE
+Mike Campanaro*           : R : WR
+Kamar Aiken               : S : WR,W3
+
+
+   Joe Flacco                : S :   0 : 100.0% : S : QB
+   Tyrod Taylor              : B :   0 :   0.0% : B : QB
+   Steve Smith               : S : 118 :  55.1% : S : WR,W1
+   Torrey Smith              : S :  50 :  23.4% : S : WR,W2
+   Kamar Aiken               : S :  30 :  14.0% : S : WR,W3
+   Jacoby Jones              : B :  16 :   7.5% : B : WR,PR,KR
+   Deonte Thompson           : R :   0 :   0.0% : R : WR/RS,KR
+   Aaron Mellette            : R :   0 :   0.0% : R : WR
+   Mike Campanaro*           : R :   0 :   0.0% : R : WR
+   Brandon Stokley           : R :   0 :   0.0% : R : WR
+   Marlon Brown              : R :   0 :   0.0% : R : WR
+   Derek Abney               : R :   0 :   0.0% : R : WR
+   Clarence Moore            : R :   0 :   0.0% : R : WR
+   David Tyree               : R :   0 :   0.0% : R : WR
+   Dennis Pitta              : S :  83 :  70.9% : S : TE
+   Owen Daniels              : B :  34 :  29.1% : B : TE
+   Kris Wilson               : R :   0 :   0.0% : R : TE
+   Daniel Wilcox             : R :   0 :   0.0% : R : TE
+   Billy Bajema              : R :   0 :   0.0% : R : TE
+   Jonathan Stupar           : R :   0 :   0.0% : R : TE
+   LJ Smith                  : R :   0 :   0.0% : R : TE
+   Ed Dickson                : R :   0 :   0.0% : R : TE
+   Crockett Gillmore*        : R :   0 :   0.0% : R : TE
+   R1 (1): LeVeon Bell
+R2 (1): LBlount
+Ace back : LeVeon Bell
+R2       : LaGarrette Blount
+Goaline  : 
+Najeh Davenport           : D : 
+Carey Davis               : D : C
+Felix Jones               : D : RB,KR,KR
+LaRod Stephens-Howlin     : D : RB,KR
+LaGarrette Blount         : B : RB,KR
+LeVeon Bell               : S : RB
+
+
+   LeVeon Bell               : S :  21 :  84.0% : S : RB
+   LaGarrette Blount         : B :   4 :  16.0% : B : RB,KR
+   Najeh Davenport           : D :   0 :   0.0% : D : 
+   LaRod Stephens-Howlin     : D :   0 :   0.0% : D : RB,KR
+   Carey Davis               : D :   0 :   0.0% : D : C
+   Felix Jones               : D :   0 :   0.0% : D : RB,KR,KR
+   Q1 (1): Ben Roethlisberger
+Q2 (2): Landry Jones
+W1 (1): Antonio Brown
+W2 (1): Markus Wheaton
+W3 (0): none
+TE (1): Heath Miller
+Plaxico Burress           : R : WR
+Arnaz Battle              : R : WR
+Matt Kranchick            : R : TE
+Sean McHugh               : R : TE
+Heath Miller              : S : TE
+Lance Moore               : R : WR,PR
+Walter Young              : R : WR
+Matt Spaeth               : R : TE
+Darrius Heyward-Bey       : R : WR
+Antonio Brown             : S : WR,PR,W1
+Michael Palmer            : R : TE
+Richard Gordon            : R : TE
+David Paulson             : R : TE
+Markus Wheaton            : S : WR,KR,W2
+Derek Moye                : R : WR
+Dri Archer*               : R : WR,KR
+Martavis Bryant*          : R : WR
+Rob Blanchflower*         : R : TE
+
+
+   Ben Roethlisberger        : S :   0 : 100.0% : S : QB
+   Landry Jones              : B :   0 :   0.0% : B : QB
+   Bruce Gradkowski          : B :   0 :   0.0% : B : QB
+   Antonio Brown             : S : 116 :  54.5% : S : WR,PR,W1
+   Markus Wheaton            : S :  97 :  45.5% : S : WR,KR,W2
+   Dri Archer*               : R :   0 :   0.0% : R : WR,KR
+   Derek Moye                : R :   0 :   0.0% : R : WR
+   Martavis Bryant*          : R :   0 :   0.0% : R : WR
+   Plaxico Burress           : R :   0 :   0.0% : R : WR
+   Arnaz Battle              : R :   0 :   0.0% : R : WR
+   Darrius Heyward-Bey       : R :   0 :   0.0% : R : WR
+   Lance Moore               : R :   0 :   0.0% : R : WR,PR
+   Walter Young              : R :   0 :   0.0% : R : WR
+   Heath Miller              : S :  26 : 100.0% : S : TE
+   Sean McHugh               : R :   0 :   0.0% : R : TE
+   Matt Spaeth               : R :   0 :   0.0% : R : TE
+   Rob Blanchflower*         : R :   0 :   0.0% : R : TE
+   David Paulson             : R :   0 :   0.0% : R : TE
+   Richard Gordon            : R :   0 :   0.0% : R : TE
+   Michael Palmer            : R :   0 :   0.0% : R : TE
+   Matt Kranchick            : R :   0 :   0.0% : R : TE
+   R1 (2): MJones-Drew + DMcFadden + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Maurice Jones-Drew        : S : RB
+Darren McFadden           : S : RB
+Taiwan Jones              : D : RB,KR
+Latavius Murray           : D : RB,KR
+Jamize Olawale            : D : RB
+
+
+   Maurice Jones-Drew        : S :   9 :  69.2% : S : RB
+   Darren McFadden           : S :   4 :  30.8% : S : RB
+   Jamize Olawale            : D :   0 :   0.0% : D : RB
+   Latavius Murray           : D :   0 :   0.0% : D : RB,KR
+   Taiwan Jones              : D :   0 :   0.0% : D : RB,KR
+   Q1 (1): Derek Carr*
+Q2 (2): Matthew McGloin
+W1 (1): Rod Streater
+W2 (1): James Jones
+W3 (0): none
+TE (1): Mychal Rivera
+Tim Dwight                : R : WR
+Alvis Whitted             : R : WR
+Tony Stewart              : R : TE
+Carlos Francis            : R : WR
+Kevin McMahan             : R : WR
+John Madsen               :   : DT
+James Jones               : S : WR,W2
+Arman Shields             : R : WR
+Duke Calhoun              : R : WR
+Jeron Mastrud             : R : TE
+Denarius Moore            : B : WR,PR
+David Ausberry            : R : TE
+Rod Streater              : S : WR,W1
+Andre Holmes              : R : WR
+Nick Kasa                 : R : TE
+Mychal Rivera             : S : TE
+Brice Butler              : R : WR
+Greg Jenkins              : R : WR,PR
+Brian Leonhardt*          : B : TE
+
+
+   Derek Carr*               : S :   0 : 100.0% : S : QB
+   Matt Schaub               : B :   0 :   0.0% : B : QB
+   Matthew McGloin           : B :   0 :   0.0% : B : QB
+   Rod Streater              : S :  46 :  52.3% : S : WR,W1
+   James Jones               : S :  34 :  38.6% : S : WR,W2
+   Denarius Moore            : B :   8 :   9.1% : B : WR,PR
+   Andre Holmes              : R :   0 :   0.0% : R : WR
+   Brice Butler              : R :   0 :   0.0% : R : WR
+   Greg Jenkins              : R :   0 :   0.0% : R : WR,PR
+   Carlos Francis            : R :   0 :   0.0% : R : WR
+   Tim Dwight                : R :   0 :   0.0% : R : WR
+   Alvis Whitted             : R :   0 :   0.0% : R : WR
+   Kevin McMahan             : R :   0 :   0.0% : R : WR
+   Duke Calhoun              : R :   0 :   0.0% : R : WR
+   Arman Shields             : R :   0 :   0.0% : R : WR
+   Mychal Rivera             : S :  31 :  72.1% : S : TE
+   Brian Leonhardt*          : B :  12 :  27.9% : B : TE
+   Jeron Mastrud             : R :   0 :   0.0% : R : TE
+   David Ausberry            : R :   0 :   0.0% : R : TE
+   Tony Stewart              : R :   0 :   0.0% : R : TE
+   Nick Kasa                 : R :   0 :   0.0% : R : TE
+   R1 (1): Marshawn Lynch
+R2 (1): RTurbin
+Ace back : Marshawn Lynch
+R2       : Robert Turbin
+Goaline  : 
+Marshawn Lynch            : S : RB
+Robert Turbin             : B : RB,3D,KR
+Christine Michael         : I : RB
+Spencer Ware              : D : RB
+Derrick Coleman           : D : RB
+Kiero Small*              : D : RB
+
+
+   Marshawn Lynch            : S :  20 :  76.9% : S : RB
+   Robert Turbin             : B :   6 :  23.1% : B : RB,3D,KR
+   Derrick Coleman           : D :   0 :   0.0% : D : RB
+   Kiero Small*              : D :   0 :   0.0% : D : RB
+   Christine Michael         : I :   0 :   0.0% : I : RB
+   Spencer Ware              : D :   0 :   0.0% : D : RB
+   Q1 (1): Russell Wilson
+Q2 (1): Tarvaris Jackson
+W1 (1): Percy Harvin
+W2 (1): Ricardo Lockette
+W3 (1): Doug Baldwin
+TE (1): Zach Miller
+Chris Baker               : R : TE
+John Owens                : R : TE
+Zach Miller               : S : TE
+Courtney Taylor           :   : S
+Michael Bumpus            :   : 
+Percy Harvin              : S : WR,KR,W1
+Doug Baldwin              : S : WR,W3
+Ricardo Lockette          : S : WR,W2
+Jermaine Kearse           : B : WR,KR
+David Gilreath            : R : WR
+Luke Willson              : B : TE
+Paul Richardson*          : R : WR
+Kevin Norwood*            : R : WR
+
+
+   Russell Wilson            : S :   0 : 100.0% : S : QB
+   Tarvaris Jackson          : B :   0 :   0.0% : B : QB
+   Percy Harvin              : S :  59 :  49.6% : S : WR,KR,W1
+   Ricardo Lockette          : S :  38 :  31.9% : S : WR,W2
+   Doug Baldwin              : S :  14 :  11.8% : S : WR,W3
+   Jermaine Kearse           : B :   8 :   6.7% : B : WR,KR
+   Kevin Norwood*            : R :   0 :   0.0% : R : WR
+   Paul Richardson*          : R :   0 :   0.0% : R : WR
+   David Gilreath            : R :   0 :   0.0% : R : WR
+   Zach Miller               : S :  42 :  97.7% : S : TE
+   Luke Willson              : B :   1 :   2.3% : B : TE
+   Chris Baker               : R :   0 :   0.0% : R : TE
+   John Owens                : R :   0 :   0.0% : R : TE
+   R1 (2): DSproles + LMcCoy + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Reno Mahe                 : D : RB,PR
+Darren Sproles            : S : RB,PR,KR,3D
+Tony Hunt                 : D : RB
+LeSean McCoy              : S : RB
+Stnley Havili             : D : RB
+Bryce Brown               : D : RB
+Chris Polk                : I : RB
+
+
+   LeSean McCoy              : S :  21 :  65.6% : S : RB
+   Darren Sproles            : S :  11 :  34.4% : S : RB,PR,KR,3D
+   Bryce Brown               : D :   0 :   0.0% : D : RB
+   Chris Polk                : I :   0 :   0.0% : I : RB
+   Stnley Havili             : D :   0 :   0.0% : D : RB
+   Tony Hunt                 : D :   0 :   0.0% : D : RB
+   Reno Mahe                 : D :   0 :   0.0% : D : RB,PR
+   Q1 (1): Nick Foles
+Q2 (2): Matt Barkley
+W1 (1): Jeremy Maclin
+W2 (1): Jordan Matthews*
+W3 (1): Riley Cooper
+TE (1): Zach Ertz
+Brent Celek               : B : TE
+Jeremy Maclin             : S : WR,W1
+James Casey               : B : FB,KR
+Arrelious Benn            : I : WR
+Riley Cooper              : S : WR,W3
+Jeff Maehl                : B : WR
+Zach Ertz                 : S : TE
+Jordan Matthews*          : S : WR,W2
+Josh Huff*                : R : WR
+
+
+   Nick Foles                : S :   0 : 100.0% : S : QB
+   Matt Barkley              : B :   0 :   0.0% : B : QB
+   Mark Sanchez              : B :   0 :   0.0% : B : QB
+   Jeremy Maclin             : S :  97 :  55.4% : S : WR,W1
+   Jordan Matthews*          : S :  37 :  21.1% : S : WR,W2
+   Riley Cooper              : S :  29 :  16.6% : S : WR,W3
+   Jeff Maehl                : B :  12 :   6.9% : B : WR
+   Josh Huff*                : R :   0 :   0.0% : R : WR
+   Arrelious Benn            : I :   0 :   0.0% : I : WR
+   Zach Ertz                 : S :  77 :  83.7% : S : TE
+   Brent Celek               : B :  15 :  16.3% : B : TE
+   R1 (2): JStarks + ELacy + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Vernand Morency           : D : RB
+Joe McKnight              : D : RB,KR
+James Starks              : S : RB
+DuJuan Harris             : R : RB
+Eddie Lacy                : S : RB
+
+
+   Eddie Lacy                : S :  12 :  60.0% : S : RB
+   James Starks              : S :   7 :  35.0% : S : RB
+   DuJuan Harris             : R :   1 :   5.0% : R : RB
+   Vernand Morency           : D :   0 :   0.0% : D : RB
+   Joe McKnight              : D :   0 :   0.0% : D : RB,KR
+   Q1 (1): Aaron Rodgers
+Q2 (3): Scott Tolzien
+W1 (1): Jordy Nelson
+W2 (1): Randall Cobb
+W3 (0): none
+TE (1): Andrew Quarless
+Jordy Nelson              : S : WR,W1
+Jermichael Finley         : R : TE
+Andrew Quarless           : S : TE
+Randall Cobb              : S : WR,W2
+Ryan Taylor               : R : TE
+Jarrett Boykin            : R : WR
+Brandon Bostick           : I : TE
+Davante Adams*            : R : WR
+Richard Rodgers*          : R : TE
+Jared Abbrederis*         : I : WR
+Jeff Janis*               : R : WR
+
+
+   Aaron Rodgers             : S :   0 : 100.0% : S : QB
+   Scott Tolzien             : B :   0 :   0.0% : B : QB
+   Matt Flynn                : B :   0 :   0.0% : B : QB
+   Seneca Wallace            : B :   0 :   0.0% : B : QB
+   Jordy Nelson              : S :  83 :  58.9% : S : WR,W1
+   Randall Cobb              : S :  58 :  41.1% : S : WR,W2
+   Davante Adams*            : R :   0 :   0.0% : R : WR
+   Jeff Janis*               : R :   0 :   0.0% : R : WR
+   Jared Abbrederis*         : I :   0 :   0.0% : I : WR
+   Jarrett Boykin            : R :   0 :   0.0% : R : WR
+   Andrew Quarless           : S :  26 : 100.0% : S : TE
+   Ryan Taylor               : R :   0 :   0.0% : R : TE
+   Jermichael Finley         : R :   0 :   0.0% : R : TE
+   Brandon Bostick           : I :   0 :   0.0% : I : TE
+   Richard Rodgers*          : R :   0 :   0.0% : R : TE
+   R1 (1): Adrian Peterson
+R2 (0): 
+Ace back : Adrian Peterson
+R2       : 
+Goaline  : 
+Adrian Peterson           : S : HB
+Matt Asiata               : R : RB,KR
+Zach Line                 : D : RB
+Jerick McKinnon*          : R : RB
+
+
+   Adrian Peterson           : S :  21 :  87.5% : S : HB
+   Matt Asiata               : R :   2 :   8.3% : R : RB,KR
+   Jerick McKinnon*          : R :   1 :   4.2% : R : RB
+   Zach Line                 : D :   0 :   0.0% : D : RB
+   Q1 (1): Matt Cassel
+Q2 (2): Teddy Bridgewater*
+W1 (1): Greg Jennings
+W2 (1): Cordarrell Patterson
+W3 (1): Jarius Wright
+TE (1): Kyle Rudolph
+Jim Kleinsasser           : R : TE
+Greg Lewis                : R : WR
+Greg Jennings             : S : WR,W1
+Hank Baskett              : R : WR
+Jerome Simpson            : X : WR
+Kyle Rudolph              : S : TE
+Jarius Wright             : S : WR,W3
+Lestar Jean               : I : WR
+Cordarrell Patterson      : S : WR,KR,W2
+MarQueis Gray             : R : TE
+
+
+   Matt Cassel               : S :   0 : 100.0% : S : QB
+   Teddy Bridgewater*        : B :   0 :   0.0% : B : QB
+   Christian Ponder          : B :   0 :   0.0% : B : QB
+   Greg Jennings             : S :  58 :  53.2% : S : WR,W1
+   Cordarrell Patterson      : S :  26 :  23.9% : S : WR,KR,W2
+   Jarius Wright             : S :  25 :  22.9% : S : WR,W3
+   Lestar Jean               : I :   0 :   0.0% : I : WR
+   Greg Lewis                : R :   0 :   0.0% : R : WR
+   Jerome Simpson            : X :   0 :   0.0% : X : WR
+   Hank Baskett              : R :   0 :   0.0% : R : WR
+   Kyle Rudolph              : S :  16 : 100.0% : S : TE
+   Jim Kleinsasser           : R :   0 :   0.0% : R : TE
+   MarQueis Gray             : R :   0 :   0.0% : R : TE
+   R1 (1): Steven Jackson
+R2 (1): JRodgers
+Ace back : Steven Jackson
+R2       : Jacquizz Rodgers
+Goaline  : 
+Steven Jackson            : S : HB
+Antone Smith              : R : RB
+Jacquizz Rodgers          : B : RB,3D,KR
+Patrick DiMarco           : D : RB
+Devonta Freeman*          : R : RB
+
+
+   Steven Jackson            : S :  12 :  54.5% : S : HB
+   Jacquizz Rodgers          : B :   6 :  27.3% : B : RB,3D,KR
+   Devonta Freeman*          : R :   2 :   9.1% : R : RB
+   Antone Smith              : R :   2 :   9.1% : R : RB
+   Patrick DiMarco           : D :   0 :   0.0% : D : RB
+   Q1 (1): Matt Ryan
+Q2 (2): Sean Renfree
+W1 (1): Julio Jones
+W2 (1): Roddy White
+W3 (1): Harry Douglas
+TE (1): Levine Toilolo
+Reginald Kelly            : R : TE
+Brian Finneran            : R : WR
+Roddy White               : S : WR,W2
+Courtney Roby             : R : WR
+Romby Bryant              : R : WR
+Harry Douglas             : S : WR,PR,W3
+Eric Weems                : R : WR/KR
+Jason Rader               : R : TE
+Brian Robiskie            : R : WR
+Chase Coffman             : R : TE
+Julio Jones               : S : WR,W1
+DJ Davis                  : R : WR
+Levine Toilolo            : S : TE
+Drew Davis                : R : WR
+
+
+   Matt Ryan                 : S :   0 : 100.0% : S : QB
+   Sean Renfree              : B :   0 :   0.0% : B : QB
+   Taylor Yates              : B :   0 :   0.0% : B : QB
+   Julio Jones               : S : 116 :  45.1% : S : WR,W1
+   Roddy White               : S :  72 :  28.0% : S : WR,W2
+   Harry Douglas             : S :  69 :  26.8% : S : WR,PR,W3
+   Brian Robiskie            : R :   0 :   0.0% : R : WR
+   Drew Davis                : R :   0 :   0.0% : R : WR
+   DJ Davis                  : R :   0 :   0.0% : R : WR
+   Courtney Roby             : R :   0 :   0.0% : R : WR
+   Brian Finneran            : R :   0 :   0.0% : R : WR
+   Eric Weems                : R :   0 :   0.0% : R : WR/KR
+   Romby Bryant              : R :   0 :   0.0% : R : WR
+   Levine Toilolo            : S :  19 : 100.0% : S : TE
+   Reginald Kelly            : R :   0 :   0.0% : R : TE
+   Jason Rader               : R :   0 :   0.0% : R : TE
+   Chase Coffman             : R :   0 :   0.0% : R : TE
+   R1 (2): ZStacy + BCunningham + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Zac Stacy                 : S : RB
+Benny Cunningham          : S : RB,KR
+Tre Mason*                : D : RB
+
+
+   Zac Stacy                 : S :  11 :  68.8% : S : RB
+   Benny Cunningham          : S :   5 :  31.3% : S : RB,KR
+   Tre Mason*                : D :   0 :   0.0% : D : RB
+   Q1 (2): Austin Davis
+Q2 (1): Case Keenum
+W1 (1): Brian Quick
+W2 (1): Tavon Austin
+W3 (1): Chris Givens
+TE (1): Jared Cook
+Dante Hall                : R : WR,PR,KR,P
+Mark Clayton              : R : WR
+Jordan Kent               : R : WR
+Darcy Johnson             : R : TE
+Kenny Britt               : R : WR
+Jared Cook                : S : TE
+Brooks Foster             : R : WR
+Lance Kendricks           : B : WR
+Austin Pettis             : R : WR
+Brian Quick               : S : WR,W1
+Chris Givens              : S : WR,KR,W3
+Cory Harkey               : B : TE
+Tavon Austin              : S : WR,PR,KR,W2
+Stedman Bailey            : R : WR
+
+
+   Austin Davis              : S :   0 :  70.3% : S : QB
+   Shaun Hill                : S :   0 :  29.7% : S : QB
+   Case Keenum               : B :   0 :   0.0% : B : QB
+   Sam Bradford              : I :   0 :   0.0% : I : QB
+   Brian Quick               : S :  99 :  56.6% : S : WR,W1
+   Tavon Austin              : S :  34 :  19.4% : S : WR,PR,KR,W2
+   Chris Givens              : S :  30 :  17.1% : S : WR,KR,W3
+   Lance Kendricks           : B :  12 :   6.9% : B : WR
+   Stedman Bailey            : R :   0 :   0.0% : R : WR
+   Austin Pettis             : R :   0 :   0.0% : R : WR
+   Jordan Kent               : R :   0 :   0.0% : R : WR
+   Mark Clayton              : R :   0 :   0.0% : R : WR
+   Dante Hall                : R :   0 :   0.0% : R : WR,PR,KR,P
+   Brooks Foster             : R :   0 :   0.0% : R : WR
+   Kenny Britt               : R :   0 :   0.0% : R : WR
+   Jared Cook                : S :  56 :  93.3% : S : TE
+   Cory Harkey               : B :   4 :   6.7% : B : TE
+   Darcy Johnson             : R :   0 :   0.0% : R : TE
+   R1 (1): Mark Ingram
+R2 (2): KRobinson
+Ace back : Mark Ingram
+R2       : Khiry Robinson
+Goaline  : 
+Pierre Thomas             : B : RB,KR
+Olaniyi Sobomehin         : D : G
+Mark Ingram               : S : RB
+Travaris Cadet            : D : RB,KR,PR
+Khiry Robinson            : B : RB
+
+
+   Mark Ingram               : S :  13 :  50.0% : S : RB
+   Pierre Thomas             : B :   7 :  26.9% : B : RB,KR
+   Khiry Robinson            : B :   6 :  23.1% : B : RB
+   Olaniyi Sobomehin         : D :   0 :   0.0% : D : G
+   Travaris Cadet            : D :   0 :   0.0% : D : RB,KR,PR
+   Q1 (1): Drew Brees
+Q2 (1): Luke McCown
+W1 (1): Marques Colston
+W2 (1): Brandin Cooks*
+W3 (0): none
+TE (1): Jimmy Graham
+Mark Campbell             :   : 
+Dan Campbell              : R : TE
+Billy Miller              : R : TE
+Eric Johnson              : R : TE
+Ben Watson                : R : TE
+Tim Euhus                 : R : TE
+John Gilmore              : R : TE
+David Thomas              : R : TE
+Mike Hass                 : R : WR
+Marques Colston           : S : WR,W1
+Robert Meachem            : R : WR
+Jimmy Graham              : S : TE
+Nick Toon                 : R : WR
+Joe Morgan                : R : WR
+Kenny Stills              : I : WR
+Josh Hill                 : R : TE
+Brandin Cooks*            : S : WR,PR,W2
+
+
+   Drew Brees                : S :   0 : 100.0% : S : QB
+   Luke McCown               : B :   0 :   0.0% : B : QB
+   Marques Colston           : S : 110 :  58.8% : S : WR,W1
+   Brandin Cooks*            : S :  77 :  41.2% : S : WR,PR,W2
+   Robert Meachem            : R :   0 :   0.0% : R : WR
+   Joe Morgan                : R :   0 :   0.0% : R : WR
+   Nick Toon                 : R :   0 :   0.0% : R : WR
+   Kenny Stills              : I :   0 :   0.0% : I : WR
+   Mike Hass                 : R :   0 :   0.0% : R : WR
+   Jimmy Graham              : S :  82 : 100.0% : S : TE
+   Billy Miller              : R :   0 :   0.0% : R : TE
+   Dan Campbell              : R :   0 :   0.0% : R : TE
+   Ben Watson                : R :   0 :   0.0% : R : TE
+   David Thomas              : R :   0 :   0.0% : R : TE
+   John Gilmore              : R :   0 :   0.0% : R : TE
+   Tim Euhus                 : R :   0 :   0.0% : R : TE
+   Josh Hill                 : R :   0 :   0.0% : R : TE
+   Eric Johnson              : R :   0 :   0.0% : R : TE
+   R1 (1): Toby Gerhart
+R2 (1): JTodman
+Ace back : Toby Gerhart
+R2       : Jordan Todman
+Goaline  : 
+Toby Gerhart              : S : RB
+Keith Toston              : D : RB
+Jordan Todman             : B : RB,3D,KR
+Storm Johnson*            : D : RB
+
+
+   Toby Gerhart              : S :  18 :  85.7% : S : RB
+   Jordan Todman             : B :   3 :  14.3% : B : RB,3D,KR
+   Storm Johnson*            : D :   0 :   0.0% : D : RB
+   Keith Toston              : D :   0 :   0.0% : D : RB
+   Q1 (1): Chad Henne
+Q2 (2): Blake Bortles*
+W1 (1): Allen Hurns*
+W2 (1): Marqise Lee*
+W3 (1): Mike Brown
+TE (1): Marcedes Lewis
+Mickey Shuler             : R : TE
+Troy Williamson           : R : WR
+Chad Owens                : R : WR,PR,KR
+Marcedes Lewis            : S : TE
+Laurent Robinson          : R : WR
+Isaac Smolko              :   : S
+Gijon Robinson            : R : TE
+Clay Harbor               : I : TE
+Carlton Mitchell          : R : WR
+Chad Hall                 : R : WR
+Cecil Shorts              : R : WR
+Tandon Doss               : I : WR,PR
+Chastin West              : R : WR
+Justin Blackmon           : X : WR
+Mike Brown                : S : WR,PR,W3
+Ace Sanders               : I : WR,PR
+Denard Robinson           : B : WR
+Marqise Lee*              : S : WR,W2
+Allen Robinson*           : R : WR
+Allen Hurns*              : S : WR,W1
+
+
+   Chad Henne                : S :   0 : 100.0% : S : QB
+   Blake Bortles*            : B :   0 :   0.0% : B : QB
+   Nathan Enderle            : B :   0 :   0.0% : B : QB
+   Allen Hurns*              : S : 110 :  52.1% : S : WR,W1
+   Marqise Lee*              : S :  62 :  29.4% : S : WR,W2
+   Mike Brown                : S :  36 :  17.1% : S : WR,PR,W3
+   Denard Robinson           : B :   3 :   1.4% : B : WR
+   Justin Blackmon           : X :   0 :   0.0% : X : WR
+   Chastin West              : R :   0 :   0.0% : R : WR
+   Tandon Doss               : I :   0 :   0.0% : I : WR,PR
+   Allen Robinson*           : R :   0 :   0.0% : R : WR
+   Ace Sanders               : I :   0 :   0.0% : I : WR,PR
+   Cecil Shorts              : R :   0 :   0.0% : R : WR
+   Laurent Robinson          : R :   0 :   0.0% : R : WR
+   Troy Williamson           : R :   0 :   0.0% : R : WR
+   Chad Owens                : R :   0 :   0.0% : R : WR,PR,KR
+   Carlton Mitchell          : R :   0 :   0.0% : R : WR
+   Chad Hall                 : R :   0 :   0.0% : R : WR
+   Marcedes Lewis            : S :  35 : 100.0% : S : TE
+   Gijon Robinson            : R :   0 :   0.0% : R : TE
+   Clay Harbor               : I :   0 :   0.0% : I : TE
+   Mickey Shuler             : R :   0 :   0.0% : R : TE
+   R1 (1): Terrance West*
+R2 (2): ICrowell
+Ace back : Terrance West*
+R2       : Isaiah Crowell*
+Goaline  : 
+Willis McGahee            : D : RB
+Ben Tate                  : B : RB
+Terrance West*            : S : RB
+Isaiah Crowell*           : B : RB
+Ray Agnew*                : R : RB
+
+
+   Terrance West*            : S :  16 :  57.1% : S : RB
+   Ben Tate                  : B :   6 :  21.4% : B : RB
+   Isaiah Crowell*           : B :   5 :  17.9% : B : RB
+   Ray Agnew*                : R :   1 :   3.6% : R : RB
+   Willis McGahee            : D :   0 :   0.0% : D : RB
+   Q1 (1): Brian Hoyer
+Q2 (1): Johnny Manziel*
+W1 (1): Andrew Hawkins
+W2 (1): Miles Austin
+W3 (1): Travis Benjamin
+TE (1): Jordan Cameron
+Bobby Engram              : R : WR
+Robert Royal              : R : TE
+Michael Gaines            : R : TE
+Miles Austin              : S : WR,W2
+Syndric Steptoe           : R : WR
+Greg Estandia             : R : TE
+Gary Barnidge             : B : TE
+Steve Sanders             : R : WR
+Jake Allen                :   : CB
+Jim Dray                  : B : TE
+Marlon Moore              : R : WR
+Jordan Cameron            : S : TE
+Andrew Hawkins            : S : WR,W1
+Travis Benjamin           : S : WR,PR,,KR,W3
+Brad Smelley              : R : TE
+Josh Gordon               : X : WR
+LaRon Byrd                : R : WR
+Taylor Gabriel*           : B : WR
+
+
+   Brian Hoyer               : S :   0 : 100.0% : S : QB
+   Johnny Manziel*           : B :   0 :   0.0% : B : QB
+   Andrew Hawkins            : S :  87 :  62.1% : S : WR,W1
+   Miles Austin              : S :  20 :  14.3% : S : WR,W2
+   Travis Benjamin           : S :  20 :  14.3% : S : WR,PR,,KR,W3
+   Taylor Gabriel*           : B :  13 :   9.3% : B : WR
+   Marlon Moore              : R :   0 :   0.0% : R : WR
+   LaRon Byrd                : R :   0 :   0.0% : R : WR
+   Bobby Engram              : R :   0 :   0.0% : R : WR
+   Josh Gordon               : X :   0 :   0.0% : X : WR
+   Syndric Steptoe           : R :   0 :   0.0% : R : WR
+   Steve Sanders             : R :   0 :   0.0% : R : WR
+   Jordan Cameron            : S :  47 :  52.2% : S : TE
+   Jim Dray                  : B :  30 :  33.3% : B : TE
+   Gary Barnidge             : B :  13 :  14.4% : B : TE
+   Michael Gaines            : R :   0 :   0.0% : R : TE
+   Robert Royal              : R :   0 :   0.0% : R : TE
+   Greg Estandia             : R :   0 :   0.0% : R : TE
+   Brad Smelley              : R :   0 :   0.0% : R : TE
+   R1 (1): CJ Spiller
+R2 (2): ADixon
+Ace back : CJ Spiller
+R2       : Anthony Dixon
+Goaline  : 
+Shaud Williams            : D : 
+Fred Jackson              : B : RB,PR
+CJ Spiller                : S : RB,PR,KR
+Anthony Dixon             : B : RB,KR
+Garrison Sanborn          : D : RB
+
+
+   CJ Spiller                : S :  15 :  55.6% : S : RB,PR,KR
+   Fred Jackson              : B :   7 :  25.9% : B : RB,PR
+   Anthony Dixon             : B :   5 :  18.5% : B : RB,KR
+   Garrison Sanborn          : D :   0 :   0.0% : D : RB
+   Shaud Williams            : D :   0 :   0.0% : D : 
+   Q1 (1): EJ Manuel
+Q2 (1): Kyle Orton
+W1 (1): Robert Woods
+W2 (1): Mike Williams
+W3 (1): Sammy Watkins*
+TE (1): Scott Chandler
+Peerless Price            : R : WR
+Josh Reed                 :   : 
+Ryan Neufeld              :   : 
+Jonathan Smith            :   : T
+Rod Trafford              : R : TE
+Kevin Everett             : R : TE
+Joe Klopfenstein          : R : TE
+Tim Massaquoi             : R : TE
+Scott Chandler            : S : TE
+Justin Jenkins            :   : 17
+Mike Williams             : S : WR,W2
+Marcus Easley             : R : WR,KR
+Lee Smith                 : R : TE
+Robert Woods              : S : WR,PR,KR,W1
+Marquise Goodwin          : R : WR,KR
+Chris Gragg               : R : TE
+Chris Hogan               : R : WR
+Sammy Watkins*            : S : WR,W3
+
+
+   EJ Manuel                 : S :   0 : 100.0% : S : QB
+   Kyle Orton                : B :   0 :   0.0% : B : QB
+   Robert Woods              : S :  78 :  53.8% : S : WR,PR,KR,W1
+   Mike Williams             : S :  36 :  24.8% : S : WR,W2
+   Sammy Watkins*            : S :  31 :  21.4% : S : WR,W3
+   Marcus Easley             : R :   0 :   0.0% : R : WR,KR
+   Marquise Goodwin          : R :   0 :   0.0% : R : WR,KR
+   Chris Hogan               : R :   0 :   0.0% : R : WR
+   Peerless Price            : R :   0 :   0.0% : R : WR
+   Lee Smith                 : R :   0 :   0.0% : R : TE
+   Chris Gragg               : R :   0 :   0.0% : R : TE
+   Rod Trafford              : R :   0 :   0.0% : R : TE
+   Tim Massaquoi             : R :   0 :   0.0% : R : TE
+   Scott Chandler            : R :   0 :   0.0% : R : TE
+   Kevin Everett             : R :   0 :   0.0% : R : TE
+   Joe Klopfenstein          : R :   0 :   0.0% : R : TE
+   R1 (2): ABradshaw + TRichardson + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Mewelde Moore             : D : RB
+Anthony Davis             : D : ILB
+Ahmad Bradshaw            : S : RB
+Tashard Choice            : D : RB
+Deji Karim                : D : RB
+Trent Richardson          : S : RB
+Vick Ballard              : I : RB
+Dan Herron                : D : RB
+
+
+   Trent Richardson          : S :   6 :  66.7% : S : RB
+   Ahmad Bradshaw            : S :   3 :  33.3% : S : RB
+   Dan Herron                : D :   0 :   0.0% : D : RB
+   Vick Ballard              : I :   0 :   0.0% : I : RB
+   Deji Karim                : D :   0 :   0.0% : D : RB
+   Mewelde Moore             : D :   0 :   0.0% : D : RB
+   Anthony Davis             : D :   0 :   0.0% : D : ILB
+   Tashard Choice            : D :   0 :   0.0% : D : RB
+   Q1 (1): Andrew Luck
+Q2 (2): Matt Hasselbeck
+W1 (1): Reggie Wayne
+W2 (1): TY Hilton
+W3 (1): Hakeem Nicks
+TE (1): Dwayne Allen
+Ricky Proehl              : R : WR
+Reggie Wayne              : S : WR,W1
+Aaron Moorehead           : R : WR
+Kerry Wright              : R : WR
+Anthony Gonzalez          : R : WR
+Tom Santi                 : R : TE
+Hakeem Nicks              : S : WR,W3
+Anthony Hill              : R : TE
+Quan Cosby                : R : WR
+Samuel Giguere            : R : WR
+Weslye Saunders           : R : TE
+Coby Fleener              : B : TE
+Dwayne Allen              : S : TE
+TY Hilton                 : S : WR,PR,W2
+Justice Cunningham        : R : TE
+Griff Whalen              : R : WR,PR
+Jack Doyle                : R : TE
+Da'Rick Rogers            : R : WR
+Donte Moncrief*           : B : WR
+
+
+   Andrew Luck               : S :   0 : 100.0% : S : QB
+   Kerry Collins             : B :   0 :   0.0% : B : QB
+   Matt Hasselbeck           : B :   0 :   0.0% : B : QB
+   Reggie Wayne              : S :  98 :  53.3% : S : WR,W1
+   TY Hilton                 : S :  41 :  22.3% : S : WR,PR,W2
+   Hakeem Nicks              : S :  36 :  19.6% : S : WR,W3
+   Donte Moncrief*           : B :   9 :   4.9% : B : WR
+   Da'Rick Rogers            : R :   0 :   0.0% : R : WR
+   Ricky Proehl              : R :   0 :   0.0% : R : WR
+   Griff Whalen              : R :   0 :   0.0% : R : WR,PR
+   Anthony Gonzalez          : R :   0 :   0.0% : R : WR
+   Aaron Moorehead           : R :   0 :   0.0% : R : WR
+   Kerry Wright              : R :   0 :   0.0% : R : WR
+   Samuel Giguere            : R :   0 :   0.0% : R : WR
+   Quan Cosby                : R :   0 :   0.0% : R : WR
+   Dwayne Allen              : S :  64 :  75.3% : S : TE
+   Coby Fleener              : B :  21 :  24.7% : B : TE
+   Anthony Hill              : R :   0 :   0.0% : R : TE
+   Weslye Saunders           : R :   0 :   0.0% : R : TE
+   Tom Santi                 : R :   0 :   0.0% : R : TE
+   Justice Cunningham        : R :   0 :   0.0% : R : TE
+   Jack Doyle                : R :   0 :   0.0% : R : TE
+   R1 (2): KMoreno + LMiller + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Lorenzo Diamond           : D : TE
+Knowshon Moreno           : S : 3D,RB
+Lamar Miller              : S : RB,3D
+Mike Gillislee            : I : RB
+
+
+   Knowshon Moreno           : S :  24 :  68.6% : S : 3D,RB
+   Lamar Miller              : S :  11 :  31.4% : S : RB,3D
+   Mike Gillislee            : I :   0 :   0.0% : I : RB
+   Lorenzo Diamond           : D :   0 :   0.0% : D : TE
+   Q1 (1): Ryan Tannehill
+Q2 (1): Matt Moore
+W1 (1): Mike Wallace
+W2 (1): Brian Hartline
+W3 (0): none
+TE (1): Charles Clay
+Cliff Russell             : R : WR
+Aaron Halterman           : R : TE
+Dustin Keller             : R : TE
+Mike Wallace              : S : WR,W1
+Brian Hartline            : S : WR,W2
+Brandon Gibson            : B : WR
+Edmond Gates              : R : WR
+Charles Clay              : S : TE
+Joe Hastings              : R : WR
+Rishard Matthews          : R : WR
+Marcus Thigpen            : R : WR
+Kevin Cone                : R : WR
+Dion Sims                 : B : TE
+Jarvis Landry*            : R : WR,PR,KR
+Arthur Lynch*             : I : TE
+Gator Hoskins*            : B : TE
+
+
+   Ryan Tannehill            : S :   0 : 100.0% : S : QB
+   Matt Moore                : B :   0 :   0.0% : B : QB
+   Mike Wallace              : S :  81 :  69.8% : S : WR,W1
+   Brian Hartline            : S :  26 :  22.4% : S : WR,W2
+   Brandon Gibson            : B :   9 :   7.8% : B : WR
+   Kevin Cone                : R :   0 :   0.0% : R : WR
+   Marcus Thigpen            : R :   0 :   0.0% : R : WR
+   Jarvis Landry*            : R :   0 :   0.0% : R : WR,PR,KR
+   Rishard Matthews          : R :   0 :   0.0% : R : WR
+   Cliff Russell             : R :   0 :   0.0% : R : WR
+   Joe Hastings              : R :   0 :   0.0% : R : WR
+   Edmond Gates              : R :   0 :   0.0% : R : WR
+   Charles Clay              : S :  27 :  62.8% : S : TE
+   Dion Sims                 : B :   9 :  20.9% : B : TE
+   Gator Hoskins*            : B :   7 :  16.3% : B : TE
+   Aaron Halterman           : R :   0 :   0.0% : R : TE
+   Dustin Keller             : R :   0 :   0.0% : R : TE
+   Arthur Lynch*             : I :   0 :   0.0% : I : TE
+   R1 (2): SVereen + SRidley + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Shane Vereen              : S : RB,3D
+Stevan Ridley             : S : RB
+Brandon Bolden            : B : RB
+James White*              : D : RB
+Tyler Gaffney*            : I : RB
+
+
+   Stevan Ridley             : S :   8 :  47.1% : S : RB
+   Shane Vereen              : S :   7 :  41.2% : S : RB,3D
+   Brandon Bolden            : B :   2 :  11.8% : B : RB
+   Tyler Gaffney*            : I :   0 :   0.0% : I : RB
+   James White*              : D :   0 :   0.0% : D : RB
+   Q1 (1): Tom Brady
+Q2 (1): Jimmy Garoppolo*
+W1 (1): Julian Edelman
+W2 (1): Kenbrell Thompkins
+W3 (1): Danny Amendola
+TE (1): Rob Gronkowski
+Deion Branch              : R : WR
+Brandon Childress         : R : WR
+Garrett Mills             : R : TE
+Kelvin Kight              : R : WR
+Matt Slater               : R : WR
+Austin Collie             : R : WR
+Julian Edelman            : S : WR,PR,W1
+Danny Amendola            : S : WR,PR,W3
+Matthew Mulligan          : R : TE
+Rob Gronkowski            : S : TE
+Brandon LaFell            : R : WR
+Michael Hoomanawanui      : R : TE
+Jesse Holley              : R : WR
+Aaron Dobson              : R : WR
+Kenbrell Thompkins        : S : WR,W2
+Timothy Wright            : B : TE
+Brian Tyms                : X : WR
+
+
+   Tom Brady                 : S :   0 : 100.0% : S : QB
+   Jimmy Garoppolo*          : B :   0 :   0.0% : B : QB
+   Julian Edelman            : S :  95 :  64.2% : S : WR,PR,W1
+   Kenbrell Thompkins        : S :  37 :  25.0% : S : WR,W2
+   Danny Amendola            : S :  16 :  10.8% : S : WR,PR,W3
+   Brandon LaFell            : R :   0 :   0.0% : R : WR
+   Brian Tyms                : X :   0 :   0.0% : X : WR
+   Jesse Holley              : R :   0 :   0.0% : R : WR
+   Aaron Dobson              : R :   0 :   0.0% : R : WR
+   Brandon Childress         : R :   0 :   0.0% : R : WR
+   Deion Branch              : R :   0 :   0.0% : R : WR
+   Kelvin Kight              : R :   0 :   0.0% : R : WR
+   Austin Collie             : R :   0 :   0.0% : R : WR
+   Matt Slater               : R :   0 :   0.0% : R : WR
+   Rob Gronkowski            : S :  40 :  72.7% : S : TE
+   Timothy Wright            : B :  15 :  27.3% : B : TE
+   Matthew Mulligan          : R :   0 :   0.0% : R : TE
+   Michael Hoomanawanui      : R :   0 :   0.0% : R : TE
+   Garrett Mills             : R :   0 :   0.0% : R : TE
+   R1 (1): Shonn Greene
+R2 (1): BSankey
+Ace back : Shonn Greene
+R2       : Bishop Sankey*
+Goaline  : 
+Leon Washington           : R : RB,KR,PR
+Chris Barclay             : D : RB,KR
+Jackie Battle             : D : RB
+Shonn Greene              : S : RB
+Jamie Harper              : D : RB
+Collin Mooney             : D : RB
+Bishop Sankey*            : B : RB
+
+
+   Shonn Greene              : S :  15 :  65.2% : S : RB
+   Bishop Sankey*            : B :   6 :  26.1% : B : RB
+   Leon Washington           : R :   2 :   8.7% : R : RB,KR,PR
+   Collin Mooney             : D :   0 :   0.0% : D : RB
+   Jackie Battle             : D :   0 :   0.0% : D : RB
+   Chris Barclay             : D :   0 :   0.0% : D : RB,KR
+   Jamie Harper              : D :   0 :   0.0% : D : RB
+   Q1 (1): Jake Locker
+Q2 (4): Zach Mettenberger*
+W1 (1): Justin Hunter
+W2 (1): Nate Washington
+W3 (1): Kendall Wright
+TE (1): Delanie Walker
+Visanthe Shiancoe         : R : TE
+Kevin Walter              : R : WR
+O.J. Small                : R : WR
+Nate Washington           : S : WR,W2
+Derek Hagan               : B : WR
+Jonathan Orr              : R : WR
+Delanie Walker            : S : TE
+Craig Stevens             : R : TE
+Darius Reynaud            :   : RB,KR,PR,PR,PR,
+Dexter McCluster          : B : WR,PR
+Kris Durham               : R : WR
+Kendall Wright            : S : WR,W3
+TJ Graham                 : R : WR
+Taylor Thompson           : B : TE
+Justin Hunter             : S : WR,W1
+
+
+   Jake Locker               : S :   0 : 100.0% : S : QB
+   Zach Mettenberger*        : B :   0 :   0.0% : B : QB
+   Dominique Davis           : B :   0 :   0.0% : B : QB
+   Charlie Whitehurst        : B :   0 :   0.0% : B : QB
+   John Skelton              : B :   0 :   0.0% : B : QB
+   Justin Hunter             : S :  63 :  32.5% : S : WR,W1
+   Nate Washington           : S :  59 :  30.4% : S : WR,W2
+   Kendall Wright            : S :  46 :  23.7% : S : WR,W3
+   Dexter McCluster          : B :  17 :   8.8% : B : WR,PR
+   Derek Hagan               : B :   9 :   4.6% : B : WR
+   Kris Durham               : R :   0 :   0.0% : R : WR
+   TJ Graham                 : R :   0 :   0.0% : R : WR
+   Jonathan Orr              : R :   0 :   0.0% : R : WR
+   O.J. Small                : R :   0 :   0.0% : R : WR
+   Kevin Walter              : R :   0 :   0.0% : R : WR
+   Delanie Walker            : S :  37 :  60.7% : S : TE
+   Taylor Thompson           : B :  24 :  39.3% : B : TE
+   Craig Stevens             : R :   0 :   0.0% : R : TE
+   Visanthe Shiancoe         : R :   0 :   0.0% : R : TE
+   R1 (1): Montee Ball
+R2 (1): CAnderson
+Ace back : Montee Ball
+R2       : CJ Anderson
+Goaline  : 
+Ronnie Hillman            : D : RB
+Montee Ball               : S : RB
+CJ Anderson               : B : RB
+
+
+   Montee Ball               : S :  23 :  85.2% : S : RB
+   CJ Anderson               : B :   4 :  14.8% : B : RB
+   Ronnie Hillman            : D :   0 :   0.0% : D : RB
+   Q1 (1): Peyton Manning
+Q2 (1): Brock Osweiler
+W1 (1): Emmanuel Sanders
+W2 (1): Demaryius Thomas
+W3 (1): Andre Caldwell
+TE (1): Julius Thomas
+Jeb Putzier               : R : TE
+Rashaun Woods             : R : WR
+Wes Welker                : X : WR,PR
+Joel Dreessen             : R : TE
+Todd Devoe                : R : WR
+Andre Caldwell            : S : WR,KR,W3
+Jacob Tamme               : R : TE
+Demaryius Thomas          : S : WR,W2
+Emmanuel Sanders          : S : WR,W1
+Julius Thomas             : S : TE
+Virgil Green              : B : TE
+Nathan Palmer             : R : WR
+Cody Latimer*             : R : WR
+
+
+   Peyton Manning            : S :   0 : 100.0% : S : QB
+   Brock Osweiler            : B :   0 :   0.0% : B : QB
+   Emmanuel Sanders          : S :  77 :  54.6% : S : WR,W1
+   Demaryius Thomas          : S :  48 :  34.0% : S : WR,W2
+   Andre Caldwell            : S :  16 :  11.3% : S : WR,KR,W3
+   Cody Latimer*             : R :   0 :   0.0% : R : WR
+   Nathan Palmer             : R :   0 :   0.0% : R : WR
+   Wes Welker                : X :   0 :   0.0% : X : WR,PR
+   Rashaun Woods             : R :   0 :   0.0% : R : WR
+   Todd Devoe                : R :   0 :   0.0% : R : WR
+   Julius Thomas             : S : 104 :  92.9% : S : TE
+   Virgil Green              : B :   8 :   7.1% : B : TE
+   Jacob Tamme               : R :   0 :   0.0% : R : TE
+   Jeb Putzier               : R :   0 :   0.0% : R : TE
+   Joel Dreessen             : R :   0 :   0.0% : R : TE
+   R1 (1): Jamaal Charles
+R2 (1): CGray
+Ace back : Jamaal Charles
+R2       : Cyrus Gray
+Goaline  : 
+Thomas Jones              : D : RB
+B.J. Sams                 : D : RB
+Jamaal Charles            : S : RB
+Cyrus Gray                : B : RB
+Knile Davis               : R : RB,KR
+De'Anthony Thomas*        : D : RB,PR
+
+
+   Jamaal Charles            : S :   7 :  70.0% : S : RB
+   Cyrus Gray                : B :   2 :  20.0% : B : RB
+   Knile Davis               : R :   1 :  10.0% : R : RB,KR
+   De'Anthony Thomas*        : D :   0 :   0.0% : D : RB,PR
+   B.J. Sams                 : D :   0 :   0.0% : D : RB
+   Thomas Jones              : D :   0 :   0.0% : D : RB
+   Q1 (1): Alex Smith
+Q2 (2): Aaron Murray*
+W1 (1): Donnie Avery
+W2 (1): Frankie Hammond*
+W3 (0): none
+TE (1): Travis Kelce
+Anthony Becht             : R : TE
+Eddie Drummond            : R : WR
+Jerheme Urban             : R : WR
+Anthony Fasano            : B : TE
+Marques Hagans            : R : WR
+Jeff Webb                 :   : QB
+Dwayne Bowe               : R : WR
+Kevin Boss                : R : TE
+Donnie Avery              : S : WR,W1
+Kyle Williams             : I : WR
+Verran Tucker             : R : WR
+Kevin Brock               : R : TE
+AJ Jenkins                : R : WR
+Junior Hemingway          : R : WR
+Travis Kelce              : S : TE
+Junior Hemmingway         : R : WR
+Sean McGrath              : R : TE
+Frankie Hammond*          : S : WR,PR,W2
+
+
+   Alex Smith                : S :   0 : 100.0% : S : QB
+   Chase Daniel              : B :   0 :   0.0% : B : QB
+   Aaron Murray*             : B :   0 :   0.0% : B : QB
+   Donnie Avery              : S :  84 :  79.2% : S : WR,W1
+   Frankie Hammond*          : S :  22 :  20.8% : S : WR,PR,W2
+   AJ Jenkins                : R :   0 :   0.0% : R : WR
+   Junior Hemingway          : R :   0 :   0.0% : R : WR
+   Verran Tucker             : R :   0 :   0.0% : R : WR
+   Junior Hemmingway         : R :   0 :   0.0% : R : WR
+   Marques Hagans            : R :   0 :   0.0% : R : WR
+   Jerheme Urban             : R :   0 :   0.0% : R : WR
+   Eddie Drummond            : R :   0 :   0.0% : R : WR
+   Kyle Williams             : I :   0 :   0.0% : I : WR
+   Dwayne Bowe               : R :   0 :   0.0% : R : WR
+   Travis Kelce              : S :  49 :  62.8% : S : TE
+   Anthony Fasano            : B :  29 :  37.2% : B : TE
+   Kevin Boss                : R :   0 :   0.0% : R : TE
+   Kevin Brock               : R :   0 :   0.0% : R : TE
+   Anthony Becht             : R :   0 :   0.0% : R : TE
+   Sean McGrath              : R :   0 :   0.0% : R : TE
+   R1 (1): Ryan Mathews
+R2 (1): DWoodhead
+Ace back : Ryan Mathews
+R2       : Danny Woodhead
+Goaline  : 
+Marcus Thomas             : D : DL
+Donald Brown              : R : RB
+Danny Woodhead            : B : RB,3D,KR
+Ryan Mathews              : S : RB
+Marion Grice*             : D : RB
+
+
+   Ryan Mathews              : S :  12 :  60.0% : S : RB
+   Danny Woodhead            : B :   6 :  30.0% : B : RB,3D,KR
+   Donald Brown              : R :   2 :  10.0% : R : RB
+   Marion Grice*             : D :   0 :   0.0% : D : RB
+   Marcus Thomas             : D :   0 :   0.0% : D : DL
+   Q1 (1): Philip Rivers
+Q2 (1): Kellen Clemens
+W1 (1): Malcom Floyd
+W2 (1): Keenan Allen
+W3 (1): Eddie Royal
+TE (1): Antonio Gates
+Az-Zahir Hakim            : R : WR
+Kelley Washington         : R : WR
+Antonio Gates             : S : TE
+Malcom Floyd              : S : WR,W1
+Eddie Royal               : S : WR,PR,W3
+John Phillips             : I : TE
+Demetrius Byrd            : R : WR
+David Johnson             : R : TE
+Danario Alexander         : R : WR
+Seyi Ajirotutu            : R : WR
+Gary Banks                : R : WR
+Ladarius Green            : B : TE
+Brad Taylor               : B : SS
+Keenan Allen              : S : WR,PR,W2
+
+
+   Philip Rivers             : S :   0 : 100.0% : S : QB
+   Kellen Clemens            : B :   0 :   0.0% : B : QB
+   Malcom Floyd              : S :  50 :  46.7% : S : WR,W1
+   Keenan Allen              : S :  37 :  34.6% : S : WR,PR,W2
+   Eddie Royal               : S :  20 :  18.7% : S : WR,PR,W3
+   Gary Banks                : R :   0 :   0.0% : R : WR
+   Seyi Ajirotutu            : R :   0 :   0.0% : R : WR
+   Az-Zahir Hakim            : R :   0 :   0.0% : R : WR
+   Danario Alexander         : R :   0 :   0.0% : R : WR
+   Kelley Washington         : R :   0 :   0.0% : R : WR
+   Demetrius Byrd            : R :   0 :   0.0% : R : WR
+   Antonio Gates             : S :  81 :  77.1% : S : TE
+   Ladarius Green            : B :  24 :  22.9% : B : TE
+   David Johnson             : R :   0 :   0.0% : R : TE
+   John Phillips             : I :   0 :   0.0% : I : TE
+   R1 (1): DeMarco Murray
+R2 (0): 
+Ace back : DeMarco Murray
+R2       : 
+Goaline  : 
+DeMarco Murray            : S : RB
+Phillip Tanner            : D : RB
+Lance Dunbar              : D : RB
+Joseph Randle             : D : RB
+
+
+   DeMarco Murray            : S :  22 : 100.0% : S : RB
+   Joseph Randle             : D :   0 :   0.0% : D : RB
+   Lance Dunbar              : D :   0 :   0.0% : D : RB
+   Phillip Tanner            : D :   0 :   0.0% : D : RB
+   Q1 (1): Tony Romo
+Q2 (0): none
+W1 (1): Dwayne Harris
+W2 (1): Dez Bryant
+W3 (1): Terrance Williams
+TE (1): Jason Witten
+Jason Witten              : S : TE
+Manuel Johnson            :   : S
+Dez Bryant                : S : WR,W2
+Dwayne Harris             : S : WR,PR,KR,PR,,W1
+James Hanna               : R : TE
+Cole Beasley              : B : WR,KR,PR
+Gavin Escobar             : R : TE
+Terrance Williams         : S : WR,KR,W3
+Devin Street*             : B : WR
+
+
+   Tony Romo                 : S :   0 : 100.0% : S : QB
+   Dwayne Harris             : S :  56 :  25.3% : S : WR,PR,KR,PR,,W1
+   Dez Bryant                : S :  55 :  24.9% : S : WR,W2
+   Terrance Williams         : S :  50 :  22.6% : S : WR,KR,W3
+   Cole Beasley              : B :  42 :  19.0% : B : WR,KR,PR
+   Devin Street*             : B :  18 :   8.1% : B : WR
+   Jason Witten              : S :  14 : 100.0% : S : TE
+   James Hanna               : R :   0 :   0.0% : R : TE
+   Gavin Escobar             : R :   0 :   0.0% : R : TE
+   R1 (1): Rashad Jennings
+R2 (1): AWilliams
+Ace back : Rashad Jennings
+R2       : Andre Williams*
+Goaline  : Rashad Jennings
+Brandon Jacobs            : D : RB
+Peyton Hillis             : I : RB
+Rashad Jennings           : S : RB,SH
+Kregg Lumpkin             : D : RB
+David Wilson              : I : RB,KR
+Andre Williams*           : B : RB
+
+
+   Rashad Jennings           : S :  16 :  76.2% : S : RB,SH
+   Andre Williams*           : B :   5 :  23.8% : B : RB
+   David Wilson              : I :   0 :   0.0% : I : RB,KR
+   Brandon Jacobs            : D :   0 :   0.0% : D : RB
+   Peyton Hillis             : I :   0 :   0.0% : I : RB
+   Kregg Lumpkin             : D :   0 :   0.0% : D : RB
+   Q1 (1): Eli Manning
+Q2 (1): Ryan Nassib
+W1 (1): Jerrel Jernigan
+W2 (1): Victor Cruz
+W3 (0): none
+TE (1): Larry Donnell
+Michael Clayton           : R : WR
+Tony Jackson              : R : TE
+Mike Jennings             :   : S
+Mario Manningham          : I : WR
+Daniel Fells              : B : TE
+Bear Pascoe               : R : TE
+Trindon Holliday          : I : WR,PR,KR
+Jerrel Jernigan           : S : WR,KR,W1
+Victor Cruz               : S : WR,W2
+Rueben Randle             : B : WR,PR
+Adrien Robinson           : R : TE
+Larry Donnell             : S : TE
+Odell Beckham*            : R : WR
+Corey Washington*         : R : WR
+
+
+   Eli Manning               : S :   0 : 100.0% : S : QB
+   Ryan Nassib               : B :   0 :   0.0% : B : QB
+   Jerrel Jernigan           : S :  25 :  50.0% : S : WR,KR,W1
+   Victor Cruz               : S :  24 :  48.0% : S : WR,W2
+   Rueben Randle             : B :   1 :   2.0% : B : WR,PR
+   Corey Washington*         : R :   0 :   0.0% : R : WR
+   Odell Beckham*            : R :   0 :   0.0% : R : WR
+   Michael Clayton           : R :   0 :   0.0% : R : WR
+   Mario Manningham          : I :   0 :   0.0% : I : WR
+   Trindon Holliday          : I :   0 :   0.0% : I : WR,PR,KR
+   Larry Donnell             : S :  56 :  88.9% : S : TE
+   Daniel Fells              : B :   7 :  11.1% : B : TE
+   Bear Pascoe               : R :   0 :   0.0% : R : TE
+   Adrien Robinson           : R :   0 :   0.0% : R : TE
+   Tony Jackson              : R :   0 :   0.0% : R : TE
+   R1 (2): JDwyer + AEllington + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Jonathan Dwyer            : S : RB,3D
+Jerome Johnson            : D : SS
+Stepfan Taylor            : R : RB,
+Andre Ellington           : S : RB,3D
+
+
+   Andre Ellington           : S :  13 :  61.9% : S : RB,3D
+   Jonathan Dwyer            : S :   7 :  33.3% : S : RB,3D
+   Stepfan Taylor            : R :   1 :   4.8% : R : RB,
+   Jerome Johnson            : D :   0 :   0.0% : D : SS
+   Q1 (1): Carson Palmer
+Q2 (2): Logan Thomas*
+W1 (1): Michael Floyd
+W2 (1): John Brown*
+W3 (1): Ted Ginn Jr.
+TE (2): Robert Housler
+Sean Morey                : R : WR
+Larry Fitzgerald          : B : WR
+LeRon McCoy               : R : WR
+Jeff King                 : R : TE
+Ted Ginn Jr.              : S : WR,PR,KR,W3
+John Carlson              : S : TE
+Robert Housler            : S : TE
+Michael Floyd             : S : WR,W1
+D.C. Jefferson            : R : TE
+Jaron Brown               : B : WR
+Troy Niklas*              : R : TE
+John Brown*               : S : WR,W2
+
+
+   Carson Palmer             : S :   0 : 100.0% : S : QB
+   Logan Thomas*             : B :   0 :   0.0% : B : QB
+   Drew Stanton              : B :   0 :   0.0% : B : QB
+   Michael Floyd             : S : 119 :  58.0% : S : WR,W1
+   John Brown*               : S :  29 :  14.1% : S : WR,W2
+   Ted Ginn Jr.              : S :  29 :  14.1% : S : WR,PR,KR,W3
+   Larry Fitzgerald          : B :  22 :  10.7% : B : WR
+   Jaron Brown               : B :   6 :   2.9% : B : WR
+   Sean Morey                : R :   0 :   0.0% : R : WR
+   LeRon McCoy               : R :   0 :   0.0% : R : WR
+   John Carlson              : S :  20 :  55.6% : S : TE
+   Robert Housler            : S :  16 :  44.4% : S : TE
+   Troy Niklas*              : R :   0 :   0.0% : R : TE
+   D.C. Jefferson            : R :   0 :   0.0% : R : TE
+   Jeff King                 : R :   0 :   0.0% : R : TE
+   R1 (1): Alfred Morris
+R2 (1): RHelu
+Ace back : Alfred Morris
+R2       : Roy Helu
+Goaline  : 
+Marcus Mason              : D : RB
+Chad Simpson              : D : S
+Roy Helu                  : B : RB,3D
+Alfred Morris             : S : RB
+
+
+   Alfred Morris             : S :  14 :  77.8% : S : RB
+   Roy Helu                  : B :   4 :  22.2% : B : RB,3D
+   Marcus Mason              : D :   0 :   0.0% : D : RB
+   Chad Simpson              : D :   0 :   0.0% : D : S
+   Q1 (1): Robert Griffin III
+Q2 (4): Kirk Cousins
+W1 (1): Pierre Garcon
+W2 (1): DeSean Jackson
+W3 (1): Andre Roberts
+TE (1): Niles Paul
+Brian Kozlowski           :   : 
+Todd Yoder                : R : TE
+Santana Moss              : R : WR,PR
+Roydell Williams          : R : WR
+R Parson                  : R : WR,KR
+David Anderson            :   : QB
+Fred Davis                : R : TE
+DeSean Jackson            : S : WR,PR,W2
+Pierre Garcon             : S : WR,W1
+Eddie Williams            :   : C/G
+Marko Mitchell            :   : LB
+Andre Roberts             : S : WR,PR,KR,W3
+Logan Paulsen             : R : TE
+Leonard Hankerson         : I : WR
+Niles Paul                : S : TE,KR,KR
+Aldrick Robinson          : R : WR
+Jordan Reed               : B : TE
+Ryan Grant*               : R : WR
+
+
+   Robert Griffin III        : S :   0 : 100.0% : S : QB
+   Jonathan Crompton         : B :   0 :   0.0% : B : QB
+   Kirk Cousins              : B :   0 :   0.0% : B : QB
+   Colt McCoy                : B :   0 :   0.0% : B : QB
+   Pat White                 : B :   0 :   0.0% : B : QB
+   Pierre Garcon             : S :  77 :  47.8% : S : WR,W1
+   DeSean Jackson            : S :  62 :  38.5% : S : WR,PR,W2
+   Andre Roberts             : S :  22 :  13.7% : S : WR,PR,KR,W3
+   Leonard Hankerson         : I :   0 :   0.0% : I : WR
+   Ryan Grant*               : R :   0 :   0.0% : R : WR
+   Aldrick Robinson          : R :   0 :   0.0% : R : WR
+   Roydell Williams          : R :   0 :   0.0% : R : WR
+   R Parson                  : R :   0 :   0.0% : R : WR,KR
+   Santana Moss              : R :   0 :   0.0% : R : WR,PR
+   Niles Paul                : S :  86 :  95.6% : S : TE,KR,KR
+   Jordan Reed               : B :   4 :   4.4% : B : TE
+   Fred Davis                : R :   0 :   0.0% : R : TE
+   Todd Yoder                : R :   0 :   0.0% : R : TE
+   Logan Paulsen             : R :   0 :   0.0% : R : TE
+   R1 (1): Matt Forte
+R2 (0): 
+Ace back : Matt Forte
+R2       : 
+Goaline  : 
+Lorenzo Booker            : D : RB
+Matt Forte                : S : RB
+Kahlil Bell               : D : RB
+Shaun Draughn             : D : RB
+Ka Deem Carey*            : R : RB
+
+
+   Matt Forte                : S :  17 :  94.4% : S : RB
+   Ka Deem Carey*            : R :   1 :   5.6% : R : RB
+   Lorenzo Booker            : D :   0 :   0.0% : D : RB
+   Shaun Draughn             : D :   0 :   0.0% : D : RB
+   Kahlil Bell               : D :   0 :   0.0% : D : RB
+   Q1 (1): Jay Cutler
+Q2 (2): David Fales*
+W1 (1): Brandon Marshall
+W2 (1): Alshon Jeffery
+W3 (1): Santonio Holmes
+TE (1): Martellus Bennett
+Gabe Reid                 : R : TE
+Santonio Holmes           : S : WR,PR,W3
+Brandon Marshall          : S : WR,W1
+Michael Spurlock          : B : WR,KR,PR
+Dante Rosario             : B : TE
+Martellus Bennett         : S : TE
+Josh Morgan               : B : WR,PR,KR
+Juaquin Iglesias          : R : WR
+Zach Miller               : I : TE
+Alshon Jeffery            : S : WR,W2
+Kyle Adams                : R : TE
+Marquess Wilson           : I : WR
+Joe Anderson              : R : WR
+
+
+   Jay Cutler                : S :   0 : 100.0% : S : QB
+   David Fales*              : B :   0 :   0.0% : B : QB
+   Jimmy Clausen             : B :   0 :   0.0% : B : QB
+   Brandon Marshall          : S :  71 :  39.4% : S : WR,W1
+   Alshon Jeffery            : S :  71 :  39.4% : S : WR,W2
+   Santonio Holmes           : S :  21 :  11.7% : S : WR,PR,W3
+   Josh Morgan               : B :   9 :   5.0% : B : WR,PR,KR
+   Michael Spurlock          : B :   8 :   4.4% : B : WR,KR,PR
+   Joe Anderson              : R :   0 :   0.0% : R : WR
+   Marquess Wilson           : I :   0 :   0.0% : I : WR
+   Juaquin Iglesias          : R :   0 :   0.0% : R : WR
+   Martellus Bennett         : S :  70 :  85.4% : S : TE
+   Dante Rosario             : B :  12 :  14.6% : B : TE
+   Gabe Reid                 : R :   0 :   0.0% : R : TE
+   Kyle Adams                : R :   0 :   0.0% : R : TE
+   Zach Miller               : I :   0 :   0.0% : I : TE
+   R1 (2): RBush + JBell + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Rudi Johnson              : D : 
+Arlen Harris              : D : CB
+Reggie Bush               : S : RB,3D
+Joique Bell               : S : RB,KR
+Theo Riddick              : R : RB
+
+
+   Joique Bell               : S :  15 :  60.0% : S : RB,KR
+   Reggie Bush               : S :   9 :  36.0% : S : RB,3D
+   Theo Riddick              : R :   1 :   4.0% : R : RB
+   Rudi Johnson              : D :   0 :   0.0% : D : 
+   Arlen Harris              : D :   0 :   0.0% : D : CB
+   Q1 (1): Matthew Stafford
+Q2 (0): none
+W1 (1): Calvin Johnson
+W2 (1): Golden Tate
+W3 (0): none
+TE (1): Joseph Fauria
+Shaun McDonald            : R : WR
+Scottie Vines             : R : WR
+Brian Clark               : R : WR
+Calvin Johnson            : S : WR,W1
+John Standeford           : R : WR
+Brandon Pettigrew         : B : TE
+Nate Hughes               : R : WR
+Kevin Ogletree            : R : WR
+Jake Nordin               :   : FB
+Golden Tate               : S : WR,PR,KR,W2
+Jonathan Baldwin          : R : WR
+Ryan Broyles              : R : WR
+Corey Fuller              : R : WR
+Michael Williams          : R : TE
+Joseph Fauria             : S : TE
+Jeremy Ross               : R : WR,PR,KR
+Eric Ebron*               : R : TE
+T.J. Jones*               : R : WR
+
+
+   Matthew Stafford          : S :   0 : 100.0% : S : QB
+   Calvin Johnson            : S : 164 :  63.8% : S : WR,W1
+   Golden Tate               : S :  93 :  36.2% : S : WR,PR,KR,W2
+   Corey Fuller              : R :   0 :   0.0% : R : WR
+   Ryan Broyles              : R :   0 :   0.0% : R : WR
+   T.J. Jones*               : R :   0 :   0.0% : R : WR
+   Jonathan Baldwin          : R :   0 :   0.0% : R : WR
+   Jeremy Ross               : R :   0 :   0.0% : R : WR,PR,KR
+   Brian Clark               : R :   0 :   0.0% : R : WR
+   John Standeford           : R :   0 :   0.0% : R : WR
+   Shaun McDonald            : R :   0 :   0.0% : R : WR
+   Scottie Vines             : R :   0 :   0.0% : R : WR
+   Kevin Ogletree            : R :   0 :   0.0% : R : WR
+   Nate Hughes               : R :   0 :   0.0% : R : WR
+   Joseph Fauria             : S :  26 :  74.3% : S : TE
+   Brandon Pettigrew         : B :   9 :  25.7% : B : TE
+   Michael Williams          : R :   0 :   0.0% : R : TE
+   Eric Ebron*               : R :   0 :   0.0% : R : TE
+   R1 (2): DMartin + BRainey + 
+R2 (0): 
+Ace back : 
+R2       : 
+Goaline  : 
+Brian Leonard             : D : HB,3D
+Danny Ware                : D : RB
+Doug Martin               : S : RB,3D
+Mike James                : D : RB
+Bobby Rainey              : S : RB
+Charles Sims*             : I : RB
+
+
+   Doug Martin               : S :   9 :  69.2% : S : RB,3D
+   Bobby Rainey              : S :   4 :  30.8% : S : RB
+   Charles Sims*             : I :   0 :   0.0% : I : RB
+   Mike James                : D :   0 :   0.0% : D : RB
+   Danny Ware                : D :   0 :   0.0% : D : RB
+   Brian Leonard             : D :   0 :   0.0% : D : HB,3D
+   Q1 (1): Josh McCown
+Q2 (2): Mike Glennon
+W1 (1): Mike Evans*
+W2 (1): Vincent Jackson
+W3 (1): Chris Owusu
+TE (1): Brandon Myers
+Vincent Jackson           : S : WR,W2
+TJ Williams               :   : CB
+Byron Storer              :   : FB
+Lavelle Hawkins           : R : WR,KR
+Louis Murphy              : R : WR,PR
+Brandon Myers             : S : TE
+Tom Crabtree              : R : TE
+Luke Stocker              : B : TE
+Chris Owusu               : S : WR,W3
+Mike Evans*               : S : WR,W1
+Austin Seferian-Jenkin*   : B : TE
+Robert Herron*            : R : WR
+
+
+   Josh McCown               : S :   0 : 100.0% : S : QB
+   Mike Glennon              : B :   0 :   0.0% : B : QB
+   Dan Orlovsky              : B :   0 :   0.0% : B : QB
+   Mike Evans*               : S :  37 :  39.8% : S : WR,W1
+   Vincent Jackson           : S :  36 :  38.7% : S : WR,W2
+   Chris Owusu               : S :  20 :  21.5% : S : WR,W3
+   Robert Herron*            : R :   0 :   0.0% : R : WR
+   Lavelle Hawkins           : R :   0 :   0.0% : R : WR,KR
+   Louis Murphy              : R :   0 :   0.0% : R : WR,PR
+   Brandon Myers             : S :  41 :  54.7% : S : TE
+   Austin Seferian-Jenkin*   : B :  26 :  34.7% : B : TE
+   Luke Stocker              : B :   8 :  10.7% : B : TE
+   Tom Crabtree              : R :   0 :   0.0% : R : TE
+   R1 (1): Frank Gore
+R2 (1): CHyde
+Ace back : Frank Gore
+R2       : Carlos Hyde*
+Goaline  : 
+Frank Gore                : S : RB
+LaMichael James           : R : RB,KR,PR
+Marcus Lattimore          : I : RB
+Carlos Hyde*              : B : RB
+
+
+   Frank Gore                : S :  16 :  64.0% : S : RB
+   Carlos Hyde*              : B :   7 :  28.0% : B : RB
+   LaMichael James           : R :   2 :   8.0% : R : RB,KR,PR
+   Marcus Lattimore          : I :   0 :   0.0% : I : RB
+   Q1 (1): Colin Kaepernick
+Q2 (2): Blaine Gabbert
+W1 (1): Anquan Boldin
+W2 (1): Steve Johnson
+W3 (1): Michael Crabtree
+TE (1): Vernon Davis
+Anquan Boldin             : S : WR,W1
+Justin Peelle             : R : TE
+Brandon Lloyd             : R : WR
+Vernon Davis              : S : TE
+Steve Johnson             : S : WR,W2
+Michael Crabtree          : S : WR,W3
+Garrett Celek             : R : TE
+Vance McDonald            : R : TE
+Quinton Patton            : R : WR
+Bruce Ellington*          : R : WR,PR
+
+
+   Colin Kaepernick          : S :   0 : 100.0% : S : QB
+   Josh Johnson              : B :   0 :   0.0% : B : QB
+   Blaine Gabbert            : B :   0 :   0.0% : B : QB
+   Anquan Boldin             : S :  99 :  63.1% : S : WR,W1
+   Steve Johnson             : S :  33 :  21.0% : S : WR,W2
+   Michael Crabtree          : S :  25 :  15.9% : S : WR,W3
+   Quinton Patton            : R :   0 :   0.0% : R : WR
+   Bruce Ellington*          : R :   0 :   0.0% : R : WR,PR
+   Brandon Lloyd             : R :   0 :   0.0% : R : WR
+   Vernon Davis              : S :  44 : 100.0% : S : TE
+   Justin Peelle             : R :   0 :   0.0% : R : TE
+   Garrett Celek             : R :   0 :   0.0% : R : TE
+   Vance McDonald            : R :   0 :   0.0% : R : TE
+   R1 (1): DeAngelo Williams
+R2 (2): MTolbert
+Ace back : DeAngelo Williams
+R2       : Mike Tolbert
+Goaline  : 
+DeAngelo Williams         : S : RB,3D
+Jonathan Stewart          : B : RB,3D
+Mike Tolbert              : B : RB
+Fozzy Whittaker           : D : RB,KR
+
+
+   DeAngelo Williams         : S :  14 :  46.7% : S : RB,3D
+   Jonathan Stewart          : B :   9 :  30.0% : B : RB,3D
+   Mike Tolbert              : B :   7 :  23.3% : B : RB
+   Fozzy Whittaker           : D :   0 :   0.0% : D : RB,KR
+   Q1 (1): Derek Anderson
+Q2 (2): Cam Newton
+W1 (1): Kelvin Benjamin*
+W2 (1): Jerricho Cotchery
+W3 (0): none
+TE (1): Greg Olsen
+Christian Fauria          : R : TE
+Kris Mangum               : R : TE
+Karl Hankton              : R : WR
+Jeremy Shockey            : R : TE
+Ben Hartsock              : R : TE
+Jerricho Cotchery         : S : WR,W2
+Drew Carter               : R : WR
+Jason Avant               : R : WR
+Greg Olsen                : S : TE
+Richie Brockel            : R : TE-FB
+Kelvin Benjamin*          : S : WR,W1
+
+
+   Derek Anderson            : S :   0 : 100.0% : S : QB
+   Cam Newton                : B :   0 :   0.0% : B : QB
+   Joe Webb                  : B :   0 :   0.0% : B : QB
+   Kelvin Benjamin*          : S :  92 :  74.2% : S : WR,W1
+   Jerricho Cotchery         : S :  32 :  25.8% : S : WR,W2
+   Jason Avant               : R :   0 :   0.0% : R : WR
+   Drew Carter               : R :   0 :   0.0% : R : WR
+   Karl Hankton              : R :   0 :   0.0% : R : WR
+   Greg Olsen                : S :  83 : 100.0% : S : TE
+   Jeremy Shockey            : R :   0 :   0.0% : R : TE
+   Ben Hartsock              : R :   0 :   0.0% : R : TE
+   Kris Mangum               : R :   0 :   0.0% : R : TE
+   Christian Fauria          : R :   0 :   0.0% : R : TE
+   Richie Brockel            : R :   0 :   0.0% : R : TE-FB
+   R1 (1): Arian Foster
+R2 (0): 
+Ace back : Arian Foster
+R2       : 
+Goaline  : 
+Derrick Ward              : D : RB
+Ronnie Brown              : D : RB,KR
+Arian Foster              : S : RB
+Jonathan Grimes           : R : RB
+Alfred Blue*              : R : RB
+
+
+   Arian Foster              : S :  27 :  93.1% : S : RB
+   Jonathan Grimes           : R :   1 :   3.4% : R : RB
+   Alfred Blue*              : R :   1 :   3.4% : R : RB
+   Derrick Ward              : D :   0 :   0.0% : D : RB
+   Ronnie Brown              : D :   0 :   0.0% : D : RB,KR
+   Q1 (1): Ryan Fitzpatrick
+Q2 (2): Tom Savage*
+W1 (1): Andre Johnson
+W2 (1): DeAndre Hopkins
+W3 (0): none
+TE (1): Ryan Griffin
+Mark Bruener              : R : TE
+Chris Taylor              :   : S
+Andre Davis               : R : WR
+Andre Johnson             : S : WR,W1
+Edell Shepherd            : R : WR
+Jerome Mathis             : R : WR
+Donovan Morgan            : R : WR,PR
+Garrett Graham            : R : TE
+DeVier Posey              : R : WR
+Keshawn Martin            : R : WR,KR,PR
+Damaris Johnson           : B : WR,PR,KR
+DeAndre Hopkins           : S : WR,W2
+Alan Bonner               : R : WR
+Ryan Griffin              : S : TE
+C.J. Fiedorowicz*         : R : TE
+
+
+   Ryan Fitzpatrick          : S :   0 : 100.0% : S : QB
+   Ryan Mallett              : B :   0 :   0.0% : B : QB
+   Tom Savage*               : B :   0 :   0.0% : B : QB
+   Andre Johnson             : S :  93 :  50.8% : S : WR,W1
+   DeAndre Hopkins           : S :  89 :  48.6% : S : WR,W2
+   Damaris Johnson           : B :   1 :   0.5% : B : WR,PR,KR
+   Keshawn Martin            : R :   0 :   0.0% : R : WR,KR,PR
+   DeVier Posey              : R :   0 :   0.0% : R : WR
+   Alan Bonner               : R :   0 :   0.0% : R : WR
+   Andre Davis               : R :   0 :   0.0% : R : WR
+   Edell Shepherd            : R :   0 :   0.0% : R : WR
+   Donovan Morgan            : R :   0 :   0.0% : R : WR,PR
+   Jerome Mathis             : R :   0 :   0.0% : R : WR
+   Ryan Griffin              : S :   6 : 100.0% : S : TE
+   Mark Bruener              : R :   0 :   0.0% : R : TE
+   Garrett Graham            : R :   0 :   0.0% : R : TE
+   C.J. Fiedorowicz*         : R :   0 :   0.0% : R : TE
+      .//Output//2014//Roles//Errors.htm has been rendered
+   Finished: Role Assignment Report took 00:19:21.43
+

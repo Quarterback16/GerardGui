@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{50635611-593A-4208-B7A5-09938C1B31B1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RosterLib</RootNamespace>
+    <AssemblyName>RosterLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\TycoonBus\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TycoonBus\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=3.2.1.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependancies\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddYahooPassingPoints.cs" />
+    <Compile Include="AddYahooReceivingPoints.cs" />
+    <Compile Include="AddYahooRushingPoints.cs" />
+    <Compile Include="BadNumberScheme.cs" />
+    <Compile Include="BalanceReport.cs" />
+    <Compile Include="BarChart.cs" />
+    <Compile Include="BaseReport.cs" />
+    <Compile Include="BaseScore.cs" />
+    <Compile Include="BaseStat.cs" />
+    <Compile Include="BigNumberScheme.cs" />
+    <Compile Include="CacheMaster.cs" />
+    <Compile Include="Carries.cs" />
+    <Compile Include="CategoryFactory.cs" />
+    <Compile Include="ClearGameMetrics.cs" />
+    <Compile Include="ClockWatcher.cs" />
+    <Compile Include="Completions.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="ConfigMaster.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="DanGordan.cs" />
+    <Compile Include="DataIntegrityChecker.cs" />
+    <Compile Include="DataLoader.cs" />
+    <Compile Include="DbfPlayerGameMetricsDao.cs" />
+    <Compile Include="DbfPredictionQueryMaster.cs" />
+    <Compile Include="DbfPredictionStorer.cs" />
+    <Compile Include="DbfRunStorer.cs" />
+    <Compile Include="DbfUnitPerformanceRepository.cs" />
+    <Compile Include="DefensiveScorer.cs" />
+    <Compile Include="DefensiveScoringCalculator.cs" />
+    <Compile Include="DepthChartReport.cs" />
+    <Compile Include="DivBlock.cs" />
+    <Compile Include="ElapsedTimer.cs" />
+    <Compile Include="EPMaster.cs" />
+    <Compile Include="EspnLeague.cs" />
+    <Compile Include="EspnScorer.cs" />
+    <Compile Include="EventReport.cs" />
+    <Compile Include="FakeNibbleRetriever.cs" />
+    <Compile Include="FakePredictionStorer.cs" />
+    <Compile Include="FakeTeamMetricsLister.cs" />
+    <Compile Include="FaMarket.cs" />
+    <Compile Include="FantasyLeague.cs" />
+    <Compile Include="FantasyProjectionReport.cs" />
+    <Compile Include="FantasyProjectionReporter.cs" />
+    <Compile Include="FGDefenceUnit.cs" />
+    <Compile Include="FieldGoal.cs" />
+    <Compile Include="FieldGoalResult.cs" />
+    <Compile Include="FileUtility.cs" />
+    <Compile Include="Filters.cs" />
+    <Compile Include="FpProjections.cs" />
+    <Compile Include="FreeAgentReport.cs" />
+    <Compile Include="FrequencyTable.cs" />
+    <Compile Include="FumbleReturn.cs" />
+    <Compile Include="GameMaster.cs" />
+    <Compile Include="GameMetrics.cs" />
+    <Compile Include="GameProjection.cs" />
+    <Compile Include="GameStats.cs" />
+    <Compile Include="GameSummary.cs" />
+    <Compile Include="GetGamePrediction.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GoallineReport.cs" />
+    <Compile Include="GordanPredictor.cs" />
+    <Compile Include="GordanRanks.cs" />
+    <Compile Include="GordonWeeklyPredictor.cs" />
+    <Compile Include="GridStatsLeague.cs" />
+    <Compile Include="GridStatsMaster.cs" />
+    <Compile Include="GridStatsOutput.cs" />
+    <Compile Include="GS4Scorer.cs" />
+    <Compile Include="GSTeam.cs" />
+    <Compile Include="Helpers\SeasonScheduler.cs" />
+    <Compile Include="Helpers\StyleHelper.cs" />
+    <Compile Include="Helpers\SystemClock.cs" />
+    <Compile Include="HillenMaster.cs" />
+    <Compile Include="HillenTips.cs" />
+    <Compile Include="HillinPredictor.cs" />
+    <Compile Include="HomeDogScheme.cs" />
+    <Compile Include="HotListReporter.cs" />
+    <Compile Include="HTMLFile.cs" />
+    <Compile Include="HTMLLib.cs" />
+    <Compile Include="HumiliationScheme.cs" />
+    <Compile Include="IBreakdown.cs" />
+    <Compile Include="ICache.cs" />
+    <Compile Include="ICachePlayers.cs" />
+    <Compile Include="ICalculate.cs" />
+    <Compile Include="IGetPredictions.cs" />
+    <Compile Include="IGetTeams.cs" />
+    <Compile Include="IHtmlReport.cs" />
+    <Compile Include="ILeague.cs" />
+    <Compile Include="INLog.cs" />
+    <Compile Include="InterceptionsMade.cs" />
+    <Compile Include="InterceptReturn.cs" />
+    <Compile Include="Interfaces\IAceRepository.cs" />
+    <Compile Include="Interfaces\IClock.cs" />
+    <Compile Include="Interfaces\IKeepTheTime.cs" />
+    <Compile Include="Interfaces\ISeasonScheduler.cs" />
+    <Compile Include="IPgmMaster.cs" />
+    <Compile Include="IPlayerGameMetricsDao.cs" />
+    <Compile Include="IPlayerMaster.cs" />
+    <Compile Include="IPredictDefensiveTeams.cs" />
+    <Compile Include="IPredictFGs.cs" />
+    <Compile Include="IPredictTDc.cs" />
+    <Compile Include="IPredictTDp.cs" />
+    <Compile Include="IPredictTDr.cs" />
+    <Compile Include="IPredictYDc.cs" />
+    <Compile Include="IPredictYDr.cs" />
+    <Compile Include="IPrognosticate.cs" />
+    <Compile Include="IRatePlayers.cs" />
+    <Compile Include="IRateTeams.cs" />
+    <Compile Include="IRender.cs" />
+    <Compile Include="IRenderWeekly.cs" />
+    <Compile Include="IRetrieveNibbleRatings.cs" />
+    <Compile Include="IRetrieveUnitRatings.cs" />
+    <Compile Include="IRetrieveUnitRatings2.cs" />
+    <Compile Include="IRunStorer.cs" />
+    <Compile Include="IScheme.cs" />
+    <Compile Include="IScore.cs" />
+    <Compile Include="IStat.cs" />
+    <Compile Include="IStorePredictions.cs" />
+    <Compile Include="IterIsolate.cs" />
+    <Compile Include="IterSortCollection.cs" />
+    <Compile Include="ITflDataService.cs" />
+    <Compile Include="IUnitPerformanceRepository.cs" />
+    <Compile Include="IWeekMaster.cs" />
+    <Compile Include="KickOffReturn.cs" />
+    <Compile Include="Ladder.cs" />
+    <Compile Include="Lineup.cs" />
+    <Compile Include="LineupSlate.cs" />
+    <Compile Include="LineupSlot.cs" />
+    <Compile Include="LoadPlayerGameMetric.cs" />
+    <Compile Include="Masters.cs" />
+    <Compile Include="MatchupReport.cs" />
+    <Compile Include="MetricsBase.cs" />
+    <Compile Include="MillerPredictor.cs" />
+    <Compile Include="MillerTips.cs" />
+    <Compile Include="Models\Ace.cs" />
+    <Compile Include="Models\HillenPowerRating.cs" />
+    <Compile Include="Models\NflStat.cs" />
+    <Compile Include="Models\Touchdown.cs" />
+    <Compile Include="Models\UnitPerformance.cs" />
+    <Compile Include="NFL.cs" />
+    <Compile Include="NFLBet.cs" />
+    <Compile Include="NFLConference.cs" />
+    <Compile Include="NFLData.cs" />
+    <Compile Include="NFLDivision.cs" />
+    <Compile Include="NFLGambler.cs" />
+    <Compile Include="NFLGame.cs" />
+    <Compile Include="NFLLineup.cs" />
+    <Compile Include="NFLOutputMetric.cs" />
+    <Compile Include="NFLPerformance.cs" />
+    <Compile Include="NFLPlayer.cs" />
+    <Compile Include="NFLResult.cs" />
+    <Compile Include="NFLRosterGrid.cs" />
+    <Compile Include="NFLRosterReport.cs" />
+    <Compile Include="NFLSchedule.cs" />
+    <Compile Include="NflScore.cs" />
+    <Compile Include="NflSeason.cs" />
+    <Compile Include="NFLTeam.cs" />
+    <Compile Include="NFLUkPlayerScorer.cs" />
+    <Compile Include="NFLUKScorer.cs" />
+    <Compile Include="NFLUKTeamScorer.cs" />
+    <Compile Include="NflUnit.cs" />
+    <Compile Include="NFLWeek.cs" />
+    <Compile Include="NibbleLockScheme.cs" />
+    <Compile Include="NibblePredictor.cs" />
+    <Compile Include="NibbleRanker.cs" />
+    <Compile Include="NibbleRating.cs" />
+    <Compile Include="NibbleRatingsService.cs" />
+    <Compile Include="NLogger.cs" />
+    <Compile Include="OffLineReport.cs" />
+    <Compile Include="OldRosterGridReports.cs" />
+    <Compile Include="OverUnderScheme.cs" />
+    <Compile Include="PassAttempts.cs" />
+    <Compile Include="PassDefenceUnit.cs" />
+    <Compile Include="PassesCaught.cs" />
+    <Compile Include="PassesIntercepted.cs" />
+    <Compile Include="PassOffenceUnit.cs" />
+    <Compile Include="PassRushUnit.cs" />
+    <Compile Include="PassUnit.cs" />
+    <Compile Include="PerformanceReport.cs" />
+    <Compile Include="PerformanceReportGenerator.cs" />
+    <Compile Include="PgmMaster.cs" />
+    <Compile Include="PipeLine.cs" />
+    <Compile Include="PlayerCache.cs" />
+    <Compile Include="PlayerCareerReport.cs" />
+    <Compile Include="PlayerCsv.cs" />
+    <Compile Include="PlayerGameMetrics.cs" />
+    <Compile Include="PlayerLister.cs" />
+    <Compile Include="PlayerMaster.cs" />
+    <Compile Include="PlayerOutput.cs" />
+    <Compile Include="PlayerPos.cs" />
+    <Compile Include="PlayerProjection.cs" />
+    <Compile Include="PlayerProjectionGenerator.cs" />
+    <Compile Include="PlayerReport.cs" />
+    <Compile Include="PlayerStats.cs" />
+    <Compile Include="PointAfter.cs" />
+    <Compile Include="Prediction.cs" />
+    <Compile Include="PreStyleBreakdown.cs" />
+    <Compile Include="ProjectedLineup.cs" />
+    <Compile Include="ProjectionMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtectionUnit.cs" />
+    <Compile Include="PullMetricsFromPrediction.cs" />
+    <Compile Include="PuntReturn.cs" />
+    <Compile Include="RandomNumber.cs" />
+    <Compile Include="RecordOfActualMetricsReport.cs" />
+    <Compile Include="RenderStatsToHTML.cs" />
+    <Compile Include="RenderStatsToWeekly.cs" />
+    <Compile Include="renderUnitStatsToHtml.cs" />
+    <Compile Include="Repositories\AceRepository.cs" />
+    <Compile Include="ReturnerScorer.cs" />
+    <Compile Include="RevengeScheme.cs" />
+    <Compile Include="RoleAssignmentReport.cs" />
+    <Compile Include="Rookies.cs" />
+    <Compile Include="RosterGridReport.cs" />
+    <Compile Include="RosterGridReports\IWinOrLose.cs" />
+    <Compile Include="RosterGridReports\MetricsUpdateReport.cs" />
+    <Compile Include="RosterGridReports\PickupChart.cs" />
+    <Compile Include="RunDefenceUnit.cs" />
+    <Compile Include="RunOffenceUnit.cs" />
+    <Compile Include="RunReport.cs" />
+    <Compile Include="RushUnit.cs" />
+    <Compile Include="Sack.cs" />
+    <Compile Include="Safety.cs" />
+    <Compile Include="SandwichScheme.cs" />
+    <Compile Include="SavePlayerGameMetric.cs" />
+    <Compile Include="ScoreCount.cs" />
+    <Compile Include="ScoreFactory.cs" />
+    <Compile Include="ScoresReport.cs" />
+    <Compile Include="ScoreTally.cs" />
+    <Compile Include="SeasonBoss.cs" />
+    <Compile Include="SeasonMaster.cs" />
+    <Compile Include="SeasonOpponent.cs" />
+    <Compile Include="SeasonProjectionReport.cs" />
+    <Compile Include="SimpleDefencePredictor.cs" />
+    <Compile Include="SimpleFGPredictor.cs" />
+    <Compile Include="SimplePredictor.cs" />
+    <Compile Include="SimplePreReport.cs" />
+    <Compile Include="SimpleTableReport.cs" />
+    <Compile Include="SimpleTDcPredictor.cs" />
+    <Compile Include="SimpleTDpPredictor.cs" />
+    <Compile Include="SimpleTDrPredictor.cs" />
+    <Compile Include="SimpleYDcPredictor.cs" />
+    <Compile Include="SimpleYDrPredictor.cs" />
+    <Compile Include="SpreadTips.cs" />
+    <Compile Include="StarScorer.cs" />
+    <Compile Include="Starters.cs" />
+    <Compile Include="StatFactory.cs" />
+    <Compile Include="StatGrid.cs" />
+    <Compile Include="StatGrids.cs" />
+    <Compile Include="StatMaster.cs" />
+    <Compile Include="StatProjector.cs" />
+    <Compile Include="StrengthOfSchedule.cs" />
+    <Compile Include="SuggestedLineup.cs" />
+    <Compile Include="SuperbowlLetdownScheme.cs" />
+    <Compile Include="TdPass.cs" />
+    <Compile Include="TdRun.cs" />
+    <Compile Include="TdScorer.cs" />
+    <Compile Include="TeamCard.cs" />
+    <Compile Include="TeamCards.cs" />
+    <Compile Include="TeamCheckList.cs" />
+    <Compile Include="TeamLister.cs" />
+    <Compile Include="TeamMaster.cs" />
+    <Compile Include="TeamReport.cs" />
+    <Compile Include="TeamUnit.cs" />
+    <Compile Include="TEPMaster.cs" />
+    <Compile Include="TflDataService.cs" />
+    <Compile Include="TimeKeeper.cs" />
+    <Compile Include="TippingComp.cs" />
+    <Compile Include="TippingController.cs" />
+    <Compile Include="TippingReport.cs" />
+    <Compile Include="TouchdownFactory.cs" />
+    <Compile Include="TwoPointConversionPass.cs" />
+    <Compile Include="TwoPointConversionRun.cs" />
+    <Compile Include="UndefeatedHomeDogScheme.cs" />
+    <Compile Include="UnitFactory.cs" />
+    <Compile Include="UnitLister.cs" />
+    <Compile Include="UnitMatrix.cs" />
+    <Compile Include="UnitPredictor.cs" />
+    <Compile Include="UnitRatings.cs" />
+    <Compile Include="UnitRatingsService.cs" />
+    <Compile Include="UnitRatingsService2.cs" />
+    <Compile Include="UnitReport.cs" />
+    <Compile Include="Utility.cs" />
+    <Compile Include="VictoryPoints.cs" />
+    <Compile Include="VolumeReport.cs" />
+    <Compile Include="WeekMaster.cs" />
+    <Compile Include="WeekRange.cs" />
+    <Compile Include="WinLossRecord.cs" />
+    <Compile Include="WizPredictor.cs" />
+    <Compile Include="WizSeason.cs" />
+    <Compile Include="XmlCache.cs" />
+    <Compile Include="YahooCalculator.cs" />
+    <Compile Include="YahooMaster.cs" />
+    <Compile Include="YahooMasterGenerator.cs" />
+    <Compile Include="YahooOutput.cs" />
+    <Compile Include="YahooProjectedPointsMessage.cs" />
+    <Compile Include="YahooProjectionScorer.cs" />
+    <Compile Include="YahooProjector.cs" />
+    <Compile Include="YahooScorer.cs" />
+    <Compile Include="YardsPassing.cs" />
+    <Compile Include="YardsReceiving.cs" />
+    <Compile Include="YardsRushing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dependancies\Ninject.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TFLLib\TFLLib.csproj">
+      <Project>{a3a068ee-3471-4f63-aa69-3b5f57705283}</Project>
+      <Name>TFLLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

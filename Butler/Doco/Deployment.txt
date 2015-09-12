@@ -1,0 +1,5 @@
+﻿1. Check todo list View | Task list
+2. Re comment jobs in Butler.cs
+3. Build Release version
+4. backup existing ver to Regina (including source)
+5. Copy files except config file

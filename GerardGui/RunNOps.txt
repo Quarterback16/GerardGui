@@ -1,0 +1,35 @@
+﻿DEPLOYMENT TO PROD (VESUVIUS)
+=============================
+1) Install in Software dir
+2) Configure Database on d:\shares\tfl
+3) Output to Dropbox :-)
+
+   * From Delooch use Dropbox to transfer files
+
+
+DEVELOPMENT ENVIRONMENT - LAPTOP
+================================
+
+   - Dev data base on E:\tfl
+
+   - output to sub dir
+
+   - Dependancies
+     - The 'VFPOLEDB.1' provider must be registered on the local machine
+
+	 DBF DATA - WINDOWS 7 64 BIT
+	 
+	This is for anyone that still needs to use the VFPOLEDB driver for their 
+	32-bit apps, but need to do their development in Windows 7 64-bit.  
+	Installing it should be the same as Vista, but the steps below I did 
+	not need to do in Vista 64, only Windows 7 64...
+
+	1.  If the Driver is installed, uninstall it.
+	2.  Open a Command Prompt running "As Administrator"
+	3.  Run the VFPOLEDBSetup.msi from the command prompt.
+
+	It will install successfully and work correctly for your 32 bit apps.  As 
+	all of you should know by now, it will not work on 64-bit 
+	compiled applications
+	
+	* Rebuild app and target the x86 as the target platform
