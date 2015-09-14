@@ -15,5 +15,11 @@ namespace Gerard.Tests
       {
          MailMan.SendMail( message:"Test", subject:"Test" );
       }
+
+      [TestMethod]
+      public void TestSendMailWithAttachment()
+      {
+         MailMan.SendMail(message: "Test", subject: "Test", attachment: "l:\\RssScanner-2015-09-14.log");
+      }
    }
 }
