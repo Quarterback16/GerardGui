@@ -83,6 +83,55 @@ namespace Helpers
             return downloaded;
         }
 
+        public bool DownloadPdf(Uri target)
+        {
+           if (GotIt(target)) return false;  //  we already seen this file
+
+           var downloaded = false;
+
+           var fileName = GetFileName(target);
+
+           fileName = TackOnOutputDirectory(fileName);
+           try
+           {
+              byte[] result;
+              byte[] buffer = new byte[4096];
+
+              WebRequest wr = WebRequest.Create(target);
+              //wr.ContentType = "application/x-bittorrent";
+              using (WebResponse response = wr.GetResponse())
+              {
+                 var gzip = response.Headers["Content-Encoding"] == "gzip";
+                 var responseStream = gzip
+                                         ? new GZipStream(response.GetResponseStream(), CompressionMode.Decompress)
+                                         : response.GetResponseStream();
+
+                 using (var memoryStream = new MemoryStream())
+                 {
+                    int count;
+                    do
+                    {
+                       count = responseStream.Read(buffer, 0, buffer.Length);
+                       memoryStream.Write(buffer, 0, count);
+                    } while (count != 0);
+
+                    result = memoryStream.ToArray();
+
+                    using (var writer = new BinaryWriter(new FileStream(fileName, FileMode.Create)))
+                    {
+                       writer.Write(result);
+                    }
+                 }
+              }
+              downloaded = true;
+           }
+           catch (Exception ex)
+           {
+              Logger.Error(string.Format("There was a problem downloading the file - {0}", ex.Message));
+           }
+           return downloaded;
+        }
+
         private static string TackOnOutputDirectory(string fileName)
         {
             var outputDir = ".//Source//";

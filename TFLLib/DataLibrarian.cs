@@ -563,8 +563,7 @@ namespace TFLLib
 
       public bool AnyScoresForGame(string playerId, string season, int week, string gameCode)
       {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
+         playerId = FixSingleQuotes(playerId);
 
          var commandStr = string.Format(
             "SELECT * FROM SCORE where ( PLAYERID1=\"{0}\" or PLAYERID2=\"{0}\" ) and WEEK='{2:0#}' and SEASON='{1}' and GAMENO='{3}'",
@@ -575,6 +574,13 @@ namespace TFLLib
          da.Fill(ds, "score");
          var dt = ds.Tables["score"];
          return (dt.Rows.Count > 0);
+      }
+
+      private static string FixSingleQuotes(string playerId)
+      {
+         if (playerId.Contains('\''))
+            playerId = playerId.Replace("'", "''");
+         return playerId;
       }
 
       #endregion SCORE
@@ -676,6 +682,7 @@ namespace TFLLib
 
       public string PlayerStats(string statCode, string season, string week, string playerId)
       {
+         playerId = FixSingleQuotes(playerId);
          var thisGame = "";
          var commandStr = string.Format(
             "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and PLAYERID='{2}' and STAT='{3}'",
