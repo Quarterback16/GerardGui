@@ -2356,8 +2356,8 @@ namespace RosterLib
 
       public string GamebookUrl()
       {
-         var rootUrl = "http:////www.nfl.com//liveupdate//gamecenter//";
-         return string.Format("{0}{1}//{2}_Gamebook.pdf", rootUrl, Id, HomeNflTeam.ApCode.Trim());
+         var rootUrl = "http://www.nfl.com/liveupdate/gamecenter/";
+         return string.Format("{0}{1}/{2}_Gamebook.pdf", rootUrl, Id, HomeNflTeam.ApCode.Trim());
       }
    }
 }

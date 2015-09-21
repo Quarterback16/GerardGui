@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestCurrentWeek()
       {
-         var week = new NFLWeek("2015", "01");
+         var week = new NFLWeek("2015", "02");
          var sut = new GamebookGetter( new Downloader() );
          var result = sut.DownloadWeek(week);
          Assert.IsTrue(result > 0);
