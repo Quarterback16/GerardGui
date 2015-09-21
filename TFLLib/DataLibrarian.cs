@@ -35,18 +35,27 @@ namespace TFLLib
 
       public DataLibrarian(string nflConnection, string tflConnection, string ctlConnection)
       {
-         // Connect to a database
-         OleDbConn = new OleDbConnection(nflConnection);
-         //  This is the default (ie dont return deleted records)
-         OleDbConn.Open();
-         var cmd = new OleDbCommand("SET DELETED ON", OleDbConn);
-         cmd.ExecuteNonQuery();
-         OleDbConnTycoon = new OleDbConnection(tflConnection);
-         OleDbConnControl = new OleDbConnection(ctlConnection);
-         NflConnectionString = nflConnection;
+         try
+         {
+            // Connect to a database
+            OleDbConn = new OleDbConnection(nflConnection);
+            //  This is the default (ie dont return deleted records)
+            OleDbConn.Open();
+            var cmd = new OleDbCommand("SET DELETED ON", OleDbConn);
+            cmd.ExecuteNonQuery();
+            OleDbConnTycoon = new OleDbConnection(tflConnection);
+            OleDbConnControl = new OleDbConnection(ctlConnection);
+            NflConnectionString = nflConnection;
 #if DEBUG
-         Debug.WriteLine( message: string.Format("Data Librarian connected to {0}", nflConnection));
+            Debug.WriteLine(message: string.Format("Data Librarian connected to {0}", nflConnection));
 #endif
+         }
+         catch (Exception ex)
+         {
+            Logger.ErrorException(string.Format("Connection failed: {0}", nflConnection), ex);
+            throw;
+         }
+
       }
 
       #endregion Constructors

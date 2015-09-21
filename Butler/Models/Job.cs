@@ -80,7 +80,16 @@ namespace Butler.Models
 
 		public DateTime LastDone()
 		{
-		   var lastDone = Utility.TflWs.GetLastRun(Name);
+         DateTime lastDone = new DateTime(1,1,1);
+         try
+         {
+            lastDone = Utility.TflWs.GetLastRun(Name);
+         }
+         catch (Exception ex )
+         {
+            Logger.Error("Could not get last run for " + Name + "  " + ex.Message );
+         }
+
 		   return lastDone;
 		}
 
