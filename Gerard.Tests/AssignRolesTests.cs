@@ -21,7 +21,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoAssignRolesJob()
       {
-         var sut = new AssignRolesJob( new FakeTimeKeeper() );
+         var sut = new AssignRolesJob(new FakeTimeKeeper(season: "2015", week: "01") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

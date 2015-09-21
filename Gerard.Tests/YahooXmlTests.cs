@@ -11,16 +11,16 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDo_YahooXmlJob()
       {
-         var sut = new YahooXmlJob(new FakeTimeKeeper());
+         var sut = new YahooXmlJob(new TimeKeeper());
          string whyNot;
          Assert.IsFalse(sut.IsTimeTodo(out whyNot));
          Console.WriteLine(whyNot);
       }
 
       [TestMethod]
-      public void TestDoYahooXmlJob()
+      public void TestDoYahooXmlJob()  //  9 mins 2015-09-20
       {
-         var sut = new YahooXmlJob( new FakeTimeKeeper() );
+         var sut = new YahooXmlJob( new TimeKeeper() );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Downloader.cs" />
+    <Compile Include="IDownloader.cs" />
     <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Interfaces\INormaliseTitles.cs" />
     <Compile Include="MailMan.cs" />

@@ -127,9 +127,9 @@ namespace RosterLib.RosterGridReports
          return string.Format( "{0,-36}", bit );
       }
 
-      private static string GetRunnerBit( IWinOrLose team, YahooCalculator c )
+      private string GetRunnerBit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = "dual";
+         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                                ", team.Team.TeamCode, this.Week-1 );
          if (team.Team.RushUnit.AceBack != null)
             bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
          return string.Format( "{0,-36}", bit );

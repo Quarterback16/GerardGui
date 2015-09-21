@@ -108,6 +108,7 @@
     <Compile Include="FreeAgentReport.cs" />
     <Compile Include="FrequencyTable.cs" />
     <Compile Include="FumbleReturn.cs" />
+    <Compile Include="GamebookGetter.cs" />
     <Compile Include="GameMaster.cs" />
     <Compile Include="GameMetrics.cs" />
     <Compile Include="GameProjection.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="InterceptReturn.cs" />
     <Compile Include="Interfaces\IAceRepository.cs" />
     <Compile Include="Interfaces\IClock.cs" />
+    <Compile Include="Interfaces\IGetGamebooks.cs" />
     <Compile Include="Interfaces\IKeepTheTime.cs" />
     <Compile Include="Interfaces\ISeasonScheduler.cs" />
     <Compile Include="IPgmMaster.cs" />
@@ -362,6 +364,10 @@
     <Content Include="Dependancies\Ninject.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{dda0342a-a7e7-48d7-9cb3-4b7676269740}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TFLLib\TFLLib.csproj">
       <Project>{a3a068ee-3471-4f63-aa69-3b5f57705283}</Project>
       <Name>TFLLib</Name>

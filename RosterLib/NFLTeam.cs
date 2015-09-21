@@ -34,6 +34,8 @@ namespace RosterLib
       public string Div;
       public string TeamCode;
 
+      public string ApCode { get; set; }
+
       public bool IsPlayoffBound { get; set; }
 
       #region Collections
@@ -312,6 +314,7 @@ namespace RosterLib
          StartingPowerRating = Decimal.Parse(dr["POWER"].ToString());
          Ratings = dr["RATE"].ToString();
          IsPlayoffBound = dr["PLAYOFFS"].ToString().Trim().Length > 0;
+         ApCode = dr["APCODE"].ToString();
       }
 
       /// <summary>
@@ -4479,6 +4482,8 @@ namespace RosterLib
 
 		private string ConvertTeamRatings2015( string ratings )
 		{
+         if (TeamCode == null) return "null team";
+
 			if ( TeamCode.Equals( "SS" ) )
 			{
 				//  + Jimmy Graham

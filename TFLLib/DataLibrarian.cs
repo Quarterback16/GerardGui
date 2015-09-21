@@ -351,6 +351,7 @@ namespace TFLLib
       /// <returns>DataSet</returns>
       public DataSet GetScoresFor(string scoreType, string playerId)
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}'",
             scoreType, playerId);
@@ -467,8 +468,7 @@ namespace TFLLib
 
       public DataSet GetScoresForWeek(string scoreType, string playerId, string season, int week)
       {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
+         playerId = FixSingleQuotes(playerId);
 
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
@@ -481,8 +481,7 @@ namespace TFLLib
 
       public DataSet GetTDcForWeek( string playerId, string season, int week)
       {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
+         playerId = FixSingleQuotes(playerId);
 
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
@@ -495,8 +494,7 @@ namespace TFLLib
 
       public DataSet GetTDpForWeek(string playerId, string season, int week)
       {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
+         playerId = FixSingleQuotes(playerId);
 
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID2='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
@@ -510,8 +508,7 @@ namespace TFLLib
 
       public DataSet GetScoresForWeeks(string scoreType, string playerId, string season, int fromWeek, int toWeek, string id)
       {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
+         playerId = FixSingleQuotes(playerId);
 
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID{5}=\"{1}\" and SCORE='{0}' and WEEK>='{4:0#}'  and WEEK<='{2:0#}' and SEASON='{3}'",
@@ -703,6 +700,7 @@ namespace TFLLib
 
       public DataSet GetStatsForWeeks(string playerId, string season, int fromWeek, int toWeek, string statType)
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr = string.Format(
             "SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK>='{3:0#}'  and WEEK<='{1:0#}' and SEASON='{2}' and STAT='{4}'",
             playerId, fromWeek, season, toWeek, statType);
@@ -715,6 +713,7 @@ namespace TFLLib
 
       public bool AnyStatsForGame(string playerId, string season, int week, string gameCode)
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr = string.Format(
             "SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK='{2:0#}'  and SEASON='{1}' and GAMENO='{3}'",
             playerId, season, week, gameCode);
@@ -2109,6 +2108,7 @@ namespace TFLLib
 
       public void StorePlayerRoleAndPos(string role, string pos, string playerId)
       {
+         playerId = FixSingleQuotes(playerId);
          var formatStr = "UPDATE PLAYER SET ROLE = '{0}', POSDESC='{1}'";
          formatStr += " WHERE PLAYERID='{2}' ";
          var commandStr = string.Format(formatStr, role, pos, playerId);
@@ -2156,6 +2156,7 @@ namespace TFLLib
                               string role, int heightFeet, int heightInches, int weight, string college, string rookieYr,
                               string posdesc, string category, string dob)
       {
+         playerId = FixSingleQuotes(playerId);
          var formatStr =
             "INSERT INTO PLAYER (PLAYERID, SURNAME, FIRSTNAME, CURRTEAM, ROLE, HEIGHT_FT, HEIGHT_IN, WEIGHT, COLLEGE, ROOKIEYR, POSDESC, CATEGORY, DOB)";
          formatStr += "VALUES( {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12} )";
@@ -2171,6 +2172,7 @@ namespace TFLLib
 
       public void CloseServitude( DateTime closeDate, string playerId )
       {
+         playerId = FixSingleQuotes(playerId);
          //UPDATE SERVE SET SERVE.TO = CTOD("22/04/2015") WHERE PLAYERID='PETEAD02' and SERVE.TO =CTOD('  /  /  ')
          var formatStr = "UPDATE SERVE SET SERVE.TO = CTOD('{0:MM/dd/yyyy}')";
          formatStr += " WHERE PLAYERID='{1}' and SERVE.TO =CTOD('  /  /  ')";
@@ -2181,6 +2183,7 @@ namespace TFLLib
 
       public void RetirePlayer( DateTime closeDate, string playerId )
       {
+         playerId = FixSingleQuotes(playerId);
          //UPDATE SERVE SET SERVE.HOW = SERVE.HOW + ".RET"  WHERE PLAYERID='PETEAD02' and SERVE.TO = ctod('22/04/2015')
          var formatStr = "UPDATE SERVE SET SERVE.TO = CTOD('{0:MM/dd/yyyy}'), SERVE.HOW = '.RET' ";
          formatStr += " WHERE PLAYERID='{1}' and SERVE.TO =CTOD('  /  /  ')";
@@ -2191,6 +2194,7 @@ namespace TFLLib
 
       public void SetCurrentTeam( string playerId, string teamCode )
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr = 
             string.Format(  "UPDATE PLAYER SET CURRTEAM = '{1}' WHERE PLAYERID='{0}'", playerId, teamCode );
 
@@ -2199,6 +2203,7 @@ namespace TFLLib
 
       public void SetRole( string playerId, string roleCode )
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr =
             string.Format( "UPDATE PLAYER SET ROLE = '{1}' WHERE PLAYERID='{0}'", playerId, roleCode );
 
@@ -2207,6 +2212,7 @@ namespace TFLLib
 
       public void Sign( string playerId, string teamCode, DateTime when, string how )
       {
+         playerId = FixSingleQuotes(playerId);
          var formatStr =
             "INSERT INTO SERVE (PLAYERID, TEAMID, FROM, TO, HOW)";
          formatStr += " VALUES( '{0}','{1}',ctod('{2:MM/dd/yyyy}'),ctod('  /  /  '),'{3}' )";

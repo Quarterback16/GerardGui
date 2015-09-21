@@ -20,7 +20,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoDepthChartJob()  //  2015-09-10 5 mins
       {
-			var sut = new DepthChartJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ) );
+			var sut = new DepthChartJob( new TimeKeeper() );
          var outcome = sut.DoJob();
          Console.WriteLine( "outcome={0}", outcome );
          Assert.IsFalse(string.IsNullOrEmpty(outcome));

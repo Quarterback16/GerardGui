@@ -6,7 +6,7 @@ using NLog;
 
 namespace Helpers
 {
-    public class Downloader
+    public class Downloader : Helpers.IDownloader
     {
         public Logger Logger { get; set; }
 

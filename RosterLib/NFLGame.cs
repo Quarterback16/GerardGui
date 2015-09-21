@@ -38,6 +38,8 @@ namespace RosterLib
 
       private const int KLastAfternoonTimeslot = 6;
 
+      public string Id { get; set; }
+
       public NflTeam HomeNflTeam;
       public NflTeam AwayNflTeam;
 
@@ -201,6 +203,7 @@ namespace RosterLib
       {
          if (dr == null) return;
 
+         Id = dr["id"].ToString();
          Season = dr["SEASON"].ToString();
          Week = dr["WEEK"].ToString();
          Spread = Decimal.Parse(dr["SPREAD"].ToString());
@@ -366,6 +369,14 @@ namespace RosterLib
                AwaySaKa = Decimal.Parse(n.Attributes["SAKa"].Value);
             }
          }
+      }
+
+      public string Index()
+      {
+         var index = (int) GameDate.DayOfWeek;
+         if (index < 2)
+            index += 7;
+         return string.Format("{0}{1}{2}", index, Hour, HomeNflTeam.ApCode );
       }
 
       public bool IsPlayoff()
@@ -2244,8 +2255,8 @@ namespace RosterLib
 
 		public string SummaryUrl( string textOut )
 		{
-			var summaryFile = string.Format( "..//{1}//GameSummaries//Week {0}//{2}@{3}.htm",
-				Week, Season, AwayTeam, HomeTeam );
+			var summaryFile = string.Format( "<a href='..//{1}//GameSummaries//Week {0}//{2}@{3}.htm'>|{4} {5} @ {6} {7}</a>",
+				Week, Season, AwayTeam, HomeTeam, AwayTeam, AwayScore, HomeTeam, HomeScore );
 			return summaryFile;
 		}
 
@@ -2336,6 +2347,17 @@ namespace RosterLib
       public string TheLine()
       {
           return IsBye() ? "BYE" : GetFormattedSpread();
+      }
+
+      public string GameApKey()
+      {
+         return HomeNflTeam.ApCode;
+      }
+
+      public string GamebookUrl()
+      {
+         var rootUrl = "http:////www.nfl.com//liveupdate//gamecenter//";
+         return string.Format("{0}{1}//{2}_Gamebook.pdf", rootUrl, Id, HomeNflTeam.ApCode.Trim());
       }
    }
 }
