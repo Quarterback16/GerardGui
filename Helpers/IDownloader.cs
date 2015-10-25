@@ -6,5 +6,7 @@ namespace Helpers
       bool Download(Uri target);
       bool DownloadPdf(Uri target);
       bool GotIt(Uri target);
+
+      string OutputFolder { get; set;}
    }
 }

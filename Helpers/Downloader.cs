@@ -10,9 +10,18 @@ namespace Helpers
     {
         public Logger Logger { get; set; }
 
+        public string OutputFolder { get; set; }
+
         public Downloader()
         {
             Logger = LogManager.GetCurrentClassLogger();
+            OutputFolder = ".//Source//";
+        }
+
+        public Downloader(string outputFolder )
+        {
+           Logger = LogManager.GetCurrentClassLogger();
+           OutputFolder = outputFolder;
         }
 
         public bool GotIt( Uri target )
@@ -132,10 +141,9 @@ namespace Helpers
            return downloaded;
         }
 
-        private static string TackOnOutputDirectory(string fileName)
+        private string TackOnOutputDirectory(string fileName)
         {
-            var outputDir = ".//Source//";
-            return string.Format("{0}{1}", outputDir, fileName );
+            return string.Format("{0}{1}", OutputFolder, fileName );
         }
 
         public static void CopyStream(Stream input, Stream output)

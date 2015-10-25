@@ -10,12 +10,25 @@ namespace Gerard.Tests
    public class TestGamebookGetter
    {
       [TestMethod]
-      public void TestCurrentWeek()
+      public void TestGetGamebooksForCurrentWeek()
       {
-         var week = new NFLWeek("2015", "02");
-         var sut = new GamebookGetter( new Downloader() );
+         const string weekToDownload = "06";
+
+         var week = new NFLWeek("2015", weekToDownload );
+         var sut = new GamebookGetter( new Downloader( 
+            string.Format( "g:\\tfl\\nfl\\gamebooks\\week {0}\\", weekToDownload ) ) );
          var result = sut.DownloadWeek(week);
          Assert.IsTrue(result > 0);
+      }
+
+      [TestMethod]
+      public void TestOutputDirectory()
+      {
+         var week = new NFLWeek("2015", "03");
+         var sut = new GamebookGetter(new Downloader("g:\\tfl\\nfl\\gamebooks\\week 03\\"));
+         var result = sut.Downloader.OutputFolder;
+         Assert.AreEqual(result, "g:\\tfl\\nfl\\gamebooks\\week 03\\" );
+         Assert.IsTrue(System.IO.Directory.Exists(result));
       }
 
       [TestMethod]

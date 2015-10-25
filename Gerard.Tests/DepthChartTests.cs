@@ -9,21 +9,22 @@ namespace Gerard.Tests
    public class DepthChartTests
    {
       [TestMethod]
+      public void TestDoDepthChartJob()  //  2015-09-10 5 mins, 20 min debug
+      {
+         var sut = new DepthChartJob(new TimeKeeper());
+         var outcome = sut.DoJob();
+         Console.WriteLine("outcome={0}", outcome);
+         Assert.IsFalse(string.IsNullOrEmpty(outcome));
+      }
+
+
+      [TestMethod]
       public void TestTimetoDoDepthCharts()
       {
          var  sut = new DepthChartJob(new FakeTimeKeeper( isPreSeason:true, isPeakTime:false));
          string whyNot;
          Assert.IsTrue(sut.IsTimeTodo(out whyNot));
          Console.WriteLine(whyNot);
-      }
-
-      [TestMethod]
-      public void TestDoDepthChartJob()  //  2015-09-10 5 mins
-      {
-			var sut = new DepthChartJob( new TimeKeeper() );
-         var outcome = sut.DoJob();
-         Console.WriteLine( "outcome={0}", outcome );
-         Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
 
       [TestMethod]

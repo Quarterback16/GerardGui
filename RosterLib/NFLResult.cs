@@ -89,7 +89,24 @@
          var winnerScore = WinningScore();
          var loser = LosingTeam();
          var loserScore = LosingScore();
-         return string.Format( "{0} {1,2}-{2} {3,2}", winner, winnerScore, loser, loserScore  );
+         var joiner = Joiner();
+         return string.Format( "{0} {1,2}{4}{2} {3,2}", winner, winnerScore, loser, loserScore, joiner  );
+      }
+
+      private string Joiner()
+      {
+         if (HomeWin())
+            return "v";
+         else
+            return "@";
+      }
+
+      private string JoinerFlipped()
+      {
+         if (HomeWin())
+            return "@";
+         else
+            return "v";
       }
 
       public string PredictedScoreFlipped()
@@ -99,7 +116,8 @@
          var winnerScore = WinningScore();
          var loser = LosingTeam();
          var loserScore = LosingScore();
-         return string.Format( "{0} {1,2}-{2} {3,2}", loser, loserScore, winner, winnerScore );
+         var joiner = JoinerFlipped();
+         return string.Format( "{0} {1,2}{4}{2} {3,2}", loser, loserScore, winner, winnerScore, joiner );
       }
 
       public string LogResult()

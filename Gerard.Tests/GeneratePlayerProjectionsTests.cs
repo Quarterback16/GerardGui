@@ -9,6 +9,15 @@ namespace Gerard.Tests
    public class GeneratePlayerProjectionsTests
    {
       [TestMethod]
+      public void TestCurrentGeneratePlayerProjectionsJob()   //  4 mins
+      {
+         //  upcoming week only
+         var sut = new GeneratePlayerProjectionsJob(new TimeKeeper());
+         var resultOut = sut.DoJob();
+         Assert.IsTrue(resultOut.Length > 0);
+      }
+
+      [TestMethod]
       public void TestGeneratePlayerProjectionsJob()   //  7 min 2015-08-11 (make sure debug mode is on)
       {
          //  upcoming week only
@@ -16,15 +25,6 @@ namespace Gerard.Tests
          var resultOut = sut.DoJob();
          Assert.IsTrue( resultOut.Length > 0 );
       }
-
-		[TestMethod]
-		public void TestCurrentGeneratePlayerProjectionsJob()   //  
-		{
-			//  upcoming week only
-			var sut = new GeneratePlayerProjectionsJob( new TimeKeeper() );
-			var resultOut = sut.DoJob();
-			Assert.IsTrue( resultOut.Length > 0 );
-		}
 
       [TestMethod]
       public void TestTimetoDoGeneratePlayerProjectionsJob()

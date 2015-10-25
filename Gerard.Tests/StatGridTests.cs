@@ -9,7 +9,7 @@ namespace Gerard.Tests
    public class StatGridTests
    {
       [TestMethod]
-      public void TestStatGridJob()
+      public void TestStatGridJob()   // 4 mins
       {
          var sut = new StatGridJob(new TimeKeeper());
          sut.DoJob();

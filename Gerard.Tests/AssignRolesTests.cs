@@ -10,6 +10,14 @@ namespace Gerard.Tests
    public class AssignRolesTests
    {
       [TestMethod]
+      public void TestDoAssignRolesJob()  //  8 mins
+      {
+         var sut = new AssignRolesJob(new TimeKeeper());
+         var outcome = sut.DoJob();
+         Assert.IsFalse(string.IsNullOrEmpty(outcome));
+      }
+
+      [TestMethod]
       public void TestTimetoDoJob()
       {
 			var sut = new AssignRolesJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ) );
@@ -18,13 +26,6 @@ namespace Gerard.Tests
          Console.WriteLine(whyNot);
       }
 
-      [TestMethod]
-      public void TestDoAssignRolesJob()
-      {
-         var sut = new AssignRolesJob(new FakeTimeKeeper(season: "2015", week: "01") );
-         var outcome = sut.DoJob();
-         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
-      }
 
 
       [TestMethod]

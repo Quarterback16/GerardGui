@@ -35,7 +35,7 @@ namespace Gerard.Tests
          //  out put goes here g:\FileSync\SyncProjects\GerardGui\Gerard.Tests\bin\Debug\Output\2014\Projections\
          var dao = new DbfPlayerGameMetricsDao();  //  Could use a Fake here
          var scorer = new YahooProjectionScorer();  //  Could use a Fake here
-         var sut = new FantasyProjectionReport( "2014", "01", dao, scorer ) {League = Constants.K_LEAGUE_Gridstats_NFL1};
+         var sut = new FantasyProjectionReport( "2015", "04", dao, scorer ) {League = Constants.K_LEAGUE_Yahoo};
          sut.RenderAll();
          var fileOut = sut.FileName();
          Assert.IsTrue( File.Exists(fileOut ) );
