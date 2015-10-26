@@ -5156,5 +5156,13 @@ namespace RosterLib
             game.TallyStatsFor(this);
          }
       }
+
+      public bool WinningRecord()
+      {
+         if (Clip() > .499M)
+            return true;
+         else
+            return false;
+      }
    }
 }

@@ -28,8 +28,8 @@ namespace GerardGui
          CheckSetting( "PeakStartHour" );
          CheckSetting( "PeakFinishHour" );
          CheckSetting( "TvFolder" );
-         CheckSetting("ViewQueueFolder");
-         CheckSetting("DownloadFolder");
+         CheckSetting( "ViewQueueFolder");
+         CheckSetting( "DownloadFolder");
          CheckSetting( "NflFolder" );
          CheckSetting( "SoccerFolder" );
          CheckDirExists( "output", Utility.OutputDirectory() );

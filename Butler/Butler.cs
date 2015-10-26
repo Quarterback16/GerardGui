@@ -81,6 +81,7 @@ namespace Butler
                   new PerformanceReportJob( TimeKeeper ),
                   new DepthChartJob( TimeKeeper ),
                   new StatGridJob( TimeKeeper ),
+                 new PlayOffTeamsJob( TimeKeeper ),
 
 #endregion
 

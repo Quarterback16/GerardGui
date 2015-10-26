@@ -83,6 +83,7 @@
     <Compile Include="Models\PickupChartJob.cs" />
     <Compile Include="Models\PlayerCsvJob.cs" />
     <Compile Include="Models\PlayerReportsJob.cs" />
+    <Compile Include="Models\PlayOffTeamsJob.cs" />
     <Compile Include="Models\ProjectionsJob.cs" />
     <Compile Include="Models\RecordActualMetricsJob.cs" />
     <Compile Include="Models\ReportJob.cs" />

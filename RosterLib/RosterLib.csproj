@@ -34,9 +34,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\..\TycoonBus\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TycoonBus\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
@@ -274,6 +271,7 @@
     <Compile Include="RosterGridReports\IWinOrLose.cs" />
     <Compile Include="RosterGridReports\MetricsUpdateReport.cs" />
     <Compile Include="RosterGridReports\PickupChart.cs" />
+    <Compile Include="RosterGridReports\PlayoffTeamsReport.cs" />
     <Compile Include="RunDefenceUnit.cs" />
     <Compile Include="RunOffenceUnit.cs" />
     <Compile Include="RunReport.cs" />

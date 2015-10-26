@@ -290,6 +290,16 @@ namespace TFLLib
          return ds;
       }
 
+      public void UpdatePlayoff(string season, string teamCode, bool playoff   )
+      {
+         var playoffChar = " ";
+         if (playoff) playoffChar = "Y";
+         var formatStr = "UPDATE TEAM SET PLAYOFFS = '{0}' ";
+         formatStr += " WHERE SEASON='{1}' AND TEAMID ='{2}'";
+         var commandStr = string.Format(formatStr, playoffChar, season, teamCode );
+         ExecuteCommand(commandStr);
+      }
+
       #endregion TEAM
 
       #region SCORE
