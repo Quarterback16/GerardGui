@@ -234,22 +234,5 @@ namespace Gerard.Tests
          Assert.IsTrue(File.Exists(fileOut), string.Format("Cannot find {0}", fileOut));
       }
 
-      [TestMethod]
-      public void TestUnitPredictorPredictGame()
-      {
-         var predictor = new UnitPredictor
-         {
-            TakeActuals = true,
-            AuditTrail = true,
-            WriteProjection = false,
-            StorePrediction = false,
-            RatingsService = new UnitRatingsService()
-         };
-         var game = new NFLGame("2014:01-M");  //  SF @ DC
-         var result = predictor.PredictGame(game, new FakePredictionStorer(), Utility.StartOfSeason());
-         Assert.IsTrue(result.HomeWin());
-         Assert.IsTrue(result.HomeScore.Equals(20), string.Format("Home score should be 20 not {0}", result.HomeScore));
-         Assert.IsTrue(result.AwayScore.Equals(17), string.Format("Away score should be 17 not {0}", result.AwayScore));
-      }
    }
 }

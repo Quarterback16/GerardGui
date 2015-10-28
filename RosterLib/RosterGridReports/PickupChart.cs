@@ -89,9 +89,10 @@ namespace RosterLib.RosterGridReports
          return string.Format( "<a href='{0}'>{1}</a> {2,3}", url, predictedResult, theLine );
       }
 
-      private static string GetW1Bit( IWinOrLose team, YahooCalculator c )
+      private string GetW1Bit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = "none";
+			var bit = NoneBit( team );
+
          if ( team.Team.PassUnit.W1 != null )
          {
             bit = PlayerPiece( team.Team.PassUnit.W1, team.Game, c );
@@ -99,10 +100,16 @@ namespace RosterLib.RosterGridReports
          return string.Format( "{0,-36}", bit );
       }
 
-      private static string GetW2Bit( IWinOrLose team, YahooCalculator c )
+	   private string NoneBit( IWinOrLose team )
+	   {
+		   var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                                ", team.Team.TeamCode, Week - 1 );
+		   return bit;
+	   }
+
+	   private string GetW2Bit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = "none";
-         if ( team.Team.PassUnit.W2 != null )
+			var bit = NoneBit( team );
+			if ( team.Team.PassUnit.W2 != null )
          {
             bit = PlayerPiece( team.Team.PassUnit.W2, team.Game, c );
          }
@@ -111,7 +118,8 @@ namespace RosterLib.RosterGridReports
 
       private string GetTEBit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = "none";
+			var bit = NoneBit( team );
+
          if ( team.Team.PassUnit.TE != null )
          {
             bit = PlayerPiece( team.Team.PassUnit.TE, team.Game, c );
@@ -119,9 +127,10 @@ namespace RosterLib.RosterGridReports
          return string.Format( "{0,-36}", bit );
       }
 
-      private static string GetQBBit( IWinOrLose team, YahooCalculator c )
+      private string GetQBBit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = "none";
+			var bit = NoneBit( team );
+
          if (team.Team.PassUnit.Q1 != null)
             bit = PlayerPiece( team.Team.PassUnit.Q1, team.Game, c );
          return string.Format( "{0,-36}", bit );
@@ -135,13 +144,13 @@ namespace RosterLib.RosterGridReports
          return string.Format( "{0,-36}", bit );
       }
 
-      private static string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
+      private string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
       {
          var nextOppTeam = p.NextOpponentTeam( g );
          var defensiveRating = nextOppTeam.DefensiveRating( p.PlayerCat );
          var owners = p.LoadAllOwners();
          c.Calculate( p, g );
-	      var namePart = string.Format( "<a href='{0}.htm'>{1}</a>", p.PlayerCode, p.PlayerNameTo( 11 ) );
+			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
          return string.Format( "{0,-11} {3}  {1}  {2,2:#0}   ____", namePart, defensiveRating, p.Points, owners );
       }
 

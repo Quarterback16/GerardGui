@@ -26,8 +26,8 @@ namespace RosterLib
 
 		public string GetUnitRatingsFor( NflTeam team, DateTime when )
 		{
-			if ( IsCurrent( team, when ) )
-				return team.Ratings;
+			//if ( IsCurrent( team, when ) )
+			//	return team.Ratings;
 
 			if ( CacheIsDirty( when ) )
 			{
@@ -41,7 +41,8 @@ namespace RosterLib
 
 			var ratings = RatingsFor( team.TeamCode );
 			var strRatings = ratings.ToString();
-			strRatings = team.AdjustedRatings( strRatings );
+
+			//strRatings = team.AdjustedRatings( strRatings );  //TODO: we dont adjust if season has started - implement check
 
 			return strRatings;
 		}
@@ -140,11 +141,7 @@ namespace RosterLib
 		{
 			// get ratings
 			var ds = Utility.TflWs.GetUnitRatings( when );
-			if ( ds.Tables[ 0 ].Rows.Count > 0 )
-			{
-				return true;
-			}
-			return false; ;
+			return ds.Tables[ 0 ].Rows.Count > 0;
 		}
 
 		private void UpdateMetricsWithRatings(DataTable dt)
