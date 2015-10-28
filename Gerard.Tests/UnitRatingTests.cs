@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
-using RosterLib.Models;
-using TFLLib;
 
 namespace Gerard.Tests
 {
@@ -56,7 +54,7 @@ namespace Gerard.Tests
 		public void TestUnitRatingsRetrieval()
 		{
 			var sut = new UnitRatingsService();
-			var bActual = sut.HaveAlreadyRated( new DateTime( 2013, 9 , 8 ) );
+			var bActual = sut.HaveAlreadyRated( new DateTime( 2015, 11, 1 ) );
 			Assert.IsTrue( bActual );
 		}
 
@@ -108,6 +106,17 @@ namespace Gerard.Tests
 			const string expectedValue = "EACCBD";
 			Assert.IsTrue(currRatings.Equals(expectedValue),
 				string.Format("SF team rating should be {1} not {0}", currRatings, expectedValue));
+		}
+
+		[TestMethod]
+		public void TestNewRatingsRetrievalDB()
+		{
+			var team = new NflTeam( "DB" );
+			var sut = new UnitRatingsService();
+			var currRatings = sut.GetUnitRatingsFor( team, new DateTime( 2015, 11, 1 ) );  //  Date must be a Sunday
+			const string expectedValue = "CECBAA";
+			Assert.IsTrue( currRatings.Equals( expectedValue ),
+				string.Format( "{0} team rating should be {2} not {1}", team.TeamCode, currRatings, expectedValue ) );
 		}
 
 	}

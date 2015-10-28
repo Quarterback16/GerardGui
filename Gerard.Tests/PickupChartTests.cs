@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"07" ) );
+         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"08" ) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
