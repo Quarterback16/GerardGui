@@ -104,7 +104,6 @@
     <Compile Include="UnitRatingTests.cs" />
     <Compile Include="UnitReportsTests.cs" />
     <Compile Include="UtilityTests.cs" />
-    <Compile Include="VictoryPointTests.cs" />
     <Compile Include="WeekMasterTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
     <Compile Include="YahooXmlTests.cs" />
