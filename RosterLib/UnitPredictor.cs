@@ -159,11 +159,15 @@ namespace RosterLib
 			{
 				oppRatings = RatingsService.GetUnitRatingsFor( game.AwayNflTeam, focusDate );
 				teamRatings = RatingsService.GetUnitRatingsFor( game.HomeNflTeam, focusDate );
+				game.AwayNflTeam.Ratings = oppRatings;
+				game.HomeNflTeam.Ratings = teamRatings;
 			}
 			else
 			{
 				teamRatings = RatingsService.GetUnitRatingsFor( game.AwayNflTeam, focusDate );
 				oppRatings = RatingsService.GetUnitRatingsFor( game.HomeNflTeam, focusDate );
+				game.HomeNflTeam.Ratings = oppRatings;
+				game.AwayNflTeam.Ratings = teamRatings;
 			}
 
 			var score = 0;

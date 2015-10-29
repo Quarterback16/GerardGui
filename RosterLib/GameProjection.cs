@@ -24,7 +24,13 @@ namespace RosterLib
       /// </summary>
       public void Render()
       {
-         Game.LoadPrediction();
+	      var homeRatings = Game.HomeNflTeam.Ratings;
+			var awayRatings = Game.AwayNflTeam.Ratings;
+
+         Game.LoadPrediction();  // ratings get overwritten!!
+
+	      Game.HomeNflTeam.Ratings = homeRatings;
+			Game.AwayNflTeam.Ratings = awayRatings;
 
          var str = new SimpleTableReport( "GameProjection " + Game.GameName() );
          str.AddDenisStyle();

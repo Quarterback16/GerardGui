@@ -10,34 +10,28 @@ namespace RosterLib
 
 			var ds = Utility.TflWs.GetPrediction(method, season, week, gameCode);
 
-			if ( ds.Tables[ 0 ].Rows.Count == 1 )
+			if (ds.Tables[ 0 ].Rows.Count != 1) return prediction;
+
+			var game = new NFLGame( string.Format( "{0}:{1}-{2}", season, week, gameCode ) );
+			prediction.Method = method;
+			prediction.Season = season;
+			prediction.Week = week;
+			prediction.GameCode = gameCode;
+			prediction.HomeScore = IntValue( ds, "HomeScore" );
+			prediction.AwayScore = IntValue( ds, "AwayScore" );
+			//  also do a result
+			var result = new NFLResult( home: game.HomeTeam, homePts: prediction.HomeScore,
+				away: game.AwayTeam, awayPts: prediction.AwayScore )
 			{
-				var game = new NFLGame( string.Format( "{0}:{1}-{2}", season, week, gameCode ) );
-				prediction.Method = method;
-				prediction.Season = season;
-				prediction.Week = week;
-				prediction.GameCode = gameCode;
-				prediction.HomeScore = IntValue( ds, "HomeScore" );
-				prediction.AwayScore = IntValue( ds, "AwayScore" );
-				//  also do a result
-				var result = new NFLResult( home: game.HomeTeam, homePts: prediction.HomeScore,
-					away: game.AwayTeam, awayPts: prediction.AwayScore );
-				result.HomeTDp = IntValue( ds, "htdp" );
-				result.HomeTDr = IntValue( ds, "htdr" );
-				result.HomeTDd = IntValue( ds, "htdd" );
-				result.HomeTDs = IntValue( ds, "htds" );
-				result.AwayTDp = IntValue( ds, "atdp" );
-				result.AwayTDr = IntValue( ds, "atdr" );
-				result.AwayTDd = IntValue( ds, "atdd" );
-				result.AwayTDs = IntValue( ds, "atds" );
-				result.HomeYDp = IntValue( ds, "hydp" );
-				result.AwayYDp = IntValue( ds, "aydp" );
-				result.HomeYDr = IntValue( ds, "hydr" );
-				result.AwayYDr = IntValue( ds, "aydr" );
-				result.AwayFg = IntValue(ds, "afg");
-				result.HomeFg = IntValue(ds, "hfg");
-				prediction.NflResult = result;
-			}
+				HomeTDp = IntValue( ds, "htdp" ), HomeTDr = IntValue( ds, "htdr" ),
+				HomeTDd = IntValue( ds, "htdd" ), HomeTDs = IntValue( ds, "htds" ), 
+				AwayTDp = IntValue( ds, "atdp" ), AwayTDr = IntValue( ds, "atdr" ), 
+				AwayTDd = IntValue( ds, "atdd" ), AwayTDs = IntValue( ds, "atds" ), 
+				HomeYDp = IntValue( ds, "hydp" ), AwayYDp = IntValue( ds, "aydp" ), 
+				HomeYDr = IntValue( ds, "hydr" ), AwayYDr = IntValue( ds, "aydr" ), 
+				AwayFg = IntValue( ds, "afg" ), HomeFg = IntValue( ds, "hfg" )
+			};
+			prediction.NflResult = result;
 			return prediction;
 		}
 

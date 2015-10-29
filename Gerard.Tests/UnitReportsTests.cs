@@ -50,5 +50,12 @@ namespace Gerard.Tests
 			Assert.IsFalse( string.IsNullOrEmpty( result ) );
 			Assert.AreEqual( result, ".//Output//2015//Units" );
 		}
+
+		[TestMethod]
+		public void TestUnitReportSD()
+		{
+			var sut = new UnitReport {SeasonMaster = Masters.Sm.GetSeason( "2015", teamsOnly: true )};
+			sut.TeamUnits( "2015", "2015SD" );
+		}
    }
 }
