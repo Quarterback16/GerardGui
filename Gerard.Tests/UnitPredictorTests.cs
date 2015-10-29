@@ -14,15 +14,15 @@ namespace Gerard.Tests
 			{
 				TakeActuals = true,
 				AuditTrail = true,
-				WriteProjection = false,
+				WriteProjection = true,
 				StorePrediction = false,
 				RatingsService = new UnitRatingsService()
 			};
-			var game = new NFLGame( "2015:08-M" );  //  SF @ DC
+			var game = new NFLGame( "2015:08-M" );  //  GB @ DB
 			var result = predictor.PredictGame( game, new FakePredictionStorer(), new DateTime(2015,10,28) );
 			Assert.IsTrue( result.HomeWin() );
-			Assert.IsTrue( result.HomeScore.Equals( 20 ), string.Format( "Home score should be 20 not {0}", result.HomeScore ) );
-			Assert.IsTrue( result.AwayScore.Equals( 17 ), string.Format( "Away score should be 17 not {0}", result.AwayScore ) );
+			Assert.IsTrue( result.HomeScore.Equals( 6 ), string.Format( "Home score should be 6 not {0}", result.HomeScore ) );
+			Assert.IsTrue( result.AwayScore.Equals( 3 ), string.Format( "Away score should be 3 not {0}", result.AwayScore ) );
 		}
 	}
 }

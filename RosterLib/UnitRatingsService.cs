@@ -104,6 +104,8 @@ namespace RosterLib
 
 			WriteRatings( metricTable, when );
 
+			UpdateRatings( metricTable, season );
+
 #if DEBUG
 			Utility.StopTheWatch( stopwatch, string.Format( "Ranking teams : {0:d}", when ) );
 #endif
@@ -121,7 +123,7 @@ namespace RosterLib
 			LastDateRanked = when;
 		}
 
-		private void WriteRatings( DataTable dt, DateTime when )
+		private static void WriteRatings( DataTable dt, DateTime when )
 		{
 			foreach ( DataRow dr in dt.Rows )
 			{
@@ -134,6 +136,22 @@ namespace RosterLib
 				var ratings = string.Format( "{0}{1}{2}{3}{4}{5}", po, ro, pp, pr, rd, pd );
 				var teamCode = dr[ "TEAM" ].ToString();
 				Utility.TflWs.SaveUnitRatings( ratings, when, teamCode );
+			}
+		}
+
+		private static void UpdateRatings( DataTable dt, string season  )
+		{
+			foreach ( DataRow dr in dt.Rows )
+			{
+				var po = dr[ "RYDp" ].ToString();
+				var ro = dr[ "RYDr" ].ToString();
+				var pp = dr[ "RSAKa" ].ToString();
+				var pr = dr[ "RSAK" ].ToString();
+				var rd = dr[ "RYDra" ].ToString();
+				var pd = dr[ "RIntRatio" ].ToString();
+				var ratings = string.Format( "{0}{1}{2}{3}{4}{5}", po, ro, pp, pr, rd, pd );
+				var teamCode = dr[ "TEAM" ].ToString();
+				Utility.TflWs.UpdateRatings( season, teamCode, ratings );
 			}
 		}
 
