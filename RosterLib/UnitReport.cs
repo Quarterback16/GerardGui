@@ -8,6 +8,7 @@ namespace RosterLib
    /// </summary>
    public class UnitReport : RosterGridReport, IDisposable
    {
+	   public NflSeason SeasonMaster { get; set; }
 
       public UnitReport()
       {
@@ -28,36 +29,46 @@ namespace RosterLib
 
       public void Render(string season)
       {
-         var s = Masters.Sm.GetSeason(season, teamsOnly : true );
-         foreach (string teamKey in s.TeamKeyList)
+	      SeasonMaster = SetSeasonMaster( season );
+	      foreach (string teamKey in SeasonMaster.TeamKeyList)
          {
-            var t = Masters.Tm.GetTeam(teamKey);
-            Utility.Announce(string.Format("Unit reports for {0}", t.NameOut()));
-
-            var fileOut = string.Format("{0}\\{2}\\Units\\{1}-Units.htm",
-               Utility.OutputDirectory(), t.TeamCode, season);
-            var h = new HtmlFile(fileOut,
-                                 string.Format(" Unit Reports as of {0}  Week {1}",
-                                 DateTime.Now.ToString("dd MMM yy"), Utility.CurrentWeek()));
-
-            h.AddToBody(Header(t));
-            h.AddToBody(t.UnitReport());
-            h.Render();
-
-            PoSnippet(t);
-            RoSnippet(t);
-            PpSnippet(t);
-            PrSnippet(t);
-            RdSnippet(t);
-            PdSnippet(t);
+            TeamUnits( season, teamKey );
 #if DEBUG
             //break;
 #endif
-
          }
       }
 
-      #region Headers
+	   public static NflSeason SetSeasonMaster( string season )
+	   {
+		   var s = Masters.Sm.GetSeason( season, teamsOnly: true );
+		   return s;
+	   }
+
+	   public void TeamUnits( string season, string teamKey )
+	   {
+		   var t = Masters.Tm.GetTeam( teamKey );
+		   Utility.Announce( string.Format( "Unit reports for {0}", t.NameOut() ) );
+
+		   var fileOut = string.Format( "{0}\\{2}\\Units\\{1}-Units.htm",
+			   Utility.OutputDirectory(), t.TeamCode, season );
+		   var h = new HtmlFile( fileOut,
+			   string.Format( " Unit Reports as of {0}  Week {1}",
+				   DateTime.Now.ToString( "dd MMM yy" ), Utility.CurrentWeek() ) );
+
+		   h.AddToBody( Header( t ) );
+		   h.AddToBody( t.UnitReport() );
+		   h.Render();
+
+		   PoSnippet( t );
+		   RoSnippet( t );
+		   PpSnippet( t );
+		   PrSnippet( t );
+		   RdSnippet( t );
+		   PdSnippet( t );
+	   }
+
+	   #region Headers
 
       private static string Header(NflTeam t)
       {
