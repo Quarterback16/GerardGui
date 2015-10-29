@@ -170,5 +170,11 @@ namespace RosterLib
          var ps = Int32.Parse(Season) - 1;
          return ps.ToString();
       }
+
+
+      public bool IsItWednesday(DateTime focusDate)
+      {
+         return focusDate.DayOfWeek == DayOfWeek.Wednesday;
+      }
    }
 }

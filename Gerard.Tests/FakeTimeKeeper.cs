@@ -113,5 +113,11 @@ namespace Gerard.Tests
       {
          return focusDate.DayOfWeek == DayOfWeek.Friday || focusDate.DayOfWeek == DayOfWeek.Saturday || focusDate.DayOfWeek == DayOfWeek.Sunday;
       }
+
+
+      public bool IsItWednesday(DateTime focusDate)
+      {
+         return focusDate.DayOfWeek == DayOfWeek.Wednesday;
+      }
    }
 }
