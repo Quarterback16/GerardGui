@@ -148,6 +148,7 @@
     <Compile Include="Interfaces\IClock.cs" />
     <Compile Include="Interfaces\IGetGamebooks.cs" />
     <Compile Include="Interfaces\IKeepTheTime.cs" />
+    <Compile Include="Interfaces\IRankTeams.cs" />
     <Compile Include="Interfaces\ISeasonScheduler.cs" />
     <Compile Include="IPgmMaster.cs" />
     <Compile Include="IPlayerGameMetricsDao.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="TeamCheckList.cs" />
     <Compile Include="TeamLister.cs" />
     <Compile Include="TeamMaster.cs" />
+    <Compile Include="TeamRanker.cs" />
     <Compile Include="TeamReport.cs" />
     <Compile Include="TeamUnit.cs" />
     <Compile Include="TEPMaster.cs" />

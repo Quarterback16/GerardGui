@@ -30,8 +30,9 @@ namespace Butler.Models
 			// To copy a file to another location and
 			// overwrite the destination file if it already exists.
 			FileUtility.CopyDirectory(SourceDir, DestDir);
-
-			return string.Format("Copied {0} to {1}", SourceDir, DestDir);
+         var msg = string.Format("Copied {0} to {1}", SourceDir, DestDir);
+         Logger.Info(msg);
+         return msg;
 		}
 
 		public override bool IsTimeTodo(out string whyNot)

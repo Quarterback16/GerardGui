@@ -73,6 +73,7 @@ namespace Butler
             MyJobs = new List<Job>
                {
                   new MediaJob(),  //  regular always
+                  new UpdateTflJob(),  
 
 #region Looking back on the games just played
 
@@ -81,7 +82,7 @@ namespace Butler
                   new PerformanceReportJob( TimeKeeper ),
                   new DepthChartJob( TimeKeeper ),
                   new StatGridJob( TimeKeeper ),
-                  //new PlayOffTeamsJob( TimeKeeper ),
+                  new PlayOffTeamsJob( TimeKeeper ),
 
 #endregion
 

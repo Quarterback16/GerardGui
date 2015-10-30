@@ -17,8 +17,7 @@ namespace Butler.Models
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
 
-         Report = new PlayoffTeamsReport( TimeKeeper );
-         Report.Name = "Playoff Teams";
+         Report = new PlayoffTeamsReport( TimeKeeper ) {Name = "Playoff Teams"};
       }
 
       public override string DoJob()

@@ -85,6 +85,7 @@
     <Compile Include="Models\PlayerReportsJob.cs" />
     <Compile Include="Models\PlayOffTeamsJob.cs" />
     <Compile Include="Models\ProjectionsJob.cs" />
+    <Compile Include="Models\RankingsJob.cs" />
     <Compile Include="Models\RecordActualMetricsJob.cs" />
     <Compile Include="Models\ReportJob.cs" />
     <Compile Include="Models\RookiesJob.cs" />

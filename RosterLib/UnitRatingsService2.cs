@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace RosterLib
 {
@@ -20,15 +17,12 @@ namespace RosterLib
 			var theSunday = Utility.TflWs.GetSeasonStartDate(theSeason);
 			if (when <= theSunday)
 				return theSunday;
-			for (int i = 1; i < 16; i++)
+			for (var i = 1; i < 16; i++)
 			{
 				var sunday = theSunday.AddDays(i * 7);
-				if ( when <= sunday )
-				{
-					theSunday = sunday;
-					break;
-				}
-				
+				if (when > sunday) continue;
+				theSunday = sunday;
+				break;
 			}
 			return theSunday;
 		}

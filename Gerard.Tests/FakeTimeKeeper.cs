@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using RosterLib;
 using RosterLib.Interfaces;
 using System;
 
@@ -15,12 +16,23 @@ namespace Gerard.Tests
 
       public bool _isPeakTime { get; set; }
 
+	   public DateTime TheDateTime { get; set; }
+
       public FakeTimeKeeper()
       {
          Season = "2015";
          _isItPreseason = true;
          _isPeakTime = false;
+	      TheDateTime = DateTime.Now;
       }
+
+		public FakeTimeKeeper( DateTime theDate )
+		{
+			Season = "2015";
+			_isItPreseason = true;
+			_isPeakTime = false;
+			TheDateTime = theDate;
+		}
 
       public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
       {
@@ -29,7 +41,8 @@ namespace Gerard.Tests
 
          _isItPreseason = isPreSeason;
          _isPeakTime = isPeakTime;
-      }
+			TheDateTime = DateTime.Now;
+		}
 
       public FakeTimeKeeper( string season )
       {
@@ -80,7 +93,7 @@ namespace Gerard.Tests
 
       public DateTime GetDate()
       {
-         throw new NotImplementedException();
+			return TheDateTime;
       }
 
       public bool IsDateDaysOld(int daysOld, DateTime theDate)
@@ -113,5 +126,26 @@ namespace Gerard.Tests
       {
          return focusDate.DayOfWeek == DayOfWeek.Friday || focusDate.DayOfWeek == DayOfWeek.Saturday || focusDate.DayOfWeek == DayOfWeek.Sunday;
       }
+
+	   public DateTime CurrentDateTime()
+	   {
+		   return TheDateTime;
+	   }
+
+		public DateTime GetSundayFor( DateTime when )
+		{
+			var theSeason = Utility.SeasonFor( when );
+			var theSunday = Utility.TflWs.GetSeasonStartDate( theSeason );
+			if ( when <= theSunday )
+				return theSunday;
+			for ( var i = 1; i < 16; i++ )
+			{
+				var sunday = theSunday.AddDays( i * 7 );
+				if ( when > sunday ) continue;
+				theSunday = sunday;
+				break;
+			}
+			return theSunday;
+		}
    }
 }

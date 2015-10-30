@@ -31,5 +31,9 @@ namespace RosterLib.Interfaces
       int CurrentWeek( DateTime focusDate );
 
       bool IsItFridaySaturdayOrSunday( DateTime dateTime );
+
+	   DateTime CurrentDateTime();
+
+	   DateTime GetSundayFor(DateTime when);
    }
 }

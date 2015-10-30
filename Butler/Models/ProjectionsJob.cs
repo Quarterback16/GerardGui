@@ -22,6 +22,10 @@ namespace Butler.Models
       public override string DoJob()
       {
          Logger.Info( "Doing {0} job..............................................", Name );
+         // pre-req
+         var preJob = new RankingsJob( TimeKeeper );
+         var outcome = preJob.DoJob();
+         Logger.Info("Rankings {0}", outcome );
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();
          return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
