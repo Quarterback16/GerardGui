@@ -42,7 +42,7 @@ namespace Gerard.Tests
          _isItPreseason = isPreSeason;
          _isPeakTime = isPeakTime;
 			TheDateTime = DateTime.Now;
-		}
+      }
 
       public FakeTimeKeeper( string season )
       {

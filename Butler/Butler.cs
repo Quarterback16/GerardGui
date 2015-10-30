@@ -72,6 +72,7 @@ namespace Butler
             // load jobs, in DEV u will work on one job at a time, but in PROD do em all
             MyJobs = new List<Job>
                {
+                  new UpdateTflJob(),  //  look for nerd stick
                   new MediaJob(),  //  regular always
                   new UpdateTflJob(),  
 
@@ -117,7 +118,6 @@ namespace Butler
 #region Regular Always jobs
                   new RunReportJob( TimeKeeper ),
                   new LogCleanupJob(), 
-                  new UpdateTflJob(),  
                   new TflDataBackupJob(),  
                   new DropboxCopyToReginaJob(), 
                   new MediaListsPublishJob()  

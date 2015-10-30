@@ -164,7 +164,7 @@ namespace RosterLib
 			return SystemClock.Now;
 	   }
 
-	   public string PreviousSeason(DateTime focusDate)
+      public string PreviousSeason(DateTime focusDate)
       {
          Season = CurrentSeason(focusDate); 
          return PreviousSeason();
@@ -190,6 +190,12 @@ namespace RosterLib
 				break;
 			}
 			return theSunday;
-		}
+      }
+
+
+      public bool IsItWednesday(DateTime focusDate)
+      {
+         return focusDate.DayOfWeek == DayOfWeek.Wednesday;
+      }
    }
 }
