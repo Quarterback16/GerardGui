@@ -45,5 +45,14 @@ namespace Gerard.Tests
          var msg = plyr.MetricsOut(gameKey);
          Console.WriteLine( msg );
       }
+
+      [TestMethod]
+      public void TestDoFullYahooXmlJob()  //   
+      {
+         var sut = new YahooXmlJob(new TimeKeeper());
+         sut.FullSeason = true;
+         var outcome = sut.DoJob();
+         Assert.IsFalse(string.IsNullOrEmpty(outcome));
+      }
    }
 }

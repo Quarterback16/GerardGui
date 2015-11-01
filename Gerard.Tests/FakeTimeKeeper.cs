@@ -61,6 +61,11 @@ namespace Gerard.Tests
          return false;
       }
 
+      public bool IsItWednesday(DateTime focusDate)
+      {
+         return false;
+      }
+      
       public bool IsItOffSeason()
       {
          return true;

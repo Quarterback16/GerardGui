@@ -20,8 +20,8 @@ namespace RosterLib
 		public TeamRanker()
 		{
 			RatingsHt = new Hashtable();
-			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable.htm",
-				Utility.OutputDirectory(), Utility.CurrentSeason() );
+			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable-{2}.htm",
+				Utility.OutputDirectory(), Utility.CurrentSeason(), Utility.CurrWeek );
 		}
 
 		public void RankTeams( DateTime when )

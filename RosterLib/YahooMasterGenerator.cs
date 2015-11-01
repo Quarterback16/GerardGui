@@ -6,16 +6,22 @@ namespace RosterLib
    {
 
       public YahooMaster YahooMaster { get; set; }
-      public YahooMasterGenerator()
+
+      public bool FullSeason { get; set; }
+      public YahooMasterGenerator( bool fullSeason )
       {
          Name = "Yahoo Master Generator";
          YahooMaster = new YahooMaster("Yahoo", "YahooOutput.xml");
          Logger = LogManager.GetCurrentClassLogger();
+         FullSeason = fullSeason;
       }
 
       public override void RenderAsHtml()
       {
-         YahooMaster.Calculate(Utility.CurrentSeason(), Utility.PreviousWeekAsString());
+         if ( FullSeason )
+            YahooMaster.Calculate(Utility.CurrentSeason() );
+         else
+            YahooMaster.Calculate(Utility.CurrentSeason(), Utility.PreviousWeekAsString());
          YahooMaster.Dump2Xml();
       }
 

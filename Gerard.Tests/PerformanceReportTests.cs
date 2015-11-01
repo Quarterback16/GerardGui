@@ -13,7 +13,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPerformanceReportJob()
       {
-         var sut = new PerformanceReportJob( new FakeTimeKeeper("2015","06") );
+         var sut = new PerformanceReportJob( new FakeTimeKeeper("2015","07") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

@@ -302,7 +302,7 @@ namespace TFLLib
 
 		public void UpdateRatings( string season, string teamCode, string ratings )
 		{
-			var formatStr = "UPDATE TEAM SET RATINGS = '{0}' ";
+			var formatStr = "UPDATE TEAM SET RATE = '{0}' ";
 			formatStr += " WHERE SEASON='{1}' AND TEAMID ='{2}'";
 			var commandStr = string.Format( formatStr, ratings, season, teamCode );
 			ExecuteCommand( commandStr );
