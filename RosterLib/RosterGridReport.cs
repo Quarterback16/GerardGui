@@ -61,6 +61,11 @@ namespace RosterLib
          Finish();
       }
 
+      public virtual void RenderFullAsHtml()
+      {
+         Finish();
+      }
+
       public virtual void Finish()
       {
          RunTime = Utility.StopTheWatch(Stopwatch, string.Format("Finished: {0}", Name));

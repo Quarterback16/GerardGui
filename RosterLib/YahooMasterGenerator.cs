@@ -16,10 +16,16 @@ namespace RosterLib
          FullSeason = fullSeason;
       }
 
+      public override void RenderFullAsHtml()
+      {
+         YahooMaster.Calculate( Utility.CurrentSeason() );
+         YahooMaster.Dump2Xml();
+      }
+
       public override void RenderAsHtml()
       {
-         if ( FullSeason )
-            YahooMaster.Calculate(Utility.CurrentSeason() );
+         if (FullSeason)
+            YahooMaster.Calculate(Utility.CurrentSeason());
          else
             YahooMaster.Calculate(Utility.CurrentSeason(), Utility.PreviousWeekAsString());
          YahooMaster.Dump2Xml();

@@ -99,6 +99,7 @@
     <Compile Include="Models\UnitReportsJob.cs" />
     <Compile Include="Models\UpdateActualsJob.cs" />
     <Compile Include="Models\UpdateTflJob.cs" />
+    <Compile Include="Models\YahooXmlFullJob.cs" />
     <Compile Include="Models\YahooXmlJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\DiskSpaceViewModel.cs" />

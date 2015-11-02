@@ -18,6 +18,16 @@ namespace Gerard.Tests
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
 
+		[TestMethod]
+		public void TestDoPerformanceJordanReedWeek06()
+		{
+			var p = new NFLPlayer("REEDJO02");
+			var week06 = new NFLWeek("2015", 6);
+			var _scorer = new YahooScorer(week06);
+			var nScore = _scorer.RatePlayer( p, week06 );
+			Assert.IsTrue( nScore == 0 );
+		}
+
       [TestMethod]
       public void TestGoBackOneMonth()
       {
@@ -90,9 +100,9 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestAllPositionsYahooCurrentWeek()
       {
-         var fileOut = TestYahooQbs();
+         //var fileOut = TestYahooQbs();
          //fileOut = TestYahooRunningBacks();
-         //fileOut = TestYahooTightEnds();
+         var fileOut = TestYahooTightEnds();
          //fileOut = TestYahooWideReceivers();
          //fileOut = TestYahooKickers();
       }

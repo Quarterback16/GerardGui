@@ -49,8 +49,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoFullYahooXmlJob()  //   
       {
-         var sut = new YahooXmlJob(new TimeKeeper());
-         sut.FullSeason = true;
+         var sut = new YahooXmlFullJob(new TimeKeeper());
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }

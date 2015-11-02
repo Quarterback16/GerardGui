@@ -154,10 +154,18 @@ namespace RosterLib
                      weeksDone++;
                   }
                }
-               dr[string.Format(FieldFormat, scoreWeek.WeekNo)] = string.Format("{0:#}:{1}", nScore, cOp) + "<br>" 
-                  + OpponentDefence( p, game );
+	            if (game != null && game.Played())
+	            {
+		            dr[ string.Format(FieldFormat, scoreWeek.WeekNo) ] = string.Format("{0:0}:{1}", nScore, cOp) + "<br>"
+		                                                                 + OpponentDefence(p, game);
+	            }
+	            else
+	            {
+						dr[ string.Format( FieldFormat, scoreWeek.WeekNo ) ] = string.Format( "{0:#}:{1}", nScore, cOp ) + "<br>"
+																							  + OpponentDefence( p, game );		            
+	            }
 
-               scoreWeek = WeekMaster != null ? WeekMaster.PreviousWeek(scoreWeek) : scoreWeek.PreviousWeek(scoreWeek,false,false);
+	            scoreWeek = WeekMaster != null ? WeekMaster.PreviousWeek(scoreWeek) : scoreWeek.PreviousWeek(scoreWeek,false,false);
 
                if (CurrentSeasonOnly)
                   if (scoreWeek.Season != Utility.CurrentSeason())
@@ -269,7 +277,7 @@ namespace RosterLib
 
       private static string EspnTeBgPicker(int theValue)
       {
-         string sColour = "RED";
+         var sColour = "RED";
 
          if (theValue > 8)
             sColour = "YELLOW";
