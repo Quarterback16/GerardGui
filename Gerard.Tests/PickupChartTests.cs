@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"08" ) );
+         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"09" ) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -23,6 +23,16 @@ namespace Gerard.Tests
          Console.WriteLine( "Week is {0}", sut.Week );
          Assert.IsTrue( sut.Week == 0 );
       }
+
+
+		[TestMethod]
+		public void TestLoadPassingUnit()
+		{
+			var sut = new NflTeam( "NJ" );
+			var passingUnit = sut.LoadPassUnit();
+			Console.WriteLine( "Passing Unit is {0}", passingUnit );
+		}
+
 
       [TestMethod]
       public void TestPredictedResult()
@@ -65,5 +75,14 @@ namespace Gerard.Tests
          var sn = sut.PlayerNameTo( 10 );
          Assert.AreEqual( "BRoethlisb", sn );
       }
+
+		[TestMethod]
+		public void TestKicker()
+		{
+			var sut = new NflTeam("SF");
+			var sn = sut.LoadKickUnit();
+			Assert.IsNotNull(sut.KickUnit);
+			Assert.IsNotNull(sut.KickUnit.PlaceKicker);
+		}
    }
 }

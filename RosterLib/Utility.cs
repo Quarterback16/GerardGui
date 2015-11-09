@@ -982,7 +982,7 @@ namespace RosterLib
          return connections["CtlConnectionString"].ConnectionString;
       }
 
-      internal static void DumpDataSet(DataSet ds)
+      public static void DumpDataSet(DataSet ds)
       {
          var dt = ds.Tables[0];
          foreach (DataRow dr in dt.Rows)

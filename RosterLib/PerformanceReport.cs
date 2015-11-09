@@ -32,7 +32,7 @@ namespace RosterLib
 			if ( currentWeek.WeekNo > 0 )
 			{
 				var gs = leagueId.Equals( Constants.K_LEAGUE_Yahoo )
-				                  	? (IRatePlayers) new EspnScorer( currentWeek )
+				                  	? (IRatePlayers) new YahooScorer( currentWeek )
 				                  	: new GS4Scorer( currentWeek ) {ScoresOnly = true};
 
 				if ( Scorer.Master == null )

@@ -12,13 +12,13 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestYahooProjectedPointsForPeytonManning2014Week01()
       {
-         var p = new NFLPlayer( "MANNPE01" );
-         var g = new NFLGame( "2014:01-N" );
+         var p = new NFLPlayer( "NEWTCA01" );
+         var g = new NFLGame( "2015:08-N" );
          g.LoadPrediction();
-         Console.WriteLine( "{0} {1}", p.PlayerNameShort, p.StatsFor( g, "DB" ) );
+         Console.WriteLine( "{0} {1}", p.PlayerNameShort, p.StatsFor( g, "CP" ) );
          var c = new YahooCalculator();
          var msg = c.Calculate( p, g );
-         var expected = 20;  //  2 TDp and 300 YDp
+         var expected = 6;  //  0 TDp and 150 YDp
          Assert.AreEqual( expected, msg.Player.Points );
       }
 

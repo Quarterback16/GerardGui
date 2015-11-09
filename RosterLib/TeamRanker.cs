@@ -13,15 +13,23 @@ namespace RosterLib
 
 		public string FileOut { get; set; }
 
+      public string Week { get; set; }
+
+      public IKeepTheTime TimeKeeper { get; set; }
+
 		public static DateTime LastDateRanked { get; set; }
 
 		public bool ForceReRank { get; set; }
 
-		public TeamRanker()
+      public TeamRanker(IKeepTheTime timeKeeper)
 		{
+         TimeKeeper = timeKeeper;
+
 			RatingsHt = new Hashtable();
-			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable-{2}.htm",
-				Utility.OutputDirectory(), Utility.CurrentSeason(), Utility.CurrWeek );
+         Week = TimeKeeper.PreviousWeek();
+
+			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable-{2:0#}.htm",
+				Utility.OutputDirectory(), Utility.CurrentSeason(), Week );
 		}
 
 		public void RankTeams( DateTime when )
@@ -39,7 +47,7 @@ namespace RosterLib
 			stopwatch.Start();
 #endif
 			//  what season are we in
-			var season = Utility.SeasonFor( when );
+			var season = TimeKeeper.CurrentSeason(when);
 			//  Get the teams for that season
 			var teamList = new List<NflTeam>();
 			LoadTeams( teamList, season, when );

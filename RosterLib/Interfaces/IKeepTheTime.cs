@@ -30,6 +30,8 @@ namespace RosterLib.Interfaces
 
       string PreviousSeason();
 
+      string PreviousWeek();
+
       int CurrentWeek( DateTime focusDate );
 
       bool IsItFridaySaturdayOrSunday( DateTime dateTime );

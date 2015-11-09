@@ -29,9 +29,22 @@ namespace Gerard.Tests
       public void TestGenerateYahooXml()
       {
          var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
-         m.Calculate( Utility.CurrentSeason(), "05" );
+         m.Calculate( Utility.CurrentSeason(), "08" );
          m.Dump2Xml();
       }
+
+      [TestMethod]
+      public void TestLineupLoad()
+      {
+         var LineupDs = Utility.TflWs.GetLineup( "NO", "2015", 8 );
+         var lineup = new Lineup(LineupDs);
+         Utility.Announce(string.Format("NFLGame.LoadPlayers {0} players in lineup", lineup.PlayerList.Count ) );
+         lineup.DumpLineup();
+         Assert.IsTrue(lineup.PlayerList.Count > 0);
+      }
+
+
+
 
       [TestMethod]
       public void TestYahooScorerOnAPlayer()

@@ -10,7 +10,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTeamRankerJob()
 		{
-			var sut = new RankingsJob( new FakeTimeKeeper( DateTime.Now ) );
+			var sut = new RankingsJob( new FakeTimeKeeper( "2015", "08" ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}

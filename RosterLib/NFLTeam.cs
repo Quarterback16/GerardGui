@@ -59,6 +59,8 @@ namespace RosterLib
 
       #endregion Collections
 
+		public KickUnit KickUnit { get; set; }
+
       public RushUnit RushUnit { get; set; }
 
       public PassUnit PassUnit { get; set; }
@@ -4697,6 +4699,12 @@ namespace RosterLib
          DumpUnit(RunningUnit, "Running backs");
 #endif
       }
+
+	   public List<string> LoadKickUnit()
+	   {
+			if (KickUnit == null) KickUnit = new KickUnit();
+			return KickUnit.Load(TeamCode);		   
+	   }
 
       public List<string> LoadRushUnit()
       {

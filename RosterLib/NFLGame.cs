@@ -1958,6 +1958,9 @@ namespace RosterLib
 
       public void TallyStatsFor(NflTeam team)
       {
+#if DEBUG
+         Utility.Announce("Tallying Stats for " + team.NameOut());
+#endif
          var gameYDr = YDr(team.TeamCode);
          var gameYDp = YDp(team.TeamCode);
          var gameTDp = Tdp(team.TeamCode);
@@ -2045,7 +2048,7 @@ namespace RosterLib
       {
          var theWeek = new NFLWeek(Season, WeekNo);
 
-         var scorer = new EspnScorer(theWeek) { AnnounceIt = announceIt };
+         var scorer = new YahooScorer(theWeek);
          var playerList = LoadPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
          foreach (var nflPlayer in playerList)
          {

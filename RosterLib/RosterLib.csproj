@@ -179,6 +179,7 @@
     <Compile Include="IUnitPerformanceRepository.cs" />
     <Compile Include="IWeekMaster.cs" />
     <Compile Include="KickOffReturn.cs" />
+    <Compile Include="KickUnit.cs" />
     <Compile Include="Ladder.cs" />
     <Compile Include="Lineup.cs" />
     <Compile Include="LineupSlate.cs" />

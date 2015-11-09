@@ -13,7 +13,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPerformanceReportJob()
       {
-         var sut = new PerformanceReportJob( new FakeTimeKeeper("2015","07") );
+         var sut = new PerformanceReportJob( new TimeKeeper() );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -26,6 +26,50 @@ namespace Gerard.Tests
 			var _scorer = new YahooScorer(week06);
 			var nScore = _scorer.RatePlayer( p, week06 );
 			Assert.IsTrue( nScore == 0 );
+		}
+
+		[TestMethod]
+		public void TestDoPerformanceWilleSneadWeek08Scores()
+		{
+			var p = new NFLPlayer( "SNEAWI01" );
+			var week = new NFLWeek( "2015", 8 );
+
+         var ds = Utility.TflWs.GetScoresForWeeks(Constants.K_SCORE_TD_PASS, p.PlayerCode, "2015", 8, 8, "1");
+
+         Utility.DumpDataSet( ds );
+         Assert.IsTrue(ds.Tables[0].Rows.Count == 2);
+      }
+
+      [TestMethod]
+      public void TestWilleSneadIsAFantasyPlayer()
+      {
+         var p = new NFLPlayer("SNEAWI01");
+         Assert.IsTrue(p.IsFantasyPlayer());
+      }
+
+		[TestMethod]
+		public void TestDoPerformanceWilleSneadWeek08ScoresFromCache()
+		{
+			var p = new NFLPlayer( "SNEAWI01" );
+			var week = new NFLWeek( "2015", 8 );
+
+         var theKey = string.Format( "{0}:{1:00}:{2}", week.Season, week.WeekNo, p.PlayerCode );
+
+         var qty = 19;  // Master.GetStat(theKey);
+
+         Assert.IsTrue(qty == 19);
+      }
+
+
+
+		[TestMethod]
+		public void TestDoPerformanceWilleSneadWeek08()
+		{
+			var p = new NFLPlayer( "SNEAWI01" );
+			var week = new NFLWeek( "2015", 8 );
+			var _scorer = new YahooScorer( week );
+			var nScore = _scorer.RatePlayer( p, week );
+			Assert.IsTrue( nScore > 0 );
 		}
 
       [TestMethod]
@@ -102,8 +146,8 @@ namespace Gerard.Tests
       {
          //var fileOut = TestYahooQbs();
          //fileOut = TestYahooRunningBacks();
-         var fileOut = TestYahooTightEnds();
-         //fileOut = TestYahooWideReceivers();
+         //var fileOut = TestYahooTightEnds();
+         var fileOut = TestYahooWideReceivers();
          //fileOut = TestYahooKickers();
       }
 
@@ -229,7 +273,7 @@ namespace Gerard.Tests
          var master = new YahooMaster( "Yahoo", "YahooOutput.xml" );
          var currentWeek =
             new NFLWeek( Int32.Parse( Utility.CurrentSeason() ), weekIn: week, loadGames: false );
-         var gs = new EspnScorer( currentWeek ) { Master = master };
+         var gs = new YahooScorer( currentWeek ) { Master = master };
 
          pl.SetScorer( gs );
          pl.SetFormat( "weekly" );

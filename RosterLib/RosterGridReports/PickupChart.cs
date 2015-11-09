@@ -56,6 +56,7 @@ namespace RosterLib.RosterGridReports
 
       private int GenerateChart( StringBuilder bodyOut, YahooCalculator c, int lineNo, IWinOrLose team )
       {
+	      team.Team.LoadKickUnit();
          team.Team.LoadRushUnit();
          team.Team.LoadPassUnit();
          var qb = GetQBBit( team, c );
@@ -74,7 +75,11 @@ namespace RosterLib.RosterGridReports
          bodyOut.Append( string.Format( " {0}", wr2 ) );
          //    spit out the TE line
          var te = GetTEBit( team, c );
-         bodyOut.AppendLine( string.Format( " {0}", te ) );
+         bodyOut.Append( string.Format( " {0}", te ) );
+			//    spit out the PK line
+			var pk = GetPKBit(team, c);
+			bodyOut.AppendLine(string.Format(" {0}", pk));
+
          return lineNo;
       }
 
@@ -127,6 +132,17 @@ namespace RosterLib.RosterGridReports
          return string.Format( "{0,-36}", bit );
       }
 
+		private string GetPKBit(IWinOrLose team, YahooCalculator c)
+		{
+			var bit = NoneBit(team);
+
+			if (team.Team.KickUnit.PlaceKicker != null)
+			{
+				bit = PlayerPiece(team.Team.KickUnit.PlaceKicker, team.Game, c);
+			}
+			return string.Format("{0,-36}", bit);
+		}
+
       private string GetQBBit( IWinOrLose team, YahooCalculator c )
       {
 			var bit = NoneBit( team );
@@ -138,7 +154,10 @@ namespace RosterLib.RosterGridReports
 
       private string GetRunnerBit( IWinOrLose team, YahooCalculator c )
       {
-         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                                ", team.Team.TeamCode, this.Week-1 );
+			var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam( team.Game );
+			var defensiveRating = nextOppTeam.DefensiveRating( Constants.K_RUNNINGBACK_CAT );
+         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}           ", 
+				team.Team.TeamCode, Week-1, defensiveRating );
          if (team.Team.RushUnit.AceBack != null)
             bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
          return string.Format( "{0,-36}", bit );

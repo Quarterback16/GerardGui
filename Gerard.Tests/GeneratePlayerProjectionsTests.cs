@@ -9,7 +9,7 @@ namespace Gerard.Tests
    public class GeneratePlayerProjectionsTests
    {
       [TestMethod]
-      public void TestCurrentGeneratePlayerProjectionsJob()   //  4 mins
+      public void TestCurrentGeneratePlayerProjectionsJob()   //  4 min
       {
          //  upcoming week only
          var sut = new GeneratePlayerProjectionsJob(new TimeKeeper());

@@ -197,7 +197,9 @@ namespace RosterLib
 
 		public void LoadGameList()
 		{
-			//Utility.Announce(string.Format("LoadGameList: Loading Teams Week {0}", Week ) );
+#if DEBUG
+			Utility.Announce(string.Format("LoadGameList: Loading Teams Week {0}", Week ) );
+#endif
 			_sched = Utility.TflWs.GetGames(Int32.Parse(Season), WeekNo);
 			if (_sched != null)
 			{
@@ -205,9 +207,10 @@ namespace RosterLib
 				var dt = _sched.Tables[0];
 				foreach (DataRow dr in dt.Rows)
 				{
-					//var gameCode = string.Format("{0}:{1}-{2}", Season, dr["WEEK"], dr["GAMENO"]);
-					//RosterLib.Utility.Announce(string.Format("LoadGameList: getting Game:{0}", gameCode ));
-
+#if DEBUG
+					var gameCode = string.Format("{0}:{1}-{2}", Season, dr["WEEK"], dr["GAMENO"]);
+					RosterLib.Utility.Announce(string.Format("LoadGameList: getting Game:{0}", gameCode ));
+#endif
 					//NFLGame g = Masters.Gm.GetGame( gameCode ); 
 					//if ( g == null )
 					//{

@@ -30,7 +30,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestGamePrediction()  //  39 sec 2015-08-10
       {
-         var game = new NFLGame( "2015:01-C" );
+         var game = new NFLGame( "2015:08-N" );
 
          var sut = new GameProjection( game ) {AnnounceIt = true};
          sut.Render();

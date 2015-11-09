@@ -145,6 +145,13 @@ namespace RosterLib
          return Int32.Parse( weekStr );
       }
 
+      public string PreviousWeek()
+      {
+         var currentWeek = CurrentWeek();
+         var previousWeek = currentWeek - 1;
+         return string.Format("{0:0#}", previousWeek );
+      }
+
       public string Week
       {
          get

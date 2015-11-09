@@ -26,6 +26,12 @@ namespace Butler.Models
 
       public override string DoJob()
       {
+#if ! DEBUG
+			//  prereq job!
+			var projections = new GeneratePlayerProjectionsJob( TimeKeeper );
+			var resultOut = projections.DoJob();
+			Logger.Info( "Finished projections {0}", resultOut );
+#endif
          Logger.Info( "Doing {0} job..............................................", Name );
          Report.RenderAsHtml(); //  the method that does the work
          Report.Finish();

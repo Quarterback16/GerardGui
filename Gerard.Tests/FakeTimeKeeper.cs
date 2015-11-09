@@ -111,6 +111,13 @@ namespace Gerard.Tests
          return Season;
       }
 
+      public string PreviousWeek()
+      {
+         var currentWeek = CurrentWeek(CurrentDateTime());
+         var previousWeek = currentWeek - 1;
+         return string.Format("{0:0#}", previousWeek);
+      }
+
       public string PreviousSeason(DateTime focusDate)
       {
          throw new NotImplementedException();
