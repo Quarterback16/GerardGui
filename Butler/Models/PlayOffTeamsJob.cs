@@ -27,5 +27,18 @@ namespace Butler.Models
          Report.Finish();
          return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
       }
+
+		public override bool IsTimeTodo(out string whyNot)
+		{
+			base.IsTimeTodo(out whyNot);
+			if (string.IsNullOrEmpty(whyNot))
+			{
+				if (TimeKeeper.IsItPeakTime())
+					whyNot = "Peak time - no noise please";
+			}
+			if (!string.IsNullOrEmpty(whyNot))
+				Logger.Info("Skipped {1}: {0}", whyNot, Name);
+			return (string.IsNullOrEmpty(whyNot));
+		}
    }
 }

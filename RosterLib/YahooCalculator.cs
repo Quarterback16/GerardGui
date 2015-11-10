@@ -10,14 +10,13 @@
          if ( yahooPipeline == null ) InitialiseThePipeLine();
 
          var msg = new YahooProjectedPointsMessage { Player = p };
-         if (! g.IsBye())
-         {
-            msg.Player.Points = 0;
-            msg.Game = g;
+	      if (g.IsBye()) return msg;
 
-            if (yahooPipeline != null && g != null) yahooPipeline.Execute( msg );
-         }
-         return msg;
+	      msg.Player.Points = 0;
+	      msg.Game = g;
+
+	      if (yahooPipeline != null) yahooPipeline.Execute( msg );
+	      return msg;
       }
 
       private void InitialiseThePipeLine()
@@ -27,6 +26,7 @@
          yahooPipeline.Register( msg => new AddYahooPassingPoints( msg ) );
          yahooPipeline.Register( msg => new AddYahooRushingPoints( msg ) );
          yahooPipeline.Register( msg => new AddYahooReceivingPoints( msg ) );
-      }
+			yahooPipeline.Register( msg => new AddYahooKickingPoints(msg));
+		}
    }
 }

@@ -1,7 +1,7 @@
-﻿using Butler.Models;
+﻿using System;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
-using System;
 
 namespace Gerard.Tests
 {
@@ -15,5 +15,14 @@ namespace Gerard.Tests
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
+
+		[TestMethod]
+		public void TestTimeToDoPlayoffTeamsJob()  //   
+		{
+			var sut = new PlayOffTeamsJob(new FakeTimeKeeper(isPreSeason: false, isPeakTime: true));
+			string whyNot;
+			Assert.IsFalse(sut.IsTimeTodo(out whyNot));
+			Console.WriteLine(whyNot);
+		}
    }
 }

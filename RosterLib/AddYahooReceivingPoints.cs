@@ -11,7 +11,7 @@ namespace RosterLib
       public AddYahooReceivingPoints( YahooProjectedPointsMessage input )
       {
 #if DEBUG
-         Utility.Announce( string.Format( "Calculating Rushing Points for {0} Game {1}",
+         Utility.Announce( string.Format( "Calculating Receiving Points for {0} Game {1}",
             input.Player.PlayerNameShort, input.Game.GameName() ) );
 #endif
          Process( input );

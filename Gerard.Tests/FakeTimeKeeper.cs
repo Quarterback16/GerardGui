@@ -93,7 +93,7 @@ namespace Gerard.Tests
 
       public bool IsItPeakTime()
       {
-         return false;
+			return _isPeakTime;
       }
 
       public DateTime GetDate()

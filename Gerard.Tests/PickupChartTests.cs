@@ -84,5 +84,15 @@ namespace Gerard.Tests
 			Assert.IsNotNull(sut.KickUnit);
 			Assert.IsNotNull(sut.KickUnit.PlaceKicker);
 		}
+
+		[TestMethod]
+		public void TestKickerCalcs()
+		{
+			var sut = new YahooCalculator();
+			var p = new NFLPlayer("GOSTST01");
+			var g = new NFLGame("2015:09-C");
+			sut.Calculate(p, g);
+			Assert.IsTrue(p.Points > 1);
+		}
    }
 }
