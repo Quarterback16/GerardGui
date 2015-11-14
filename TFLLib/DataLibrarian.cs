@@ -2301,6 +2301,7 @@ namespace TFLLib
          int projFG, int fg, int projPat, int pat
          )
       {
+         playerId = playerId.Replace("'", "''");
          var formatStr = "UPDATE PGMETRIC SET projYDp={2}, YDp={3}, projYDr={4}, YDR={5}, projTDP={6}, tdp={7}, projTDr={8}, TDr={9}, projTDc={10}, TDc={11}, projYDc={12}, YDc={13}, FG={14}, PAT={15},projFG={16}, projPAT={17}";
          formatStr += " WHERE PLAYERID='{0}' AND GAMECODE='{1}'";
          var commandStr = string.Format(formatStr, playerId, gameCode,

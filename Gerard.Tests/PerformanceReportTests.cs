@@ -11,7 +11,7 @@ namespace Gerard.Tests
    public class PerformanceReportTests
    {
       [TestMethod]
-      public void TestDoPerformanceReportJob()
+      public void TestDoPerformanceReportJob()  // 2015-11-11 2 min
       {
          var sut = new PerformanceReportJob( new TimeKeeper() );
          var outcome = sut.DoJob();
@@ -60,7 +60,15 @@ namespace Gerard.Tests
          Assert.IsTrue(qty == 19);
       }
 
-
+		[TestMethod]
+		public void TestDoPerformanceDeAngeloWeek09()
+		{
+			var p = new NFLPlayer("WILLDE02");
+			var week = new NFLWeek("2015", 9);
+			var _scorer = new YahooScorer(week);
+			var nScore = _scorer.RatePlayer(p, week);
+			Assert.IsTrue(nScore > 0);
+		}
 
 		[TestMethod]
 		public void TestDoPerformanceWilleSneadWeek08()
@@ -217,7 +225,7 @@ namespace Gerard.Tests
          return fileOut;
       }
 
-      private string TestYahooWideReceivers()
+      private static string TestYahooWideReceivers()
       {
          var fileOut = WeeklyEspnPerformance( "3", Int32.Parse( Utility.CurrentWeek() ), "YH", "WR" );
          Assert.IsTrue( File.Exists( fileOut ) );
@@ -231,35 +239,35 @@ namespace Gerard.Tests
          return fileOut;
       }
 
-      private string TestBeastModeRunningBacks()
+      private static string TestBeastModeRunningBacks()
       {
          var fileOut = WeeklyEspnPerformance( "2", Int32.Parse( Utility.CurrentWeek() ), "TN", "RB" );
          Assert.IsTrue( File.Exists( fileOut ) );
          return fileOut;
       }
 
-      private string TestBeastModeKickers()
+      private static string TestBeastModeKickers()
       {
          var fileOut = WeeklyEspnPerformance( "4", Int32.Parse( Utility.CurrentWeek() ), "TN", "PK" );
          Assert.IsTrue( File.Exists( fileOut ) );
          return fileOut;
       }
 
-      private string TestBeastModeTightEnds()
+      private static string TestBeastModeTightEnds()
       {
          var fileOut = WeeklyEspnPerformance( "9", Int32.Parse( Utility.CurrentWeek() ), "TN", "TE" );
          Assert.IsTrue( File.Exists( fileOut ) );
          return fileOut;
       }
 
-      private string TestBeastModeWideReceivers()
+      private static string TestBeastModeWideReceivers()
       {
          var fileOut = WeeklyEspnPerformance( "3", Int32.Parse( Utility.CurrentWeek() ), "TN", "WR" );
          Assert.IsTrue( File.Exists( fileOut ) );
          return fileOut;
       }
 
-      private string TestBeastModeQbs()
+      private static string TestBeastModeQbs()
       {
          var fileOut = WeeklyEspnPerformance( "1", Int32.Parse( Utility.CurrentWeek() ), "TN", "QB" );
          Assert.IsTrue( File.Exists( fileOut ) );
@@ -288,5 +296,7 @@ namespace Gerard.Tests
          pl.Render( targetFile );
          return pl.FileOut;
       }
+
+
    }
 }

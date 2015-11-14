@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddActualYahooKickingPoints.cs" />
+    <Compile Include="AddActualYahooPassingPoints.cs" />
+    <Compile Include="AddActualYahooReceivingPoints.cs" />
+    <Compile Include="AddActualYahooRushingPoints.cs" />
     <Compile Include="AddYahooKickingPoints.cs" />
     <Compile Include="AddYahooPassingPoints.cs" />
     <Compile Include="AddYahooReceivingPoints.cs" />
@@ -357,6 +361,7 @@
     <Compile Include="YahooProjectedPointsMessage.cs" />
     <Compile Include="YahooProjectionScorer.cs" />
     <Compile Include="YahooProjector.cs" />
+    <Compile Include="YahooReporter.cs" />
     <Compile Include="YahooScorer.cs" />
     <Compile Include="YardsPassing.cs" />
     <Compile Include="YardsReceiving.cs" />

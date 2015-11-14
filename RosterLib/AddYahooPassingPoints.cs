@@ -19,7 +19,7 @@ namespace RosterLib
 
       private static void Process( YahooProjectedPointsMessage input )
       {
-         input.Player.Points += input.PlayerGameMetrics.ProjTDp * 4;
+			input.Player.Points += input.PlayerGameMetrics.ProjTDp * 4;
 #if DEBUG
          Utility.Announce(string.Format("Projected TDp = {0} * 4 = {1}", input.PlayerGameMetrics.ProjTDp, input.PlayerGameMetrics.ProjTDp * 4));
 #endif

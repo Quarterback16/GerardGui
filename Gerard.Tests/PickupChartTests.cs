@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"09" ) );
+         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"10" ) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -41,6 +41,13 @@ namespace Gerard.Tests
          var prediction = sut.PredictedResult();
          Assert.AreEqual( "CP 20-CL 17", prediction );
       }
+
+		[TestMethod]
+		public void TestGamePlayed()
+		{
+			var sut = new NFLGame("2015:10-A");
+			Assert.IsFalse(sut.Played());
+		}
 
       [TestMethod]
       public void TestBookiePredictedResult()
