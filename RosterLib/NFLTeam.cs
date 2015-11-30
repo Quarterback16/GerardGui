@@ -1132,7 +1132,22 @@ namespace RosterLib
          return catCode == Constants.K_RUNNINGBACK_CAT ? RdRating() : PdRating();
       }
 
-      public string PoRating()
+		public string DefensiveUnit(string catCode)
+		{
+			return catCode == Constants.K_RUNNINGBACK_CAT ? RDUnitLink(RdRating()) : PDUnitLink(PdRating());
+		}
+
+	   private string PDUnitLink(string pdRating)
+	   {
+		   return string.Format("<a href='..\\Units\\PassDef\\PD-{0}.htm'>{1}</a>", TeamCode, pdRating);
+	   }
+
+	   private string RDUnitLink(string rdRating)
+	   {
+			return string.Format("<a href='..\\Units\\RunDef\\RD-{0}.htm'>{1}</a>", TeamCode, rdRating);
+		}
+
+	   public string PoRating()
       {
          return Ratings.Substring(0, 1);
       }
@@ -3600,7 +3615,7 @@ namespace RosterLib
       public void LoadPlayerUnits()
       {
 #if DEBUG
-         Utility.Announce("NFlTeam.LoadPlayers:Loading units for " + TeamCode);
+         Utility.Announce("NFlTeam.LoadLineupPlayers:Loading units for " + TeamCode);
          //DumpStarters();
 #endif
          if (Filters.DoPassingUnit()) LoadPassingUnit(Filters.QbRoleFilter());
@@ -3612,7 +3627,7 @@ namespace RosterLib
          if (Filters.DoKickingUnit()) LoadKickingUnit();
 #if DEBUG
          DumpSpots();
-         //Utility.Announce("NFlTeam.LoadPlayers:Finished loading units for " + TeamCode);
+         //Utility.Announce("NFlTeam.LoadLineupPlayers:Finished loading units for " + TeamCode);
 #endif
       }
 
@@ -3832,7 +3847,7 @@ namespace RosterLib
                Utility.Announce(result.LogResult());
 #endif
                metric = metricName == "Spread"
-                           ? ((game.IsHome(TeamCode)) ? result.Spread : -(result.Spread))
+                           ? Convert.ToInt32(((game.IsHome(TeamCode)) ? result.Spread : 0.0M-(result.Spread)))
                            : (metricName == "Tdp"
                                  ? ((game.IsHome(TeamCode)) ? result.HomeTDp : result.AwayTDp)
                                  : ((game.IsHome(TeamCode)) ? result.HomeTDr : result.AwayTDr));
@@ -3856,7 +3871,7 @@ namespace RosterLib
                   if (Int32.Parse(g.Week) < 18)
                   {
                      result = g.Result;
-                     metric = (g.IsHome(TeamCode)) ? result.Spread : -(result.Spread);
+                     metric = Convert.ToInt32((g.IsHome(TeamCode)) ? result.Spread : 0.0M-(result.Spread));
                      ApplyPrevResult(metric);
                      var so =
                         new SeasonOpposition(g.Opponent(TeamCode), g.IsHome(TeamCode), metric);

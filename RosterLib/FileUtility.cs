@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace RosterLib
 {
@@ -36,7 +37,7 @@ namespace RosterLib
             }
             return string.Empty;
          }
-         catch ( System.IO.IOException ex )
+         catch ( IOException ex )
          {
             return ex.Message;
          }
@@ -58,6 +59,27 @@ namespace RosterLib
 				// We could not delete the file.
 				return false;
 			}
+		}
+
+		public static void DeleteAllFilesInDirectory(string dir)
+		{
+			var downloadedMessageInfo = new DirectoryInfo(dir);
+
+			foreach (var file in downloadedMessageInfo.GetFiles())
+			{
+				file.Delete();
+			}
+			foreach (var d in downloadedMessageInfo.GetDirectories())
+			{
+				d.Delete(true);
+			}			
+		}
+
+		public static int CountFilesInDirectory(string dir)
+		{
+			var downloadedMessageInfo = new DirectoryInfo(dir);
+			var files = downloadedMessageInfo.GetFiles();
+			return files.Count();
 		}
 
 	}

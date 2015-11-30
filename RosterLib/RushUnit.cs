@@ -305,7 +305,7 @@ namespace RosterLib
             }
 
             var msg = string.Format( "{0,-25} : {6} : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-               runner.PlayerName.PadRight( 25 ), runner.PlayerRole, runner.TotStats.Touches,
+               runner.ProjectionLink(25), runner.PlayerRole, runner.TotStats.Touches,
                load, runner.PlayerRole, runner.PlayerPos, runner.Owner
                );
             runner.TotStats.TouchLoad = load;

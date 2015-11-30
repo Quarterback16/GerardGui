@@ -26,6 +26,8 @@ namespace RosterLib.Interfaces
 
       string CurrentSeason( DateTime focusDate );
 
+		string CurrentSeason();
+
       string PreviousSeason( DateTime focusDate);
 
       string PreviousSeason();

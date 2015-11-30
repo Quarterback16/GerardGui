@@ -43,10 +43,10 @@ namespace RosterLib
          theWeek.LoadGameList();
          foreach (NFLGame game in theWeek.GameList())
          {
-            var homeList = game.LoadPlayers(game.HomeTeam);
+            var homeList = game.LoadLineupPlayers(game.HomeTeam);
             TallyMetrics( bodyOut, game, homeList);
 
-            var awayList = game.LoadPlayers(game.AwayTeam);
+            var awayList = game.LoadLineupPlayers(game.AwayTeam);
             TallyMetrics(bodyOut, game, awayList);
          }   
 

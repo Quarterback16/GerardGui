@@ -9,15 +9,7 @@ namespace Gerard.Tests
    public class StarterJobTests
    {
       [TestMethod]
-      public void TestTimetoDoStartersReport()
-      {
-         var sut = new StartersJob( new TimeKeeper() );
-         string whyNot;
-         Assert.IsFalse( sut.IsTimeTodo( out whyNot ) );
-      }
-
-      [TestMethod]
-      public void TestStartersJob()
+      public void TestStartersJob()  //  2015-11-17  6 mins (only QBs)
       {
          var sut = new StartersJob( new TimeKeeper() );
          string whyNot;
@@ -26,5 +18,13 @@ namespace Gerard.Tests
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
       }
+
+		[TestMethod]
+		public void TestTimetoDoStartersReport()
+		{
+			var sut = new StartersJob(new FakeTimeKeeper( season:"2015", week:"10" ) );
+			string whyNot;
+			Assert.IsTrue(sut.IsTimeTodo(out whyNot));
+		}
    }
 }

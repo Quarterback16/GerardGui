@@ -46,9 +46,9 @@ namespace RosterLib
 
 			foreach (var kicker in Kickers)
 			{
-				var runr = string.Format("{0,-25} : {1} : {2}", kicker.PlayerName.PadRight(25), kicker.PlayerRole, kicker.PlayerPos);
-				Utility.Announce(runr);
-				unit += runr + Environment.NewLine;
+				var pk = string.Format("{0,-25} : {1} : {2}", kicker.ProjectionLink(25), kicker.PlayerRole, kicker.PlayerPos);
+				Utility.Announce(pk);
+				unit += pk + Environment.NewLine;
 			}
 			output.Add(unit + Environment.NewLine);
 			return output;

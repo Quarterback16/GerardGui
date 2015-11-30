@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
-using TFLLib;
-using System.IO;
 using System;
 
 namespace Gerard.Tests
@@ -15,7 +13,7 @@ namespace Gerard.Tests
          var p = new NFLPlayer( "NEWTCA01" );
          var g = new NFLGame( "2015:08-N" );
          g.LoadPrediction();
-         Console.WriteLine( "{0} {1}", p.PlayerNameShort, p.StatsFor( g, "CP" ) );
+         Console.WriteLine( "{0} {1}", p.PlayerNameShort, p.ProjectedStatsFor( g, "CP" ) );
          var c = new YahooCalculator();
          var msg = c.Calculate( p, g );
          var expected = 6;  //  0 TDp and 150 YDp

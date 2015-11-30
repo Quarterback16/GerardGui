@@ -14,11 +14,12 @@ namespace RosterLib
 
       public string GameKey { get; set; }
 
+	   public NFLGame Game { get; set; }
+
       public YahooScorer( NFLWeek week )
       {
          Name = "Yahoo Scorer";
          Week = week;
-         WeekHasPassed = Week.HasPassed();
          PgmDao = new DbfPlayerGameMetricsDao();
       }
 
@@ -32,6 +33,8 @@ namespace RosterLib
          if ( week.WeekNo.Equals( 0 ) ) return 0;
 
          GameKey = Week.GameCodeFor( plyr.TeamCode );
+			Game = new NFLGame(GameKey);
+	      WeekHasPassed = Game.Played();
 
          Week = week;  //  set the global week, other wise u will get the same week all the time
          plyr.Points = 0;  //  start from scratch
@@ -57,11 +60,11 @@ namespace RosterLib
          plyr.Points += ptsForYDp;
 #if DEBUG
          Utility.Announce( string.Format(
-            "{0} has {1} points for YDp", plyr.PlayerName, ptsForYDp ) );
+				"{0} has {1} points for {2} YDp", plyr.PlayerName, ptsForYDp, plyr.ProjectedYDp ));
 #endif
          //  -2 pts for an Interception
          var ptsForInts = PointsForStats(
-            plyr: plyr, increment: -2, forStatType: Constants.K_STATCODE_INTERCEPTIONS_THROWN, divisor: 1.0M );
+            plyr: plyr, increment: -1, forStatType: Constants.K_STATCODE_INTERCEPTIONS_THROWN, divisor: 1.0M );
          plyr.Points += ptsForInts;
 #if DEBUG
          Utility.Announce( string.Format( "{0} has {1} points for Interceptions", plyr.PlayerName, ptsForInts ) );
@@ -146,7 +149,7 @@ namespace RosterLib
          if (!WeekHasPassed) return plyr.Points;
 
          if ( plyr.GameMetrics.ContainsKey( GameKey ) )
-            PgmDao.Save( plyr.GameMetrics[ GameKey ]  );
+            PgmDao.SaveActuals( plyr.GameMetrics[ GameKey ]  );
          else
          {
 #if DEBUG
@@ -201,7 +204,7 @@ namespace RosterLib
                   Utility.Announce( string.Format( "Unknown stat type {0}", forStatType ) );
                   break;
             }
-            plyr.AddMetric( forStatType, GameKey, qty );
+            plyr.AddMetric( forStatType, GameKey, qty, 0 );
          }
          else
          {
@@ -230,6 +233,8 @@ namespace RosterLib
             ds = plyr.LastScores(
                forScoreType, Week.WeekNo, Week.WeekNo, Week.Season, id );
             nScores = ds.Tables[ 0 ].Rows.Count;
+	         if (forScoreType == Constants.K_SCORE_TD_PASS && id == "1")
+		         forScoreType = Constants.K_SCORE_TD_CATCH;
             plyr.AddMetric( forScoreType, GameKey, nScores );
          }
          else
@@ -268,6 +273,10 @@ namespace RosterLib
 
             case Constants.K_SCORE_PAT_RUN:
                break;
+
+				case Constants.K_SCORE_TD_CATCH:
+					plyr.ProjectedTDc = nScores;
+		         break;
 
             default:
                Utility.Announce( string.Format(

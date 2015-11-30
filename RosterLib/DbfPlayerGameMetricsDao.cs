@@ -109,7 +109,37 @@ namespace RosterLib
          }
       }
 
-      public List<PlayerGameMetrics> GetWeek(string season, string week)
+	   public void SaveActuals(PlayerGameMetrics pgm)
+	   {
+         string commandStr;
+         var oldPgm = Get(pgm.PlayerId, pgm.GameKey);
+		   if (oldPgm.IsEmpty)
+		   {
+			   Utility.TflWs.InsertPlayerGameMetric(
+				   pgm.PlayerId, pgm.GameKey,
+				   pgm.ProjYDp, pgm.YDp, pgm.ProjYDr, pgm.YDr,
+				   pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
+				   pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
+				   );
+			   commandStr = "Player Metric not found";
+		   }
+		   else
+		   {
+			   commandStr =
+				   Utility.TflWs.UpdatePlayerGameMetricWithActuals(
+					   pgm.PlayerId, pgm.GameKey,
+					   pgm.YDp, pgm.YDr,
+					   pgm.TDp, pgm.TDr, pgm.TDc, pgm.YDc,
+					   pgm.FG, pgm.Pat,
+						pgm.FantasyPoints
+					   );
+		   }
+#if DEBUG
+         Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
+#endif
+	   }
+
+	   public List<PlayerGameMetrics> GetWeek(string season, string week)
       {
          var pgmList = new List<PlayerGameMetrics>();
          DataSet ds = Utility.TflWs.GetAllPlayerGameMetrics(season, week);

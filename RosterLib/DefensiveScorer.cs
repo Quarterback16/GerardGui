@@ -47,7 +47,7 @@
 
       public void RenderDefensiveScoringReport( NFLWeek week )
       {
-         var offset = -4;
+         var offset = -6;
          if ( week.WeekNo < 2 )
             //  do the whole of last season
             offset = - Constants.K_WEEKS_IN_REGULAR_SEASON;

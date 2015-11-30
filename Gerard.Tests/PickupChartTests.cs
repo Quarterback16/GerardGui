@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
+using RosterLib.RosterGridReports;
 
 namespace Gerard.Tests
 {
@@ -9,12 +10,40 @@ namespace Gerard.Tests
    public class PickupChartTests
    {
       [TestMethod]
-      public void TestDoPickupChartJob()  //  1 min on 2015-09-01
+      public void TestDoPickupChartJob()  //  1 min on 2015-09-01, 7 min with Projection Genrations turn on
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper( season: "2015", week:"10" ) );
+         var sut = new PickupChartJob( new TimeKeeper() );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
+
+		[TestMethod]
+		public void TestActualOutput()
+		{
+			var sut = new PickupChart(season: "2015", week: 12);
+			var p = new NFLPlayer("STAFMA01");
+			var g = new NFLGame("2015:12-A");
+			var result = sut.ActualOutput(g, p);
+			Assert.AreEqual(expected:" 34 ",actual:result);
+		}
+
+		[TestMethod]
+		public void TestProjectedOutput()
+		{
+			var sut = new YahooCalculator();
+			var p = new NFLPlayer("STAFMA01");
+			var g = new NFLGame("2015:12-A");
+			var result = sut.Calculate(p, g);
+			Assert.AreEqual(expected: 20, actual: p.Points);
+		}
+
+
+		[TestMethod]
+		public void TestGameHasBeenPlayed()
+		{
+			var g = new NFLGame("2015:12-A");
+			Assert.IsTrue(g.Played());
+		}
 
       [TestMethod]
       public void TestCurrentWeek()
@@ -57,6 +86,16 @@ namespace Gerard.Tests
          var predictedResult = sut.BookieTip.PredictedScore();
          Assert.AreEqual( "CP 23-CL 17", predictedResult );
       }
+
+      [TestMethod]
+      public void TestBookiePredictedResultPickEmGame()
+      {
+         var sut = new NFLGame("2015:11-B");
+         sut.CalculateSpreadResult();
+         var predictedResult = sut.BookieTip.PredictedScore();
+         Assert.AreEqual("DL 25vOR 24", predictedResult);
+      }
+
 
       [TestMethod]
       public void TestMarginOfVictory()

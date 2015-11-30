@@ -4,11 +4,11 @@ using System;
 
 namespace Butler.Models
 {
-   public class ProjectionsJob : Job
+   public class GameProjectionsJob : Job
    {
       public RosterGridReport Report { get; set; }
 
-      public ProjectionsJob(IKeepTheTime timeKeeper)
+      public GameProjectionsJob(IKeepTheTime timeKeeper)
       {
          Name = "Game Projections";
          Console.WriteLine("Constructing {0} ...", Name);

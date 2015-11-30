@@ -294,17 +294,22 @@ namespace RosterLib
       private int QuantityOf( string strVal )
       {
          decimal qty;
-         if ( !Decimal.TryParse( strVal, out qty ) )
-         {
-            //  must be n:xx
-            //  get first part
-            var firstPart = strVal.Substring( 0, strVal.IndexOf(":", StringComparison.Ordinal) );
-            if ( !Decimal.TryParse( firstPart, out qty ) )
-            {
-               qty = 0;
-            }
-         }
-         return (int) qty;
+	      if (Decimal.TryParse(strVal, out qty)) return (int) qty;
+
+	      //  must be n:xx
+	      //  get first part
+	      var colonPart = strVal.IndexOf(":", StringComparison.Ordinal);
+	      if (colonPart < 0)
+		      qty = 0;
+	      else
+	      {
+		      var firstPart = strVal.Substring(0, colonPart);
+		      if (!Decimal.TryParse(firstPart, out qty))
+		      {
+			      qty = 0;
+		      }
+	      }
+	      return (int) qty;
       }
 
       private string TotalLine(int[] tot)

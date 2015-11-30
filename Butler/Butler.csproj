@@ -68,10 +68,11 @@
     <Compile Include="Models\BalanceReportJob.cs" />
     <Compile Include="Models\DefensiveReportsJob.cs" />
     <Compile Include="Models\DepthChartJob.cs" />
+    <Compile Include="Models\DropBoxCopyTflToVesuviusJob.cs" />
     <Compile Include="Models\DropboxCopyToReginaJob.cs" />
     <Compile Include="Models\FantasyProjectionJob.cs" />
     <Compile Include="Models\FreeAgentMarketJob.cs" />
-    <Compile Include="Models\GenerateProjectionsJob.cs" />
+    <Compile Include="Models\GeneratePlayerProjectionsJob.cs" />
     <Compile Include="Models\HotListsJob.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\LogCleanupJob.cs" />
@@ -84,7 +85,7 @@
     <Compile Include="Models\PlayerCsvJob.cs" />
     <Compile Include="Models\PlayerReportsJob.cs" />
     <Compile Include="Models\PlayOffTeamsJob.cs" />
-    <Compile Include="Models\ProjectionsJob.cs" />
+    <Compile Include="Models\GameProjectionsJob.cs" />
     <Compile Include="Models\RankingsJob.cs" />
     <Compile Include="Models\RecordActualMetricsJob.cs" />
     <Compile Include="Models\ReportJob.cs" />

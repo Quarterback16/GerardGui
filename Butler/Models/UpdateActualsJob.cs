@@ -17,13 +17,16 @@ namespace Butler.Models
       {
          Name = "Update Actual Player Game Metrics";
          Console.WriteLine( "Constructing {0} ...", Name );
-         Report = new MetricsUpdateReport();   //  do this
+         Report = new MetricsUpdateReport(timeKeeper);   //  do this
          TimeKeeper = timeKeeper;
+	      Report.TimeKeeper = timeKeeper;
          Logger = LogManager.GetCurrentClassLogger();
       }
 
       public override string DoJob()
       {
+			Logger.Info("Doing {0} job..............................................", Name);
+
          Report.RenderAsHtml(); //  the old method that does the work
          return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
       }
@@ -38,12 +41,12 @@ namespace Butler.Models
             if ( !TimeKeeper.IsItRegularSeason() )
                whyNot = "Its not the Regular Season yet";
          }
-         if ( string.IsNullOrEmpty( whyNot ) )
-         {
-            if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
-               whyNot = "Its not Wednesday or Thursday";
-         }
-         return ( string.IsNullOrEmpty( whyNot ) );
+	      if (!string.IsNullOrEmpty(whyNot)) return ( string.IsNullOrEmpty(whyNot) );
+
+	      if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
+		      whyNot = "Its not Wednesday or Thursday";
+
+	      return ( string.IsNullOrEmpty( whyNot ) );
       }
    }
 }

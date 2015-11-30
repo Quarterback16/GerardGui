@@ -45,10 +45,10 @@ namespace RosterLib
          if (Logger == null) Logger = LogManager.GetCurrentClassLogger();
       }
 
-      public RoleAssignmentReport( string singleTeamCode )
+      public RoleAssignmentReport( string singleTeamCode, IKeepTheTime timeKeeper )
       {
          SingleTeam = singleTeamCode;
-         Initialise();
+         Initialise(timeKeeper);
       }
 
       public override string OutputFilename()

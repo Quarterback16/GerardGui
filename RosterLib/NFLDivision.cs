@@ -69,7 +69,7 @@ namespace RosterLib
 				if (nIndex <= -1) continue;
 				var t = Masters.Tm.GetTeam( Season, strTeamCode );
 				t.CurrentClip = Decimal.Parse( dr[ "clip" ].ToString() );  //  clip is not in the XML
-				//t.LoadPlayers();  // lazy load this
+				//t.LoadLineupPlayers();  // lazy load this
 				TeamList.Add( t );
 			}
 		}

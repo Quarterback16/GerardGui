@@ -28,6 +28,8 @@ namespace RosterLib
       public int ProjPat { get; set; }
       public int Pat { get; set; }
 
+		public int FantasyPoints { get; set; }
+
       public bool IsEmpty { get; set; }
 
       public IRatePlayers Scorer { get; set; }
@@ -49,10 +51,43 @@ namespace RosterLib
             PlayerId, GameKey, ProjYDp, ProjTDp, ProjYDr, ProjTDr, ProjYDc, ProjTDc, ProjFG, ProjPat );
       }
 
+	   public string ActualStatsOut(string playerCat)
+	   {
+		   var output = string.Empty;
+			switch (playerCat)
+			{
+				case Constants.K_QUARTERBACK_CAT:
+					output = string.Format("{0} ({1})", YDp, TDp + TDr);
+					break;
+
+				case Constants.K_RUNNINGBACK_CAT:
+					output = string.Format("{0} ({1})", YDr + YDc, TDr + TDc);
+					break;
+
+				case Constants.K_RECEIVER_CAT:
+					output = string.Format("{0} ({1})", YDc + YDr, TDc + TDr);
+					break;
+
+				case Constants.K_KICKER_CAT:
+					output = string.Format("{0} ({1})", Pat, FG);
+					break;
+
+				default:
+					break;
+
+			}
+		   return output;
+	   }
+
       public void Save( IPlayerGameMetricsDao dao )
       {
          dao.Save( this );
       }
+
+	   public void UpdateAcuals(IPlayerGameMetricsDao dao)
+	   {
+		   dao.SaveActuals(this);
+	   }
 
       public string Week()
       {

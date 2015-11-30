@@ -9,7 +9,7 @@ namespace RosterLib
 
       public bool DoCsv { get; set; }
 
-      public bool WriteProjections { get; set; }
+      public bool WriteProjectionReports { get; set; }
 
       public string LeagueCode { get; set; }
 
@@ -27,14 +27,13 @@ namespace RosterLib
          Lister = new PlayerLister();
          Configs = new List<StarterConfig>();
          Configs.Add(new StarterConfig { Category = Constants.K_QUARTERBACK_CAT, Position = "QB" });
-#if ! DEBUG
+#if ! DEBUG2
          Configs.Add(new StarterConfig { Category = Constants.K_RUNNINGBACK_CAT, Position = "RB" });
          Configs.Add(new StarterConfig { Category = Constants.K_RECEIVER_CAT, Position = "WR" });
          Configs.Add(new StarterConfig { Category = Constants.K_RECEIVER_CAT, Position = "TE" });
          Configs.Add(new StarterConfig { Category = Constants.K_KICKER_CAT, Position = "K" });
 #endif
-         Leagues = new List<RosterGridLeague>();
-         Leagues.Add(new RosterGridLeague { Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1" });
+         Leagues = new List<RosterGridLeague> {new RosterGridLeague {Id = Constants.K_LEAGUE_Yahoo, Name = "Yahoo"}};
       }
 
 
@@ -50,7 +49,7 @@ namespace RosterLib
 
       private void GenerateReport(StarterConfig rpt)
       {
-         WriteProjections = true;  //  Will gnerate a page for each player //TODO  should do this seperately
+         WriteProjectionReports = true;  //  Will gnerate a page for each player //TODO  should do this seperately
          RenderStarters(rpt.Category, rpt.Position, LeagueCode);
       }
 
@@ -70,15 +69,15 @@ namespace RosterLib
 
          var fileOut = Lister.Render(string.Format("{1}-Starters-{0}", sPos, fantasyLeague));
 
-         if (WriteProjections)
-            WritePlayerProjections();
+         if (WriteProjectionReports)
+            WritePlayerProjectionReports();
 
          Lister.Clear();
 
          return fileOut;
       }
 
-      public void WritePlayerProjections()
+      public void WritePlayerProjectionReports()
       {
          foreach (NFLPlayer p in Lister.PlayerList)
             p.PlayerProjection(Utility.CurrentSeason());

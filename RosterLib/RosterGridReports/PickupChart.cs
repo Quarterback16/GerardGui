@@ -107,7 +107,7 @@ namespace RosterLib.RosterGridReports
 
 	   private string NoneBit( IWinOrLose team )
 	   {
-		   var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                                ", team.Team.TeamCode, Week - 1 );
+		   var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                            ", team.Team.TeamCode, Week - 1 );
 		   return bit;
 	   }
 
@@ -156,7 +156,7 @@ namespace RosterLib.RosterGridReports
       {
 			var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam( team.Game );
 			var defensiveRating = nextOppTeam.DefensiveRating( Constants.K_RUNNINGBACK_CAT );
-         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}           ", 
+         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}       ", 
 				team.Team.TeamCode, Week-1, defensiveRating );
          if (team.Team.RushUnit.AceBack != null)
             bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
@@ -166,14 +166,15 @@ namespace RosterLib.RosterGridReports
       private string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
       {
          var nextOppTeam = p.NextOpponentTeam( g );
-         var defensiveRating = nextOppTeam.DefensiveRating( p.PlayerCat );
-         var owners = p.LoadAllOwners();
+         //var defensiveRating = nextOppTeam.DefensiveRating( p.PlayerCat );
+			var defensiveRating = nextOppTeam.DefensiveUnit(p.PlayerCat);
+			var owners = p.LoadAllOwners();
          c.Calculate( p, g );
 			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
          return string.Format( "{0,-11} {3}  {1}  {2,2:#0}  {4} ", namePart, defensiveRating, p.Points, owners, ActualOutput(g,p) );
       }
 
-		private static string ActualOutput(NFLGame g, NFLPlayer p)
+		public string ActualOutput(NFLGame g, NFLPlayer p)
 		{
 			if ( ! g.Played() )
 				return "____";

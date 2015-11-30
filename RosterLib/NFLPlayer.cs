@@ -75,6 +75,14 @@ namespace RosterLib
       //  later attempt at capturing Player output
       public Dictionary<String, PlayerGameMetrics> GameMetrics { get; set; }
 
+	   public void DumpMetrics()
+	   {
+			foreach (KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics)
+			{
+				Console.WriteLine("{0}, {1}", pair.Key, pair.Value);
+			}		   
+	   }
+
       public PlayerGameMetrics CurrentGameMetrics { get; set; }
 
       #region  Constructors
@@ -789,15 +797,16 @@ namespace RosterLib
       {
          const string l1 = Constants.K_LEAGUE_Gridstats_NFL1;
          const string l2 = Constants.K_LEAGUE_Yahoo;
-         const string l3 = Constants.K_LEAGUE_Rants_n_Raves;
-         LoadOwner( l3 );
-         var o3 = Owner;
+			//const string l3 = Constants.K_LEAGUE_Rants_n_Raves;
+			//LoadOwner( l3 );
+			//var o3 = Owner;
          LoadOwner( l2 );
          var o2 = Owner;
          LoadOwner( l1 );
          var o1 = Owner;
-         return string.Format( "{0}  {1}  {2}", o1, o2, o3 );
-      }
+         //return string.Format( "{0}  {1}  {2}", o1, o2, o3 );
+			return string.Format("{0}  {1}", o1, o2);
+		}
 
       #region Old Grid report
 
@@ -1429,37 +1438,55 @@ namespace RosterLib
          return url;
       }
 
-      public string StatsFor( NFLGame g, string teamInFocus )
+		public string ProjectionLink(string season, int padding)
+		{
+			var url = string.Format("<a href =\"file:///{3}{1}//PlayerProjections/{0}.htm\">{2}</a>",
+				PlayerCode, season, PlayerName.PadRight(padding), Utility.OutputDirectory());
+			return url;
+		}
+
+		public string ProjectionLink(int padding)
+		{
+			var season = Utility.CurrSeason;
+			return ProjectionLink(season.ToString(CultureInfo.InvariantCulture), padding);
+		}
+
+		public string ProjectionLink()
+		{
+			var season = Utility.CurrSeason;
+			return ProjectionLink(season.ToString(CultureInfo.InvariantCulture));
+		}
+
+      public string ProjectedStatsFor( NFLGame g, string teamInFocus )
       {
          var stats = string.Empty;
 
-         if ( PlayerRole == Constants.K_ROLE_STARTER )
-         {
-            switch ( PlayerCat )
-            {
-               case Constants.K_QUARTERBACK_CAT:
-                  stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdp, g.ProjectedHomeTdp ) 
-                                                  : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
-                  break;
+	      if (PlayerRole != Constants.K_ROLE_STARTER) return stats;
 
-               case Constants.K_RUNNINGBACK_CAT:
-                  //TODO:
-                  stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdr, g.ProjectedHomeTdr ) 
-                                                  : string.Format( "{0}({1})", g.ProjectedAwayYdr, g.ProjectedAwayTdr );
-                  break;
-               case Constants.K_RECEIVER_CAT:
-                  //TODO:
-                  stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeTdp, g.ProjectedHomeTdp ) 
-                                                  : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
-                  break;
-               case Constants.K_KICKER_CAT:
-                  //TODO:
-                  stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeFg, g.ProjectedHomeFg ) 
-                                                  : string.Format( "{0}({1})", g.ProjectedAwayFg, g.ProjectedAwayFg );
-                  break;
-            }
-         }
-         return stats;
+	      switch ( PlayerCat )
+	      {
+		      case Constants.K_QUARTERBACK_CAT:
+			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdp, g.ProjectedHomeTdp ) 
+				      : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
+			      break;
+
+		      case Constants.K_RUNNINGBACK_CAT:
+			      //TODO:
+			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdr, g.ProjectedHomeTdr ) 
+				      : string.Format( "{0}({1})", g.ProjectedAwayYdr, g.ProjectedAwayTdr );
+			      break;
+		      case Constants.K_RECEIVER_CAT:
+			      //TODO:
+			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeTdp, g.ProjectedHomeTdp ) 
+				      : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
+			      break;
+		      case Constants.K_KICKER_CAT:
+			      //TODO:
+			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeFg, g.ProjectedHomeFg ) 
+				      : string.Format( "{0}({1})", g.ProjectedAwayFg, g.ProjectedAwayFg );
+			      break;
+	      }
+	      return stats;
       }
 
       public bool IsShortYardageBack()
@@ -1555,32 +1582,30 @@ namespace RosterLib
 
          const string formatStr = 
             "{0,2} {1,-25} {8} {9,5:0.00} {2} {3} {4,-12} {5}   {6,2:#0}  {7,5:##0.0}%  {18} {10} {11}  {12}  {13} {14,3}  {15}  ({16,2}) {17}";
-         if (nextGame != null)
-         {
-            var detailLine = string.Format( formatStr, 
-                                            JerseyNo,
-                                            PlayerName.PadRight( 25 ),
-                                            CurrTeam.TeamCode,
-                                            PlayerRole,
-                                            PlayerPos.PadRight( 12 ),
-                                            LoadAllOwners(),
-                                            TotStats.Touches,
-                                            TotStats.TouchLoad,
-                                            PlayerAge(),
-                                            ScoresPerYear(),
-                                            AussieDate( nextGame ),
-                                            AussieHour( nextGame ),
-                                            NextOpponentOut( nextGame ),
-                                            defensiveRating,
-                                            NextGameSpread( nextGame ),
-                                            NextResult( nextGame ),
-                                            Points,
-                                            FantasyAdvice( defensiveRating, nextGame ),
-                                            nextGame.Week
-               );
-            return detailLine;
-         }
-         return string.Empty;
+	      if (nextGame == null) return string.Empty;
+
+	      var detailLine = string.Format( formatStr, 
+		      JerseyNo,
+		      ProjectionLink(nextGame.Season).PadRight( 25 ),
+		      CurrTeam.TeamCode,
+		      PlayerRole,
+		      PlayerPos.PadRight( 12 ),
+		      LoadAllOwners(),
+		      TotStats.Touches,
+		      TotStats.TouchLoad,
+		      PlayerAge(),
+		      ScoresPerYear(),
+		      AussieDate( nextGame ),
+		      AussieHour( nextGame ),
+		      NextOpponentOut( nextGame ),
+		      defensiveRating,
+		      NextGameSpread( nextGame ),
+		      NextResult( nextGame ),
+		      Points,
+		      FantasyAdvice( defensiveRating, nextGame ),
+		      nextGame.Week
+		      );
+	      return detailLine;
       }
 
       public NflTeam NextOpponentTeam(NFLGame nextGame)
@@ -1639,10 +1664,10 @@ namespace RosterLib
       public void AddMetric( string metricType, string gameKey, int nScores )
       {
          var qty = decimal.Parse( nScores.ToString( CultureInfo.InvariantCulture ) );
-         AddMetric( metricType, gameKey, qty );
+         AddMetric( metricType, gameKey, qty, (int) Points );
       }
 
-      public void AddMetric( string metricType, string gameKey, decimal nScores )
+      public void AddMetric( string metricType, string gameKey, decimal nScores, int fp )
       {
          if ( GameMetrics == null) 
             GameMetrics = new Dictionary<string, PlayerGameMetrics>();
@@ -1669,13 +1694,16 @@ namespace RosterLib
             pgm.Pat += (int) nScores;
          else if ( metricType.Equals( Constants.K_STATCODE_RECEPTION_YARDS ) )
             pgm.YDc += (int) nScores;
-         else if ( metricType.Equals( Constants.K_SCORE_TD_RUN ) )
-            pgm.TDr += (int) nScores;
+			else if (metricType.Equals(Constants.K_SCORE_TD_RUN))
+				pgm.TDr += (int) nScores;
+			else if (metricType.Equals(Constants.K_SCORE_TD_CATCH))
+            pgm.TDc += (int) nScores;
          else if ( metricType.Equals( Constants.K_SCORE_PAT_RUN ) )
             pgm.Pat += (int) nScores;
          else if ( metricType.Equals( Constants.K_STATCODE_RUSHING_YARDS ) )
             pgm.YDr = (int) nScores;
 
+	      pgm.FantasyPoints = fp;
          GameMetrics[ gameKey ] = pgm;
 
       }
@@ -1722,7 +1750,7 @@ namespace RosterLib
          CurrentGameMetrics.Pat = ScoreCount(scoreDs, Constants.K_SCORE_PAT);
       }
 
-      private int ScoreCount(DataSet ds, string scoreType)
+      private static int ScoreCount(DataSet ds, string scoreType)
       {
          var scoreCount = 0;
          var dt = ds.Tables[0];
@@ -1749,7 +1777,7 @@ namespace RosterLib
 
       }
 
-      private int StatCount(DataSet ds )
+      private static int StatCount(DataSet ds )
       {
          var statCount = 0.0M;
          var dt = ds.Tables[0];
@@ -1760,5 +1788,56 @@ namespace RosterLib
          }
          return Convert.ToInt32(statCount);
       }
+
+	   public string ActualStats()
+	   {
+			if (CurrentGameMetrics == null) SetCurrentGame();
+			return CurrentGameMetrics == null ? string.Empty : CurrentGameMetrics.ActualStatsOut(PlayerCat);
+	   }
+
+	   public void SetCurrentGame()
+	   {
+			foreach (KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics)
+			{
+				CurrentGameMetrics = pair.Value;
+				break;
+			}			   
+	   }
+
+	   public string ActualStatsFor(NFLGame g)
+	   {
+			var stats = string.Empty;
+			TallyScores(g.Season, g.WeekNo );
+			switch (PlayerCat)
+			{
+				case Constants.K_QUARTERBACK_CAT:
+					stats = string.Format("{0} ({1})", CurrentGameMetrics.YDp, CurrentGameMetrics.TDp );
+					break;
+
+				case Constants.K_RUNNINGBACK_CAT:
+					//TODO:
+					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeYdr, g.ProjectedHomeTdr)
+					//	: string.Format("{0}({1})", g.ProjectedAwayYdr, g.ProjectedAwayTdr);
+					break;
+				case Constants.K_RECEIVER_CAT:
+					//TODO:
+					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeTdp, g.ProjectedHomeTdp)
+					//	: string.Format("{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp);
+					break;
+				case Constants.K_KICKER_CAT:
+					//TODO:
+					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeFg, g.ProjectedHomeFg)
+					//	: string.Format("{0}({1})", g.ProjectedAwayFg, g.ProjectedAwayFg);
+					break;
+			}
+			return stats;
+		}
+
+	   public void UpdateActuals(IPlayerGameMetricsDao dao)
+	   {
+		   if (CurrentGameMetrics == null) return;
+		   CurrentGameMetrics.FantasyPoints = (int) Points;
+		   CurrentGameMetrics.UpdateAcuals(dao);
+	   }
    }
 }

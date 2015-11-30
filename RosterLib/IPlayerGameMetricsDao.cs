@@ -18,6 +18,8 @@ namespace RosterLib
 
       void Save( PlayerGameMetrics pgm );
 
+		void SaveActuals(PlayerGameMetrics pgm);
+
       void ClearGame( string gameKey );
 
       PlayerGameMetrics GetPlayerWeek( string gameCode, string playerCode );

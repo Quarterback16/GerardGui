@@ -33,8 +33,8 @@ namespace RosterLib
 	      foreach (string teamKey in SeasonMaster.TeamKeyList)
          {
             TeamUnits( season, teamKey );
-#if DEBUG
-            //break;
+#if DEBUG2
+            break;
 #endif
          }
       }
@@ -191,7 +191,7 @@ namespace RosterLib
 
       public void Dispose()
       {
-         GC.SuppressFinalize(true); // as a service to those who might inherit from us
+         GC.SuppressFinalize(obj: true); // as a service to those who might inherit from us
       }
 
       #endregion IDisposable Members

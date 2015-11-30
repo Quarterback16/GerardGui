@@ -72,9 +72,9 @@ namespace Butler
             // load jobs, in DEV u will work on one job at a time, but in PROD do em all
             MyJobs = new List<Job>
                {
-                  new UpdateTflJob(),  //  look for nerd stick
+                  new DropBoxCopyTflToVesuviusJob(TimeKeeper),  //  get any new TFL data from dropbox
                   new MediaJob(),  //  regular always
-                  new UpdateTflJob(),  
+						//new UpdateTflJob(),  //  deprecated
 
 #region Looking back on the games just played
 
@@ -84,12 +84,13 @@ namespace Butler
                   new DepthChartJob( TimeKeeper ),
                   new StatGridJob( TimeKeeper ),
                   new PlayOffTeamsJob( TimeKeeper ),
+                  new UpdateActualsJob( TimeKeeper ),
 
 #endregion
 
 #region  Looking forward to the upcoming games
 
-                  new ProjectionsJob( TimeKeeper ), //  once in pre season then once a week regular - always
+                  new GameProjectionsJob( TimeKeeper ), //  once in pre season then once a week regular - always
                   new GeneratePlayerProjectionsJob( TimeKeeper ),
                   new RookiesJob( TimeKeeper ), 
                   new OutputProjectionsJob( Historian ),  //  needs game projections
@@ -112,7 +113,6 @@ namespace Butler
                   new FreeAgentMarketJob( TimeKeeper ), //  regular - pre season
                   new StrengthOfScheduleJob( TimeKeeper ), //  once off - pre season
                   new PlayerReportsJob( TimeKeeper ),
-
 #endregion
 
 #region Regular Always jobs

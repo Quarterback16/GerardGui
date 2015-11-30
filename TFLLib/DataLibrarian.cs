@@ -2318,12 +2318,13 @@ namespace TFLLib
           int YDp, int ydr,
           int TDp, int tdr,
           int TDc, int YDc,
-          int fg,  int pat
+          int fg,  int pat,
+			 int fp
          )
       {
-         var formatStr = "UPDATE PGMETRIC SET YDp={2}, YDR={3}, tdp={4}, TDr={5}, TDc={6}, YDc={7}, FG={8}, PAT={9}";
+         var formatStr = "UPDATE PGMETRIC SET YDp={2}, YDR={3}, tdp={4}, TDr={5}, TDc={6}, YDc={7}, FG={8}, PAT={9}, YAHOOPTS={10}";
          formatStr += " WHERE PLAYERID='{0}' AND GAMECODE='{1}'";
-         var commandStr = string.Format(formatStr, playerId, gameCode, YDp, ydr, TDp, tdr, TDc, YDc, fg, pat);
+         var commandStr = string.Format(formatStr, playerId, gameCode, YDp, ydr, TDp, tdr, TDc, YDc, fg, pat, fp);
          OleDbConn.Close();
          OleDbConn.Open();
          var cmd = new OleDbCommand(commandStr, OleDbConn);
@@ -2383,7 +2384,9 @@ namespace TFLLib
 
       #endregion PGMETRIC
 
-      private void ExecuteCommand(string commandStr)
+		#region Utility
+
+		private void ExecuteCommand(string commandStr)
       {
          try
          {
@@ -2404,7 +2407,8 @@ namespace TFLLib
       {
          if (Logger == null) Logger = LogManager.GetCurrentClassLogger();
          Logger.Info(msg);
-      }
+		}
 
-   }
+		#endregion
+	}
 }

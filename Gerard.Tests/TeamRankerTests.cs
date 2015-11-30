@@ -1,5 +1,4 @@
-﻿using System;
-using Butler.Models;
+﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests

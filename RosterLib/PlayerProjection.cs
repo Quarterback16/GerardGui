@@ -60,6 +60,7 @@ namespace RosterLib
          str.AddColumn(new ReportColumn("Y-FP", "FP", "{0:0.0}", true));
          str.AddColumn(new ReportColumn("Stats", "STATS", "{0}"));
          str.AddColumn(new ReportColumn("Actual", "ACTUAL", "{0:0.0}", true));
+			str.AddColumn(new ReportColumn("ActStats", "ACTUALSTAT", "{0:0.0}", true));
          str.AddColumn(new ReportColumn("Variation", "VAR", "{0:0.0}"));
          str.LoadBody(BuildTable());
          str.SubHeader = SubHeading();
@@ -68,7 +69,7 @@ namespace RosterLib
 
       public string FileName()
       {
-         return string.Format("{0}{2}//Projections//{1}.htm", Utility.OutputDirectory(),
+         return string.Format("{0}{2}//PlayerProjections//{1}.htm", Utility.OutputDirectory(),
                               Player.PlayerCode, Season);
       }
 
@@ -85,6 +86,7 @@ namespace RosterLib
          cols.Add("FP", typeof (Decimal));
          cols.Add("STATS", typeof (String));
          cols.Add("ACTUAL", typeof (Int16));
+			cols.Add("ACTUALSTAT", typeof(String));
          cols.Add("VAR", typeof (Int16));
 
          var gameCount = 1;
@@ -113,10 +115,11 @@ namespace RosterLib
             dr["SCORE"] = g.ProjectedScoreOut(Player.CurrTeam.TeamCode);
             dr["OPPRATE"] = OppUnitRating(g, Player.CurrTeam.TeamCode, Player.PlayerCat);
             dr["PROJ"] = GameProjection(g, Player.CurrTeam.TeamCode, Player.PlayerCat, Player.PlayerRole);
-            dr["STATS"] = Player.StatsFor(g, Player.CurrTeam.TeamCode);
+            dr["STATS"] = Player.ProjectedStatsFor(g, Player.CurrTeam.TeamCode);
             dr[ "FP" ] = c.Calculate( Player, g ).Player.Points ;
             dr["ACTUAL"] = ActualScores(g);
-            dr["VAR"] = 0;
+				dr["ACTUALSTAT"] = Player.ActualStatsFor(g);
+				dr["VAR"] = 0;
             dt.Rows.Add(dr);
             gameCount++;
          }
@@ -151,29 +154,29 @@ namespace RosterLib
       public static int GameProjection(NFLGame g, string playerTeamCode, string playerCategory, string playerRole)
       {
          var projection = 0;
-         if (playerRole == Constants.K_ROLE_STARTER)
-         {
-            switch (playerCategory)
-            {
-               case Constants.K_QUARTERBACK_CAT:
-                  projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdp : g.ProjectedAwayTdp;
-                  break;
-               case Constants.K_RUNNINGBACK_CAT:
-                  projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdr : g.ProjectedAwayTdr;
-                  break;
-               case Constants.K_RECEIVER_CAT:
-                  projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdp/2 : g.ProjectedAwayTdp/2;
-                  break;
-               case Constants.K_KICKER_CAT:
-                  projection = g.IsHome( playerTeamCode ) ? g.ProjectedHomeFg : g.ProjectedAwayFg;
-                  break;
-            }
+	      if (playerRole != Constants.K_ROLE_STARTER) return projection;
+
+			//  is a starter
+	      switch (playerCategory)
+	      {
+		      case Constants.K_QUARTERBACK_CAT:
+			      projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdp : g.ProjectedAwayTdp;
+			      break;
+		      case Constants.K_RUNNINGBACK_CAT:
+			      projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdr : g.ProjectedAwayTdr;
+			      break;
+		      case Constants.K_RECEIVER_CAT:
+			      projection = g.IsHome(playerTeamCode) ? g.ProjectedHomeTdp/2 : g.ProjectedAwayTdp/2;
+			      break;
+		      case Constants.K_KICKER_CAT:
+			      projection = g.IsHome( playerTeamCode ) ? g.ProjectedHomeFg : g.ProjectedAwayFg;
+			      break;
+	      }
 #if DEBUG
-            Utility.Announce(string.Format("Game {0} projection for {1} {2} {3} is {4}",
-               g.GameKey(), playerTeamCode, playerCategory, playerRole, projection ) );
+	      Utility.Announce(string.Format("Game {0} projection for {1} {2} {3} is {4}",
+		      g.GameKey(), playerTeamCode, playerCategory, playerRole, projection ) );
 #endif
-         }
-         return projection;
+	      return projection;
       }
 
       private static string OppUnitRating(NFLGame g, string playerTeamCode, string playerCategory)

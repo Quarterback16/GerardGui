@@ -12,10 +12,10 @@ using System.Reflection;
 //------------------------------------------------------------------------------
 
 [assembly: AssemblyTitleAttribute("TFLLib")]
-[assembly: AssemblyDescriptionAttribute("EA3000 Assembly.")]
-[assembly: AssemblyCompanyAttribute("Department of Employment and Workplace Relations - Employment Systems")]
+[assembly: AssemblyDescriptionAttribute("Knoware 3000 Assembly.")]
+[assembly: AssemblyCompanyAttribute("Knoware")]
 [assembly: AssemblyProductAttribute("EA3000")]
-[assembly: AssemblyCopyrightAttribute("Copyright (C) 2003-2005, Employment Systems")]
+[assembly: AssemblyCopyrightAttribute("Copyright (C) 2003-2005, Knoware")]
 [assembly: AssemblyVersionAttribute("703.14.*")]
 
 [assembly: System.CLSCompliant(true)]

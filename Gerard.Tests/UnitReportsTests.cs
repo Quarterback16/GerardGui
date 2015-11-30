@@ -9,7 +9,7 @@ namespace Gerard.Tests
    public class UnitReportsTests
    {
       [TestMethod]
-      public void TestUnitReportsJob()
+      public void TestUnitReportsJob()  //  2015-11-26  5 min : DEBUG, 133 min : DEBUG2
       {
          var sut = new UnitReportsJob(new FakeHistorian());
          var outcome = sut.DoJob();

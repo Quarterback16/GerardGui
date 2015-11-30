@@ -4,7 +4,7 @@
    {
       public int HomeScore { get; set; }
       public int AwayScore { get; set; }
-      public int Spread { get; set; }
+      public decimal Spread { get; set; }
       public string HomeTeam { get; set; }
       public string AwayTeam { get; set; }
 
@@ -84,7 +84,8 @@
 
       public string PredictedScore()
       {
-         if ( this.Spread == 0 ) return string.Format( "{0} @ {1} OTB", AwayTeam, HomeTeam );
+         if (this.Spread == 0.5M) this.Spread = 1.0M;  //  give it to the home team
+         if (this.Spread == 0) return string.Format("{0} @ {1} OTB", AwayTeam, HomeTeam);
          var winner = WinningTeam();
          var winnerScore = WinningScore();
          var loser = LosingTeam();
@@ -111,7 +112,8 @@
 
       public string PredictedScoreFlipped()
       {
-         if ( this.Spread == 0 ) return string.Format( "{0} @ {1} OTB", AwayTeam, HomeTeam );
+         if (this.Spread == 0.5M) this.Spread = 1.0M;  //  give it to the home team
+         if (this.Spread == 0) return string.Format("{0} @ {1} OTB", AwayTeam, HomeTeam);
          var winner = WinningTeam();
          var winnerScore = WinningScore();
          var loser = LosingTeam();

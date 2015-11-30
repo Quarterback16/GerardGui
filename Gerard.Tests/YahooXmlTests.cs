@@ -38,7 +38,7 @@ namespace Gerard.Tests
       {
          var LineupDs = Utility.TflWs.GetLineup( "NO", "2015", 8 );
          var lineup = new Lineup(LineupDs);
-         Utility.Announce(string.Format("NFLGame.LoadPlayers {0} players in lineup", lineup.PlayerList.Count ) );
+         Utility.Announce(string.Format("NFLGame.LoadLineupPlayers {0} players in lineup", lineup.PlayerList.Count ) );
          lineup.DumpLineup();
          Assert.IsTrue(lineup.PlayerList.Count > 0);
       }
@@ -54,6 +54,20 @@ namespace Gerard.Tests
          var gameKey = w.GameCodeFor( plyr.TeamCode );
          var msg = plyr.MetricsOut(gameKey);
          Console.WriteLine( msg );
+      }
+
+
+      [TestMethod]
+      public void TestYahooScorerOnBeckham()
+      {
+         var w = new NFLWeek(2015, 9);
+         var scorer = new YahooScorer(w);
+         var plyr = new NFLPlayer("BECKOD01");
+         var score = scorer.RatePlayer(plyr, w);
+         Assert.IsTrue(score > 0.0M);
+         var gameKey = w.GameCodeFor(plyr.TeamCode);
+         var msg = plyr.MetricsOut(gameKey);
+         Console.WriteLine(msg);
       }
 
       [TestMethod]

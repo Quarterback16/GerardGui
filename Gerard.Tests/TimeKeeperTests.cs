@@ -1,4 +1,4 @@
-﻿
+﻿using System.Security.Policy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using RosterLib;
@@ -81,6 +81,15 @@ namespace Gerard.Tests
          var sut = new TimeKeeper();
          Assert.IsFalse( sut.IsItPeakTime( testDateTime ) );
       }
+
+		[TestMethod]
+		public void TestTimekeeperKnowslastweek()
+		{
+			var sut = new TimeKeeper(new FakeClock(new DateTime(2015, 11, 17, 12, 0, 0)));
+			Console.WriteLine( "This week is {0}:{1}", sut.CurrentSeason(), sut.CurrentWeek());
+			Console.WriteLine("Last week is {0}:{1}", sut.CurrentSeason(), sut.PreviousWeek());
+			Assert.IsTrue(sut.PreviousWeek().Equals("10"));
+		}
 
    }
 }

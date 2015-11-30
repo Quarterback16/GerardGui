@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq;
 using RosterLib.Models;
 using System;
 using System.Collections;
@@ -2020,7 +2021,7 @@ namespace RosterLib
          var theWeek = new NFLWeek(Season, WeekNo);
 
          var scorer = new GS4Scorer(theWeek) { AnnounceIt = announceIt, ScoresOnly = true };
-         var playerList = LoadPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
+         var playerList = LoadLineupPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
          foreach (var nflPlayer in playerList)
          {
             if (!nflPlayer.IsFantasyPlayer()) continue;
@@ -2049,7 +2050,7 @@ namespace RosterLib
          var theWeek = new NFLWeek(Season, WeekNo);
 
          var scorer = new YahooScorer(theWeek);
-         var playerList = LoadPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
+         var playerList = LoadLineupPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
          foreach (var nflPlayer in playerList)
          {
             if (!nflPlayer.IsFantasyPlayer()) continue;
@@ -2068,9 +2069,45 @@ namespace RosterLib
 
       public List<NFLPlayer> LoadHomePlayers()
       {
-         HomePlayers = LoadPlayers(HomeTeam);
+         HomePlayers = LoadLineupPlayers(HomeTeam);
          return HomePlayers;
       }
+
+		public List<NFLPlayer> LoadAwayPlayers()
+		{
+			AwayPlayers = LoadLineupPlayers(AwayTeam);
+			return AwayPlayers;
+		}
+
+		public List<NFLPlayer> LoadAllFantasyAwayPlayers()
+		{
+			AwayPlayers = new List<NFLPlayer>();
+			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_QUARTERBACK_CAT));
+			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_RUNNINGBACK_CAT));
+			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_RECEIVER_CAT));
+			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_KICKER_CAT));
+			return AwayPlayers;
+		}
+
+		public List<NFLPlayer> LoadAllFantasyHomePlayers()
+		{
+			HomePlayers = new List<NFLPlayer>();
+			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_QUARTERBACK_CAT));
+			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_RUNNINGBACK_CAT));
+			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_RECEIVER_CAT));
+			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_KICKER_CAT));
+			return HomePlayers;
+		}
+
+		private static IEnumerable<NFLPlayer> LoadTeamPlayersForCat(string teamCode, string playerCat)
+		{
+			var players = new List<NFLPlayer>();
+			var ds = Utility.TflWs.GetTeamPlayers(teamCode, playerCat);
+			var dt = ds.Tables["player"];
+			if (dt.Rows.Count == 0) return players;
+			players.AddRange(from DataRow dr in dt.Rows select new NFLPlayer(dr[ "PLAYERID" ].ToString()));
+			return players;
+		}
 
       public void LoadLineups()
       {
@@ -2098,16 +2135,16 @@ namespace RosterLib
          AwayRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek(GameCode, AwayRb1.PlayerCode);
       }
 
-      public List<NFLPlayer> LoadPlayers(string teamCode)
+      public List<NFLPlayer> LoadLineupPlayers(string teamCode)
       {
 #if DEBUG
-         Utility.Announce( string.Format("NFLGame.LoadPlayers for {0}:{1}",
+         Utility.Announce( string.Format("NFLGame.LoadLineupPlayers for {0}:{1}",
              teamCode, GameCodeOut() ) );
 #endif
          var LineupDs = Utility.TflWs.GetLineup(teamCode, Season, WeekNo);
          var lineup = new Lineup(LineupDs);
 #if DEBUG
-         Utility.Announce(string.Format("NFLGame.LoadPlayers {0} players in lineup", lineup.PlayerList.Count ) );
+         Utility.Announce(string.Format("NFLGame.LoadLineupPlayers {0} players in lineup", lineup.PlayerList.Count ) );
 #endif
          return lineup.PlayerList;
       }
@@ -2161,8 +2198,8 @@ namespace RosterLib
             if ( ( Total > 0 ) )
             {
                var splitScore = Total - Math.Abs( Spread );
-               losingScore = Convert.ToInt32( splitScore / 2 );
-               winningScore = Total - losingScore;
+               losingScore = Math.Round(splitScore / 2, MidpointRounding.AwayFromZero);
+               winningScore = Math.Round( Total - losingScore, MidpointRounding.AwayFromZero );
             }
 
             if ( ( winningScore - losingScore ) < Math.Abs( Spread ) )

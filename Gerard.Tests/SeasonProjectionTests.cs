@@ -10,7 +10,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoSeasonProjectionJob()
 		{
-			var sut = new ProjectionsJob(new TimeKeeper());
+			var sut = new GameProjectionsJob(new TimeKeeper());
 			var outcome = sut.DoJob();
 			Assert.IsFalse(string.IsNullOrEmpty(outcome));
 		}

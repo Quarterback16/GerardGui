@@ -61,7 +61,7 @@ namespace RosterLib
          foreach ( var receiver in Receivers )
          {
             var rec = string.Format("{0,-25} : {1} : {2}",
-               receiver.PlayerName.PadRight(25), receiver.PlayerRole, receiver.PlayerPos);
+               receiver.ProjectionLink(25), receiver.PlayerRole, receiver.PlayerPos);
             unit += rec + Environment.NewLine;
             Utility.Announce( rec );
          }
@@ -234,12 +234,9 @@ namespace RosterLib
 
       private int CheckCount( int theCount, string thePos, int max )
       {
-         if ( theCount > max )
-         {
-            Utility.Announce( string.Format( "{1} is Too many {2} for {0}", TeamCode, theCount, thePos ) );
-            return 1;
-         }
-         return 0;
+	      if (theCount <= max) return 0;
+	      Utility.Announce( string.Format( "{1} is Too many {2} for {0}", TeamCode, theCount, thePos ) );
+	      return 1;
       }
 
       public List<string> AnalyseWideouts( string season, string week )
@@ -381,7 +378,7 @@ namespace RosterLib
             }
 
             var msg = string.Format( "{0,-25} ({6}) : {7} : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-                                     p.PlayerName.PadRight( 25 ), p.PlayerRole, p.TotStats.Touches,
+                                     p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.Touches,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
                );
             Utility.Announce( msg );
@@ -416,7 +413,7 @@ namespace RosterLib
             }
 
             var msg = string.Format( "{0,-25} ({6}) : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-                                     p.PlayerName.PadRight( 25 ), p.PlayerRole, p.TotStats.YDc,
+                                     p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.YDc,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge()
                );
             Utility.Announce(msg);
@@ -461,7 +458,7 @@ namespace RosterLib
             }
 
             var msg = string.Format( "{0,-25} ({6}) : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-                                     p.PlayerName.PadRight( 25 ), p.PlayerRole, p.TotStats.YDc,
+                                     p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.YDc,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge()
                );
             Utility.Announce(msg);
@@ -512,7 +509,7 @@ namespace RosterLib
             }
 
             var msg = string.Format( "{0,-25} ({6}) : {7} : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-                                     p.PlayerName.PadRight( 25 ), p.PlayerRole, p.TotStats.Touches,
+                                     p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.Touches,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
                );
             Utility.Announce( msg );
@@ -580,7 +577,7 @@ namespace RosterLib
       private static string AnnouncePlayer( NFLPlayer p, decimal load )
       {
          var msg = string.Format( "{0,-25} ({6}) : {7} : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
-            p.PlayerName.PadRight( 25 ), p.PlayerRole, p.TotStats.YDc,
+				p.ProjectionLink(25), p.PlayerRole, p.TotStats.YDc,
             load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
             );
          Utility.Announce( msg );

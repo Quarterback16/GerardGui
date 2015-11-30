@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RosterLib
 {
@@ -16,9 +12,6 @@ namespace RosterLib
 		public string InstanceName { get; set; }
 		public string ReportType { get; set; }
 
-		public SimplePreReport()
-		{
-		}
 
 		public string RenderHtml()
 		{
