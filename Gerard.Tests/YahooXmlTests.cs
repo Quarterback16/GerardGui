@@ -9,7 +9,7 @@ namespace Gerard.Tests
    public class YahooXmlTests
    {
 		[TestMethod]
-		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20
+		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
 			var sut = new YahooXmlJob(new TimeKeeper());
 			var outcome = sut.DoJob();

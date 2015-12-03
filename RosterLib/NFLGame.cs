@@ -428,7 +428,7 @@ namespace RosterLib
 
       public bool Played()
       {
-         return (GameDate.AddDays(2).Date < DateTime.Now.Date) && (HomeScore + AwayScore > 0);
+			return (GameDate.AddDays(1).Date < DateTime.Now.Date) && (HomeScore + AwayScore > 0);
 		}
 
       public bool WasRout()

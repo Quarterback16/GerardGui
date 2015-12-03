@@ -50,6 +50,7 @@ namespace Butler
          TimeKeeper = new TimeKeeper();
          Historian = new Historian();
          Logger = LogManager.GetCurrentClassLogger();
+			Logger.Info( "ver:{0}", Version);
       }
 
       public void ReportProgress(string message)

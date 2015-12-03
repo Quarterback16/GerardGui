@@ -1797,6 +1797,7 @@ namespace RosterLib
 
 	   public void SetCurrentGame()
 	   {
+         if (GameMetrics == null) return;
 			foreach (KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics)
 			{
 				CurrentGameMetrics = pair.Value;

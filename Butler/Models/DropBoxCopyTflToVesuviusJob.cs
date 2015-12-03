@@ -23,21 +23,22 @@ namespace Butler.Models
 		public override string DoJob()
 		{
 			Logger.Info("Doing {0} job..............................................", Name);
+			Logger.Info("Copying files from {0} to {1}", SourceDir, DestDir);
 
 			string outcome;
-			if (FileUtility.CountFilesInDirectory(SourceDir) > 0)
+			var fileCount = FileUtility.CountFilesInDirectory(SourceDir);
+			if ( fileCount > 0)
 			{
 				outcome = FileUtility.CopyDirectory(SourceDir, DestDir);
 				if (!string.IsNullOrEmpty(outcome)) return outcome;
 
-				var finishMessage = string.Format("Copied {0} to {1}", SourceDir, DestDir);
+				var finishMessage = string.Format("Copied {2} files from {0} to {1}", SourceDir, DestDir, fileCount);
 				Logger.Info("  {0}", finishMessage);
 				FileUtility.DeleteAllFilesInDirectory(SourceDir);
 				return finishMessage;
 			}
-			else
-				outcome = "No files available";
-
+			outcome = "No files available";
+			Logger.Info("  {0}", outcome);
 			return outcome;
 		}
 
@@ -45,11 +46,7 @@ namespace Butler.Models
 		{
 			whyNot = string.Empty;
 			if (OnHold()) whyNot = "Job is on hold";
-			if (!string.IsNullOrEmpty(whyNot)) return (string.IsNullOrEmpty(whyNot));
-			//  check if there is any new data
-			if (TimeKeeper.IsItPeakTime())
-				whyNot = "Peak time - no noise please";
-			return string.IsNullOrEmpty(whyNot);
+			return !string.IsNullOrEmpty(whyNot) ? (string.IsNullOrEmpty(whyNot)) : string.IsNullOrEmpty(whyNot);
 		}
 
 	}

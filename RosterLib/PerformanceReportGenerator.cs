@@ -59,46 +59,46 @@ namespace RosterLib
                      Scorer = gs,
                      Week = theWeek
                   },
-               new PerformanceReportConfig
-                  {
-                     Category = Constants.K_QUARTERBACK_CAT,
-                     Position = "QB",
-                     Scorer = gs,
-                     Week = theWeek,
-                     WeeksToGoBack = 4
-                  },
-               new PerformanceReportConfig
-                  {
-                     Category = Constants.K_RUNNINGBACK_CAT,
-                     Position = "RB",
-                     Scorer = gs,
-                     Week = theWeek,
-                     WeeksToGoBack = 4
-                  },
-               new PerformanceReportConfig
-                  {
-                     Category = Constants.K_RECEIVER_CAT,
-                     Position = "WR",
-                     Scorer = gs,
-                     Week = theWeek,
-                     WeeksToGoBack = 4
-                  },
-               new PerformanceReportConfig
-                  {
-                     Category = Constants.K_RECEIVER_CAT,
-                     Position = "TE",
-                     Scorer = gs,
-                     Week = theWeek,
-                     WeeksToGoBack = 4
-                  },
-               new PerformanceReportConfig
-                  {
-                     Category = Constants.K_KICKER_CAT,
-                     Position = "PK",
-                     Scorer = gs,
-                     Week = theWeek,
-                     WeeksToGoBack = 4
-                  }
+               //new PerformanceReportConfig
+               //   {
+               //      Category = Constants.K_QUARTERBACK_CAT,
+               //      Position = "QB",
+               //      Scorer = gs,
+               //      Week = theWeek,
+               //      WeeksToGoBack = 4
+               //   },
+               //new PerformanceReportConfig
+               //   {
+               //      Category = Constants.K_RUNNINGBACK_CAT,
+               //      Position = "RB",
+               //      Scorer = gs,
+               //      Week = theWeek,
+               //      WeeksToGoBack = 4
+               //   },
+               //new PerformanceReportConfig
+               //   {
+               //      Category = Constants.K_RECEIVER_CAT,
+               //      Position = "WR",
+               //      Scorer = gs,
+               //      Week = theWeek,
+               //      WeeksToGoBack = 4
+               //   },
+               //new PerformanceReportConfig
+               //   {
+               //      Category = Constants.K_RECEIVER_CAT,
+               //      Position = "TE",
+               //      Scorer = gs,
+               //      Week = theWeek,
+               //      WeeksToGoBack = 4
+               //   },
+               //new PerformanceReportConfig
+               //   {
+               //      Category = Constants.K_KICKER_CAT,
+               //      Position = "PK",
+               //      Scorer = gs,
+               //      Week = theWeek,
+               //      WeeksToGoBack = 4
+               //   }
 
             };
 
@@ -106,7 +106,7 @@ namespace RosterLib
          Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Yahoo, Name = "Spitzys League" } );
 #if ! DEBUG2
          Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1" } );
-         Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Rants_n_Raves, Name = "NFL.COM" } );
+         //Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Rants_n_Raves, Name = "NFL.COM" } );
 #endif
       }
 
@@ -117,6 +117,7 @@ namespace RosterLib
             foreach ( var rpt in Configs )
             {
                GenerateReport( rpt, league.Id );
+               Console.WriteLine("Done {0}", FileOut);
             }
          }
       }

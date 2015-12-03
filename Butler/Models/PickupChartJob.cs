@@ -26,7 +26,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-#if ! DEBUG
+#if ! DEBUG2
 			//  prereq job!
 			var projections = new GeneratePlayerProjectionsJob( TimeKeeper );
 			var resultOut = projections.DoJob();
