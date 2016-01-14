@@ -9,7 +9,7 @@ namespace Gerard.Tests
    public class GameProjectionTests
    {
       [TestMethod]
-      public void TestDoGameProjectionJob()  //  156 min 2015-08-27
+      public void TestDoGameProjectionJob()  //  156 min 2015-08-27, 70 min 2015-12-09
       {
          var sut = new GameProjectionsJob( new TimeKeeper() );
          var outcome = sut.DoJob();

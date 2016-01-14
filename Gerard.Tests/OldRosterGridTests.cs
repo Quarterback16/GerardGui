@@ -8,7 +8,7 @@ namespace Gerard.Tests
    public class OldRosterGridTests
    {
       [TestMethod]
-      public void TestOldRosterGridJob()
+      public void TestOldRosterGridJob()  //  2015-12-09  2 mins
       {
          var sut = new OldRosterGridJob( new TimeKeeper() );
          var outcome = sut.DoJob();

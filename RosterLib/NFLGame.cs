@@ -133,6 +133,8 @@ namespace RosterLib
          {
             YahooList = new List<YahooOutput>();
             GridStatsList = new List<GridStatsOutput>();
+            if (gameKey.Length < 4)
+               throw new Exception("Invalid Game Key :" + gameKey);
             Season = gameKey.Substring( 0, 4 );
             Week = gameKey.Substring( 5, 2 );
             GameCode = gameKey.Substring( 8, 1 );

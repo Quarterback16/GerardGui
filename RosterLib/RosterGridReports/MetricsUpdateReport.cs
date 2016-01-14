@@ -38,7 +38,7 @@ namespace RosterLib.RosterGridReports
 				g.LoadAllFantasyHomePlayers();
 		      ProcessPlayerList(g.HomePlayers, body);
 				ProcessPlayerList(g.AwayPlayers, body);
-#if DEBUG
+#if DEBUG2
 		      break;  // to speed things up
 #endif
 	      }

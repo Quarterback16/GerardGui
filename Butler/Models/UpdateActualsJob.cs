@@ -43,6 +43,11 @@ namespace Butler.Models
          }
 	      if (!string.IsNullOrEmpty(whyNot)) return ( string.IsNullOrEmpty(whyNot) );
 
+         if (TimeKeeper.IsItPeakTime())
+            whyNot = "Peak time - no noise please";
+
+         if (!string.IsNullOrEmpty(whyNot)) return (string.IsNullOrEmpty(whyNot));
+
 	      if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
 		      whyNot = "Its not Wednesday or Thursday";
 

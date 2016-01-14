@@ -32,6 +32,11 @@ namespace RosterLib
          // Points for Scores and points for stats
          if ( week.WeekNo.Equals( 0 ) ) return 0;
 
+         if ( plyr.TeamCode == null )
+         {
+            Console.WriteLine("{0} has a null teamcode", plyr);
+            return 0;
+         }
          GameKey = Week.GameCodeFor( plyr.TeamCode );
 			Game = new NFLGame(GameKey);
 	      WeekHasPassed = Game.Played();

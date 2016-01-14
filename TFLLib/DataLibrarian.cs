@@ -1260,6 +1260,7 @@ namespace TFLLib
 
       public string PlayedFor(string playerId, int season, int week)
       {
+         playerId = FixSingleQuotes(playerId);
          var sTeam = String.Empty;
 
          var nullDate = new DateTime(1, 1, 1);
@@ -1936,6 +1937,7 @@ namespace TFLLib
 
       public DataSet GetAce( string season, string week, string playerId )
       {
+         playerId = FixSingleQuotes(playerId);
          var commandStr =
             string.Format(
                "select * from ACE where SEASON='{0}'"
@@ -2322,6 +2324,7 @@ namespace TFLLib
 			 int fp
          )
       {
+         playerId = playerId.Replace("'", "''");
          var formatStr = "UPDATE PGMETRIC SET YDp={2}, YDR={3}, tdp={4}, TDr={5}, TDc={6}, YDc={7}, FG={8}, PAT={9}, YAHOOPTS={10}";
          formatStr += " WHERE PLAYERID='{0}' AND GAMECODE='{1}'";
          var commandStr = string.Format(formatStr, playerId, gameCode, YDp, ydr, TDp, tdr, TDc, YDc, fg, pat, fp);
@@ -2361,6 +2364,7 @@ namespace TFLLib
 
       public DataSet GetAllPlayerGameMetricsForPlayer(string season, string playerCode)
       {
+         playerCode = playerCode.Replace("'", "''");
          var gameCode = string.Format("{0}:", season);
          var commandStr =
             string.Format(
