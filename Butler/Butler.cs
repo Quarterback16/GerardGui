@@ -75,7 +75,6 @@ namespace Butler
                {
                   new DropBoxCopyTflToVesuviusJob(TimeKeeper),  //  get any new TFL data from dropbox
                   new MediaJob(),  //  regular always
-						//new UpdateTflJob(),  //  deprecated
 
 #region Looking back on the games just played
 

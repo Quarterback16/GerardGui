@@ -16,7 +16,7 @@ namespace Butler.Models
          Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
-
+         IsNflRelated = true;
          Report = new PlayoffTeamsReport( TimeKeeper ) {Name = "Playoff Teams"};
       }
 

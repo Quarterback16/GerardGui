@@ -41,6 +41,8 @@ namespace Butler.Models
 #endif
          var logDirsLoaded = LoadLogDirectoriesFromConfig();
          Logger.Trace( logDirsLoaded );
+         //  use the IGetLogDirectories object to find em
+
          foreach ( var folder in LogDirectories )
          {
             string[] files = Directory.GetFileSystemEntries( folder );

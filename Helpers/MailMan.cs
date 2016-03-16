@@ -1,24 +1,29 @@
-﻿using System.Net.Mail;
+﻿using System;
+using System.IO;
+using System.Net.Mail;
+using System.Net.Security;
+using System.Net.Sockets;
+using Helpers.Interfaces;
 
 namespace Helpers
 {
-   public static class MailMan
+   public class MailMan : IMailMan
    {
-      public static void SendMail( string message, string subject )
+      public void SendMail( string message, string subject )
       {
          var client = CreateSmtpClient();
          var mail = CreateMailMessage( message, subject );
          client.Send( mail );
       }
 
-      public static void SendMail(string message, string subject, string attachment )
+      public void SendMail(string message, string subject, string attachment )
       {
          string[] attachments = new string[1];
          attachments[0] = attachment;
          SendMail(message, subject, attachments);
       }
 
-      public static void SendMail(string message, string subject, string[] attachments )
+      public void SendMail(string message, string subject, string[] attachments )
       {
          var client = CreateSmtpClient();
          var mail = CreateMailMessage(message, subject);
@@ -43,10 +48,34 @@ namespace Helpers
 
       private static MailMessage CreateMailMessage(string message, string subject )
       {
-         var mail = new MailMessage(from: "quarterback16@grapevine.com.au", to: "stephen.colonna@employment.gov.au");
+         var mail = new MailMessage(from: "quarterback16@grapevine.com.au", to: "quarterback16@grapevine.com.au");
          mail.Subject = subject;
          mail.Body = message;
          return mail;
+      }
+
+      public static void PokeServer(string server, int port)
+      {
+         using (var client = new TcpClient())
+         {
+            client.Connect(server, port);
+            // As GMail requires SSL we should use SslStream
+            // If your SMTP server doesn't support SSL you can
+            // work directly with the underlying stream
+            using (var stream = client.GetStream())
+            using (var sslStream = new SslStream(stream))
+            {
+               sslStream.AuthenticateAsClient(server);
+               using (var writer = new StreamWriter(sslStream))
+               using (var reader = new StreamReader(sslStream))
+               {
+                  writer.WriteLine("EHLO " + server);
+                  writer.Flush();
+                  Console.WriteLine(reader.ReadLine());
+                  // GMail responds with: 220 mx.google.com ESMTP
+               }
+            }
+         }
       }
    }
 }

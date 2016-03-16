@@ -67,9 +67,14 @@
     <Compile Include="GameSummaryTests.cs" />
     <Compile Include="GeneratePlayerProjectionsTests.cs" />
     <Compile Include="HotListTests.cs" />
+    <Compile Include="IsRetiredTest.cs" />
     <Compile Include="IterSortTests.cs" />
     <Compile Include="LineupTests.cs" />
     <Compile Include="LogCleanupTests.cs" />
+    <Compile Include="LogDirectoryFinderTests.cs" />
+    <Compile Include="LogFileDetectorTests.cs" />
+    <Compile Include="LogMailerJobTests.cs" />
+    <Compile Include="LogMasterTests.cs" />
     <Compile Include="MailManTests.cs" />
     <Compile Include="MediaInfoTests.cs" />
     <Compile Include="MediaJobTests.cs" />
@@ -111,6 +116,7 @@
     <Compile Include="UpdateActualsJobTests.cs" />
     <Compile Include="UtilityTests.cs" />
     <Compile Include="WeekMasterTests.cs" />
+    <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
     <Compile Include="YahooXmlTests.cs" />
   </ItemGroup>

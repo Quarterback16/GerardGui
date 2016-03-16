@@ -38,6 +38,7 @@
       <HintPath>..\..\GerardGui\Dependancies\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,8 +50,16 @@
     <Compile Include="Downloader.cs" />
     <Compile Include="IDownloader.cs" />
     <Compile Include="Interfaces\ICache.cs" />
+    <Compile Include="Interfaces\IDetectLogFiles.cs" />
+    <Compile Include="Interfaces\IFindLogDirectories.cs" />
+    <Compile Include="Interfaces\ILoadXml.cs" />
+    <Compile Include="Interfaces\IMailMan.cs" />
     <Compile Include="Interfaces\INormaliseTitles.cs" />
+    <Compile Include="LogDirectoryFinder.cs" />
+    <Compile Include="LogFileDetector.cs" />
+    <Compile Include="LogMaster.cs" />
     <Compile Include="MailMan.cs" />
+    <Compile Include="Models\LogItem.cs" />
     <Compile Include="Models\MediaInfo.cs" />
     <Compile Include="Models\TorrentItem.cs" />
     <Compile Include="Mover.cs" />
@@ -60,6 +69,7 @@
     <Compile Include="TorrentMaster.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="XmlCache.cs" />
+    <Compile Include="XmlLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dependencies\" />

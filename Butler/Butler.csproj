@@ -76,6 +76,7 @@
     <Compile Include="Models\HotListsJob.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\LogCleanupJob.cs" />
+    <Compile Include="Models\LogMailerJob.cs" />
     <Compile Include="Models\MediaJob.cs" />
     <Compile Include="Models\MediaListsPublishJob.cs" />
     <Compile Include="Models\OldRosterGridJob.cs" />
