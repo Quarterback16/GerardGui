@@ -352,7 +352,9 @@ namespace RosterLib
 		{
 			const string debugTeamCode = "SF";
 			var debugTeamRank = "(0-0)";
+#if DEBUG
 			var strVenue = "unknown";
+#endif
 			var oppTeamCode = "YY";
 			var oppRank = "(0-0)";
 			const string rankFormat = "({0})";
@@ -360,7 +362,9 @@ namespace RosterLib
 			if (game.HomeTeam.Equals(debugTeamCode))
 			{
 				bAudit = true;
+#if DEBUG
 				strVenue = "Home";
+#endif
 				oppTeamCode = game.AwayTeam;
 				oppRank = string.Format(rankFormat, awayRating );
 				debugTeamRank = string.Format(rankFormat, homeRating );
@@ -368,7 +372,9 @@ namespace RosterLib
 			if (game.AwayTeam.Equals(debugTeamCode))
 			{
 				bAudit = true;
+#if DEBUG
 				strVenue = "Away";
+#endif
 				oppTeamCode = game.HomeTeam;
 				oppRank = string.Format(rankFormat, homeRating );
 				debugTeamRank = string.Format( rankFormat, awayRating );

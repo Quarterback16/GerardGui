@@ -60,7 +60,9 @@ namespace Butler.Models
 		//  A weekly job, after new projections and before FP reports
 		public override bool IsTimeTodo( out string whyNot )
 		{
-			base.IsTimeTodo( out whyNot );
+         whyNot = string.Empty;
+         base.IsTimeTodo(out whyNot);
+
 			if (string.IsNullOrEmpty( whyNot ))
 			{
 				whyNot = Report.CheckLastRunDate();

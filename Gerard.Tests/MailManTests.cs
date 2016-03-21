@@ -10,7 +10,7 @@ namespace Gerard.Tests
    [TestClass]
    public class MailManTests
    {
-      private MailMan sut;
+      private MailMan2 sut;
 
       [TestInitialize]
       public void TestInitialize()
@@ -18,9 +18,9 @@ namespace Gerard.Tests
          sut = SystemUnderTest();
       }
 
-      private static MailMan SystemUnderTest()
+      private static MailMan2 SystemUnderTest()
       {
-         return new MailMan();
+         return new MailMan2();
       }
 
       [TestMethod]

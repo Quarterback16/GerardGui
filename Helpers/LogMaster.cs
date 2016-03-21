@@ -10,6 +10,7 @@ namespace Helpers
    {
       public LogMaster(string logFileName) : base("Logs")
       {
+         Filename = logFileName;
          XmlDoc = new XmlDocument();
          XmlDoc.Load(logFileName);
          var listNode = XmlDoc.ChildNodes[2];  //  my convention is to always have a comment in ur xml file
@@ -47,8 +48,9 @@ namespace Helpers
          if ((TheHT.Count > 0) && IsDirty)
          {
             var writer = new XmlTextWriter(string.Format("{0}", Filename), null);
-
+            writer.Formatting = Formatting.Indented;
             writer.WriteStartDocument();
+
             writer.WriteComment("Comments: " + Name);
             writer.WriteStartElement("logfile-list");
 

@@ -2,6 +2,7 @@
 using Helpers.Interfaces;
 using Helpers.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,28 +34,49 @@ namespace Butler.Models
       {
          Logger.Info("Doing {0} job..............................................", Name);
 
-         var myEnumerator = LogMaster.TheHT.GetEnumerator();
-         while (myEnumerator.MoveNext())
-         {
-            // for each designated logfile
-            var logitem = (LogItem) myEnumerator.Current;
+         var lastDate = new DateTime(1, 1, 1);
 
-            MailLogFiles(logitem);
+         List<string> keys = new List<string>();
+         foreach (System.Collections.DictionaryEntry de in LogMaster.TheHT)
+            keys.Add(de.Key.ToString());
+
+         foreach (string key in keys)
+         {
+            var logitem = (LogItem)LogMaster.TheHT[key];
+            lastDate = MailLogFiles(logitem);
+            if (lastDate != new DateTime(1, 1, 1))
+            {
+               logitem.MailDate = lastDate;
+               LogMaster.PutItem(logitem);
+            }
          }
+
+         LogMaster.Dump2Xml();  //  write changes if any
 
          var finishedMessage = string.Format("  {0} job - done. {1} logs mailed", Name, LogsMailed);
          Logger.Info(finishedMessage);
          return finishedMessage;
       }
 
-      private void MailLogFiles(LogItem logitem)
+      private DateTime MailLogFiles(LogItem logitem)
       {
+         var lastDate = new DateTime(1, 1, 1);
          var filesFound = LogFileDetector.DetectLogFileIn(logitem.LogDir, logitem.Filespec, logitem.MailDate);
          foreach (var file in filesFound)
          {
-            MailMan.SendMail(message: "Log file", subject: "For perusal", attachment:file);
-            LogsMailed++;
+            var errorMsg = MailMan.SendMail(message: "Log file", subject: "For perusal", attachment:file);
+            if (string.IsNullOrEmpty(errorMsg))
+            {
+               lastDate = LogFileDetector.FileDate(LogFileDetector.FilePartFile(logitem.LogDir, file));
+               LogsMailed++;
+               Logger.Info(string.Format("Emailed {0}", file));
+            }
+            else
+            {
+               Logger.Error(string.Format("Failed to email {0} - {1}", file, errorMsg));
+            }
          }
+         return lastDate;
       }
 
    }

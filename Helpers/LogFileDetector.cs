@@ -23,7 +23,7 @@ namespace Helpers
          return fileList;
       }
 
-      private string FilePartFile(string dir, string file)
+      public string FilePartFile(string dir, string file)
       {
          var len = file.Length - 4 - dir.Length;
          if (len < 10) return file;
@@ -37,12 +37,18 @@ namespace Helpers
          if (file.Length < 10) return false;
          if (file.StartsWith( logType ) )
          {
-            var len = file.Length;
-            var fileDate = DateTime.Parse(file.Substring(len - 10, 10));
-            if (fileDate > logDate)
+            var fileDate = FileDate(file);
+            if (fileDate > logDate && fileDate.Date != DateTime.Now.Date)
+               //  logfile is after the last date mailed and not todays
                isMatch = true;
          }
          return isMatch;
+      }
+
+      public DateTime FileDate( string file )
+      {
+         var len = file.Length;
+         return DateTime.Parse(file.Substring(len - 10, 10));
       }
    }
 }

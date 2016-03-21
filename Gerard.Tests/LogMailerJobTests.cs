@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestLogMailerJob()
       {
-         IMailMan mailMan = new MailMan();
+         IMailMan mailMan = new MailMan2();
          IDetectLogFiles logFileDetector = new LogFileDetector();
          var sut = new LogMailerJob( mailMan, logFileDetector );
          sut.DoJob();

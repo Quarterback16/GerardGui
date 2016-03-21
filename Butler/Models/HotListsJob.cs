@@ -31,7 +31,9 @@ namespace Butler.Models
       //  new business logic as to when to do the job
       public override bool IsTimeTodo(out string whyNot)
       {
+         whyNot = string.Empty;
          base.IsTimeTodo(out whyNot);
+
          if (string.IsNullOrEmpty( whyNot ))
             //  check if there is any new data
             whyNot = Report.CheckLastRunDate();

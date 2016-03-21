@@ -9,21 +9,23 @@ namespace Helpers
 {
    public class MailMan : IMailMan
    {
-      public void SendMail( string message, string subject )
+      public string SendMail( string message, string subject )
       {
          var client = CreateSmtpClient();
          var mail = CreateMailMessage( message, subject );
          client.Send( mail );
+         return string.Empty;
       }
 
-      public void SendMail(string message, string subject, string attachment )
+      public string SendMail(string message, string subject, string attachment )
       {
          string[] attachments = new string[1];
          attachments[0] = attachment;
          SendMail(message, subject, attachments);
+         return string.Empty;
       }
 
-      public void SendMail(string message, string subject, string[] attachments )
+      public string SendMail(string message, string subject, string[] attachments )
       {
          var client = CreateSmtpClient();
          var mail = CreateMailMessage(message, subject);
@@ -32,6 +34,7 @@ namespace Helpers
             mail.Attachments.Add( new Attachment( attachment ) );
          }
          client.Send(mail);
+         return string.Empty;
       }
 
       private static SmtpClient CreateSmtpClient()
