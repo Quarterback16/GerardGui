@@ -1,12 +1,15 @@
 ﻿using RosterLib.Interfaces;
 using RosterLib;
 using System;
+using Butler.Implementations;
 
 namespace Butler.Models
 {
    public class GameProjectionsJob : Job
    {
       public RosterGridReport Report { get; set; }
+
+      public ISeasonScheduler SeasonScheduler { get; set; }
 
       public GameProjectionsJob(IKeepTheTime timeKeeper)
       {
@@ -17,6 +20,7 @@ namespace Butler.Models
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
+         SeasonScheduler = new SeasonScheduler();
       }
 
       public override string DoJob()
@@ -32,13 +36,20 @@ namespace Butler.Models
       }
 
       /// <summary>
-      ///   Projections are done once in Preseason and then once every week during the season
+      ///   Win Projections are done once in Preseason and then once every week during the season
       /// </summary>
       /// <param name="whyNot"></param>
       /// <returns></returns>
       public override bool IsTimeTodo(out string whyNot)
       {
          base.IsTimeTodo(out whyNot);
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if ( !SeasonScheduler.ScheduleAvailable(TimeKeeper.CurrentSeason()))
+            {
+               whyNot = "The schedule is not yet available for " + TimeKeeper.CurrentSeason();
+            }
+         }
          if (string.IsNullOrEmpty(whyNot))
          {
             //  check if there is any new data

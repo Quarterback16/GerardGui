@@ -16,12 +16,15 @@ namespace Gerard.Tests
 
       public bool _isPeakTime { get; set; }
 
+      public bool _isPostSeason { get; set; }
+
 	   public DateTime TheDateTime { get; set; }
 
       public FakeTimeKeeper()
       {
          Season = "2015";
          _isItPreseason = true;
+         _isPostSeason = true;
          _isPeakTime = false;
 	      TheDateTime = DateTime.Now;
       }

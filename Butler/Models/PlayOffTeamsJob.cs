@@ -31,6 +31,11 @@ namespace Butler.Models
 		public override bool IsTimeTodo(out string whyNot)
 		{
 			base.IsTimeTodo(out whyNot);
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (!TimeKeeper.IsItRegularSeason())
+               whyNot = "Its not the Regular Season yet";
+         }
 			if (string.IsNullOrEmpty(whyNot))
 			{
 				if (TimeKeeper.IsItPeakTime())

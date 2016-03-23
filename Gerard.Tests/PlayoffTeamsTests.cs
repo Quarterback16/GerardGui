@@ -19,7 +19,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimeToDoPlayoffTeamsJob()  //   
 		{
-			var sut = new PlayOffTeamsJob(new FakeTimeKeeper(isPreSeason: false, isPeakTime: true));
+			var sut = new PlayOffTeamsJob(new FakeTimeKeeper(isPreSeason: true, isPeakTime: false));
 			string whyNot;
 			Assert.IsFalse(sut.IsTimeTodo(out whyNot));
 			Console.WriteLine(whyNot);

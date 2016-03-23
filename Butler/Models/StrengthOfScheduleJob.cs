@@ -2,11 +2,14 @@
 using RosterLib;
 using System;
 using NLog;
+using Butler.Implementations;
 
 namespace Butler.Models
 {
 	public class StrengthOfScheduleJob : Job
 	{
+      public ISeasonScheduler SeasonScheduler { get; set; }
+
 		public StrengthOfScheduleJob(IKeepTheTime timeKeeper)
 		{
 			Name = "Strength of Schedule Report";
@@ -14,6 +17,7 @@ namespace Butler.Models
 			TimeKeeper = timeKeeper;
          IsNflRelated = true;
          Logger = LogManager.GetCurrentClassLogger();
+         SeasonScheduler = new SeasonScheduler();
 		}
 
 		public override string DoJob()
@@ -29,9 +33,18 @@ namespace Butler.Models
 		   base.IsTimeTodo(out whyNot);
 		   if (!string.IsNullOrEmpty( whyNot )) return ( string.IsNullOrEmpty( whyNot ) );
 
-         if ( !TimeKeeper.IsItPreseason() )
-            whyNot = "Not Preseason";
-
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (!SeasonScheduler.ScheduleAvailable(TimeKeeper.CurrentSeason()))
+            {
+               whyNot = "The schedule is not yet available for " + TimeKeeper.CurrentSeason();
+            }
+         }
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (!TimeKeeper.IsItPreseason())
+               whyNot = "Not Preseason";
+         }
 #if ! DEBUG
 		   if (string.IsNullOrEmpty( whyNot ))
 		   {

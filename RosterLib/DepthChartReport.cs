@@ -25,6 +25,14 @@ namespace RosterLib
          Season = SeasonBoss.CurrentSeason();
       }
 
+      public DepthChartReport(string season)
+      {
+         Name = "Depth Charts";
+         TeamCode = "SF";
+         Errors = new List<String>();
+         Season = season;
+      }
+
       public DepthChartReport(string season, string teamCode)
       {
          Season = season;

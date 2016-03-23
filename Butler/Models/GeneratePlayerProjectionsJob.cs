@@ -3,6 +3,7 @@ using System.Linq;
 using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
+using Butler.Implementations;
 
 namespace Butler.Models
 {
@@ -10,14 +11,18 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
+      public ISeasonScheduler SeasonScheduler { get; set; }
+
+
 		public GeneratePlayerProjectionsJob( IKeepTheTime timeKeeper )
 		{
-			Name = "Player Projection Generator";
+         Name = "Generate Player Projections";
 			TimeKeeper = timeKeeper;
 			Logger = LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 			Report = new PlayerProjectionGenerator( playerCache: null ) {Name = Name};
 			Report.SetLastRunDate();
+         SeasonScheduler = new SeasonScheduler();
 		}
 
 		public override string DoJob()
@@ -62,19 +67,22 @@ namespace Butler.Models
 		{
          whyNot = string.Empty;
          base.IsTimeTodo(out whyNot);
-
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (!SeasonScheduler.ScheduleAvailable(TimeKeeper.CurrentSeason()))
+            {
+               whyNot = "The schedule is not yet available for " + TimeKeeper.CurrentSeason();
+            }
+         }
 			if (string.IsNullOrEmpty( whyNot ))
 			{
 				whyNot = Report.CheckLastRunDate();
-				if (string.IsNullOrEmpty( whyNot ))
-				{
-					if (string.IsNullOrEmpty( whyNot ))
-					{
-						if (TimeKeeper.IsItPeakTime())
-							whyNot = "Peak time - no noise please";
-					}
-				}
 			}
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (TimeKeeper.IsItPeakTime())
+               whyNot = "Peak time - no noise please";
+         }
 			if (!string.IsNullOrEmpty( whyNot ))
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 			return ( string.IsNullOrEmpty( whyNot ) );

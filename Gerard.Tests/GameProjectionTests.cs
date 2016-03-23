@@ -26,6 +26,16 @@ namespace Gerard.Tests
 			Assert.IsTrue(  outcome );
 		}
 
+      [TestMethod]
+      public void TestTimeToDoGameProjectionJobPreSchedule()  //    
+      {
+         var sut = new GameProjectionsJob(new FakeTimeKeeper(season: "2016", week: "00"));
+         string whyNot;
+         var outcome = sut.IsTimeTodo(out whyNot);
+         Console.WriteLine(whyNot);
+         Assert.IsFalse(outcome);
+      }
+
 
       [TestMethod]
       public void TestGamePrediction()  //  39 sec 2015-08-10
