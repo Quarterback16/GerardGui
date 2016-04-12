@@ -68,6 +68,7 @@ namespace Butler.Models
             var collector = new Collector();
             foreach (var f in Candidates)
             {
+               File.SetAttributes(f, FileAttributes.Normal);
                itemCount++;
                Logger.Trace( string.Format( "Candidate: {0} ", f ) );
                var mi = new MediaInfo(f);

@@ -104,6 +104,7 @@
     <Compile Include="StatGridTests.cs" />
     <Compile Include="StrengthOfScheduleTests.cs" />
     <Compile Include="SuggestedLineupTests.cs" />
+    <Compile Include="TeamCardTests.cs" />
     <Compile Include="TeamRankerTests.cs" />
     <Compile Include="TestGamebookGetter.cs" />
     <Compile Include="TestPlayerCache.cs" />

@@ -64,14 +64,6 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
-      public void TestTeamCardSf()
-      {
-         var t = Masters.Tm.GetTeam("2014", "SF");
-         var fileOut = t.RenderTeamCard();
-         Assert.IsTrue(File.Exists(fileOut));
-      }
-
-      [TestMethod]
       public void TestMediaJobLocal()
       {
          var sut = new MediaJob(@".\TestFolder\");

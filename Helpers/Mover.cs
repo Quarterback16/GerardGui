@@ -54,6 +54,7 @@ namespace Helpers
 
       public void CopyFile( string sourceFile, string destFile )
       {
+         File.SetAttributes(sourceFile, FileAttributes.Normal);
          File.Copy( sourceFile, destFile, true );
          //Logger.Trace( string.Format( "Copied from {0} to {1}", sourceFile, destFile ));
       }

@@ -552,6 +552,8 @@ namespace Helpers.Models
             isValid = true;
          else if ( Info.Extension.ToUpper().Equals( ".CBZ" ) )
             isValid = true;
+         else if (Info.Extension.ToUpper().Equals(".AZW3"))
+            isValid = true;
          return isValid;
       }
    }
