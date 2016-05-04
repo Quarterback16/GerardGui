@@ -11,7 +11,6 @@ namespace Butler.Models
       public StartersJob(IKeepTheTime timeKeeper) : base()
       {
          Name = "Starters";
-         Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timeKeeper;
          Report = new Starters(doCsv:false);  //  separate job now for the CSV
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,13 +19,9 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
+         return Report.DoReport();
       }
 
-      //  new business logic as to when to do the job
       public override bool IsTimeTodo(out string whyNot)
       {
          base.IsTimeTodo(out whyNot);

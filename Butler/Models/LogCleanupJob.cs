@@ -18,17 +18,14 @@ namespace Butler.Models
       public LogCleanupJob()
       {
          Name = "Log Cleanup";
-         Console.WriteLine( "Constructing {0} ...", Name );
          Logger = NLog.LogManager.GetCurrentClassLogger();
          LogDirectories = new List<string>();
-         DaysOld = 7;  //  TODo: make this a config setting 
+         DaysOld = 7;  //  TODO: make this a config setting 
       }
 
       public override string DoJob()
       {
          LogsDeleted = 0;
-
-         Logger.Info( "Doing {0} job..............................................", Name );
 
 #if DEBUG2
          if ( Logger.IsTraceEnabled )

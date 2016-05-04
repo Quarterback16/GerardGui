@@ -13,7 +13,6 @@ namespace Butler.Models
       public PlayOffTeamsJob(IKeepTheTime timekeeper)
       {
          Name = "Playoff Teams";
-         Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
@@ -22,7 +21,6 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info("Doing {0} job..............................................", Name);
          Report.RenderAsHtml(); //  the method that does the work
          Report.Finish();
          return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());

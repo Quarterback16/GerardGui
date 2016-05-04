@@ -13,7 +13,6 @@ namespace Butler.Models
       {
          TimeKeeper = timeKeeper;
          Name = "Fantasy Point Projections";
-         Console.WriteLine("Constructing {0} ...", Name);
          Report = new FantasyProjectionReporter( TimeKeeper );
          Logger = LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
@@ -21,7 +20,6 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
          StartRun();
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();

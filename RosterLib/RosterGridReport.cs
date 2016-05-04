@@ -84,7 +84,9 @@ namespace RosterLib
       {
          RenderAsHtml(); //  the old method that does the work
          Finish();
-         return string.Format("Rendered {0} to {1}", Name, OutputFilename());
+         var finishedMessage = string.Format("Rendered {0} to {1}", Name, OutputFilename());
+         Logger.Info("  {0}", finishedMessage);
+         return finishedMessage;
       }
 
       public string CheckLastRunDate()

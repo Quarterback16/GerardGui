@@ -18,10 +18,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+         return Report.DoReport();
       }
 
       public override bool IsTimeTodo( out string whyNot )

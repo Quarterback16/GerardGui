@@ -12,7 +12,6 @@ namespace Butler.Models
 		public FreeAgentMarketJob(IKeepTheTime timeKeeper)
 		{
 			Name = "Free Agent Report";
-			Console.WriteLine("Constructing {0} ...", Name);
 			Report = new FaMarket { Name = Name, Season = timeKeeper.Season };
 			TimeKeeper = timeKeeper;
          IsNflRelated = true;

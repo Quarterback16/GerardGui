@@ -12,7 +12,6 @@ namespace Butler.Models
 		public TflDataBackupJob()
 		{
 			Name = "TFL DATA Backup";
-			Console.WriteLine("Constructing {0} ...", Name);
 			SourceDir = "d:\\shares\\tfl";
 			DestDir = "\\\\Regina\\Documents\\Backup\\tfl";
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,7 +19,6 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-         Logger.Info( "Doing {0} job..............................................", Name );
 			//  copy tfl dir to Regina
 
 			// To copy a file to another location and

@@ -18,7 +18,6 @@ namespace Butler.Models
 
       public ReportJob( IKeepTheTime timekeeper )
       {
-         Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
 	      CheckLastRun = true;
@@ -26,7 +25,6 @@ namespace Butler.Models
 
       public ReportJob( IKeepTheTime timekeeper, RosterGridReport report )
       {
-         Console.WriteLine( "Constructing {0} ...", Name );
          Report = report;
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
@@ -55,12 +53,7 @@ namespace Butler.Models
          if ( Logger == null )
             Logger = LogManager.GetCurrentClassLogger();
 
-         Logger.Info( "Doing {0} job..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         var completionMsg = string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
-         Logger.Info( completionMsg );
-         return completionMsg;
+         return Report.DoReport();
       }
 
    }

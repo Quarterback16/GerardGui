@@ -12,7 +12,6 @@ namespace Butler.Models
       public PlayerCsvJob(IKeepTheTime timeKeeper)
       {
          Name = "Players CSV";
-         Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timeKeeper;
          var rpt = new PlayerCsv {DoProjections = true};
          Report = rpt;
@@ -44,7 +43,6 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
          var finishMessage =  Report.DoReport();
          Logger.Info( "  {0}", finishMessage  );
          return finishMessage;

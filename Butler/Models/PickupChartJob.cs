@@ -15,7 +15,6 @@ namespace Butler.Models
       public PickupChartJob( IKeepTheTime timekeeper )
       {
          Name = "Pickup Chart";
-         Console.WriteLine( "Constructing {0} ...", Name );
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
          Week = TimeKeeper.CurrentWeek( DateTime.Now );
@@ -29,10 +28,9 @@ namespace Butler.Models
 #if ! DEBUG
 			//  prereq job!
 			var projections = new GeneratePlayerProjectionsJob( TimeKeeper );
-			var resultOut = projections.DoJob();
+			var resultOut = projections.Execute();
 			Logger.Info( "Finished projections {0}", resultOut );
 #endif
-         Logger.Info( "Doing {0} job..............................................", Name );
          Report.RenderAsHtml(); //  the method that does the work
          Report.Finish();
          return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );

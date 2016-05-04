@@ -19,7 +19,6 @@ namespace Butler.Models
 
       public MediaJob()
       {
-         Console.WriteLine("Constructing MediaJob ...");
          Name = "Media Job";
          DownloadFolder = GetDownloadFolder();   //  "\\\\Vesuvius\\Downloads";
          MagazineCollectionFolder = GetMagazineFolder();
@@ -60,8 +59,6 @@ namespace Butler.Models
          var finishedMessage = string.Empty;
          try
          {
-            Logger.Info("Doing {0} job..............................................", Name);
-            
             var itemCount = 0;
 
             GetCandidates();

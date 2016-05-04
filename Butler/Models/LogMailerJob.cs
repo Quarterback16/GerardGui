@@ -22,7 +22,6 @@ namespace Butler.Models
       public LogMailerJob(IMailMan mailMan, IDetectLogFiles logFileDetector)
       {
          Name = "Log Mailer";
-         Console.WriteLine("Constructing {0} ...", Name);
          Logger = NLog.LogManager.GetCurrentClassLogger();
          LogsMailed = 0;
          MailMan = mailMan;
@@ -32,8 +31,6 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info("Doing {0} job..............................................", Name);
-
          var lastDate = new DateTime(1, 1, 1);
 
          List<string> keys = new List<string>();

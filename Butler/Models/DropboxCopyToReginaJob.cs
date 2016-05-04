@@ -1,5 +1,6 @@
 ﻿using RosterLib;
 using System;
+using RosterLib.Interfaces;
 
 namespace Butler.Models
 {
@@ -9,18 +10,16 @@ namespace Butler.Models
 
       public string DestDir { get; set; }
 
-      public DropboxCopyToReginaJob()
+      public DropboxCopyToReginaJob(IKeepTheTime timeKeeper)
 		{
+         var theSeason = timeKeeper.Season;
 			Name = "Publish Dropbox to Regina";
-			Console.WriteLine("Constructing {0} ...", Name);
-			SourceDir = "d:\\shares\\public\\dropbox\\gridstat\\2015";
-			DestDir = "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\2015";
+			SourceDir = string.Format("d:\\shares\\public\\dropbox\\gridstat\\{0}", theSeason);
+			DestDir = string.Format("\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}", theSeason);
          Logger = NLog.LogManager.GetCurrentClassLogger();
 		}
       public override string DoJob()
       {
-         Logger.Info("Doing {0} job..............................................", Name);
-
          var outcome = FileUtility.CopyDirectory(SourceDir, DestDir);
          if (string.IsNullOrEmpty( outcome ))
          {

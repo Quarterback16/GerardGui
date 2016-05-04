@@ -16,7 +16,6 @@ namespace Butler.Models
       public UpdateActualsJob( IKeepTheTime timeKeeper )
       {
          Name = "Update Actual Player Game Metrics";
-         Console.WriteLine( "Constructing {0} ...", Name );
          Report = new MetricsUpdateReport(timeKeeper);   //  do this
          TimeKeeper = timeKeeper;
 	      Report.TimeKeeper = timeKeeper;
@@ -25,10 +24,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-			Logger.Info("Doing {0} job..............................................", Name);
-
-         Report.RenderAsHtml(); //  the old method that does the work
-         return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+         return Report.DoReport();
       }
 
       //  new business logic as to when to do the job

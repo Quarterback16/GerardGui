@@ -15,7 +15,6 @@ namespace Butler.Models
 		public UpdateTflJob()
 		{
 			Name = "TFL DATA Update";
-			Console.WriteLine("Constructing {0} ...", Name);
 			SourceDir = "\\\\Regina\\Documents\\Backup\\tfl";
 			DestDir = "d:\\shares\\tfl";
 			DiskDetector = new DiskDetector();
@@ -24,7 +23,6 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-         Logger.Info( "Doing {0} job..............................................", Name );
 			//  copy tfl dir to Vesuvius from the emtec drive
 
 			// To copy a file to another location and

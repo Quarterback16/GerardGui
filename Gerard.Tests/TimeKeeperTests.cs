@@ -36,6 +36,12 @@ namespace Gerard.Tests
          Assert.AreEqual( sut.CurrentSeason(), "2016" );
       }
 
+      [TestMethod]
+      public void TestCurrentSeason2016()
+      {
+         var sut = new TimeKeeper(new FakeClock(new DateTime(2016, 04, 25)));  // set clock to Apr-2016
+         Assert.AreEqual(sut.CurrentSeason(), "2016");
+      }
 
       [TestMethod]
       public void TestPreseason()

@@ -22,7 +22,7 @@ namespace Gerard.Tests
 
       public FakeTimeKeeper()
       {
-         Season = "2015";
+         Season = "2016";
          _isItPreseason = true;
          _isPostSeason = true;
          _isPeakTime = false;
@@ -31,7 +31,7 @@ namespace Gerard.Tests
 
 		public FakeTimeKeeper( DateTime theDate )
 		{
-			Season = "2015";
+			Season = "2016";
 			_isItPreseason = true;
 			_isPeakTime = false;
 			TheDateTime = theDate;
@@ -39,7 +39,7 @@ namespace Gerard.Tests
 
       public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
       {
-         Season = "2015";
+         Season = "2016";
          Week = isPreSeason ? "00" : "01";
 
          _isItPreseason = isPreSeason;

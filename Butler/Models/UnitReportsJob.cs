@@ -13,7 +13,6 @@ namespace Butler.Models
 		public UnitReportsJob(IHistorian historian)
 		{
 			Name = "Unit Reports";
-			Console.WriteLine("Constructing {0} ...", Name);
 			Report = new UnitReport();
 			Historian = historian;
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -22,21 +21,21 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-         Logger.Info( "Doing {0} job..............................................", Name );
 			Report.Season = Utility.CurrentSeason();
-			Report.RenderAsHtml(); //  the old method that does the work
-			return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
-		}
+         return Report.DoReport();
+      }
 
-		//  new business logic as to when to do the job
 		public override bool IsTimeTodo(out string whyNot)
 		{
 			base.IsTimeTodo(out whyNot);
 			if (string.IsNullOrEmpty(whyNot))
 			{
-				var sevenDaysAgo = DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0)).Date;
+            var regularity = 7;
+            if (TimeKeeper.IsItPreseason())
+               regularity += 14;
+            var sevenDaysAgo = DateTime.Now.Subtract(new TimeSpan(regularity, 0, 0, 0)).Date;
 				if (Historian.LastRun(Report).Date > sevenDaysAgo)
-					whyNot = "Has been done in the last week";
+					whyNot = string.Format("Has been done less than {0} days ago",regularity);
 			}
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

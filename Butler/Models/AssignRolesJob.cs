@@ -12,7 +12,6 @@ namespace Butler.Models
       public AssignRolesJob( IKeepTheTime timeKeeper )
       {
          Name = "Assign Roles";
-         Console.WriteLine( "Constructing {0} ...", Name );
          Report = new RoleAssignmentReport(timeKeeper);
          TimeKeeper = timeKeeper;
          Logger = LogManager.GetCurrentClassLogger();
@@ -21,9 +20,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+         return Report.DoReport();
       }
 
       //  new business logic as to when to do the job

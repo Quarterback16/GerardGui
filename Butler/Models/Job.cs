@@ -27,6 +27,7 @@ namespace Butler.Models
 			MyHoldList = new HoldList();
 			MyHoldList.LoadFromXml(".//xml//hold-jobs.xml");
          TimeKeeper = new TimeKeeper();
+         Logger = NLog.LogManager.GetCurrentClassLogger();
 		}
 
       public Job( IKeepTheTime timekeeper)
@@ -55,11 +56,23 @@ namespace Butler.Models
 		   return string.IsNullOrEmpty(whyNot);
 		}
 
-		public virtual string DoJob()
+		public string Execute()
 		{
-			// Implement it ur self with an override
-			return string.Empty;
+         SetupJob();
+			// Implement the work stuff ur self with an override, 
+         // but we want "standard" setups and teardowns
+         var result = DoJob();
+
+         TeardownJob();
+
+			return result;
 		}
+
+		public virtual string DoJob()
+      {
+         //  the meat in the sandwich
+         return string.Empty;
+      }
 
 		public void StartRun()
 		{
@@ -67,6 +80,15 @@ namespace Butler.Models
 				Stopwatch = new Stopwatch();
 			Stopwatch.Start();
 		}
+
+      private  void SetupJob()
+      {
+         Logger.Info("Doing {0} job..............................................", Name);
+
+         if (Stopwatch == null)
+            Stopwatch = new Stopwatch();
+         Stopwatch.Start();
+      }
 
 		/// <summary>
 		///   Records the run
@@ -76,7 +98,19 @@ namespace Butler.Models
 			var ts = Utility.StopTheWatch(Stopwatch, string.Format("Finished Job: {0}", Name));
 			var runStorer = new DbfRunStorer();
 			runStorer.StoreRun(Name, ts, "Job");
+         LogElapsedTime(ts);
 		}
+
+      public void TeardownJob()
+      {
+         var ts = Utility.StopTheWatch(Stopwatch, string.Format("Finished Job: {0}", Name));
+         LogElapsedTime(ts);
+      }
+
+      public void LogElapsedTime(TimeSpan ts )
+      {
+         Logger.Info(string.Format("  Job: {0} took {1}", Name, ts));
+      }
 
 		public DateTime LastDone()
 		{

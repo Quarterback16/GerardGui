@@ -13,7 +13,6 @@ namespace Butler.Models
          : base()
       {
          Name = "Rookies";
-         Console.WriteLine("Constructing {0} ...", Name);
          TimeKeeper = timeKeeper;
          Report = new Rookies();
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -22,10 +21,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
+         return Report.DoReport();
       }
 
       //  new business logic as to when to do the job

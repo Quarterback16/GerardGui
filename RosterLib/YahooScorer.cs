@@ -38,6 +38,8 @@ namespace RosterLib
             return 0;
          }
          GameKey = Week.GameCodeFor( plyr.TeamCode );
+         if (string.IsNullOrEmpty(GameKey)) return 0;
+
 			Game = new NFLGame(GameKey);
 	      WeekHasPassed = Game.Played();
 

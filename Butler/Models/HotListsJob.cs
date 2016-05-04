@@ -11,7 +11,6 @@ namespace Butler.Models
       public HotListsJob()
       {
          Name = "Hot Lists";
-         Console.WriteLine("Constructing {0} ...", Name);
          Report = new HotListReporter();
          TimeKeeper = new TimeKeeper();
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,12 +19,7 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} ..............................................", Name );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         var finishMessage = string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
-         Logger.Info( "  {0}", finishMessage );
-         return finishMessage;
+         return Report.DoReport();
       }
 
       //  new business logic as to when to do the job

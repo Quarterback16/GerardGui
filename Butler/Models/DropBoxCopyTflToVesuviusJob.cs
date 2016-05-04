@@ -22,7 +22,6 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-			Logger.Info("Doing {0} job..............................................", Name);
 			Logger.Info("Copying files from {0} to {1}", SourceDir, DestDir);
 
 			string outcome;

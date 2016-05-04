@@ -104,26 +104,28 @@ namespace Butler
                   new DefensiveReportsJob( TimeKeeper ), 
                   new SuggestedLineupsJob( TimeKeeper ),
                   new PickupChartJob( TimeKeeper ),
+                  new StartersJob( TimeKeeper ), 
 
 #endregion
 
-                  new StartersJob( TimeKeeper ),  
-
-#region Pre Season Jobs 
-                  new PlayerCsvJob( TimeKeeper ),
-                  new BalanceReportJob( TimeKeeper ), //  once off - pre season
-                  new FreeAgentMarketJob( TimeKeeper ), //  regular - pre season
-                  new StrengthOfScheduleJob( TimeKeeper ), //  once off - pre season
-                  new PlayerReportsJob( TimeKeeper ),
-#endregion
-
+ 
 #region Regular Always jobs
                   new RunReportJob( TimeKeeper ),
                   new LogCleanupJob(), 
                   new TflDataBackupJob(),  
-                  new DropboxCopyToReginaJob(), 
-                  new MediaListsPublishJob()  
+                  new DropboxCopyToReginaJob( TimeKeeper), 
+                  new MediaListsPublishJob(),
 #endregion
+
+
+#region Pre Season Jobs -- Long running so last in the job order
+                  new PlayerCsvJob( TimeKeeper ),
+                  new BalanceReportJob( TimeKeeper ), //  once off - pre season
+                  new FreeAgentMarketJob( TimeKeeper ), //  regular - pre season
+                  new StrengthOfScheduleJob( TimeKeeper ), //  once off - pre season
+                  new PlayerReportsJob( TimeKeeper )
+#endregion
+
                };
 
             if (Passes == 0)
@@ -143,7 +145,7 @@ namespace Butler
                   {
                      ReportProgress(
                         string.Format("Doing job {0}", job.Name), ButlerConstants.ReportInTextArea);
-                     var outcome = job.DoJob();
+                     var outcome = job.Execute();
                      ReportProgress(outcome, ButlerConstants.ReportInTextArea);
                   }
                   else

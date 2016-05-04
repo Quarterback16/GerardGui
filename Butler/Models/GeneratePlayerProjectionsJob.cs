@@ -27,7 +27,6 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-			Logger.Info( "Doing {0} job..............................................", Name );
 			StartRun();
 			var ppg = new PlayerProjectionGenerator( playerCache: null );
 			var gameList = new ArrayList();

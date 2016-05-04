@@ -12,7 +12,6 @@ namespace Butler.Models
       public DepthChartJob( IKeepTheTime timekeeper )
       {
          Name = "Depth Charts";
-         Console.WriteLine("Constructing {0} ...", Name);
          Report = new DepthChartReport(timekeeper.CurrentSeason());
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
@@ -21,11 +20,9 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();
          var finishedMessage = string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
-         Logger.Info( "  {0}", finishedMessage  );
          return finishedMessage;
       }
 

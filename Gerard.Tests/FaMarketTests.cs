@@ -8,9 +8,9 @@ namespace Gerard.Tests
 	public class FaMarketTests
 	{
 		[TestMethod]
-		public void TestFaMarketJob()
+		public void TestFaMarketJob()  //2016-05-02 : 15 mins
 		{
-			var sut = new FreeAgentMarketJob( new FakeTimeKeeper() );
+			var sut = new FreeAgentMarketJob( new FakeTimeKeeper(season:"2016") );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}

@@ -11,7 +11,6 @@ namespace Butler.Models
       public OldRosterGridJob(IKeepTheTime timeKeeper )
       {
          Name = "Old Roster Grid";
-         Console.WriteLine("Constructing {0} ...", Name);
          Report = new OldRosterGridReports();
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,17 +19,9 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
-         StartRun();
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         StopRun();
-         var finishMessage = string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
-         Logger.Info( "  {0}", finishMessage  );
-         return finishMessage;
+         return Report.DoReport();
       }
 
-      //  new business logic as to when to do the job
       public override bool IsTimeTodo( out string whyNot )
       {
          whyNot = string.Empty;

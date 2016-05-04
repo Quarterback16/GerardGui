@@ -44,8 +44,7 @@ namespace Butler.Models
          if (Logger == null)
             Logger = LogManager.GetCurrentClassLogger();
 
-         Logger.Info("Doing {0} job..............................................", Name);
-         Report.RenderFullAsHtml(); //  the old method that does the work
+         Report.RenderFullAsHtml(); //  the Render full?
          Report.Finish();
          var completionMsg = string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
          Logger.Info(completionMsg);

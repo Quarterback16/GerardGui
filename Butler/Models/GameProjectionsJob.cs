@@ -14,7 +14,6 @@ namespace Butler.Models
       public GameProjectionsJob(IKeepTheTime timeKeeper)
       {
          Name = "Game Projections";
-         Console.WriteLine("Constructing {0} ...", Name);
          var week = string.Format( "{0:00}", timeKeeper.CurrentWeek( DateTime.Now ) );
          Report = new SeasonProjectionReport( timeKeeper.CurrentSeason( DateTime.Now ), week );
          TimeKeeper = timeKeeper;
@@ -25,14 +24,11 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         Logger.Info( "Doing {0} job..............................................", Name );
          // pre-req
          var preJob = new RankingsJob( TimeKeeper );
-         var outcome = preJob.DoJob();
+         var outcome = preJob.Execute();
          Logger.Info("Rankings {0}", outcome );
-         Report.RenderAsHtml(); //  the old method that does the work
-         Report.Finish();
-         return string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
+         return Report.DoReport();
       }
 
       /// <summary>

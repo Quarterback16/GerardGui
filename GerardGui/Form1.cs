@@ -74,6 +74,7 @@ namespace GerardGui
       {
          try
          {
+            button1.Enabled = false;
             label1.Text = string.Empty;
             startDateLabel.Text += DateTime.Now.ToLongDateString() + " " + DateTime.Now.ToLongTimeString();
 

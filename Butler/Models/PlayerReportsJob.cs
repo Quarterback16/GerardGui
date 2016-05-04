@@ -11,7 +11,6 @@ namespace Butler.Models
       public PlayerReportsJob( IKeepTheTime timeKeeper )
 		{
 			Name = "Player Reports";
-			Console.WriteLine("Constructing {0} ...", Name);
          Report = new PlayerCareerReport( TimeKeeper.CurrentSeason( DateTime.Now ) );
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -20,12 +19,7 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-         Logger.Info( "Doing {0} job..............................................", Name );
-			Report.RenderAsHtml(); //  the old method that does the work
-			Report.Finish();
-         var finishedMessage = string.Format("Job done {0}", Report.Name );
-         Logger.Info( "  {0}", finishedMessage );
-		   return finishedMessage;
+         return Report.DoReport();
 		}
 
 		//  new business logic as to when to do the job

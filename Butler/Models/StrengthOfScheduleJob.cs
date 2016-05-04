@@ -13,7 +13,6 @@ namespace Butler.Models
 		public StrengthOfScheduleJob(IKeepTheTime timeKeeper)
 		{
 			Name = "Strength of Schedule Report";
-			Console.WriteLine("Constructing {0} ...", Name);
 			TimeKeeper = timeKeeper;
          IsNflRelated = true;
          Logger = LogManager.GetCurrentClassLogger();

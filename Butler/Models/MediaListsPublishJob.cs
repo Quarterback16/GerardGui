@@ -12,15 +12,13 @@ namespace Butler.Models
       public MediaListsPublishJob()
 		{
 			Name = "Publish Media Lists";
-			Console.WriteLine("Constructing {0} ...", Name);
 			SourceDir = "d:\\shares\\public\\dropbox\\medialists";
 			DestDir = "\\\\Regina\\web\\medialists";
          Logger = NLog.LogManager.GetCurrentClassLogger();
 		}
+
       public override string DoJob()
       {
-         Logger.Info("Doing {0} job..............................................", Name);
-
          var outcome = FileUtility.CopyDirectory(SourceDir, DestDir);
          if (string.IsNullOrEmpty(outcome))
          {

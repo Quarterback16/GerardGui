@@ -12,7 +12,6 @@ namespace Butler.Models
 		  public BalanceReportJob(IKeepTheTime timeKeeper)
 		  {
 				Name = "Balance Report";
-				Console.WriteLine("Constructing {0} ...", Name);
 				_timeKeeper = timeKeeper;
             IsNflRelated = true;
             Logger = LogManager.GetCurrentClassLogger();
