@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Helpers
 {
-   public class LogFileDetector :  BaseFileDetector, IDetectLogFiles
+   public class MediaLogDetector : BaseFileDetector, IDetectLogFiles
    {
       public List<string> DetectLogFileIn(string dir, string logType, DateTime logDate)
       {
@@ -30,9 +30,5 @@ namespace Helpers
          var filePart = file.Substring(dir.Length, len);
          return filePart;
       }
-
-
-
-
    }
 }

@@ -79,6 +79,7 @@
     <Compile Include="Models\LogMailerJob.cs" />
     <Compile Include="Models\MediaJob.cs" />
     <Compile Include="Models\MediaListsPublishJob.cs" />
+    <Compile Include="Models\MediaMailerJob.cs" />
     <Compile Include="Models\OldRosterGridJob.cs" />
     <Compile Include="Models\OutputProjectionsJob.cs" />
     <Compile Include="Models\PerformanceReportJob.cs" />

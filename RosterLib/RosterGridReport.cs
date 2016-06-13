@@ -30,6 +30,8 @@ namespace RosterLib
 
       public RosterGridReport()
       {
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+
          //  default to look at the current season
          Season = SeasonBoss.CurrentSeason();
          MyRunStorer = new DbfRunStorer();
@@ -41,6 +43,8 @@ namespace RosterLib
 
       public RosterGridReport(IKeepTheTime timekeeper )
       {
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+
          //  default to look at the current season
          Season = SeasonBoss.CurrentSeason();
          MyRunStorer = new DbfRunStorer();

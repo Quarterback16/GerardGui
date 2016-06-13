@@ -78,6 +78,7 @@
     <Compile Include="MailManTests.cs" />
     <Compile Include="MediaInfoTests.cs" />
     <Compile Include="MediaJobTests.cs" />
+    <Compile Include="MediaMailerJobTests.cs" />
     <Compile Include="OldRosterGridTests.cs" />
     <Compile Include="OutputProjectionsTests.cs" />
     <Compile Include="PerformanceReportTests.cs" />

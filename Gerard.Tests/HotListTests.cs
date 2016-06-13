@@ -10,7 +10,7 @@ namespace Gerard.Tests
       public void TestDoHotlistsJob()  //  2015-11-08  1 min
       {
          var sut = new HotListsJob();
-         var outcome = sut.DoJob();
+         var outcome = sut.Execute();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
 

@@ -13,7 +13,15 @@ namespace Helpers
 
       public SmtpClient SmtpClient { get; set; }
 
+      private List<string> Recipients { get; set; }
+
       public MailMan2()
+      {
+         Initialise();
+         Recipients.Add("quarterback16@live.com.au");
+      }
+
+      private void Initialise()
       {
          MailServer = "mail.iinet.net.au";
          SmtpClient = new SmtpClient(MailServer);
@@ -22,17 +30,23 @@ namespace Helpers
          SmtpClient.UseDefaultCredentials = false;   //  force authentication?
          SmtpClient.EnableSsl = true;
          SmtpClient.Credentials = new System.Net.NetworkCredential("quarterback16@iinet.net.au", "Brisbane59!");
+         Recipients = new List<string>();
+      }
+
+      public MailMan2(List<string> recipients)
+      {
+         Initialise();
+         Recipients.AddRange(recipients);
       }
 
       public string SendMail(string message, string subject)
       {
          var mail = CreateMailMessage(message,subject);
          mail.From = new MailAddress("quarterback16@iinet.net.au");
-#if DEBUG
-         mail.To.Add("quarterback16@live.com.au");
-#else
-         mail.To.Add("stephen.colonna@employment.gov.au");
-#endif
+         foreach (var recipient in Recipients)
+         {
+            mail.To.Add(recipient);            
+         }
          mail.Subject = subject;
          return SendSmtpMail(mail);
       }

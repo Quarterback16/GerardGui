@@ -18,14 +18,10 @@ namespace Butler.Models
          Logger = LogManager.GetCurrentClassLogger();
 		}
 
-		public override string DoJob()
-		{
-			Report.RenderAsHtml();
-			Report.Finish();
-			var finishedMessage = string.Format("Rendered {0} to {1}", Report.Name, Report.OutputFilename());
-         Logger.Info( "  {0}", finishedMessage );
-         return finishedMessage;
-		}
+      public override string DoJob()
+      {
+         return Report.DoReport();
+      }
 
 		public override bool IsTimeTodo(out string whyNot)
 		{
@@ -42,6 +38,14 @@ namespace Butler.Models
 		      if (theDate.Date.Equals(DateTime.Now.Date))
 		         whyNot = "Already done today";
 		   }
+         if (string.IsNullOrEmpty(whyNot))
+            //  check if there is any new data
+            whyNot = Report.CheckLastRunDate();
+         if (string.IsNullOrEmpty(whyNot))
+         {
+            if (TimeKeeper.IsItPeakTime())
+               whyNot = "Peak time - no noise please";
+         }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 		   return (string.IsNullOrEmpty(whyNot));

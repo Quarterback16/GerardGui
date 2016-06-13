@@ -77,6 +77,7 @@ namespace Butler
                   new DropBoxCopyTflToVesuviusJob(TimeKeeper),  //  get any new TFL data from dropbox
                   new MediaJob(),  //  regular always
                   new LogMailerJob( new MailMan2(), new LogFileDetector() ),  //  once daily
+                  new MediaMailerJob( new MailMan2(), new MediaLogDetector() ),  //  once daily
 
 #region Looking back on the games just played
 

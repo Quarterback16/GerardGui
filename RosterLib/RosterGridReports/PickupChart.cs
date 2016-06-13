@@ -154,12 +154,18 @@ namespace RosterLib.RosterGridReports
 
       private string GetRunnerBit( IWinOrLose team, YahooCalculator c )
       {
-			var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam( team.Game );
-			var defensiveRating = nextOppTeam.DefensiveRating( Constants.K_RUNNINGBACK_CAT );
-         var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}       ", 
-				team.Team.TeamCode, Week-1, defensiveRating );
-         if (team.Team.RushUnit.AceBack != null)
-            bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
+         var bit = NoneBit(team);
+         if (team.Team.PassUnit.Q1 != null)
+         {
+            var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam(team.Game);
+            var defensiveRating = nextOppTeam.DefensiveRating(Constants.K_RUNNINGBACK_CAT);
+
+            bit = string.Format("<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}       ",
+               team.Team.TeamCode, Week - 1, defensiveRating);
+
+            if (team.Team.RushUnit.AceBack != null)
+               bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
+         }
          return string.Format( "{0,-36}", bit );
       }
 

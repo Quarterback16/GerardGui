@@ -109,7 +109,8 @@ namespace Butler.Models
 
       public void LogElapsedTime(TimeSpan ts )
       {
-         Logger.Info(string.Format("  Job: {0} took {1}", Name, ts));
+         var elapsed = ts.ToString(@"hh\:mm\:ss");
+         Logger.Info(string.Format("  Job: {0} took {1}", Name, elapsed));
       }
 
 		public DateTime LastDone()

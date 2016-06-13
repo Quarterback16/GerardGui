@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFileDetector.cs" />
     <Compile Include="Downloader.cs" />
     <Compile Include="IDownloader.cs" />
     <Compile Include="Interfaces\ICache.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="LogMaster.cs" />
     <Compile Include="MailMan.cs" />
     <Compile Include="MailMan2.cs" />
+    <Compile Include="MediaLogDetector.cs" />
     <Compile Include="Models\LogItem.cs" />
     <Compile Include="Models\MediaInfo.cs" />
     <Compile Include="Models\TorrentItem.cs" />
