@@ -15,7 +15,7 @@ namespace Helpers
          foreach (var file in filesInDir)
          {
             var filepart = FilePartFile(dir, file);
-            if (FileMatches(filepart, logType, logDate))
+            if (FileMatches(dir, filepart, logType, logDate))
             {
                fileList.Add(file);
             }

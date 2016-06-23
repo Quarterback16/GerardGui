@@ -65,7 +65,7 @@ namespace Butler.Models
             var errorMsg = MailMan.SendMail(message: "Recently Added", subject: "New additions", attachment:file);
             if (string.IsNullOrEmpty(errorMsg))
             {
-               lastDate = LogFileDetector.FileDate(LogFileDetector.FilePartFile(logitem.LogDir, file));
+               lastDate = LogFileDetector.FileDate(logitem.LogDir, LogFileDetector.FilePartFile(logitem.LogDir, file));
                LogsMailed++;
                Logger.Info(string.Format("Emailed {0}", file));
             }

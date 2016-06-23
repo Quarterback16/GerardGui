@@ -9,7 +9,7 @@ namespace Helpers.Interfaces
    {
       List<string> DetectLogFileIn(string dir, string logType, DateTime logDate);
 
-      DateTime FileDate(string file);
+      DateTime FileDate(string dir, string file);
 
       string FilePartFile(string dir, string file);
    }
