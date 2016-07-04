@@ -1,10 +1,9 @@
-﻿using System;
-//using NLog;
+﻿//using NLog;
 
 namespace RosterLib
 
 {
-	public class NLogger //: INLog
+   public class NLogger //: INLog
 	{
         //private readonly Logger _logger;
 

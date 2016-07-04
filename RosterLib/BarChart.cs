@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-//using Excel = Microsoft.Office.Interop.Excel;
+﻿//using Excel = Microsoft.Office.Interop.Excel;
 //using Word = Microsoft.Office.Interop.Word;
 
 namespace RosterLib
 {
-    public class BarChart
+   public class BarChart
     {
         public string Title { get; set; }
 

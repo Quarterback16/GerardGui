@@ -19,7 +19,7 @@ namespace Butler.Models
          Logger = LogManager.GetCurrentClassLogger();
          Week = TimeKeeper.CurrentWeek( DateTime.Now );
          if (Week == 0) Week = 1;  //  in preseason lets look ahead to the first game
-         Report = new PickupChart( 
+         Report = new PickupChart(
             TimeKeeper.CurrentSeason( DateTime.Now ), Week );
       }
 

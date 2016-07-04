@@ -18,7 +18,7 @@ namespace Butler
    ///   and sending emails.
    ///   This jobs will be physically performed on the Always on Home Server, so they can be
    ///   triggered anytime.
-   ///   Jobs should be very granular and not rely too much on previous jobs.  So evolve jobs 
+   ///   Jobs should be very granular and not rely too much on previous jobs.  So evolve jobs
    ///   that do many things into jobs that do just one thing.  Smaller jobs are better.
    ///   There will be some "infrastructutal singletons" that jobs can depend on, like the TimeKeeper
    ///   and the Historian.
@@ -27,23 +27,23 @@ namespace Butler
    /// </summary>
    public class Butler
    {
-      public string Version { get; set; }
+      public string Version { get; private set; }
 
-      public Logger Logger { get; set; }
+      public Logger Logger { get; private set; }
 
       public bool Verbose { get; set; }
 
-      public int Passes { get; set; }
+      public int Passes { get; private set; }
 
-      public BackgroundWorker MyWorker { get; set; }
+      public BackgroundWorker MyWorker { get; private set; }
 
       public int Pollinterval { get; set; }
 
-      public List<Job> MyJobs { get; set; }
+      public List<Job> MyJobs { get; private set; }
 
-      public IKeepTheTime TimeKeeper { get; set; }
+      public IKeepTheTime TimeKeeper { get; private set; }
 
-      public IHistorian Historian { get; set; }
+      public IHistorian Historian { get; private set; }
 
       public Butler(string version)
       {
@@ -95,26 +95,26 @@ namespace Butler
 
                   new GameProjectionsJob( TimeKeeper ), //  once in pre season then once a week regular - always
                   new GeneratePlayerProjectionsJob( TimeKeeper ),
-                  new RookiesJob( TimeKeeper ), 
+                  new RookiesJob( TimeKeeper ),
                   new OutputProjectionsJob( Historian ),  //  needs game projections
                   new FantasyProjectionJob( TimeKeeper ),
                   new HotListsJob(),   //  regular always
                   new UnitReportsJob( Historian ),
                   new TeamCardsJob( TimeKeeper ),
                   new OldRosterGridJob( TimeKeeper ), //  regular - always
-                  new DefensiveReportsJob( TimeKeeper ), 
+                  new DefensiveReportsJob( TimeKeeper ),
                   new SuggestedLineupsJob( TimeKeeper ),
                   new PickupChartJob( TimeKeeper ),
-                  new StartersJob( TimeKeeper ), 
+                  new StartersJob( TimeKeeper ),
 
 #endregion
 
- 
+
 #region Regular Always jobs
                   new RunReportJob( TimeKeeper ),
-                  new LogCleanupJob(), 
-                  new TflDataBackupJob(),  
-                  new DropboxCopyToReginaJob( TimeKeeper), 
+                  new LogCleanupJob(),
+                  new TflDataBackupJob(),
+                  new DropboxCopyToReginaJob( TimeKeeper),
                   new MediaListsPublishJob(),
 #endregion
 

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-    public class PassesIntercepted : BaseStat
+   public class PassesIntercepted : BaseStat
     {
 
         #region IStat Members

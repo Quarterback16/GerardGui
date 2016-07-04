@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	/// <summary>
-	///   Calculates Yahoo points based on projections
-	/// </summary>
-	public class YahooProjectionScorer : IRatePlayers
+   /// <summary>
+   ///   Calculates Yahoo points based on projections
+   /// </summary>
+   public class YahooProjectionScorer : IRatePlayers
 	{
 		public NFLWeek Week { get; set; }
 		public bool ScoresOnly { get; set; }

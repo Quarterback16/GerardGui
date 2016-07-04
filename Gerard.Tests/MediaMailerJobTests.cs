@@ -1,6 +1,5 @@
 ﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using Helpers.Interfaces;
 using Helpers;
 

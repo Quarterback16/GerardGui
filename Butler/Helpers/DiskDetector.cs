@@ -28,12 +28,12 @@ namespace Butler.Helpers
 				var disk = new DiskDiagnostic { IsAvailable = true };
 				try
 				{
-					double fspc = drive.TotalFreeSpace;
-					double tspc = drive.TotalSize;
-					double percent = ( fspc / tspc );
-					float num = (float) percent;
+					var fspc = drive.TotalFreeSpace;
+					var tspc = drive.TotalSize;
+					var percent = ( fspc / tspc );
+               var num = (float) percent;
 
-					disk.DriveType = String.Format( "Type: {0}", drive.DriveType );
+               disk.DriveType = String.Format( "Type: {0}", drive.DriveType );
 					disk.Name = drive.Name;
 					disk.Info = String.Format( "{0} has {1:p} free", drive.Name, num );
 					disk.AvailableFreeSpace = String.Format( "Space Remaining    : {0}", FormatBytes( drive.AvailableFreeSpace ) );
@@ -70,7 +70,7 @@ namespace Butler.Helpers
 			return DisksView.Disks.Where( disk => disk.Name.Equals( diskid ) ).Any( disk => disk.IsAvailable );
 		}
 
-		public string DiskIdentifiers()
+		public static string DiskIdentifiers()
 		{
 			var ids = string.Empty;
 			var vm = DiskSpaceCheck();

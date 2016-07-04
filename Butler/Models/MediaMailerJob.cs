@@ -4,12 +4,13 @@ using Helpers.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Butler.Models
 {
    public class MediaMailerJob : Job
    {
+      private const string mediaXmlFileName = ".\\xml\\media-mail-list.xml";
+
       public int LogsMailed { get; set; }
 
       protected IMailMan MailMan { get; set; }
@@ -23,20 +24,25 @@ namespace Butler.Models
          Name = "Media Mailer";
          Logger = NLog.LogManager.GetCurrentClassLogger();
          MailMan = mailMan;
-         LogMaster = new LogMaster(".\\xml\\media-mail-list.xml");
+         LogMaster = new LogMaster( mediaXmlFileName );
          LogFileDetector = logFileDetector;
       }
 
       public override string DoJob()
       {
-         LogsMailed = 0; 
-         
+         LogsMailed = 0;
+
          var lastDate = new DateTime(1, 1, 1);
 
          // load files meta data ur interested in
-         List<string> keys = new List<string>();
+         var keys = new List<string>();
          foreach (System.Collections.DictionaryEntry de in LogMaster.TheHT)
             keys.Add(de.Key.ToString());
+
+         if ( ThereAreNoFiles(keys) )
+         {
+            Logger.Trace( "  There are no Media log files in {0}", mediaXmlFileName );
+         }
 
          foreach (string key in keys)
          {
@@ -56,25 +62,49 @@ namespace Butler.Models
          return finishedMessage;
       }
 
+      private static bool ThereAreNoFiles( List<string> keys ) => !keys.Any();
+
       private DateTime MailLogFiles(LogItem logitem)
       {
-         var lastDate = new DateTime(1, 1, 1);
-         var filesFound = LogFileDetector.DetectLogFileIn(logitem.LogDir, logitem.Filespec, logitem.MailDate);
-         foreach (var file in filesFound)
+         var lastDate = new DateTime( 1, 1, 1 );
+         var filesFound = LogFileDetector.DetectLogFileIn( logitem.LogDir, logitem.Filespec, logitem.MailDate );
+
+         LogitIfThereWereNofilesFound( logitem, filesFound );
+
+         foreach ( var file in filesFound )
          {
-            var errorMsg = MailMan.SendMail(message: "Recently Added", subject: "New additions", attachment:file);
-            if (string.IsNullOrEmpty(errorMsg))
-            {
-               lastDate = LogFileDetector.FileDate(logitem.LogDir, LogFileDetector.FilePartFile(logitem.LogDir, file));
-               LogsMailed++;
-               Logger.Info(string.Format("Emailed {0}", file));
-            }
-            else
-            {
-               Logger.Error(string.Format("Failed to email {0} - {1}", file, errorMsg));
-            }
+            var errorMsg = MailMan.SendMail( message: "Recently Added", subject: "New additions", attachment: file );
+
+            lastDate = LogResult( logitem, lastDate, file, errorMsg );
          }
          return lastDate;
       }
+
+      private DateTime LogResult( LogItem logitem, DateTime lastDate, string file, string errorMsg )
+      {
+         if ( string.IsNullOrEmpty( errorMsg ) )
+         {
+            lastDate = LogFileDetector.FileDate( logitem.LogDir, LogFileDetector.FilePartFile( logitem.LogDir, file ) );
+            LogsMailed++;
+            Logger.Info( string.Format( "Emailed {0}", file ) );
+         }
+         else
+         {
+            Logger.Error( string.Format( "Failed to email {0} - {1}", file, errorMsg ) );
+         }
+         return lastDate;
+      }
+
+      private void LogitIfThereWereNofilesFound( LogItem logitem, List<string> filesFound )
+      {
+         if ( NoFilesWereFound( filesFound ) )
+         {
+            Logger.Info(
+               string.Format( "  No Files were found in {0} like {1} later than {2}",
+               logitem.LogDir, logitem.Filespec, logitem.MailDate ) );
+         }
+      }
+
+      private static bool NoFilesWereFound( List<string> filesFound ) => !filesFound.Any();
    }
 }

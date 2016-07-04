@@ -1,6 +1,5 @@
 ﻿using Butler.Interfaces;
 using RosterLib;
-using System;
 
 namespace Butler.Models
 {

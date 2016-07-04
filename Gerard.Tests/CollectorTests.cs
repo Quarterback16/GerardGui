@@ -1,9 +1,6 @@
 ﻿using Butler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Gerard.Tests
 {
@@ -14,7 +11,7 @@ namespace Gerard.Tests
       public void TestGetTVFolder()
       {
          var sut = new Collector();
-         var tvFolder = sut.GetTvFolder();
+         var tvFolder = Collector.GetTvFolder();
          Assert.IsFalse( string.IsNullOrEmpty( tvFolder ) );
       }
 
@@ -22,7 +19,7 @@ namespace Gerard.Tests
       public void TestGetViewQueueFolder()
       {
          var sut = new Collector();
-         var folder = sut.GetViewQueueFolder();
+         var folder = Collector.GetViewQueueFolder();
          Assert.IsFalse( string.IsNullOrEmpty( folder ) );
       }
 
@@ -38,7 +35,7 @@ namespace Gerard.Tests
       public void TestGetSoccerFolder()
       {
          var sut = new Collector();
-         var folder = sut.GetSoccerFolder();
+         var folder = Collector.GetSoccerFolder();
          Assert.IsFalse( string.IsNullOrEmpty( folder ) );
       }
 

@@ -1,7 +1,4 @@
-﻿using Helpers.Interfaces;
-using Helpers.Models;
-using NLog;
-using System.IO;
+﻿using Helpers.Models;
 using System.Xml;
 
 namespace Helpers

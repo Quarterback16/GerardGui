@@ -29,11 +29,11 @@ namespace Gerard.Tests
       public void TestLogFileRecognition()
       {
          var sut = new LogCleanupJob();
-         Assert.IsTrue( sut.IsLogFile( "log-directory1" ) );
-         Assert.IsTrue( sut.IsLogFile( "log-directory2" ) );
-         Assert.IsTrue( sut.IsLogFile( "log-directory01" ) );
-         Assert.IsTrue( sut.IsLogFile( "log-directory-01" ) );
-         Assert.IsFalse( sut.IsLogFile( "SoccerFolder" ) );
+         Assert.IsTrue( LogCleanupJob.IsLogFile( "log-directory1" ) );
+         Assert.IsTrue( LogCleanupJob.IsLogFile( "log-directory2" ) );
+         Assert.IsTrue( LogCleanupJob.IsLogFile( "log-directory01" ) );
+         Assert.IsTrue( LogCleanupJob.IsLogFile( "log-directory-01" ) );
+         Assert.IsFalse( LogCleanupJob.IsLogFile( "SoccerFolder" ) );
       }
 
    }

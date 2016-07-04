@@ -28,7 +28,7 @@ namespace Gerard.Tests
       public void TestGetDownloadFolder()
       {
          var sut = new MediaJob();
-         var folder = sut.GetDownloadFolder();
+         var folder = MediaJob.GetDownloadFolder();
          Assert.IsFalse( string.IsNullOrEmpty( folder ) );
       }
 
@@ -36,7 +36,7 @@ namespace Gerard.Tests
       public void TestGetMagazineFolder()
       {
          var sut = new MediaJob();
-         var folder = sut.GetMagazineFolder();
+         var folder = MediaJob.GetMagazineFolder();
          Assert.IsFalse(string.IsNullOrEmpty(folder));
       }
 
@@ -44,7 +44,7 @@ namespace Gerard.Tests
       public void TestGetMagazineDestinationFolder()
       {
          var sut = new MediaJob();
-         var folder = sut.GetMagazineDestinationFolder();
+         var folder = MediaJob.GetMagazineDestinationFolder();
          Assert.IsFalse(string.IsNullOrEmpty(folder));
       }
    }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-    public class TdRun : BaseScore
+   public class TdRun : BaseScore
     {
         public override string ScoreType { get; set; }
 

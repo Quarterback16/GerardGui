@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 
 namespace RosterLib
 {
-    public interface IScore
+   public interface IScore
     {
         string Name { get; }
         string ScoreType { get; set; }

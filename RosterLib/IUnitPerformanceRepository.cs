@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using RosterLib.Models;
+﻿using RosterLib.Models;
 
 namespace RosterLib
 {
-	public interface IUnitPerformanceRepository
+   public interface IUnitPerformanceRepository
 	{
 		bool Add( UnitPerformance unitPerformance );
 		bool Delete( UnitPerformance unitPerformance );

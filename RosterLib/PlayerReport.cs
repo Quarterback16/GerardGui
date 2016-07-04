@@ -1,13 +1,12 @@
 using System;
 using System.Data;
-using System.Data.SqlTypes;
 
 namespace RosterLib
 {
-	/// <summary>
-	///   PlayerReport outputs a sheet of metrics on a player.
-	/// </summary>
-	public class PlayerReport
+   /// <summary>
+   ///   PlayerReport outputs a sheet of metrics on a player.
+   /// </summary>
+   public class PlayerReport
 	{
 		public PlayerReport( string playerId )
 		{

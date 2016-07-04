@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	public interface IHtmlReport
+   public interface IHtmlReport
 	{
 		string FileOut { get; set; }
 

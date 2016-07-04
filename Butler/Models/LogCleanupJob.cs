@@ -20,7 +20,7 @@ namespace Butler.Models
          Name = "Log Cleanup";
          Logger = NLog.LogManager.GetCurrentClassLogger();
          LogDirectories = new List<string>();
-         DaysOld = 7;  //  TODO: make this a config setting 
+         DaysOld = 7;  //  TODO: make this a config setting
       }
 
       public override string DoJob()
@@ -42,7 +42,7 @@ namespace Butler.Models
 
          foreach ( var folder in LogDirectories )
          {
-            string[] files = Directory.GetFileSystemEntries( folder );
+            var files = Directory.GetFileSystemEntries( folder );
             var fileCount = 0;
             foreach ( var file in files )
             {
@@ -102,7 +102,7 @@ namespace Butler.Models
          return string.Format( "{0} Log Directories found in config", logDirCount );
       }
 
-      public bool IsLogFile( string logDirCandidate )
+      public static bool IsLogFile( string logDirCandidate )
       {
          if ( logDirCandidate.Length > 12 )
          {

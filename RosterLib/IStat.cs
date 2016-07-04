@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
+﻿using System.Data;
 
 namespace RosterLib
 {
-    public interface IStat
+   public interface IStat
     {
         string Name { get; }
         string PlayerId { get; set; }

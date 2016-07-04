@@ -2,13 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RosterLib
 {
-	public class GoallineReport : IHtmlReport
+   public class GoallineReport : IHtmlReport
 	{
 		#region  Properties
 

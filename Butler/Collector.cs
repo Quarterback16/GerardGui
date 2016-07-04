@@ -1,13 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Butler.Models;
 using RosterLib;
 using Helpers.Models;
 
 namespace Butler
 {
-	public class Collector
+   public class Collector
 	{
 		public string[] TvCollection { get; set; }
 
@@ -32,56 +31,56 @@ namespace Butler
 		public Collector()
 		{
          TvFolder = GetTvFolder();     //   @"\\Regina\video\TV\";
-         ShadowTvFolder = GetShadowTvFolder(); 
+         ShadowTvFolder = GetShadowTvFolder();
          MovieFolder = GetMovieFolder();
          ShadowMovieFolder = GetShadowMovieFolder();
          ViewQueueFolder = GetViewQueueFolder();  //  @"\\Vesuvius\books\View Queue\";
          MagazineFolder = GetMagazineFolder();
-         MagazineDestinationFolder = GetMagazineDestinationFolder(); 
+         MagazineDestinationFolder = GetMagazineDestinationFolder();
          NflFolder = GetNflFolder();
          SoccerFolder = GetSoccerFolder();
 		}
 
-      public string GetTvFolder()
+      public static string GetTvFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "TvFolder" );
       }
 
-      public string GetShadowTvFolder()
+      public static string GetShadowTvFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "ShadowTvFolder" );
       }
 
-      public string GetMovieFolder()
+      public static string GetMovieFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "MovieFolder" );
       }
-      public string GetShadowMovieFolder()
+      public static string GetShadowMovieFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "ShadowMovieFolder" );
       }
 
-      public string GetNflFolder()
+      public static string GetNflFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "NflFolder" );
       }
 
-      public string GetSoccerFolder()
+      public static string GetSoccerFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "SoccerFolder" );
       }
 
-      public string GetViewQueueFolder()
+      public static string GetViewQueueFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "ViewQueueFolder" );
       }
 
-      public string GetMagazineFolder()
+      public static string GetMagazineFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineFolder");
       }
 
-      public string GetMagazineDestinationFolder()
+      public static string GetMagazineDestinationFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineDestinationFolder");
       }
@@ -127,8 +126,7 @@ namespace Butler
          if ( string.IsNullOrEmpty( folder ) ) return "No destination folder defined";
 
          var fromFile = mi.Info.FullName;  //  from DL dir
-         var targetFile = string.Format( "{0}{1}\\Season {3:0#}\\{2}",
-             folder, mi.Title, mi.Info.Name, mi.Season );  // to video root
+         var targetFile = $"{folder}{mi.Title}\\Season {mi.Season:0#}\\{mi.Info.Name}";  // to video root
          LatestAddition = targetFile;
 
          return CopyIt( targetFile, fromFile, mi.Info.Name );

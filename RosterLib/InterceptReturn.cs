@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-    public class InterceptReturn : BaseScore
+   public class InterceptReturn : BaseScore
     {
         public override string ScoreType { get; set; }
 

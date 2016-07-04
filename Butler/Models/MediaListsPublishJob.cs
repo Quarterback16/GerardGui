@@ -1,5 +1,4 @@
-﻿using System;
-using RosterLib;
+﻿using RosterLib;
 
 namespace Butler.Models
 {

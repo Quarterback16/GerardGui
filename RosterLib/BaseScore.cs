@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace RosterLib
 {
-    public abstract class BaseScore : IScore
+   public abstract class BaseScore : IScore
     {
         public string Season { get; set; }
         public string Week { get; set; }

@@ -2,12 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Helpers;
 
 namespace RosterLib
 {
-	public class GamebookGetter : IGetGamebooks
+   public class GamebookGetter : IGetGamebooks
 	{
 		public readonly IDownloader Downloader;
 

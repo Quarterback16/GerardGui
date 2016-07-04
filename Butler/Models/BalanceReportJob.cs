@@ -1,11 +1,10 @@
 ﻿using RosterLib.Interfaces;
 using RosterLib;
-using System;
 using NLog;
 
 namespace Butler.Models
 {
-	 public class BalanceReportJob : Job
+   public class BalanceReportJob : Job
 	 {
 		  private readonly IKeepTheTime _timeKeeper;
 

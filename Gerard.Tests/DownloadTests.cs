@@ -1,7 +1,5 @@
-﻿using Butler.Models;
-using Helpers;
+﻿using Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RosterLib;
 using System;
 
 namespace Gerard.Tests

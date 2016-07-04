@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	public class YahooProjectedPointsMessage
+   public class YahooProjectedPointsMessage
 	{
 		public NFLPlayer Player { get; set; }
 		public NFLGame Game { get; set; }

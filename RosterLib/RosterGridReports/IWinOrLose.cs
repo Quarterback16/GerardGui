@@ -1,5 +1,4 @@
-﻿using System;
-namespace RosterLib.RosterGridReports
+﻿namespace RosterLib.RosterGridReports
 {
    interface IWinOrLose
    {

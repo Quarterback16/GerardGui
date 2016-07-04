@@ -1,12 +1,11 @@
 using System;
-using TFLLib;
 
 namespace RosterLib
 {
-	/// <summary>
-	///  A tipping algorithm based on a 1970s Nibble magazine.
-	/// </summary>
-	public class NibblePredictor : IPrognosticate
+   /// <summary>
+   ///  A tipping algorithm based on a 1970s Nibble magazine.
+   /// </summary>
+   public class NibblePredictor : IPrognosticate
 	{
 		public bool StorePrediction { get; set; }
 		public IRetrieveNibbleRatings RatingsService { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using RosterLib;
 
 namespace Gerard.Tests
 {

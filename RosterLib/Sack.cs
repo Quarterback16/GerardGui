@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-    public class Sack : BaseStat
+   public class Sack : BaseStat
     {
         #region IStat Members
 

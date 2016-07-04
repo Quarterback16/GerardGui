@@ -2,7 +2,6 @@
 using NLog;
 using RosterLib;
 using RosterLib.RosterGridReports;
-using System;
 
 namespace Butler.Models
 {

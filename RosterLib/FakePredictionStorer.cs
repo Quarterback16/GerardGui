@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	public class FakePredictionStorer : IStorePredictions
+   public class FakePredictionStorer : IStorePredictions
 	{
 		public void StorePrediction( string method, NFLGame game, NFLResult result )
 		{

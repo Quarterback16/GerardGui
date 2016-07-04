@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Butler.Helpers
+﻿namespace Butler.Helpers
 {
-	class XmlList
+   class XmlList
 	{
 	}
 }

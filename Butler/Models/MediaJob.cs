@@ -33,17 +33,17 @@ namespace Butler.Models
          Logger = logger;
       }
 
-      public string GetDownloadFolder()
+      public static string GetDownloadFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "DownloadFolder" );
       }
 
-      public string GetMagazineFolder()
+      public static string GetMagazineFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get( "MagazineCollectionFolder" );
       }
 
-      public string GetMagazineDestinationFolder()
+      public static string GetMagazineDestinationFolder()
       {
          return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineDestinationFolder");
       }

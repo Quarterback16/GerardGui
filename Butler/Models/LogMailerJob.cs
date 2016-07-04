@@ -2,10 +2,7 @@
 using Helpers.Interfaces;
 using Helpers.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Butler.Models
 {
@@ -34,7 +31,7 @@ namespace Butler.Models
 
          var lastDate = new DateTime(1, 1, 1);
 
-         List<string> keys = new List<string>();
+         var keys = new List<string>();
          foreach (System.Collections.DictionaryEntry de in LogMaster.TheHT)
             keys.Add(de.Key.ToString());
 

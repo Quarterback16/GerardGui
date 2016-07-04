@@ -58,7 +58,7 @@ namespace Gerard.Tests
       public void TestDiskIdentifiers()
       {
          var sut = new DiskDetector();
-         var ids = sut.DiskIdentifiers();
+         var ids = DiskDetector.DiskIdentifiers();
          Console.WriteLine("{0} : {1}", "IDs", ids);
          Assert.IsTrue(ids.Length > 0);
       }

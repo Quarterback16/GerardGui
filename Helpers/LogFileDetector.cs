@@ -1,17 +1,18 @@
 ﻿using Helpers.Interfaces;
+using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Helpers
 {
    public class LogFileDetector :  BaseFileDetector, IDetectLogFiles
    {
+
       public List<string> DetectLogFileIn(string dir, string logType, DateTime logDate)
       {
          var fileList = new List<string>();
          var filesInDir = System.IO.Directory.GetFiles(dir);
+
          foreach (var file in filesInDir)
          {
             var filepart = FilePartFile(dir, file);
@@ -30,9 +31,6 @@ namespace Helpers
          var filePart = file.Substring(dir.Length, len);
          return filePart;
       }
-
-
-
 
    }
 }

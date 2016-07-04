@@ -1,14 +1,11 @@
 ﻿using Butler.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.IO;
 
 namespace Butler.Helpers
 {
-	public class HoldList : IHoldList
+   public class HoldList : IHoldList
 	{
 		public List<string> Items { get; set; }
 
@@ -19,14 +16,16 @@ namespace Butler.Helpers
 
          if (File.Exists(xmlFile))
          {
-            var r = new XmlTextReader(xmlFile);
-            while (r.Read())
+            using ( var r = new XmlTextReader( xmlFile ) )
             {
-               if (r.NodeType != XmlNodeType.Element || r.Name != "hold") continue;
-               var item = r.ReadElementContentAsString();
-               Items.Add(item);
+               while ( r.Read() )
+               {
+                  if ( r.NodeType != XmlNodeType.Element || r.Name != "hold" ) continue;
+                  var item = r.ReadElementContentAsString();
+                  Items.Add( item );
+               }
+               r.Close();
             }
-            r.Close();
          }
 		}
 

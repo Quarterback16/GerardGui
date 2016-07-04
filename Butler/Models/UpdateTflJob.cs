@@ -1,10 +1,9 @@
 ﻿using Butler.Helpers;
 using RosterLib;
-using System;
 
 namespace Butler.Models
 {
-	public class UpdateTflJob : Job
+   public class UpdateTflJob : Job
 	{
 		public string SourceDir { get; set; }
 

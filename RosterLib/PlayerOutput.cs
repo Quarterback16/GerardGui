@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Data;
 
 namespace RosterLib
 {
 
-	public class PlayerOutput
+   public class PlayerOutput
 	{
 		private FrequencyTable _ft;
 

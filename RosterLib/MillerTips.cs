@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	public class MillerTips
+   public class MillerTips
 	{
 		public void TipSeason( string season )
 		{

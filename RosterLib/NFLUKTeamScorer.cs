@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	/// <summary>
-	/// Applys the GS4 scoring rules to a player.
-	/// </summary>
-	public class NFLUKTeamScorer : IRateTeams
+   /// <summary>
+   /// Applys the GS4 scoring rules to a player.
+   /// </summary>
+   public class NFLUKTeamScorer : IRateTeams
 	{
 		private NFLWeek week;
 

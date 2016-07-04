@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace RosterLib.Models
 {
-	public class UnitPerformance
+   public class UnitPerformance
 	{
 		public string TeamCode { get; set; }
 		public string UnitCode { get; set; }

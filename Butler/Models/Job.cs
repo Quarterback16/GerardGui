@@ -59,7 +59,7 @@ namespace Butler.Models
 		public string Execute()
 		{
          SetupJob();
-			// Implement the work stuff ur self with an override, 
+			// Implement the work stuff ur self with an override,
          // but we want "standard" setups and teardowns
          var result = DoJob();
 
@@ -115,7 +115,7 @@ namespace Butler.Models
 
 		public DateTime LastDone()
 		{
-         DateTime lastDone = new DateTime(1,1,1);
+         var lastDone = new DateTime(1,1,1);
          try
          {
             lastDone = Utility.TflWs.GetLastRun(Name);

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Text;
 
 namespace RosterLib
 {
-    public abstract class BaseStat : IStat
+   public abstract class BaseStat : IStat
     {
         public abstract string Name { get; }
         public string PlayerId { get; set; }

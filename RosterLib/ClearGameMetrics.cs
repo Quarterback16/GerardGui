@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-	public class ClearGameMetrics
+   public class ClearGameMetrics
 	{
 		public ClearGameMetrics( PlayerGameProjectionMessage input )
 		{

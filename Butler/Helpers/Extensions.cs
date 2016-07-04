@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.UI.WebControls;
 using System.Reflection;
 
@@ -11,20 +9,20 @@ namespace Butler.Helpers
    {
       public static void Sort<T>( this List<T> list, string sortExpression )
       {
-         string[] sortExpressions = sortExpression.Split( new string[] { "," }, StringSplitOptions.RemoveEmptyEntries );
+         var sortExpressions = sortExpression.Split( new string[] { "," }, StringSplitOptions.RemoveEmptyEntries );
 
-         List<GenericComparer> comparers = new List<GenericComparer>();
+         var comparers = new List<GenericComparer>();
 
          foreach ( string sortExpress in sortExpressions )
          {
-            string sortProperty = sortExpress.Trim().Split( ' ' )[ 0 ].Trim();
-            string sortDirection = sortExpress.Trim().Split( ' ' )[ 1 ].Trim();
+            var sortProperty = sortExpress.Trim().Split( ' ' )[ 0 ].Trim();
+            var sortDirection = sortExpress.Trim().Split( ' ' )[ 1 ].Trim();
 
-            Type type = typeof( T );
-            PropertyInfo PropertyInfo = type.GetProperty( sortProperty );
+            var type = typeof( T );
+            var PropertyInfo = type.GetProperty( sortProperty );
             if ( PropertyInfo == null )
             {
-               PropertyInfo[] props = type.GetProperties();
+               var props = type.GetProperties();
                foreach ( PropertyInfo info in props )
                {
                   if ( info.Name.ToString().ToLower() == sortProperty.ToLower() )
@@ -39,21 +37,21 @@ namespace Butler.Helpers
                }
             }
 
-            SortDirection SortDirection = SortDirection.Ascending;
+            var sortDir = SortDirection.Ascending;
             if ( sortDirection.ToLower() == "asc" || sortDirection.ToLower() == "ascending" )
             {
-               SortDirection = SortDirection.Ascending;
+               sortDir = SortDirection.Ascending;
             }
             else if ( sortDirection.ToLower() == "desc" || sortDirection.ToLower() == "descending" )
             {
-               SortDirection = SortDirection.Descending;
+               sortDir = SortDirection.Descending;
             }
             else
             {
                throw new Exception( "Valid SortDirections are: asc, ascending, desc and descending" );
             }
 
-            comparers.Add( new GenericComparer { SortDirection = SortDirection, PropertyInfo = PropertyInfo, comparers = comparers } );
+            comparers.Add( new GenericComparer { SortDirection = sortDir, PropertyInfo = PropertyInfo, comparers = comparers } );
          }
          list.Sort( comparers[ 0 ].Compare );
       }
@@ -79,13 +77,13 @@ namespace Butler.Helpers
 
       public int Compare<T>( T t1, T t2 )
       {
-         int ret = 0;
+         var ret = 0;
 
          if ( level >= comparers.Count )
             return 0;
 
-         object t1Value = comparers[ level ].PropertyInfo.GetValue( t1, null );
-         object t2Value = comparers[ level ].PropertyInfo.GetValue( t2, null );
+         var t1Value = comparers[ level ].PropertyInfo.GetValue( t1, null );
+         var t2Value = comparers[ level ].PropertyInfo.GetValue( t2, null );
 
          if ( t1 == null || t1Value == null )
          {
@@ -136,7 +134,7 @@ namespace Butler.Helpers
    {
       public static void Example()
       {
-         List<ExampleUser> userlist = new List<ExampleUser>();
+         var userlist = new List<ExampleUser>();
          userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Bryan" } );
          userlist.Add( new ExampleUser { Birthday = new DateTime( 1986, 11, 4 ), Firstname = "Michael" } );
          userlist.Add( new ExampleUser { Birthday = new DateTime( 1977, 2, 2 ), Firstname = "Arjan" } );
@@ -145,28 +143,28 @@ namespace Butler.Helpers
          userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Bastiaan" } );
          userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Pieter" } );
 
-         string unsorted = "Unsorted: " + Environment.NewLine;
+         var unsorted = "Unsorted: " + Environment.NewLine;
          foreach ( ExampleUser user in userlist )
          {
             unsorted += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
          }
 
          userlist.Sort( "Firstname asc" );
-         string sorted1 = "Sorted by Firstname ascending: " + Environment.NewLine;
+         var sorted1 = "Sorted by Firstname ascending: " + Environment.NewLine;
          foreach ( ExampleUser user in userlist )
          {
             sorted1 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
          }
 
          userlist.Sort( "Firstname asc, Birthday desc" );
-         string sorted2 = "Sorted by Firstname ascending, Birtday descending: " + Environment.NewLine;
+         var sorted2 = "Sorted by Firstname ascending, Birtday descending: " + Environment.NewLine;
          foreach ( ExampleUser user in userlist )
          {
             sorted2 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
          }
 
          userlist.Sort( "Birthday asc, Firstname asc" );
-         string sorted3 = "Sorted by Birthday ascending, Firstname ascending: " + Environment.NewLine;
+         var sorted3 = "Sorted by Birthday ascending, Firstname ascending: " + Environment.NewLine;
          foreach ( ExampleUser user in userlist )
          {
             sorted3 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );

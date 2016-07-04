@@ -1,14 +1,14 @@
 ﻿using Helpers.Interfaces;
-using System;
+using NLog;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
 
 namespace Helpers
 {
    public class MailMan2 : IMailMan
    {
+      public Logger Logger { get; set; }
+
       public string MailServer { get; set; }
 
       public SmtpClient SmtpClient { get; set; }
@@ -19,17 +19,18 @@ namespace Helpers
       {
          Initialise();
          Recipients.Add("quarterback16@live.com.au");
+         //TODO: Get recipients from Config or perhaps XML file as its just data.  We want to be able to edit recipients wihout changing code.
       }
 
       private void Initialise()
       {
-         MailServer = "mail.iinet.net.au";
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+         MailServer = "mail.iinet.net.au";  //TODO:  move to config
          SmtpClient = new SmtpClient(MailServer);
          SmtpClient.Port = 465;
-         //SmtpClient.UseDefaultCredentials = true;  //  works off Delooch
          SmtpClient.UseDefaultCredentials = false;   //  force authentication?
          SmtpClient.EnableSsl = true;
-         SmtpClient.Credentials = new System.Net.NetworkCredential("quarterback16@iinet.net.au", "Brisbane59!");
+         SmtpClient.Credentials = new System.Net.NetworkCredential("quarterback16@iinet.net.au", "Brisbane59!"); //TODO:  move to config
          Recipients = new List<string>();
       }
 
@@ -73,6 +74,7 @@ namespace Helpers
          try
          {
             SmtpClient.Send(mail);
+            Logger.Info( "    mail sent to {0}", mail.To );
          }
          catch (SmtpException ex)
          {

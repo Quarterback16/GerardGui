@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RosterLib
 {
-    public class ScoreFactory
+   public class ScoreFactory
     {
 
         public IScore CreateScore( string scoreType)

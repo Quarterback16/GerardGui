@@ -1,11 +1,10 @@
-﻿using System;
-using NLog;
+﻿using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
 namespace Butler.Models
 {
-	public class RankingsJob : Job
+   public class RankingsJob : Job
 	{
 		public RankingsJob( IKeepTheTime timekeeper )
       {

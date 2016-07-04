@@ -5,7 +5,7 @@ namespace Butler.Helpers
 {
    public class SystemClock : IClock
    {
-      public DateTime Now()
+      public static DateTime Now()
       {
          return DateTime.Now;
       }
