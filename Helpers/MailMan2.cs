@@ -7,37 +7,78 @@ namespace Helpers
 {
    public class MailMan2 : IMailMan
    {
+      private const string K_MailServerKey = "MailServer";
+      private const string K_MailUsername = "MailUsername";
+      private const string K_MailPassword = "MailPassword";
+
       public Logger Logger { get; set; }
 
       public string MailServer { get; set; }
+      private string UserId { get; set; }
+      private string Password { get; set; }
 
       public SmtpClient SmtpClient { get; set; }
 
       private List<string> Recipients { get; set; }
 
-      public MailMan2()
+      private IConfigReader ConfigReader { get; set; }
+
+      public MailMan2(IConfigReader configReader)
       {
-         Initialise();
-         Recipients.Add("quarterback16@live.com.au");
-         //TODO: Get recipients from Config or perhaps XML file as its just data.  We want to be able to edit recipients wihout changing code.
+         ConfigReader = configReader;
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+         var result = Initialise();
       }
 
-      private void Initialise()
+      private string Initialise()
       {
-         Logger = NLog.LogManager.GetCurrentClassLogger();
-         MailServer = "mail.iinet.net.au";  //TODO:  move to config
+         var result = GetMailSettings();
+         if ( !string.IsNullOrEmpty( result ) )
+            return result;
+
          SmtpClient = new SmtpClient(MailServer);
          SmtpClient.Port = 465;
-         SmtpClient.UseDefaultCredentials = false;   //  force authentication?
+         SmtpClient.UseDefaultCredentials = false;   
          SmtpClient.EnableSsl = true;
-         SmtpClient.Credentials = new System.Net.NetworkCredential("quarterback16@iinet.net.au", "Brisbane59!"); //TODO:  move to config
+         SmtpClient.Credentials = new System.Net.NetworkCredential(
+            userName:UserId, 
+            password:Password);
          Recipients = new List<string>();
+         return string.Empty;
+      }
+
+      private string GetMailSettings()
+      {
+         MailServer = ConfigReader.GetSetting( K_MailServerKey );
+         if ( string.IsNullOrEmpty( MailServer ) )
+            return string.Format( "Failed to read MailServer setting : {0}", K_MailServerKey );
+         UserId = ConfigReader.GetSetting( K_MailUsername );
+         if ( string.IsNullOrEmpty( UserId ) )
+            return string.Format( "Failed to read MailServer setting : {0}", K_MailUsername );
+         Password = ConfigReader.GetSetting( K_MailPassword );
+         if ( string.IsNullOrEmpty( Password ) )
+            return string.Format( "Failed to read MailServer setting : {0}", K_MailPassword );
+         return string.Empty;
       }
 
       public MailMan2(List<string> recipients)
       {
          Initialise();
-         Recipients.AddRange(recipients);
+         AddRecipients(recipients);
+      }
+
+      public void AddRecipients( List<string> recipients )
+      {
+         Recipients.AddRange( recipients );
+      }
+
+      public void AddRecipients( string recipients )
+      {
+         var recipientArray = recipients.Split( ',' );
+         foreach ( var item in recipientArray )
+         {
+            Recipients.Add( item );
+         }
       }
 
       public string SendMail(string message, string subject)

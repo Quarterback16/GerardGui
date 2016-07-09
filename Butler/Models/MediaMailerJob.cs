@@ -9,6 +9,8 @@ namespace Butler.Models
 {
    public class MediaMailerJob : Job
    {
+      private const string K_RecipientsKey = "MediaLogRecipients";
+
       private const string mediaXmlFileName = ".\\xml\\media-mail-list.xml";
 
       public int LogsMailed { get; set; }
@@ -19,13 +21,24 @@ namespace Butler.Models
 
       protected LogMaster LogMaster { get; set; }
 
-      public MediaMailerJob(IMailMan mailMan, IDetectLogFiles logFileDetector)
+      public MediaMailerJob(IMailMan mailMan, IDetectLogFiles logFileDetector, IConfigReader configReader)
       {
          Name = "Media Mailer";
          Logger = NLog.LogManager.GetCurrentClassLogger();
          MailMan = mailMan;
+         InstructMailMan( configReader );
          LogMaster = new LogMaster( mediaXmlFileName );
          LogFileDetector = logFileDetector;
+      }
+
+      private void InstructMailMan( IConfigReader configReader )
+      {
+         var recipients = configReader.GetSetting( K_RecipientsKey );
+         if ( string.IsNullOrEmpty(recipients ))
+         {
+            throw new ApplicationException( "Recipients Key is empty" );
+         }
+         MailMan.AddRecipients( recipients );
       }
 
       public override string DoJob()
@@ -50,8 +63,12 @@ namespace Butler.Models
             lastDate = MailLogFiles(logitem);
             if (lastDate != new DateTime(1, 1, 1))
             {
-               logitem.MailDate = lastDate;
-               LogMaster.PutItem(logitem);
+               if ( LogsMailed > 0 )
+               {
+                  logitem.MailDate = lastDate;
+                  LogMaster.PutItem( logitem );
+                  Logger.Info( "  Log date set to {0:d}", lastDate );
+               }
             }
          }
 

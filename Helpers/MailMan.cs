@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
 using System.Net.Security;
@@ -79,6 +80,16 @@ namespace Helpers
                }
             }
          }
+      }
+
+      public void AddRecipients( List<string> recipients )
+      {
+         throw new NotImplementedException();
+      }
+
+      public void AddRecipients( string recipients )
+      {
+         throw new NotImplementedException();
       }
    }
 }

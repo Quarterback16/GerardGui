@@ -8,6 +8,8 @@ namespace Butler.Models
 {
    public class LogMailerJob : Job
    {
+      private const string K_RecipientsKey = "LogRecipients";
+
       public int LogsMailed { get; set; }
 
       protected IMailMan MailMan { get; set; }
@@ -16,13 +18,24 @@ namespace Butler.Models
 
       protected LogMaster LogMaster { get; set; }
 
-      public LogMailerJob(IMailMan mailMan, IDetectLogFiles logFileDetector)
+      public LogMailerJob(IMailMan mailMan, IDetectLogFiles logFileDetector, IConfigReader configReader)
       {
          Name = "Log Mailer";
          Logger = NLog.LogManager.GetCurrentClassLogger();
          MailMan = mailMan;
+         InstructMailMan( configReader );
          LogMaster = new LogMaster(".\\xml\\mail-list.xml");
          LogFileDetector = logFileDetector;
+      }
+
+      private void InstructMailMan( IConfigReader configReader )
+      {
+         var recipients = configReader.GetSetting( K_RecipientsKey );
+         if ( string.IsNullOrEmpty( recipients ) )
+         {
+            throw new ApplicationException( "Recipients Key is empty" );
+         }
+         MailMan.AddRecipients( recipients );
       }
 
       public override string DoJob()

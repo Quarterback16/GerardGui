@@ -16,7 +16,7 @@ namespace Gerard.Tests
 
       private static MailMan2 SystemUnderTest()
       {
-         return new MailMan2();
+         return new MailMan2( new ConfigReader() );
       }
 
       [TestMethod]

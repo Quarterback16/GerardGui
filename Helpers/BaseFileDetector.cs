@@ -12,13 +12,13 @@ namespace Helpers
          Logger = NLog.LogManager.GetCurrentClassLogger();
       }
 
-      public DateTime FileDate(string dir, string file)
+      public DateTime FileDate(string dir, string fileNameWithNoExtension)
       {
-         var len = file.Length;
+         var len = fileNameWithNoExtension.Length;
          if ( DateIsNotEmbeddedIntheFileName( len ) )
          {
             //  the date is not embedded in the log file name
-            var fi = new System.IO.FileInfo( dir + file );
+            var fi = new System.IO.FileInfo( dir + fileNameWithNoExtension );
             var dateOfFile = fi.LastWriteTime.ToString();
             Logger.Trace( "  Update Date of {0} is {1}", fi.Name, dateOfFile );
             var fileDate = new DateTime( 1, 1, 1 );
@@ -30,7 +30,7 @@ namespace Helpers
                return new DateTime( 1, 1, 1 );
             }
          }
-         return DateTime.Parse( file.Substring( len - 10, 10 ) );
+         return DateTime.Parse( fileNameWithNoExtension.Substring( len - 10, 10 ) );
       }
 
       private static bool DateIsNotEmbeddedIntheFileName( int len )
@@ -38,32 +38,36 @@ namespace Helpers
          return len < 21;
       }
 
-      protected bool FileMatches(string dir, string file, string logType, DateTime logDate)
+      public bool FileMatches(string dir, string fileNameWithNoExtension, string logType, DateTime logDate)
       {
          var isMatch = false;
-         if ( file.Length < 10 )
+         if ( fileNameWithNoExtension.Length < 10 )
          {
-            Logger.Trace( "  file {0} length is too small", file );
+            Logger.Trace( "  file {0} length is too small", fileNameWithNoExtension );
             return false;
          }
-         if (file.StartsWith(logType))
+         if (fileNameWithNoExtension.StartsWith(logType))
          {
-            var fileDate = FileDate(dir, file);
-            if ( fileDate > logDate )
+            var fileDate = FileDate(dir, fileNameWithNoExtension);
+            if ( fileDate.Date > logDate.Date )
             {
-               if ( logDate != DateTime.Now.Date )
+               if ( fileDate.Date == DateTime.Now.Date )
                {
-                  isMatch = true;
+                  Logger.Info( "  file {0} may still be in progress", fileNameWithNoExtension );
                }
                else
                {
-                  Logger.Info( "  file {0} already mailed today", file );
+                  isMatch = true;
                }
+            }
+            else
+            {
+               //Logger.Info( "  file {0} is older than the last logdate of {1:d}", fileNameWithNoExtension, logDate.Date );
             }
          }
          else
          {
-            Logger.Trace( "  file {0} does not start with {1}", file, logType );
+            Logger.Trace( "  file {0} does not start with {1}", fileNameWithNoExtension, logType );
          }
          return isMatch;
       }

@@ -11,9 +11,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestMediaMailerJob()
       {
-         IMailMan mailMan = new MailMan2();
+         var configReader = new ConfigReader();
+         IMailMan mailMan = new MailMan2( configReader );
          IDetectLogFiles logFileDetector = new MediaLogDetector();
-         var sut = new MediaMailerJob(mailMan, logFileDetector);
+         var sut = new MediaMailerJob(mailMan, logFileDetector, configReader);
          sut.DoJob();
          Assert.IsTrue(sut.LogsMailed > 0);
       }
