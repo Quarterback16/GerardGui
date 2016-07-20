@@ -445,6 +445,23 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
+      public void TestMediaInfoJudgeJudySeason20()
+      {
+         var testCandidates = Directory.GetFiles( ".//Output//DL//", "Judge Judy 2016 07 06 S20E220.mkv", SearchOption.AllDirectories ).ToList();
+
+         foreach ( var item in testCandidates )
+         {
+            var mi = new MediaInfo( item );
+            mi.Analyse();
+            //  in progress files are ignored
+            Assert.IsTrue( mi.Title.Equals( "Judge Judy" ), "Title is not Judge Judy" );
+            Assert.IsTrue( mi.Season.Equals( 20 ), "Season is not 20" );
+            Assert.IsTrue( mi.IsTV, "Not TV" );
+            Assert.IsFalse( mi.IsMovie, "Is movie" );
+         }
+      }
+
+      [TestMethod]
       public void TestMediaInfoShieldTitle()
       {
          var testCandidates = Directory.GetFiles(".//Output//DL//", "Marvels.Agents.of.S.H.I.E.L.D.S02E10.HDTV.x264-KILLERS.mp4", SearchOption.AllDirectories).ToList();

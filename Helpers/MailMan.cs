@@ -91,5 +91,10 @@ namespace Helpers
       {
          throw new NotImplementedException();
       }
+
+      public int RecipientCount()
+      {
+         throw new NotImplementedException();
+      }
    }
 }

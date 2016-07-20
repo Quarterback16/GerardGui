@@ -18,5 +18,16 @@ namespace Gerard.Tests
          sut.DoJob();
          Assert.IsTrue(sut.LogsMailed > 0);
       }
+
+      [TestMethod]
+      public void TestMediaMailerNumberOfRecipients()
+      {
+         var configReader = new ConfigReader();
+         IMailMan mailMan = new MailMan2( configReader );
+         IDetectLogFiles logFileDetector = new MediaLogDetector();
+         var sut = new MediaMailerJob( mailMan, logFileDetector, configReader );
+         var result = mailMan.RecipientCount();
+         Assert.AreEqual( actual:result, expected:2 );
+      }
    }
 }

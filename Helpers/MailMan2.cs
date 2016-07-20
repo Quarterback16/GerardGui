@@ -61,6 +61,11 @@ namespace Helpers
          return string.Empty;
       }
 
+      public int RecipientCount()
+      {
+         return Recipients.Count;
+      }
+
       public MailMan2(List<string> recipients)
       {
          Initialise();
@@ -83,14 +88,26 @@ namespace Helpers
 
       public string SendMail(string message, string subject)
       {
-         var mail = CreateMailMessage(message,subject);
-         mail.From = new MailAddress("quarterback16@iinet.net.au");
-         foreach (var recipient in Recipients)
+         try
          {
-            mail.To.Add(recipient);            
+            using ( var mail = new MailMessage() )
+            {
+               mail.From = new MailAddress("quarterback16@iinet.net.au");
+               foreach (var recipient in Recipients)
+               {
+                  mail.To.Add(recipient);            
+               }
+               mail.Subject = subject;
+               SmtpClient.Send( mail );
+               Logger.Info( "    mail sent to {0}", mail.To );
+            }
          }
-         mail.Subject = subject;
-         return SendSmtpMail(mail);
+         catch ( SmtpException ex )
+         {
+            return ex.Message;
+         }
+
+         return string.Empty;
       }
 
       public string SendMail(string message, string subject, string attachment)
@@ -102,37 +119,31 @@ namespace Helpers
 
       public string SendMail(string message, string subject, string[] attachments)
       {
-         var mail = CreateMailMessage(message, subject);
-         foreach (string attachment in attachments)
-         {
-            mail.Attachments.Add(new Attachment(attachment));
-         }
-         return SendSmtpMail(mail);
-      }
-
-      private string SendSmtpMail(MailMessage mail)
-      {
          try
          {
-            SmtpClient.Send(mail);
-            Logger.Info( "    mail sent to {0}", mail.To );
+            using ( var mail = new MailMessage() )
+            {
+               mail.From = new MailAddress( "quarterback16@grapevine.com.au" );
+               foreach ( var recipient in Recipients )
+               {
+                  mail.To.Add( recipient );
+               }
+               mail.Subject = subject;
+               foreach ( string attachment in attachments )
+               {
+                  mail.Attachments.Add( new Attachment( attachment ) );
+               }
+               SmtpClient.Send( mail );
+               Logger.Info( "    mail sent to {0}", mail.To );
+            }
          }
-         catch (SmtpException ex)
+         catch ( SmtpException ex )
          {
             return ex.Message;
          }
+
          return string.Empty;
       }
 
-
-      private static MailMessage CreateMailMessage(string message, string subject)
-      {
-         var mail = new MailMessage();
-         mail.From = new MailAddress("quarterback16@grapevine.com.au");
-         mail.To.Add("quarterback16@live.com.au");
-         mail.To.Add("stephen.colonna@employment.gov.au");
-         mail.Subject = subject;
-         return mail;
-      }
    }
 }

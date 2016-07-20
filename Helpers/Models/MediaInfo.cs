@@ -101,7 +101,7 @@ namespace Helpers.Models
 
             Title = DetermineTitle();
 
-            if (Title.ToUpper().Equals("JUDGE JUDY [2015]"))
+            if (Title.ToUpper().StartsWith("JUDGE JUDY"))
             {
                Title = "Judge Judy";
                Season = 20;

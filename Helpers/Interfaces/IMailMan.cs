@@ -10,5 +10,6 @@ namespace Helpers.Interfaces
 
       void AddRecipients( List<string> recipients );
       void AddRecipients( string recipients );
+      int RecipientCount();
    }
 }

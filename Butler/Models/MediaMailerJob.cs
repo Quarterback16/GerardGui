@@ -90,11 +90,21 @@ namespace Butler.Models
 
          foreach ( var file in filesFound )
          {
-            var errorMsg = MailMan.SendMail( message: "Recently Added", subject: "New additions", attachment: file );
+            var errorMsg = MailMan.SendMail( message: "Recently Added", subject: SubjectLine(file), attachment: file );
 
             lastDate = LogResult( logitem, lastDate, file, errorMsg );
          }
          return lastDate;
+      }
+
+      private static string SubjectLine( string file )
+      {
+         return "New additions";
+      }
+
+      private static string SubjectLine()
+      {
+         return "New additions";
       }
 
       private DateTime LogResult( LogItem logitem, DateTime lastDate, string file, string errorMsg )
