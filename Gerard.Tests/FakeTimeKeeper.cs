@@ -35,7 +35,8 @@ namespace Gerard.Tests
 			_isItPreseason = true;
 			_isPeakTime = false;
 			TheDateTime = theDate;
-		}
+         Week = "00";
+      }
 
       public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
       {
@@ -121,7 +122,9 @@ namespace Gerard.Tests
 
 	   public string PreviousWeek()
       {
+         if ( Week.Equals( "00" ) ) return "17";
          var currentWeek = CurrentWeek(CurrentDateTime());
+         
          var previousWeek = currentWeek - 1;
          return string.Format("{0:0#}", previousWeek);
       }

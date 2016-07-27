@@ -235,10 +235,10 @@ namespace RosterLib
 		public void TallyTeam( ICollection<NflTeam> teamList, string season, DateTime focusDate, string teamCode )
 		{
 			var team = new NflTeam( teamCode );  //  simple code constructor
-			//if ( thisSeasonOnly )
+			if ( TimeKeeper.IsItRegularSeason() )
 				team.LoadGames( team.TeamCode, season );
-			//else
-			//	team.LoadPreviousRegularSeasonGames( team.TeamCode, season, focusDate );
+			else
+				team.LoadPreviousRegularSeasonGames( team.TeamCode, season, focusDate );
 			team.TallyStats();
 			teamList.Add( team );
 		}

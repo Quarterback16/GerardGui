@@ -91,14 +91,22 @@ namespace Gerard.Tests
 		//}
 
 		[TestMethod]
-		public void TestGetSunday()
+		public void TestGetSunday2014()
 		{
 			var sut = new UnitRatingsService2();
 			var theSunday = sut.GetSundayFor(new DateTime(2014, 7, 20));
 			Assert.IsTrue(theSunday.Equals(new DateTime(2014,9,7)));
 		}
 
-		[TestMethod]
+      [TestMethod]
+      public void TestGetSunday2016()
+      {
+         var sut = new UnitRatingsService2();
+         var theSunday = sut.GetSundayFor( new DateTime( 2016, 7, 27 ) );
+         Assert.IsTrue( theSunday.Equals( new DateTime( 2016, 9, 11 ) ) );
+      }
+
+      [TestMethod]
 		public void TestNewRatingsRetrieval2()
 		{
 			var sut = new UnitRatingsService2();

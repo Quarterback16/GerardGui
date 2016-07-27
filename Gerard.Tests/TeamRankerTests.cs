@@ -13,5 +13,15 @@ namespace Gerard.Tests
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
-	}
+
+      [TestMethod]
+      public void ShouldInitialiseTheSeasonFromLastSeason()
+      {
+         var sut = new RankingsJob( 
+            new FakeTimeKeeper( new System.DateTime( 2016,7,27 ) ),
+            force: true );
+         var outcome = sut.DoJob();
+         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+      }
+   }
 }
