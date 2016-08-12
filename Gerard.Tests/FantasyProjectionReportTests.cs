@@ -10,9 +10,9 @@ namespace Gerard.Tests
    public class FantasyProjectionReportTests
    {
       [TestMethod]
-      public void TestFantasyProjectionJob()
+      public void TestFantasyProjectionJob()  // 29 mins 2016-08-08 
       {
-         var sut = new FantasyProjectionJob(new FakeTimeKeeper());
+         var sut = new FantasyProjectionJob(new FakeTimeKeeper( season: "2016", week: "00"));
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue(run.Date.Equals(DateTime.Now.Date));

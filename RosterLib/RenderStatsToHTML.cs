@@ -131,7 +131,7 @@ namespace RosterLib
 
             dr["Pos"] = p.PlayerPos;
             dr["Role"] = p.RoleOut();
-            dr["RookieYr"] = p.RookieYear;
+            dr["RookieYr"] = p.RookieYear +"-"+p.Drafted;
             dr["CurrTeam"] = p.TeamCode;
             dr["FT"] = p.Owner;
             dr["Age"] = p.PlayerAge();
@@ -243,6 +243,8 @@ namespace RosterLib
             cols.Add("YDr", typeof (Int32));
             cols.Add("YDc", typeof (Int32));
             cols.Add("Fg", typeof (Int32));
+            cols.Add( "Health", typeof( Decimal ) );
+            cols.Add( "AdjProj", typeof( Int32 ) );
          }
 
          cols.Add("Points", typeof (Decimal));
@@ -260,9 +262,13 @@ namespace RosterLib
             {
                var theWeek = weekMaster.GetWeek( Season, Int32.Parse( pgm.Week() ) );
 
-               if (scorer != null) scorer.RatePlayer(p, theWeek);
+               // if there is no scorer it just reads the stats, this is what we want
+               if ( scorer == null )
+                  p.Points = pgm.CalculateProjectedFantasyPoints(p);
+               else
+                  scorer.RatePlayer( p, theWeek );
 
-               if (p.TotStats == null) p.TotStats = new PlayerStats();
+               if ( p.TotStats == null) p.TotStats = new PlayerStats();
                p.TotStats.Tdp += pgm.ProjTDp;
                p.TotStats.YDp += pgm.ProjYDp;
                p.TotStats.Tdr += pgm.ProjTDr;
@@ -272,7 +278,6 @@ namespace RosterLib
                p.TotStats.Fg += pgm.ProjFG;
                totPoints += p.Points;
             }
-            //  rate the last whatevr weeks
 
             if (totPoints > 0 || !SupressZeros)
             {
@@ -305,6 +310,8 @@ namespace RosterLib
                   dr["YDr"] = p.TotStats.YDr;
                   dr["YDc"] = p.TotStats.YDc;
                   dr["Fg"] = p.TotStats.Fg;
+                  dr[ "Health" ] = p.HealthRating();
+                  dr[ "AdjProj" ] = p.HealthRating()*totPoints;
                }
 
                dr["Points"] = totPoints;

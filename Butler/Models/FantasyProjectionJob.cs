@@ -23,7 +23,8 @@ namespace Butler.Models
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();
          StopRun();
-         var completionMsg = string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+         var completionMsg = string.Format( "Rendered {0} to {1}", 
+            Report.Name, Report.OutputFilename() );
          Logger.Info( "  {0}",completionMsg );
          return completionMsg;
       }
@@ -32,12 +33,8 @@ namespace Butler.Models
       public override bool IsTimeTodo(out string whyNot)
       {
          base.IsTimeTodo( out whyNot );
-         if (string.IsNullOrEmpty(whyNot))
-         {
-            if (!TimeKeeper.IsItRegularSeason())
-               whyNot = "Its not the regular season yet";
-         }
-         if (string.IsNullOrEmpty(whyNot))
+
+         if (string.IsNullOrEmpty(whyNot)) 
          {
             if (TimeKeeper.IsItPeakTime())
                whyNot = "Peak time - no noise please";

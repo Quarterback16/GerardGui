@@ -71,7 +71,7 @@ namespace Butler
          {
             MyWorker = backgroundWorker1;
             var configReader = new ConfigReader();
-            // load jobs, in DEV u will work on one job at a time, but in PROD do em all
+            
             MyJobs = new List<Job>
                {
                   new DropBoxCopyTflToVesuviusJob(TimeKeeper),  //  get any new TFL data from dropbox

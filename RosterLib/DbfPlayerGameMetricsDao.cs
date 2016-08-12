@@ -103,7 +103,7 @@ namespace RosterLib
                      pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
                      pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
                );
-#if DEBUG
+#if DEBUG2
             Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
 #endif
          }
@@ -134,7 +134,7 @@ namespace RosterLib
 						pgm.FantasyPoints
 					   );
 		   }
-#if DEBUG
+#if DEBUG2
          Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
 #endif
 	   }

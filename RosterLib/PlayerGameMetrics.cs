@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace RosterLib
 {
@@ -29,6 +30,8 @@ namespace RosterLib
       public int Pat { get; set; }
 
 		public int FantasyPoints { get; set; }
+
+      public int ProjectedFantasyPoints { get; set; }
 
       public bool IsEmpty { get; set; }
 
@@ -88,6 +91,11 @@ namespace RosterLib
 	   {
 		   dao.SaveActuals(this);
 	   }
+
+      public string Season()
+      {
+         return GameKey.Substring( 1, 4 );
+      }
 
       public string Week()
       {
@@ -158,17 +166,17 @@ namespace RosterLib
       public string FormatAsTableRow(string playerName, string role, decimal pts )
       {
          string[] pgmArray = { 
-                                playerName,
-                                role,
-                           ProjYDp.ToString( CultureInfo.InvariantCulture ),
-                           ProjTDp.ToString( CultureInfo.InvariantCulture ),
-                           ProjYDr.ToString( CultureInfo.InvariantCulture ),
-                           ProjTDr.ToString( CultureInfo.InvariantCulture ),
-                           ProjYDc.ToString( CultureInfo.InvariantCulture),
-                           ProjTDc.ToString(CultureInfo.InvariantCulture),
-                           ProjFG.ToString( CultureInfo.InvariantCulture),
-                           ProjPat.ToString( CultureInfo.InvariantCulture),
-                           pts.ToString(CultureInfo.InvariantCulture)
+                                 playerName,
+                                 role,
+                                 ProjYDp.ToString( CultureInfo.InvariantCulture ),
+                                 ProjTDp.ToString( CultureInfo.InvariantCulture ),
+                                 ProjYDr.ToString( CultureInfo.InvariantCulture ),
+                                 ProjTDr.ToString( CultureInfo.InvariantCulture ),
+                                 ProjYDc.ToString( CultureInfo.InvariantCulture),
+                                 ProjTDc.ToString(CultureInfo.InvariantCulture),
+                                 ProjFG.ToString( CultureInfo.InvariantCulture),
+                                 ProjPat.ToString( CultureInfo.InvariantCulture),
+                                 pts.ToString(CultureInfo.InvariantCulture)
                         };
          var html = HtmlLib.TableRow(pgmArray);
          return html;
@@ -205,6 +213,22 @@ namespace RosterLib
                            ProjFG +
                            ProjPat;
          return (checkSum > 0);
+      }
+
+      internal decimal CalculateProjectedFantasyPoints( NFLPlayer p )
+      {
+         var scorer = new YahooProjectionScorer();
+         p.ProjectedTDp = ProjTDp;
+         p.ProjectedYDp = ProjYDp;
+         p.ProjectedYDr = ProjYDr;
+         p.ProjectedTDr = ProjTDr;
+         p.ProjectedYDc = ProjYDc;
+         p.ProjectedTDc = ProjTDc;
+         p.ProjectedFg = ProjFG;
+         p.ProjectedPat = ProjPat;
+
+         var pts = scorer.RatePlayer( p, new NFLWeek( Season(), 99, loadGames: false ) );
+         return pts;
       }
    }
 }

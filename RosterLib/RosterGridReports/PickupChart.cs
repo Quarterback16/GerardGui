@@ -35,7 +35,7 @@ namespace RosterLib.RosterGridReports
       private string GenerateBody()
       {
          var bodyOut = new StringBuilder();
-         // build the winners list
+
          var winners = GetWinners();
          var losers = GetLosers();
 
@@ -54,7 +54,8 @@ namespace RosterLib.RosterGridReports
          return bodyOut.ToString();
       }
 
-      private int GenerateChart( StringBuilder bodyOut, YahooCalculator c, int lineNo, IWinOrLose team )
+      private int GenerateChart( 
+         StringBuilder bodyOut, YahooCalculator c, int lineNo, IWinOrLose team )
       {
 	      team.Team.LoadKickUnit();
          team.Team.LoadRushUnit();
@@ -163,21 +164,25 @@ namespace RosterLib.RosterGridReports
             bit = string.Format("<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}       ",
                team.Team.TeamCode, Week - 1, defensiveRating);
 
+            if ( team.Team.RushUnit == null )
+               team.Team.LoadRushUnit();
+
             if (team.Team.RushUnit.AceBack != null)
                bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
          }
          return string.Format( "{0,-36}", bit );
       }
 
-      private string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
+      public string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
       {
          var nextOppTeam = p.NextOpponentTeam( g );
-         //var defensiveRating = nextOppTeam.DefensiveRating( p.PlayerCat );
 			var defensiveRating = nextOppTeam.DefensiveUnit(p.PlayerCat);
 			var owners = p.LoadAllOwners();
          c.Calculate( p, g );
-			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
-         return string.Format( "{0,-11} {3}  {1}  {2,2:#0}  {4} ", namePart, defensiveRating, p.Points, owners, ActualOutput(g,p) );
+			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", 
+            p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
+         return string.Format( "{0,-11} {3}  {1}  {2,2:#0}  {4} ", 
+            namePart, defensiveRating, p.Points, owners, ActualOutput(g,p) );
       }
 
 		public string ActualOutput(NFLGame g, NFLPlayer p)

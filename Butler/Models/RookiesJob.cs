@@ -26,12 +26,8 @@ namespace Butler.Models
       public override bool IsTimeTodo(out string whyNot)
       {
          base.IsTimeTodo(out whyNot);
-
-         if (string.IsNullOrEmpty(whyNot))
-         {
-#if ! DEBUG
-            #endif
-         }
+         if ( TimeKeeper.IsItPeakTime() )
+            whyNot = "Peak time - no noise please";
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );
          return (string.IsNullOrEmpty(whyNot));

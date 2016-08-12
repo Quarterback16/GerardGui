@@ -269,6 +269,7 @@
     <Compile Include="RenderStatsToHTML.cs" />
     <Compile Include="RenderStatsToWeekly.cs" />
     <Compile Include="renderUnitStatsToHtml.cs" />
+    <Compile Include="ReportGenerators\RookieReportGenerator.cs" />
     <Compile Include="Repositories\AceRepository.cs" />
     <Compile Include="ReturnerScorer.cs" />
     <Compile Include="RevengeScheme.cs" />

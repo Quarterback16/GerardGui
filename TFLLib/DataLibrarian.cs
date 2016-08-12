@@ -939,16 +939,21 @@ namespace TFLLib
                commandStr =
                   "SELECT * FROM PLAYER where  CURRTEAM != '??'and " +
                   "CATEGORY ='" + strCat + "'";
+
             commandStr += " and (ROLE='S'.or.ROLE='B')";
          }
          else
          {
             if (strCat == "*")
-               commandStr = "SELECT * FROM PLAYER where CURRTEAM != '??' and ROLE='" + role + "' ";
+               commandStr = "SELECT * FROM PLAYER where CURRTEAM != '??'  ";
             else
                commandStr =
-                  "SELECT * FROM PLAYER where  CURRTEAM != '??' and ROLE='" + role + "' and " +
+                  "SELECT * FROM PLAYER where  CURRTEAM != '??'  and " +
                   "CATEGORY ='" + strCat + "'";
+            if ( role != "*" )
+            {
+               commandStr += " and ROLE='" + role + "' ";
+            }
          }
          if (!string.IsNullOrEmpty(rookieYr))
          {
@@ -1126,6 +1131,17 @@ namespace TFLLib
          da.Fill(ds, "player");
 
          return (ds.Tables[0].Rows.Count > 0);
+      }
+
+      public void ResetProjections()
+      {
+         string commandStr = "UPDATE PLAYER SET PROJECTED = 0";
+
+         OleDbConn.Close();
+         OleDbConn.Open();
+         var cmd = new OleDbCommand( commandStr, OleDbConn );
+         cmd.ExecuteNonQuery();
+         OleDbConn.Close();
       }
 
       #endregion PLAYER
@@ -2149,15 +2165,19 @@ namespace TFLLib
          OleDbConn.Close();
       }
 
-      public static void StoreProjection(int nProjected, string playerId)
+      public void StoreProjection(int nProjected, string playerId)
       {
-         //string commandStr = string.Format(
-         //   "UPDATE PLAYER SET PROJECTED = '{0}' WHERE PLAYERID='{1}'",
-         //   nProjected, playerId );
-         //OleDbDataAdapter da = new OleDbDataAdapter( commandStr, OleDbConn );
-         //cmd = new OleDbCommand( commandStr, OleDbConn );
-         //cmd.Parameters.Add("@CustomerID", OleDbType.Char, 5, "CustomerID");
-         //cmd.Parameters.Add("@CompanyName", OleDbType.VarChar, 40, "CompanyName");
+         playerId = FixSingleQuotes( playerId );
+
+         string commandStr = string.Format(
+            "UPDATE PLAYER SET PROJECTED = '{0}' WHERE PLAYERID='{1}'",
+            nProjected, playerId );
+
+         OleDbConn.Close();
+         OleDbConn.Open();
+         var cmd = new OleDbCommand( commandStr, OleDbConn );
+         cmd.ExecuteNonQuery();
+         OleDbConn.Close();
       }
 
       public void StoreResult(string season, string week, string gameNo, int awayScore, int homeScore,

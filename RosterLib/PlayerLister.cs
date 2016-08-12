@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Data;
 using System.Diagnostics;
@@ -111,15 +112,23 @@ namespace RosterLib
          PlayerList.Clear();
       }
 
-      public void Collect(string catCode, string sPos, string fantasyLeague, [Optional] string rookieYr )
+      public void Collect(
+         string catCode, 
+         string sPos, 
+         string fantasyLeague, 
+         [Optional] string rookieYr )
       {
+         DumpParameters();
          DataSet ds;
          if (string.IsNullOrEmpty(sPos))
             ds = Utility.TflWs.GetPlayers(catCode);
          else
             ds = sPos.Equals("KR")
                   ? Utility.TflWs.GetReturners()
-                  : Utility.TflWs.GetPlayers(catCode, sPos, null, rookieYr);
+                  : Utility.TflWs.GetPlayers(
+                     catCode, sPos, 
+                     role:OnesAndTwosOnly? null : "*", 
+                     rookieYr:rookieYr);
 
          var dt = ds.Tables[0];
          foreach (DataRow dr in dt.Rows)
@@ -156,6 +165,23 @@ namespace RosterLib
             }
          }
          AnnounceTotal(sPos);
+      }
+
+      [Conditional( "DEBUG" )]
+      private void DumpParameters()
+      {
+         AnnounceParameter( "FreeAgentsOnly", FreeAgentsOnly );
+         AnnounceParameter( "PrimariesOnly", PrimariesOnly );
+         AnnounceParameter( "PlayoffsOnly", PlayoffsOnly );
+         AnnounceParameter( "StartersOnly", StartersOnly );
+         AnnounceParameter( "OnesAndTwosOnly", OnesAndTwosOnly );
+      }
+
+      private void AnnounceParameter( string para, bool paraValue )
+      {
+         Utility.Announce(
+            string.Format( "PlayerLister para {0} = {1}",
+                           para, paraValue ) );
       }
 
       [Conditional("DEBUG")]

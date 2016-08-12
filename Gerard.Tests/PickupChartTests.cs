@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2015",week:"17") );
+         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2016",week:"01") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -53,15 +53,32 @@ namespace Gerard.Tests
          Assert.IsTrue( sut.Week == 0 );
       }
 
+      [TestMethod]
+      public void TestJamalCharlesWeek1_2016()
+      {
+         var c = new YahooCalculator();
+         var sut = new PickupChart( season: "2016", week: 1 );
+         var p = new NFLPlayer( "CHARJA01" );
+         var g = new NFLGame( "2016:01-G" );
+         var result = sut.PlayerPiece( p, g, c );
+         Console.WriteLine( "Piece is {0}", result );
+      }
 
-		[TestMethod]
+      [TestMethod]
 		public void TestLoadPassingUnit()
 		{
-			var sut = new NflTeam( "NJ" );
+			var sut = new NflTeam( "KC" );
 			var passingUnit = sut.LoadPassUnit();
 			Console.WriteLine( "Passing Unit is {0}", passingUnit );
 		}
 
+      [TestMethod]
+      public void TestLoadRushingUnit()
+      {
+         var sut = new NflTeam( "KC" );
+         var unit = sut.LoadRushUnit();
+         Console.WriteLine( "Rushing Unit is {0}", unit );
+      }
 
       [TestMethod]
       public void TestPredictedResult()

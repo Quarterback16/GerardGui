@@ -122,6 +122,7 @@
     <Compile Include="WeekMasterTests.cs" />
     <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
+    <Compile Include="YahooProjectionScorerTests.cs" />
     <Compile Include="YahooXmlTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.ReportGenerators;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -6,7 +7,7 @@ namespace RosterLib
    {
       public string LeagueCode { get; set; }
 
-      public PlayerLister Lister { get; set; }
+      public RookieReportGenerator Generator { get; set; }
 
       public List<RookieConfig> Configs { get; set; }
 
@@ -16,7 +17,7 @@ namespace RosterLib
       {
          Name = "Rookies";
          SetLastRunDate();
-         Lister = new PlayerLister();
+
          Configs = new List<RookieConfig>();
          Configs.Add(new RookieConfig { Category = Constants.K_QUARTERBACK_CAT, Position = "QB" });
          Configs.Add(new RookieConfig { Category = Constants.K_RUNNINGBACK_CAT, Position = "RB" });
@@ -24,7 +25,11 @@ namespace RosterLib
          Configs.Add(new RookieConfig { Category = Constants.K_RECEIVER_CAT, Position = "TE" });
          Configs.Add(new RookieConfig { Category = Constants.K_KICKER_CAT, Position = "K" });
          Leagues = new List<RosterGridLeague>();
-         Leagues.Add(new RosterGridLeague { Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1" });
+         Leagues.Add(new RosterGridLeague {
+            Id = Constants.K_LEAGUE_Gridstats_NFL1,
+            Name = "Gridstats GS1" });
+
+         Generator = new RookieReportGenerator();
       }
 
       public override void RenderAsHtml()
@@ -34,26 +39,12 @@ namespace RosterLib
             LeagueCode = league.Id;
             foreach (RookieConfig rpt in Configs)
             {
-               GenerateReport(rpt, LeagueCode);
+               Generator.GenerateRookieReport( rpt, LeagueCode, Season );
             }
          }
       }
-
-      private string GenerateReport(RookieConfig rpt, string fantasyLeague )
-      {
-         Lister.StartersOnly = false;
-         Lister.Clear();
-         Lister.Collect(rpt.Category, rpt.Position, fantasyLeague, Utility.CurrentSeason() );
-         Lister.Folder = "Rookies";
-
-         var fileOut = Lister.Render(string.Format("{1}-Rookies-{0}", rpt.Position, fantasyLeague));
-
-         Lister.Clear();
-
-         return fileOut;
-
-      }
    }
+
    public class RookieConfig
    {
       public string Category { get; set; }

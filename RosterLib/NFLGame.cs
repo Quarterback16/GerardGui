@@ -268,7 +268,6 @@ namespace RosterLib
       public NflTeam GetHomeTeam()
       {
          HomeNflTeam = Masters.Tm.GetTeam(Season, HomeTeam);
-         //			HomeNflTeam = new NflTeam( HomeTeam, Season );
          HomeNflTeam.SetRecord(Season, skipPostseason: false);
          return HomeNflTeam;
       }
@@ -276,7 +275,6 @@ namespace RosterLib
       public NflTeam GetAwayTeam()
       {
          AwayNflTeam = Masters.Tm.GetTeam(Season, AwayTeam);
-         //			AwayNflTeam = new NflTeam( AwayTeam, Season );
          AwayNflTeam.SetRecord(Season, skipPostseason: false);
          return AwayNflTeam;
       }

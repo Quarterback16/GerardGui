@@ -424,6 +424,22 @@ namespace RosterLib
          return myOpponentRating;
       }
 
+      internal decimal HealthRating()
+      {
+         //  Health rating is a percentage  Injuries / Seasons
+
+         var injuryRating = int.Parse( Injury );
+         if ( injuryRating == 0 )
+            return 1.0M;
+
+         decimal seasons = ( decimal ) NoOfSeasons();
+         decimal hr = injuryRating / seasons;
+         hr =  (1.0M - hr);
+         var healthRating = string.Format( "{0:#.00}", hr );
+         var hrShort = Decimal.Parse( healthRating );
+         return hrShort;
+      }
+
       #endregion
 
       public DataSet LastScores(string scoreType, int weekFrom, int weekTo, string season, string id)
@@ -1361,7 +1377,7 @@ namespace RosterLib
       /// <param name="nProjected"></param>
       public void StoreProjection(int nProjected)
       {
-         DataLibrarian.StoreProjection(nProjected, PlayerCode);
+         Utility.TflWs.StoreProjection(nProjected, PlayerCode);
       }
 
       public void Save()

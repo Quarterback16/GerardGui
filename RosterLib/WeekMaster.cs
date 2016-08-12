@@ -17,7 +17,7 @@ namespace RosterLib
          }
          else
          {
-            w = new NFLWeek(Int32.Parse(season), week, loadGames: true);
+            w = new NFLWeek( int.Parse(season), week, loadGames: true);
             PutWeek(w);
             CacheMisses++;
          }

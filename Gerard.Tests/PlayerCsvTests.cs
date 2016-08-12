@@ -8,7 +8,7 @@ namespace Gerard.Tests
    public class PlayerCsvTests
    {
       [TestMethod]
-      public void TestDoPlayerCsvJob()
+      public void TestDoPlayerCsvJob()  // 75 mins  2016-08-08 
       {
          var sut = new PlayerCsvJob( new TimeKeeper() );
          var outcome = sut.DoJob();
