@@ -65,6 +65,9 @@
     <Compile Include="FakeClock.cs" />
     <Compile Include="FaMarketTests.cs" />
     <Compile Include="FileUtilityTests.cs" />
+    <Compile Include="GameProjectionReportsJobTests.cs" />
+    <Compile Include="GameProjectionsReportTests.cs" />
+    <Compile Include="GameProjectionTests.cs" />
     <Compile Include="GameSummaryTests.cs" />
     <Compile Include="GeneratePlayerProjectionsTests.cs" />
     <Compile Include="HotListTests.cs" />
@@ -87,7 +90,7 @@
     <Compile Include="FakeHistorian.cs" />
     <Compile Include="FakeTimeKeeper.cs" />
     <Compile Include="FantasyProjectionReportTests.cs" />
-    <Compile Include="GameProjectionTests.cs" />
+    <Compile Include="GameProjectionsJobTests.cs" />
     <Compile Include="GerardTests.cs" />
     <Compile Include="MatchupReportTests.cs" />
     <Compile Include="PickupChartTests.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="PlayerReportTests.cs" />
     <Compile Include="PlayoffTeamsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PullMetricsFromPredictionTests.cs" />
     <Compile Include="RandomNumberGeneratorTests.cs" />
     <Compile Include="RecordActualsTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />

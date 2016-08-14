@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using RosterLib.Interfaces;
+using NLog;
 
 namespace RosterLib
 {
@@ -12,6 +13,8 @@ namespace RosterLib
 		public Hashtable RatingsHt { get; set; }
 
 		public string FileOut { get; set; }
+
+      public Logger Logger { get; set; }
 
       public string Week { get; set; }
 
@@ -30,7 +33,9 @@ namespace RosterLib
 
 			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable-{2:0#}.htm",
 				Utility.OutputDirectory(), Utility.CurrentSeason(), Week );
-		}
+
+         Logger = LogManager.GetCurrentClassLogger();
+      }
 
 		public void RankTeams( DateTime when )
 		{
@@ -38,7 +43,8 @@ namespace RosterLib
 			{
 				if (HaveAlreadyRated(when))
 				{
-					LoadRatings(when);
+               Logger.Info( string.Format( "  Have already got Ratings for {0:d}", when ) );
+               LoadRatings(when);
 					return;
 				}
 			}

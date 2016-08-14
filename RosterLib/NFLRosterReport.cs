@@ -313,7 +313,7 @@ namespace RosterLib
 				predictor = new UnitPredictor
 				            	{
 										TakeActuals = true,
-				            		AuditTrail = true,
+				            		AuditTrail = false,
 										WriteProjection = true,
 				            		StorePrediction = true,
 				            		RatingsService = new UnitRatingsService()

@@ -101,6 +101,7 @@ namespace Butler
 
                   new GameProjectionsJob( TimeKeeper ), //  once in pre season then once a week regular - always
                   new GeneratePlayerProjectionsJob( TimeKeeper ),
+                  new GameProjectionReportsJob( TimeKeeper ),
                   new RookiesJob( TimeKeeper ),
                   new OutputProjectionsJob( Historian ),  //  needs game projections
                   new FantasyProjectionJob( TimeKeeper ),

@@ -2338,7 +2338,7 @@ namespace RosterLib
          if (nflTeam.PlayerList.Count == 0) nflTeam.LoadPlayerUnits();
          if (PgmDao == null) PgmDao = new DbfPlayerGameMetricsDao();
          if (GameWeek == null) GameWeek = new NFLWeek( Season, Week );
-         var scorer = new YahooScorer(GameWeek);
+         var scorer = new YahooProjectionScorer();
          var nPlayers = 0;
          var nTotPts = 0.0M;
          var totPgm = new PlayerGameMetrics();
@@ -2350,7 +2350,7 @@ namespace RosterLib
             var pgm = PgmDao.Get(p.PlayerCode, GameKey());
             if (nPlayers == 1) html += pgm.PgmHeaderRow();
             if (!pgm.HasNumbers()) continue;
-
+            SetProjectedStats( p, pgm );
             var fpts = scorer.RatePlayer( p, GameWeek );
             nTotPts += fpts;
             html += HtmlLib.Para(pgm.FormatAsTableRow(p.PlayerName, p.PlayerRole, fpts)) + Environment.NewLine;
@@ -2366,6 +2366,19 @@ namespace RosterLib
          html += HtmlLib.Para(totPgm.FormatAsTableRow("Totals", "", nTotPts)) + Environment.NewLine;
          html += HtmlLib.TableClose();
          return html;
+      }
+
+      private void SetProjectedStats( NFLPlayer p, PlayerGameMetrics pgm )
+      {
+         p.ProjectedFg = pgm.ProjFG;
+         p.ProjectedPat = pgm.ProjPat;
+         p.ProjectedReceptions = pgm.ProjRec;
+         p.ProjectedTDc = pgm.ProjTDc;
+         p.ProjectedTDp = pgm.ProjTDp;
+         p.ProjectedTDr = pgm.ProjTDr;
+         p.ProjectedYDp = pgm.ProjYDp;
+         p.ProjectedYDr = pgm.ProjYDr;
+         p.ProjectedYDc = pgm.ProjYDc;
       }
 
       public PlayerGameMetrics GetPgmFor( string playerCode )

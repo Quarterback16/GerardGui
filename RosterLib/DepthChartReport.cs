@@ -42,7 +42,7 @@ namespace RosterLib
 
       public override void RenderAsHtml()
       {
-          LeagueInFocus = Constants.K_LEAGUE_Yahoo;
+          LeagueInFocus = Constants.K_LEAGUE_Gridstats_NFL1;
 
          var season = new NflSeason(Season, teamsOnly: true);
          foreach (var team in season.TeamList)

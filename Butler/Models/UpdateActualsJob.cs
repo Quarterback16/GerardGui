@@ -20,6 +20,7 @@ namespace Butler.Models
          TimeKeeper = timeKeeper;
 	      Report.TimeKeeper = timeKeeper;
          Logger = LogManager.GetCurrentClassLogger();
+         IsNflRelated = true;
       }
 
       public override string DoJob()

@@ -114,6 +114,7 @@
     <Compile Include="GameMaster.cs" />
     <Compile Include="GameMetrics.cs" />
     <Compile Include="GameProjection.cs" />
+    <Compile Include="GameProjectionsReport.cs" />
     <Compile Include="GameStats.cs" />
     <Compile Include="GameSummary.cs" />
     <Compile Include="GetGamePrediction.cs" />

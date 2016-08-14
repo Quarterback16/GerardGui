@@ -103,7 +103,7 @@ namespace RosterLib
                      pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
                      pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
                );
-#if DEBUG2
+#if DEBUG
             Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
 #endif
          }
@@ -134,7 +134,7 @@ namespace RosterLib
 						pgm.FantasyPoints
 					   );
 		   }
-#if DEBUG2
+#if DEBUG
          Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
 #endif
 	   }
@@ -159,7 +159,7 @@ namespace RosterLib
             pgm.ProjPat = IntValue(dr, "projpat");
             pgmList.Add(pgm);
          }
-#if DEBUG2
+#if DEBUG
          Utility.Announce(string.Format("Metric records loaded : {0}", pgmList.Count));
 #endif
          return pgmList;
@@ -227,7 +227,7 @@ namespace RosterLib
                };
             pgmList.Add(pgm);
          }
-#if DEBUG2
+#if DEBUG
          Utility.Announce(string.Format("Metric records loaded : {0}", pgmList.Count));
 #endif
 

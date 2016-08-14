@@ -25,7 +25,6 @@ namespace TFLLib
 
       //  The three directories where DBF data can be found
       public OleDbConnection OleDbConn;
-
       public OleDbConnection OleDbConnTycoon;
       public OleDbConnection OleDbConnControl;
 

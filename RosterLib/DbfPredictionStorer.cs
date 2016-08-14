@@ -28,11 +28,6 @@
  					result.HomeYDp, result.HomeYDr, result.AwayYDp, result.AwayYDr 
 			      );
 
-			//TODO:  this stuffs up the scores if using the Miller predictions
-			//// also update Game projections (used by Starters())
-			//Utility.TflWs.StoreResult(game.Season, game.Week, game.GameCode, result.AwayScore, result.HomeScore, result.HomeTDp,
-			//                          result.AwayTDp, result.HomeTDr, result.AwayTDr, result.HomeFg, result.AwayFg,
-			//                          result.AwayTDd, result.HomeTDd, result.AwayTDs, result.HomeTDs);
 		}
 	}
 }

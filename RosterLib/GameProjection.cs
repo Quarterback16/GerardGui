@@ -61,7 +61,7 @@ namespace RosterLib
          return calculatedSpread;
       }
 
-      private string FileName()
+      public string FileName()
       {
          return string.Format("{0}{1}//Projections//gameprojections//Week {4}//{2}@{3}.htm", 
             Utility.OutputDirectory(), Game.Season, Game.AwayTeam, Game.HomeTeam, Game.Week );

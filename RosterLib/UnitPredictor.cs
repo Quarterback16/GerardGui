@@ -137,8 +137,9 @@ namespace RosterLib
 			if ( StorePrediction )
 				StorePredictedResult( game, game.Result );
 
-			if ( WriteProjection )
-				game.WriteProjection();
+         //  pulled this out to its own job "GameProjectionReportsJob"
+			//if ( WriteProjection )
+			//	game.WriteProjection();
 
 			return game.Result;
 		}
