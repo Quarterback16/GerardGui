@@ -37,7 +37,7 @@
 			#region  Catching
 
 			//  6 pts for a TD catch
-			int ptsForTDcatches = 6 * plyr.ProjectedTDc;
+			decimal ptsForTDcatches = 6 * plyr.ProjectedTDc;
 			plyr.Points += ptsForTDcatches;
 #if DEBUG
 			Utility.Announce( string.Format( "{0} has {1} points for TD catches", plyr.PlayerName, ptsForTDcatches ) );
@@ -53,7 +53,7 @@
 			#region  Running
 
 			//  6 points for TD run
-			var ptsForTDruns = 6 * plyr.ProjectedTDr;
+			decimal ptsForTDruns = 6 * plyr.ProjectedTDr;
 			plyr.Points += ptsForTDruns;
 #if DEBUG
 			Utility.Announce( string.Format( "{0} has {1} points for TD runs", plyr.PlayerName, ptsForTDruns ) );

@@ -27,16 +27,16 @@ namespace Butler.Models
       {
          base.IsTimeTodo( out whyNot );
 
-         //if ( string.IsNullOrEmpty( whyNot ) )
-         //{
-         //   //  check if there is any new data
-         //   whyNot = Report.CheckLastRunDate();
-         //}
-         //if ( string.IsNullOrEmpty( whyNot ) )
-         //{
-         //   if ( TimeKeeper.IsItPeakTime() )
-         //      whyNot = string.Format( "{0:t} is peak time", DateTime.Now.TimeOfDay );
-         //}
+         if ( string.IsNullOrEmpty( whyNot ) )
+         {
+            //  check if there is any new data
+            whyNot = Report.CheckLastRunDate();
+         }
+         if ( string.IsNullOrEmpty( whyNot ) )
+         {
+            if ( TimeKeeper.IsItPeakTime() )
+               whyNot = string.Format( "{0:t} is peak time", DateTime.Now.TimeOfDay );
+         }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );
          return ( string.IsNullOrEmpty( whyNot ) );

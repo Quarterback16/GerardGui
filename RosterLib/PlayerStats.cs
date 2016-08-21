@@ -9,7 +9,7 @@ namespace RosterLib
    {
       // Scores
       public int Tdp;
-      public int Tdr;
+      public decimal Tdr;
       public int Tdc;
       public int Fg;
       public int Pat;
@@ -73,7 +73,7 @@ namespace RosterLib
          Sacks = 0.0M;
       }
 
-      public string TwoStats( int rushesIn, int ydrIn, int tdrIn, bool addAvg )
+      public string TwoStats( int rushesIn, int ydrIn, decimal tdrIn, bool addAvg )
       {
          string s = String.Empty;
          if ( ( rushesIn + ydrIn + tdrIn > 0 ) )
@@ -153,13 +153,13 @@ namespace RosterLib
          switch ( playerCat )
          {
             case "1":
-               s = TwoStats( Rushes, YDr, Tdr );
+               s = TwoStats( Rushes, YDr, Tdr, false );
                break;
             case "2":
                s = TwoStats( Catches, YDc, Tdc );
                break;
             case "3":
-               s = TwoStats( Rushes, YDr, Tdr );
+               s = TwoStats( Rushes, YDr, Tdr, false );
                break;
             case "4":
                s = TwoStats( Fg*3, Pat, ( Fg*3 ) + Pat );

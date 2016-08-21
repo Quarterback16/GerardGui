@@ -55,8 +55,7 @@ namespace Helpers.Models
             if ( Logger == null ) Logger = LogManager.GetCurrentClassLogger();
             FileName = fileName;
             Info = new FileInfo( fileName );
-
-            IsValid = true;
+            IsValid = CheckForBadFiles( fileName );
          }
          catch ( PathTooLongException ex )
          {
@@ -69,6 +68,15 @@ namespace Helpers.Models
             Logger.Error(string.Format("{0}:- Filename = {1} characters", ex.Message, FileName ));
             IsValid = false;
          }
+      }
+
+      private bool CheckForBadFiles( string fileName )
+      {
+         if ( fileName.ToUpper().Contains( "RARBG" ) )
+         {
+            return false;
+         }
+         return true;
       }
 
       public override string ToString()

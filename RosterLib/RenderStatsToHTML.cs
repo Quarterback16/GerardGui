@@ -164,7 +164,12 @@ namespace RosterLib
       {
          //  Output the list
          Utility.Announce("PlayerListing " + sHead);
-         var r = new SimpleTableReport {ReportHeader = sHead, ReportFooter = Season, DoRowNumbers = true};
+
+         var r = new SimpleTableReport {
+            ReportHeader = sHead,
+            ReportFooter = Season,
+            DoRowNumbers = true};
+
          if (!string.IsNullOrEmpty(SubHeader)) r.SubHeader = SubHeader;
          ///////////////////////////////////////////////////////////////
          var ds = LoadProjectedData(playerList, scorer, weekMaster ); //  <-- projection action here

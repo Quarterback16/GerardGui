@@ -49,7 +49,7 @@ namespace RosterLib
 
       private void GenerateReport(StarterConfig rpt)
       {
-         WriteProjectionReports = true;  //  Will gnerate a page for each player //TODO  should do this seperately
+         WriteProjectionReports = true;  //  Will gnerate a page for each player 
          RenderStarters(rpt.Category, rpt.Position, LeagueCode);
       }
 

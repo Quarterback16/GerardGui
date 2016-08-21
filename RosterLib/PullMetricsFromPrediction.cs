@@ -269,7 +269,18 @@ namespace RosterLib
             {
                var projYDr = (int)(percentageOfAction * ((isHome) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr));
                projYDr = AllowForInjuryRisk(runner, projYDr);
-               var projTDr = R1TdsFrom((isHome) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr);
+               var projTDr = 0M;
+               var tds = 0;
+               if ( isHome )
+               {
+                  tds = R1TdsFrom( input.Prediction.HomeTDr );
+                  projTDr = decimal.Divide( ( decimal ) tds, 2M );
+               }
+               else
+               {
+                  tds = R1TdsFrom( input.Prediction.AwayTDr );
+                  projTDr = decimal.Divide( ( decimal ) tds, 2M );
+               }
 
                AddPlayerGameMetric( input, runner.PlayerCode, projYDr, projTDr);			
             }
@@ -358,7 +369,7 @@ namespace RosterLib
 
       #endregion
 
-      private static void AddPlayerGameMetric( PlayerGameProjectionMessage input, string playerId, int projYDr, int projTDr )
+      private static void AddPlayerGameMetric( PlayerGameProjectionMessage input, string playerId, int projYDr, decimal projTDr )
       {
          var pgm = new PlayerGameMetrics
             {

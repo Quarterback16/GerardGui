@@ -24,12 +24,12 @@ namespace RosterLib
 			//  Kicker
 			int fgPoints = plyr.ProjectedFg * 3;
 			//  QB
-			int tdpPoints = plyr.ProjectedTDp * 3;
+			decimal tdpPoints = plyr.ProjectedTDp * 3;
 			//  RB
-			int tdrPoints = plyr.ProjectedTDr * 6;
+			decimal tdrPoints = plyr.ProjectedTDr * 6;
 			int YDrPoints = plyr.ProjectedYDr / 10;
 			//  PR
-			int tdcPoints = plyr.ProjectedTDc * 6;
+			decimal tdcPoints = plyr.ProjectedTDc * 6;
 			int YDcPoints = plyr.ProjectedYDc / 10;
 
 			plyr.Points = YDcPoints + fgPoints + tdpPoints + tdrPoints + YDrPoints + tdcPoints;

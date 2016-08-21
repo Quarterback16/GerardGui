@@ -279,11 +279,11 @@ namespace RosterLib
 
       public string StarRating { get; set; }
 
-      public int ProjectedTDp { get; set; }
+      public decimal ProjectedTDp { get; set; }
 
-      public int ProjectedTDr { get; set; }
+      public decimal ProjectedTDr { get; set; }
 
-      public int ProjectedTDc { get; set; }
+      public decimal ProjectedTDc { get; set; }
 
       public int ProjectedYDp { get; set; }
 
@@ -1677,7 +1677,7 @@ namespace RosterLib
          return advice;
       }
 
-      public void AddMetric( string metricType, string gameKey, int nScores )
+      public void AddMetric( string metricType, string gameKey, decimal nScores )
       {
          var qty = decimal.Parse( nScores.ToString( CultureInfo.InvariantCulture ) );
          AddMetric( metricType, gameKey, qty, (int) Points );

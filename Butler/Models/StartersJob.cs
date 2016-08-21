@@ -27,8 +27,15 @@ namespace Butler.Models
 
          if (string.IsNullOrEmpty(whyNot))
          {
-#if ! DEBUG
-            #endif
+#if !DEBUG
+            if (TimeKeeper.IsItPeakTime())
+               whyNot = "Peak time - no noise please";
+            if (string.IsNullOrEmpty(whyNot))
+            {
+               //  check if there is any new data
+               whyNot = Report.CheckLastRunDate();
+            }
+#endif
          }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

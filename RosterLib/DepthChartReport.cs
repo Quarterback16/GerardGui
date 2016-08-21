@@ -158,7 +158,7 @@ namespace RosterLib
 
       public string ProjectionLink(NFLPlayer player)
       {
-         return string.Format("<a href='..\\projections\\{0}.htm'>{1}</a>", player.PlayerCode, player.PlayerName);
+         return string.Format("<a href='..\\playerprojections\\{0}.htm'>{1}</a>", player.PlayerCode, player.PlayerName);
       }
 
       private static object GetPlayerKeys(IEnumerable<NFLPlayer> playerList, string posDesc)

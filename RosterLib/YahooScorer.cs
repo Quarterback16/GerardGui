@@ -229,11 +229,11 @@ namespace RosterLib
          return points;
       }
 
-      private int PointsFor(
+      private decimal PointsFor(
          NFLPlayer plyr, int increment,
          string forScoreType, string id )
       {
-         int nScores;
+         decimal nScores;
          var ds = new DataSet();
          if ( WeekHasPassed )
          {
@@ -267,7 +267,7 @@ namespace RosterLib
                break;
 
             case Constants.K_SCORE_FIELD_GOAL:
-               plyr.ProjectedFg = nScores;
+               plyr.ProjectedFg = (int) nScores;
                if ( WeekHasPassed )
                   points = ScoreFG( table: ds.Tables[ 0 ] );
                break;

@@ -48,9 +48,16 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestRatePlayerProjection()
       {
+         var p = new NFLPlayer( "TAYLTY01" );
          var sut = new DbfPlayerGameMetricsDao();
-         var pgms = sut.GetSeason("2014", "IVORCH01");
-         Assert.IsTrue(pgms.Count > 0);
+         var pgms = sut.GetSeason("2016", "TAYLTY01");
+         var totalPoints = 0.0M;
+         foreach ( var pgm in pgms )
+         {
+            pgm.CalculateProjectedFantasyPoints( p );
+            totalPoints += p.Points;
+         }
+         Assert.IsTrue(p.Points < 400M);
       }
 
       [TestMethod]

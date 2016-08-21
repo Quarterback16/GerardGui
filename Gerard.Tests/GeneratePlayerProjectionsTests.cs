@@ -18,10 +18,9 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
-      public void TestGeneratePlayerProjectionsJob()   //  7 min 2015-08-11 (make sure debug mode is on)
+      public void TestGeneratePlayerProjectionsJob()   // 85 mins 2016-08-21  (make sure debug mode is on)
       {
-         //  upcoming week only
-         var sut = new GeneratePlayerProjectionsJob( new FakeTimeKeeper( isPreSeason:false, isPeakTime:false) );
+         var sut = new GeneratePlayerProjectionsJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime:false) );
          var resultOut = sut.DoJob();
          Assert.IsTrue( resultOut.Length > 0 );
       }

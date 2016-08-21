@@ -20,8 +20,9 @@ namespace Butler.Models
 
       public override bool IsTimeTodo(out string whyNot)
       {
-         base.IsTimeTodo(out whyNot);
-         if (string.IsNullOrEmpty(whyNot))
+         whyNot = string.Empty;
+         base.IsTimeTodo( out whyNot );
+         if ( string.IsNullOrEmpty( whyNot ) )
          {
 #if ! DEBUG
             //  Chck that you have already done it for today (happens in Dev a lot)
@@ -31,8 +32,6 @@ namespace Butler.Models
 
             if (TimeKeeper.IsItPeakTime())
                whyNot = "Peak time - no noise please";
-
-
 #endif
          }
          if ( !string.IsNullOrEmpty( whyNot ) )

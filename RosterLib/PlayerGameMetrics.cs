@@ -10,7 +10,7 @@ namespace RosterLib
 
       public int ProjTDp { get; set; }
       public int TDp  { get; set; }
-      public int ProjTDr  { get; set; }
+      public decimal ProjTDr  { get; set; }
       public int TDr  { get; set; }
       public int ProjTDc  { get; set; }
       public int TDc  { get; set; }
@@ -50,7 +50,7 @@ namespace RosterLib
             PlayerId, GameKey, YDp, TDp, YDr, TDr, YDc, TDc, FG, Pat );
 
          return string.Format(
-            "{0} in {1} projected: passing>{2,3}-({3})  running>{4,3}-({5})  catch>{6,3}-({7})  kick>{8}-{9}",
+            "{0} in {1} projected: passing>{2,3}-({3})  running>{4,3}-({5:0.0})  catch>{6,3}-({7})  kick>{8}-{9}",
             PlayerId, GameKey, ProjYDp, ProjTDp, ProjYDr, ProjTDr, ProjYDc, ProjTDc, ProjFG, ProjPat );
       }
 
@@ -102,9 +102,9 @@ namespace RosterLib
          return GameKey.Substring( 5, 2 );
       }
 
-      public int ProjectedScoresOfType(string forScoreType, string id)
+      public decimal ProjectedScoresOfType(string forScoreType, string id)
       {
-         var metric = 0;
+         decimal metric = 0M;
          switch (forScoreType)
          {
             case Constants.K_SCORE_TD_PASS:
@@ -215,7 +215,7 @@ namespace RosterLib
          return (checkSum > 0);
       }
 
-      internal decimal CalculateProjectedFantasyPoints( NFLPlayer p )
+      public decimal CalculateProjectedFantasyPoints( NFLPlayer p )
       {
          var scorer = new YahooProjectionScorer();
          p.ProjectedTDp = ProjTDp;

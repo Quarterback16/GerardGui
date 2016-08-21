@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Data;
 using System.Diagnostics;
@@ -101,8 +100,6 @@ namespace RosterLib
          FreeAgentsOnly = false;
          Tc = new TeamCheckList();
          PlayerList = new ArrayList();
-
-         //Collect(catCode, sPos, fantasyLeague, startersOnly, tc);
 
          WeeksToGoBack = Constants.K_WEEKS_IN_A_SEASON; // default
       }
@@ -308,6 +305,7 @@ namespace RosterLib
                         LongStats = LongStats,
                         WeeksToGoBack = WeeksToGoBack
                      };
+
          if (!string.IsNullOrEmpty(SubHeader)) html.SubHeader = SubHeader;
 
          FileOut = html.RenderProjectedData(PlayerList, header, SortOrder, _mMyScorer, weekMaster );

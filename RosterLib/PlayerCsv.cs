@@ -63,7 +63,9 @@ namespace RosterLib
          Lister.LongStats = true;
          Lister.RenderToHtml = false;
 
-         var fileOut = DoProjections ? Lister.RenderProjection("PlayerCsv", weekMaster) : Lister.Render("PlayerCsv");
+         var fileOut = DoProjections ? 
+            Lister.RenderProjection("PlayerCsv", weekMaster) 
+            : Lister.Render("PlayerCsv");
 
          Lister.Clear();
 

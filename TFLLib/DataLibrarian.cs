@@ -2297,7 +2297,7 @@ namespace TFLLib
 
       public void InsertPlayerGameMetric(string playerId, string gameCode,
          int projYDp, int YDp, int projYDr, int ydr,
-         int projTDp, int TDp, int projTDr, int tdr,
+         int projTDp, int TDp, decimal projTDr, int tdr,
          int projTDc, int TDc, int projYDc, int YDc,
          int projFG, int fg, int projPat, int pat
          )
@@ -2317,7 +2317,7 @@ namespace TFLLib
 
       public string UpdatePlayerGameMetric(string playerId, string gameCode,
          int projYDp, int YDp, int projYDr, int ydr,
-         int projTDp, int TDp, int projTDr, int tdr,
+         int projTDp, int TDp, decimal projTDr, int tdr,
          int projTDc, int TDc, int projYDc, int YDc,
          int projFG, int fg, int projPat, int pat
          )

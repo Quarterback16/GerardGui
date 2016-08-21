@@ -21,7 +21,6 @@ namespace Butler.Models
 			Logger = LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 			Report = new PlayerProjectionGenerator( playerCache: null ) {Name = Name};
-			Report.SetLastRunDate();
          SeasonScheduler = new SeasonScheduler();
 		}
 

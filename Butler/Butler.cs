@@ -121,7 +121,6 @@ namespace Butler
                   new RunReportJob( TimeKeeper ),
                   new LogCleanupJob(),
                   new TflDataBackupJob(),
-                  new DropboxCopyToReginaJob( TimeKeeper),
                   new MediaListsPublishJob(),
 #endregion
 
@@ -131,8 +130,10 @@ namespace Butler
                   new BalanceReportJob( TimeKeeper ), //  once off - pre season
                   new FreeAgentMarketJob( TimeKeeper ), //  regular - pre season
                   new StrengthOfScheduleJob( TimeKeeper ), //  once off - pre season
-                  new PlayerReportsJob( TimeKeeper )
+                  new PlayerReportsJob( TimeKeeper ),
 #endregion
+
+                  new DropboxCopyToReginaJob( TimeKeeper)
 
                };
 

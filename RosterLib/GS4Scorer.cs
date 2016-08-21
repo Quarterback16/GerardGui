@@ -36,7 +36,7 @@ namespace RosterLib
 
          #region  Passing
 
-         var scorePoints = 0;
+         decimal scorePoints = 0M;
          var passIncrement = ScoresOnly ? 1 : 3;
 
          if ( plyr.PlayerCat.Equals( Constants.K_QUARTERBACK_CAT ) )
@@ -140,10 +140,10 @@ namespace RosterLib
          return points;
       }
 
-      private int PointsFor( NFLPlayer plyr, int increment, string forScoreType, string id )
+      private decimal PointsFor( NFLPlayer plyr, int increment, string forScoreType, string id )
       {
          // nScores could be TDs, FGs or PATs
-         var nScores = 0;
+         decimal nScores = 0M;
          if (Week.HasPassed())
          {
             var ds = plyr.LastScores(forScoreType, Week.WeekNo, Week.WeekNo, Week.Season, id);
@@ -159,7 +159,7 @@ namespace RosterLib
                nScores = pgm.ProjectedScoresOfType(forScoreType, id);
             }
          }
-         var points = nScores * increment;
+         decimal points = nScores * increment;
 
          switch (forScoreType)
          {
@@ -183,7 +183,7 @@ namespace RosterLib
 
             case Constants.K_SCORE_FIELD_GOAL:
                PointsLine( "FG ", plyr.PlayerNameShort,  points );
-               plyr.ProjectedFg = nScores;
+               plyr.ProjectedFg = (int) nScores;
                break;
 
             case Constants.K_SCORE_PAT:
@@ -203,7 +203,7 @@ namespace RosterLib
 
       public bool ScoresOnly { get; set; }
 
-      private static void PointsLine( string scoreType, string name, int pts )
+      private static void PointsLine( string scoreType, string name, decimal pts )
       {
 #if DEBUG
          if ( pts > 0 )
