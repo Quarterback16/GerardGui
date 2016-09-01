@@ -55,7 +55,7 @@ namespace Helpers.Models
             if ( Logger == null ) Logger = LogManager.GetCurrentClassLogger();
             FileName = fileName;
             Info = new FileInfo( fileName );
-            IsValid = CheckForBadFiles( fileName );
+            IsValid = true;
          }
          catch ( PathTooLongException ex )
          {
@@ -68,15 +68,6 @@ namespace Helpers.Models
             Logger.Error(string.Format("{0}:- Filename = {1} characters", ex.Message, FileName ));
             IsValid = false;
          }
-      }
-
-      private bool CheckForBadFiles( string fileName )
-      {
-         if ( fileName.ToUpper().Contains( "RARBG" ) )
-         {
-            return false;
-         }
-         return true;
       }
 
       public override string ToString()
@@ -344,6 +335,10 @@ namespace Helpers.Models
             fileName = fileName.Replace( "2009", "" );
          if (fileName.ToUpper().Contains("FLASH"))
             fileName = fileName.Replace("2014", "");
+         if ( fileName.Contains( "RARBG" ) )
+            fileName = fileName.Replace( "RARBG", "" );
+         if ( fileName.Contains( "rarbg" ) )
+            fileName = fileName.Replace( "rarbg", "" );
 
          //Get rid of special noise characters
          fileName = fileName.Replace("_", " ");

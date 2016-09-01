@@ -1473,38 +1473,6 @@ namespace RosterLib
 			return ProjectionLink(season.ToString(CultureInfo.InvariantCulture));
 		}
 
-      public string ProjectedStatsFor( NFLGame g, string teamInFocus )
-      {
-         var stats = string.Empty;
-
-	      if (PlayerRole != Constants.K_ROLE_STARTER) return stats;
-
-	      switch ( PlayerCat )
-	      {
-		      case Constants.K_QUARTERBACK_CAT:
-			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdp, g.ProjectedHomeTdp ) 
-				      : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
-			      break;
-
-		      case Constants.K_RUNNINGBACK_CAT:
-			      //TODO:
-			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeYdr, g.ProjectedHomeTdr ) 
-				      : string.Format( "{0}({1})", g.ProjectedAwayYdr, g.ProjectedAwayTdr );
-			      break;
-		      case Constants.K_RECEIVER_CAT:
-			      //TODO:
-			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeTdp, g.ProjectedHomeTdp ) 
-				      : string.Format( "{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp );
-			      break;
-		      case Constants.K_KICKER_CAT:
-			      //TODO:
-			      stats = g.IsHome( teamInFocus ) ? string.Format( "{0}({1})", g.ProjectedHomeFg, g.ProjectedHomeFg ) 
-				      : string.Format( "{0}({1})", g.ProjectedAwayFg, g.ProjectedAwayFg );
-			      break;
-	      }
-	      return stats;
-      }
-
       public bool IsShortYardageBack()
       {
          var npoint = PlayerPos.IndexOf("SH", StringComparison.Ordinal);

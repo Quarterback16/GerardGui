@@ -20,16 +20,6 @@ namespace RosterLib
 
          PlayerGameMetrics pgm;
 
-         //var pgm = MyPgmMaster.GetPgm(playerCode, gameCode);
-
-         //if (string.IsNullOrEmpty(pgm.GameKey))
-         //{
-         //   pgm.GameKey = gameCode;
-         //   pgm.PlayerId = playerCode;
-         //   pgm.IsEmpty = true;
-         //   return pgm;  //  send back a record for possible population
-         //}
-
          var ds = Utility.TflWs.GetPlayerGameMetrics(playerCode, gameCode);
 
          if (ds.Tables[0].Rows.Count > 0)
@@ -39,7 +29,7 @@ namespace RosterLib
                PlayerId = playerCode,
                GameKey = gameCode,
                ProjTDp = IntValue( ds, "projtdp" ),
-               ProjTDr = IntValue( ds, "projtdr" ),
+               ProjTDr = DecimalValue( ds, "projtdr" ),
                ProjTDc = IntValue( ds, "projtdc" ),
                ProjYDp = IntValue( ds, "projydp" ),
                ProjYDr = IntValue( ds, "projydr" ),
@@ -63,7 +53,7 @@ namespace RosterLib
             pgm.PlayerId = playerCode;
             pgm.GameKey = gameCode;
             pgm.ProjTDp = 0;
-            pgm.ProjTDr = 0;
+            pgm.ProjTDr = 0M;
             pgm.ProjTDc = 0;
             pgm.ProjYDp = 0;
             pgm.ProjYDr = 0;
@@ -78,6 +68,11 @@ namespace RosterLib
       private static int IntValue( DataSet ds, string fieldName)
       {
          return Int32.Parse(ds.Tables[0].Rows[0][fieldName].ToString());
+      }
+
+      private static decimal DecimalValue( DataSet ds, string fieldName )
+      {
+         return Decimal.Parse( ds.Tables[ 0 ].Rows[ 0 ][ fieldName ].ToString() );
       }
 
       public void Save(PlayerGameMetrics pgm)
@@ -175,7 +170,7 @@ namespace RosterLib
             pgm.PlayerId = dr["PLAYERID"].ToString();
             pgm.GameKey = dr["GAMECODE"].ToString();
             pgm.ProjTDp = IntValue(dr, "projtdp");
-            pgm.ProjTDr = IntValue(dr, "projtdr");
+            pgm.ProjTDr = DecimalValue(dr, "projtdr");
             pgm.ProjTDc = IntValue(dr, "projtdc");
             pgm.ProjYDp = IntValue(dr, "projydp");
             pgm.ProjYDr = IntValue(dr, "projydr");
@@ -200,6 +195,11 @@ namespace RosterLib
          return Int32.Parse(dr[fieldName].ToString());
       }
 
+      private static decimal DecimalValue( DataRow dr, string fieldName )
+      {
+         return Decimal.Parse( dr[ fieldName ].ToString() );
+      }
+
       public void ClearGame(string gameKey)
       {
          Utility.TflWs.ClearPlayerGameMetrics(gameKey);
@@ -217,7 +217,7 @@ namespace RosterLib
                   PlayerId = dr[ "PLAYERID" ].ToString(),
                   GameKey = dr[ "GAMECODE" ].ToString(),
                   ProjTDp = IntValue( dr, "projtdp" ),
-                  ProjTDr = IntValue( dr, "projtdr" ),
+                  ProjTDr = DecimalValue( dr, "projtdr" ),
                   ProjTDc = IntValue( dr, "projtdc" ),
                   ProjYDp = IntValue( dr, "projydp" ),
                   ProjYDr = IntValue( dr, "projydr" ),
@@ -230,7 +230,6 @@ namespace RosterLib
 #if DEBUG
          Utility.Announce(string.Format("Metric records loaded : {0}", pgmList.Count));
 #endif
-
          return pgmList;
       }
 

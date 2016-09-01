@@ -69,9 +69,17 @@ namespace Butler.Models
                itemCount++;
                Logger.Trace( string.Format( "Candidate: {0} ", f ) );
                var mi = new MediaInfo(f);
-               if (!mi.IsValid) continue;
+               if ( !mi.IsValid )
+               {
+                  Logger.Trace( string.Format( "{0} is invalid", f) );
+                  continue;
+               }
 
-               if (!mi.HasValidExt()) continue;
+               if (!mi.HasValidExt())
+               {
+                  Logger.Trace( string.Format( "{0} has invalid ext", f ) );
+                  continue;
+               }
 
                mi.MagazineFolder = MagazineCollectionFolder;
                mi.Analyse();
@@ -106,6 +114,10 @@ namespace Butler.Models
                {
                   var newFile = collector.AddToMovieCollection( mi );
                   Logger.Info( string.Format( "  Adding Movie  - {0} ", newFile ) );
+               }
+               else
+               {
+                  Logger.Trace( string.Format( "   Not Recognised {0}", f ) );
                }
             }
             finishedMessage = string.Format("{0} items processed", itemCount);

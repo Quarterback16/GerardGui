@@ -12,9 +12,7 @@ namespace Gerard.Tests
       public void TestStartersJob()  //  2015-11-17  6 mins (only QBs)
       {
          var sut = new StartersJob( new TimeKeeper() );
-         string whyNot;
-         if (sut.IsTimeTodo( out whyNot ))
-            sut.DoJob();
+         sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
       }

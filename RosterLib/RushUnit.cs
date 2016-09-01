@@ -152,7 +152,8 @@ namespace RosterLib
          unit += goalline + Environment.NewLine;
          foreach (var runner in Runners)
          {
-            var runr = string.Format("{0,-25} : {1} : {2}", runner.PlayerName.PadRight(25), runner.PlayerRole, runner.PlayerPos);
+            var runr = string.Format("{3:00} {0,-25} : {1} : {2}", 
+               runner.PlayerName.PadRight(25), runner.PlayerRole, runner.PlayerPos, runner.JerseyNo);
             Utility.Announce(runr);
             unit += runr + Environment.NewLine;
          }

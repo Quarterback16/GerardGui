@@ -8,12 +8,23 @@ namespace Gerard.Tests
    public class YahooCalculatorTests
    {
       [TestMethod]
+      public void TestYahooProjectedPointsForLataviusMurray2016Week01()
+      {
+         var p = new NFLPlayer( "MURRLA01" );
+         var g = new NFLGame( "2016:01-F" );
+         g.LoadPrediction();
+         var c = new YahooCalculator();
+         var msg = c.Calculate( p, g );
+         var expected = 18;  //  125(1)
+         Assert.AreEqual( expected, msg.Player.Points );
+      }
+
+      [TestMethod]
       public void TestYahooProjectedPointsForPeytonManning2014Week01()
       {
          var p = new NFLPlayer( "NEWTCA01" );
          var g = new NFLGame( "2015:08-N" );
          g.LoadPrediction();
-         Console.WriteLine( "{0} {1}", p.PlayerNameShort, p.ProjectedStatsFor( g, "CP" ) );
          var c = new YahooCalculator();
          var msg = c.Calculate( p, g );
          var expected = 6;  //  0 TDp and 150 YDp

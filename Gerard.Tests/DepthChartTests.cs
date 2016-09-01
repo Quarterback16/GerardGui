@@ -123,7 +123,7 @@ namespace Gerard.Tests
       public void TestMoranNorrisIsNotStarter()
       {
          var role = "?";
-         var sut = new DepthChartReport("2014", "SF");
+         var sut = new DepthChartReport("2016", "SF");
          sut.Execute();
          foreach (var p in sut.NflTeam.PlayerList)
          {

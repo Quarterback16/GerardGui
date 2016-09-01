@@ -17,7 +17,26 @@ namespace Gerard.Tests
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
 
-		[TestMethod]
+      [TestMethod]
+      public void TestTimetoDoPickupChartReport()
+      {
+         var sut = new PickupChartJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime: false ) );
+         string whyNot;
+         var result = sut.IsTimeTodo( out whyNot );
+         if ( !string.IsNullOrEmpty( whyNot ) )
+            Console.WriteLine(whyNot);
+         Assert.IsTrue( result );
+      }
+
+      [TestMethod]
+      public void TestDoPickupChartJobNow()
+      {
+         var sut = new PickupChartJob( new TimeKeeper() );
+         var outcome = sut.DoJob();
+         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+      }
+
+      [TestMethod]
 		public void TestActualOutput()
 		{
 			var sut = new PickupChart(season: "2015", week: 12);

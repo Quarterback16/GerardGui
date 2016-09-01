@@ -53,6 +53,9 @@ namespace Butler.Models
          Console.WriteLine( "Base:Reason for not doing>{0}", whyNot );
 #endif
 
+         if ( !string.IsNullOrEmpty( whyNot ) )
+            Logger.Info( $"  Not time because : {whyNot}");
+
 		   return string.IsNullOrEmpty(whyNot);
 		}
 

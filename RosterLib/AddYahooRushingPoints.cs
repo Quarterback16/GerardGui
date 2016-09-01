@@ -35,6 +35,7 @@ namespace RosterLib
 #if DEBUG
          Utility.Announce(string.Format("Projected FP = {0}", input.Player.Points));
 #endif
+         input.PlayerGameMetrics.ProjectedFantasyPoints = (int) input.Player.Points;
       }
 
    }

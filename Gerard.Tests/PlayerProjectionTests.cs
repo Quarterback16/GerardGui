@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestPlayerProjection()  //  25 sec 2015-08-14
       {
-         var pp = new PlayerProjection( "TAYLTY01", "2016" );
+         var pp = new PlayerProjection( "MURRLA01", "2016" );
          pp.Render();
          var fileOut = pp.FileName();
          Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );

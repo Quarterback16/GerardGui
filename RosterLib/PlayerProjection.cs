@@ -110,13 +110,14 @@ namespace RosterLib
                dr = dt.NewRow();
                byeDone = true;
             }
+            var yahooMsg = c.Calculate( Player, g );
             dr["WEEK"] = g.WeekNo;
             dr["MATCH"] = g.OpponentOut(Player.CurrTeam.TeamCode);
             dr["SCORE"] = g.ProjectedScoreOut(Player.CurrTeam.TeamCode);
             dr["OPPRATE"] = OppUnitRating(g, Player.CurrTeam.TeamCode, Player.PlayerCat);
             dr["PROJ"] = GameProjection(g, Player.CurrTeam.TeamCode, Player.PlayerCat, Player.PlayerRole);
-            dr["STATS"] = Player.ProjectedStatsFor(g, Player.CurrTeam.TeamCode);
-            dr[ "FP" ] = c.Calculate( Player, g ).Player.Points ;
+            dr[ "STATS" ] = yahooMsg.StatLine();
+            dr[ "FP" ] = yahooMsg.Player.Points ;
             dr["ACTUAL"] = ActualScores(g);
 				dr["ACTUALSTAT"] = Player.ActualStatsFor(g);
 				dr["VAR"] = 0;

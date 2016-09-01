@@ -21,7 +21,7 @@ namespace RosterLib
          Configs = new List<StarterConfig>
          {
             new StarterConfig {Category = Constants.K_QUARTERBACK_CAT, Position = "QB"},
-#if !DEBUG
+#if !DEBUG2
             new StarterConfig {Category = Constants.K_RUNNINGBACK_CAT, Position = "RB"},
             new StarterConfig {Category = Constants.K_RECEIVER_CAT, Position = "WR"},
             new StarterConfig {Category = Constants.K_RECEIVER_CAT, Position = "TE"},
