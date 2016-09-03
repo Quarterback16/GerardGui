@@ -5,15 +5,17 @@ namespace RosterLib
    public class GameProjectionsReport : RosterGridReport
    {
       public NflSeason NflSeason { get; private set; }
+      public IKeepTheTime TimeKeeper { get; set; }
 
       public GameProjectionsReport(IKeepTheTime timekeeper)
       {
          Name = "Game Projections Report";
-         NflSeason = new NflSeason(timekeeper.CurrentSeason(), loadGames:true, loadDivisions:false);
+         TimeKeeper = timekeeper;
       }
 
       public override void RenderAsHtml()
       {
+         NflSeason = new NflSeason( TimeKeeper.CurrentSeason(), loadGames: true, loadDivisions: false );
          foreach ( var game in NflSeason.GameList )
          {
             game.WriteProjection();

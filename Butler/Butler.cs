@@ -71,71 +71,64 @@ namespace Butler
          {
             MyWorker = backgroundWorker1;
             var configReader = new ConfigReader();
-            
-            MyJobs = new List<Job>
-               {
-                  new DropBoxCopyTflToVesuviusJob(TimeKeeper),  //  get any new TFL data from dropbox
-                  new MediaJob(),  //  regular always
-                  new LogMailerJob( 
-                     new MailMan2(configReader), 
-                     new LogFileDetector(), 
-                     configReader ),  //  once daily
-                  new MediaMailerJob( 
-                     new MailMan2(configReader), 
-                     new MediaLogDetector(),
-                     configReader),  //  once daily
 
-#region Looking back on the games just played
+            MyJobs = new List<Job>();
 
-                  new AssignRolesJob( TimeKeeper ),
-                  new YahooXmlJob( TimeKeeper ),
-                  new PerformanceReportJob( TimeKeeper ),
-                  new DepthChartJob( TimeKeeper ),
-                  new StatGridJob( TimeKeeper ),
-                  new PlayOffTeamsJob( TimeKeeper ),
-                  new UpdateActualsJob( TimeKeeper ),
+            MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
+            MyJobs.Add( new MediaJob() );  //  regular always
+            MyJobs.Add( new LogMailerJob(new MailMan2( configReader ), new LogFileDetector(), configReader ) );  //  once daily
+            MyJobs.Add( new MediaMailerJob( new MailMan2( configReader ), new MediaLogDetector(), configReader ) );  //  once daily
 
-#endregion
+            #region Looking back on the games just played
 
-#region  Looking forward to the upcoming games
+            MyJobs.Add( new AssignRolesJob( TimeKeeper ) );
+            MyJobs.Add( new YahooXmlJob( TimeKeeper ) );
+            MyJobs.Add( new PerformanceReportJob( TimeKeeper ) );
+            MyJobs.Add( new DepthChartJob( TimeKeeper ) );
+            MyJobs.Add( new StatGridJob( TimeKeeper ) );
+            MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
+            MyJobs.Add( new UpdateActualsJob( TimeKeeper ) );
 
-                  new GameProjectionsJob( TimeKeeper ), //  once in pre season then once a week regular - always
-                  new GeneratePlayerProjectionsJob( TimeKeeper ),
-                  new GameProjectionReportsJob( TimeKeeper ),
-                  new RookiesJob( TimeKeeper ),
-                  new OutputProjectionsJob( Historian ),  //  needs game projections
-                  new FantasyProjectionJob( TimeKeeper ),
-                  new HotListsJob(),   //  regular always
-                  new UnitReportsJob( Historian ),
-                  new TeamCardsJob( TimeKeeper ),
-                  new OldRosterGridJob( TimeKeeper ), //  regular - always
-                  new DefensiveReportsJob( TimeKeeper ),
-                  new SuggestedLineupsJob( TimeKeeper ),
-                  new PickupChartJob( TimeKeeper ),
-                  new StartersJob( TimeKeeper ),
+            #endregion
 
-#endregion
+            #region  Looking forward to the upcoming games
+
+            MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
+            MyJobs.Add( new GeneratePlayerProjectionsJob( TimeKeeper ) );
+            MyJobs.Add( new GameProjectionReportsJob( TimeKeeper ) );
+            MyJobs.Add( new RookiesJob( TimeKeeper ) );
+            MyJobs.Add( new OutputProjectionsJob( Historian ) );  //  needs game projections
+            MyJobs.Add( new FantasyProjectionJob( TimeKeeper ) );
+            MyJobs.Add( new HotListsJob() );   
+            MyJobs.Add( new UnitReportsJob( Historian ) );
+            MyJobs.Add( new TeamCardsJob( TimeKeeper ) );
+            MyJobs.Add( new OldRosterGridJob( TimeKeeper ) ); 
+            MyJobs.Add( new DefensiveReportsJob( TimeKeeper ) );
+            MyJobs.Add( new SuggestedLineupsJob( TimeKeeper ) );
+            MyJobs.Add( new PickupChartJob( TimeKeeper ) );
+            MyJobs.Add( new StartersJob( TimeKeeper ) );
+
+            #endregion
 
 
-#region Regular Always jobs
-                  new RunReportJob( TimeKeeper ),
-                  new LogCleanupJob(),
-                  new TflDataBackupJob(),
-                  new MediaListsPublishJob(),
-#endregion
+            #region Regular Always jobs
+            MyJobs.Add( new RunReportJob( TimeKeeper ) );
+            MyJobs.Add( new LogCleanupJob() );
+            MyJobs.Add( new TflDataBackupJob() );
+            MyJobs.Add( new MediaListsPublishJob() );
+            #endregion
 
 
-#region Pre Season Jobs -- Long running so last in the job order
-                  new PlayerCsvJob( TimeKeeper ),
-                  new BalanceReportJob( TimeKeeper ), //  once off - pre season
-                  new FreeAgentMarketJob( TimeKeeper ), //  regular - pre season
-                  new StrengthOfScheduleJob( TimeKeeper ), //  once off - pre season
-                  new PlayerReportsJob( TimeKeeper ),
-#endregion
+            #region Pre Season Jobs -- Long running so last in the job order
+            MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
+            MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
+            MyJobs.Add( new FreeAgentMarketJob( TimeKeeper ) ); //  regular - pre season
+            MyJobs.Add( new StrengthOfScheduleJob( TimeKeeper ) ); //  once off - pre season
+            MyJobs.Add( new PlayerReportsJob( TimeKeeper ) );
+            #endregion
 
-                  new DropboxCopyToReginaJob( TimeKeeper)
+            MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper ) );
 
-               };
 
             if (Passes == 0)
                ReportProgress(
