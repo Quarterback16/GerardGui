@@ -38,17 +38,23 @@ namespace Butler.Models
             if ( !TimeKeeper.IsItRegularSeason() )
                whyNot = "Its not the Regular Season yet";
          }
-	      if (!string.IsNullOrEmpty(whyNot)) return ( string.IsNullOrEmpty(whyNot) );
+         if ( string.IsNullOrEmpty( whyNot ) )
+         {
 
-         if (TimeKeeper.IsItPeakTime())
-            whyNot = "Peak time - no noise please";
+            if ( TimeKeeper.IsItPeakTime() )
+               whyNot = "Peak time - no noise please";
 
-         if (!string.IsNullOrEmpty(whyNot)) return (string.IsNullOrEmpty(whyNot));
+            if ( string.IsNullOrEmpty( whyNot ) )
+            {
+               if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
+                  whyNot = "Its not Wednesday or Thursday";
+            }
+         }
 
-	      if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
-		      whyNot = "Its not Wednesday or Thursday";
+         if ( !string.IsNullOrEmpty( whyNot ) )
+            Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 
-	      return ( string.IsNullOrEmpty( whyNot ) );
+         return ( string.IsNullOrEmpty( whyNot ) );
       }
    }
 }

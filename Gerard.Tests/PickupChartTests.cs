@@ -20,12 +20,12 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoPickupChartReport()
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime: false ) );
+         var sut = new PickupChartJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime: true ) );
          string whyNot;
          var result = sut.IsTimeTodo( out whyNot );
          if ( !string.IsNullOrEmpty( whyNot ) )
             Console.WriteLine(whyNot);
-         Assert.IsTrue( result );
+         Assert.IsFalse( result );
       }
 
       [TestMethod]

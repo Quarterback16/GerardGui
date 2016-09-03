@@ -1,0 +1,19 @@
+﻿
+<div id="body">
+    <ol id="players"></ol>
+</div>
+
+@section scripts{ 
+    <script>
+        $.ajax({
+            url: 'api/players/',
+            success: function (players) {
+                var list = $("#players");
+                for (var i = 0; i < players.length; i++) {
+                    var player = players[i];
+                    list.append("<li>" + playr + "</li>")
+                }
+            }
+        })
+    </script>
+}

@@ -34,17 +34,23 @@ namespace Butler.Models
       {
          whyNot = string.Empty;
          if ( OnHold() ) whyNot = "Job is on hold";
-         if (!string.IsNullOrEmpty( whyNot )) return ( string.IsNullOrEmpty( whyNot ) );
-         //  check if there is any new data
-         whyNot = Report.CheckLastRunDate();
-         if (TimeKeeper.IsItPeakTime())
-            whyNot = "Peak time - no noise please";
-         if (!string.IsNullOrEmpty( whyNot )) return ( string.IsNullOrEmpty( whyNot ) );
-         if ( TimeKeeper.IsItRegularSeason() )
+         if ( string.IsNullOrEmpty( whyNot ) )
          {
-            if ( !TimeKeeper.IsItFridaySaturdayOrSunday( System.DateTime.Now ) )
-               whyNot = "Its not Friday Saturday or Sunday in the regular season";
+            //  check if there is any new data
+            whyNot = Report.CheckLastRunDate();
+            if ( TimeKeeper.IsItPeakTime() )
+               whyNot = "Peak time - no noise please";
+            if ( string.IsNullOrEmpty( whyNot ) )
+            { 
+               if ( TimeKeeper.IsItRegularSeason() )
+               {
+                  if ( !TimeKeeper.IsItFridaySaturdayOrSunday( System.DateTime.Now ) )
+                     whyNot = "Its not Friday Saturday or Sunday in the regular season";
+               }
+            }
          }
+         if ( !string.IsNullOrEmpty( whyNot ) )
+            Logger.Info( "Skipped {1}: {0}", whyNot, Name );
          return ( string.IsNullOrEmpty( whyNot ) );
       }
 
