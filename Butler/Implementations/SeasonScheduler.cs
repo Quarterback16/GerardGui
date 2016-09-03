@@ -14,7 +14,6 @@ namespace Butler.Implementations
          return false;
       }
 
-
       public DateTime SeasonStarts(string season)
       {
          return WeekStarts( season, "01" );

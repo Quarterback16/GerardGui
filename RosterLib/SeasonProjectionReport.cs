@@ -18,7 +18,6 @@ namespace RosterLib
       {
          Season = season;
          Week = week;
-			SetLastRunDate();
       }
 
 		public override void RenderAsHtml()
@@ -27,7 +26,8 @@ namespace RosterLib
 			RosterReport = new NFLRosterReport(Season);
 			MetricName = "Spread";
 			RosterReport.SeasonProjection( MetricName, Season, Week, DateTime.Now );
-		}
+         SetLastRunDate();
+      }
 
 		public override string OutputFilename()
 		{

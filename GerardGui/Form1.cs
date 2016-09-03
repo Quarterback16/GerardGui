@@ -53,21 +53,13 @@ namespace GerardGui
 
       private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
       {
-         try
-         {
-            var helperBW = sender as BackgroundWorker;
-            var rs = new Butler.Butler(Text)
-               {
-                  Pollinterval = Int32.Parse(ConfigurationManager.AppSettings["PollInterval"]),
-                  Verbose = ConfigurationManager.AppSettings["Verbose"] == "true",
-               };
-            rs.Go(helperBW, e);
-         }
-         catch (Exception ex)
-         {
-            textBox1.Text += ex.StackTrace;
-            throw;
-         }
+         var helperBW = sender as BackgroundWorker;
+         var rs = new Butler.Butler(Text)
+            {
+               Pollinterval = Int32.Parse(ConfigurationManager.AppSettings["PollInterval"]),
+               Verbose = ConfigurationManager.AppSettings["Verbose"] == "true",
+            };
+         rs.Go(helperBW, e);
       }
 
       private void button1_Click(object sender, EventArgs e)
@@ -111,15 +103,15 @@ namespace GerardGui
       {
          if (e.Cancelled)
          {
-            label1.Text = "The task has been cancelled";
+            textBox1.Text += "The task has been cancelled";
          }
          else if (e.Error != null)
          {
-            label1.Text = "Error. Details: " + (e.Error as Exception).ToString();
+            textBox1.Text += "Error. Details: " + (e.Error as Exception).ToString();
          }
          else
          {
-            label1.Text = "The task has been completed. Results: " + e.Result.ToString();
+            textBox1.Text += "The task has been completed. Results: " + e.Result.ToString();
          }
       }
    }
