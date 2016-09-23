@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerardWebApp", "GerardWebApp\GerardWebApp.csproj", "{277538B5-12C6-4E96-AF5C-A6AFED454085}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButlerWebApi", "ConsoleApplication1\ButlerWebApi.csproj", "{7DF8597A-BB71-42AE-98FD-596468A94FDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

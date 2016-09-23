@@ -40,14 +40,14 @@ namespace Butler.Models
             whyNot = Report.CheckLastRunDate();
             if ( TimeKeeper.IsItPeakTime() )
                whyNot = "Peak time - no noise please";
-            if ( string.IsNullOrEmpty( whyNot ) )
-            { 
-               if ( TimeKeeper.IsItRegularSeason() )
-               {
-                  if ( !TimeKeeper.IsItFridaySaturdayOrSunday( System.DateTime.Now ) )
-                     whyNot = "Its not Friday Saturday or Sunday in the regular season";
-               }
-            }
+            //if ( string.IsNullOrEmpty( whyNot ) )
+            //{ 
+            //   if ( TimeKeeper.IsItRegularSeason() )
+            //   {
+            //      if ( !TimeKeeper.IsItFridaySaturdayOrSunday( System.DateTime.Now ) )
+            //         whyNot = "Its not Friday Saturday or Sunday in the regular season";
+            //   }
+            //}
          }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

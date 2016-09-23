@@ -95,8 +95,10 @@ namespace RosterLib
 #if DEBUG
             //Utility.Announce(string.Format("   Examining QB {0}", p.PlayerName));
 #endif
+            Logger.Info( "   Examining QB {0} pos {1}", p.PlayerName, p.PlayerPos );
             if ( p.IsQuarterback() )
             {
+               Logger.Info( "     Examining role {0} ", p.PlayerRole );
                if ( p.IsStarter() )
                {
                   Q1 = p;
@@ -104,6 +106,7 @@ namespace RosterLib
 #if DEBUG
                   Utility.Announce( string.Format( "      Setting Starter to {0}", p.PlayerName ) );
 #endif
+                  Logger.Info("      Setting Starter to {0}", p.PlayerName );
                }
                if ( p.IsBackup() )
                {

@@ -76,20 +76,6 @@ namespace Gerard.Tests
 			Assert.IsTrue(sutTeam.TotYdp.Equals(1957), string.Format("Was expecting {0} but got {1}", 1957, sutTeam.TotYdp));
 		}
 
-		//[TestMethod]
-		//public void TestSundays()
-		//{
-		//	var sut = new UnitRatingsService();
-		//	var sundays = sut.SundaysFor("2014") ;
-		//	var i = 0;
-		//	foreach (var sunday in sundays)
-		//	{
-		//		i++;
-		//		Console.WriteLine("Week {0} is {1}", i, sunday.ToLongDateString());
-		//	}
-		//	Assert.IsTrue(sundays.Count.Equals(17) );
-		//}
-
 		[TestMethod]
 		public void TestGetSunday2014()
 		{
@@ -102,8 +88,18 @@ namespace Gerard.Tests
       public void TestGetSunday2016()
       {
          var sut = new UnitRatingsService2();
-         var theSunday = sut.GetSundayFor( new DateTime( 2016, 7, 27 ) );
+         var theSunday = sut.GetSundayFor( new DateTime( 2016, 9, 9 ) );
          Assert.IsTrue( theSunday.Equals( new DateTime( 2016, 9, 11 ) ) );
+      }
+
+      [TestMethod]
+      public void TestNewRatingsRetrieval2_2016()
+      {
+         var sut = new UnitRatingsService2();
+         var currRatings = sut.GetUnitRatingsFor( "CP", new DateTime( 2016, 9, 9 ) );
+         const string expectedValue = "DACCBA";
+         Assert.IsTrue( currRatings.Equals( expectedValue ),
+            string.Format( "CP team rating should be {1} not {0}", currRatings, expectedValue ) );
       }
 
       [TestMethod]

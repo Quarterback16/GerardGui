@@ -81,7 +81,7 @@ namespace Butler
 
             #region Looking back on the games just played
 
-            MyJobs.Add( new AssignRolesJob( TimeKeeper ) );
+            MyJobs.Add( new AssignRolesJob( TimeKeeper ) );  //  sets the ROLE on players based on actual stats
             MyJobs.Add( new YahooXmlJob( TimeKeeper ) );
             MyJobs.Add( new PerformanceReportJob( TimeKeeper ) );
             MyJobs.Add( new DepthChartJob( TimeKeeper ) );
@@ -127,8 +127,15 @@ namespace Butler
             MyJobs.Add( new PlayerReportsJob( TimeKeeper ) );
             #endregion
 
-            MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper ) );
+            MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
+              "d:\\shares\\public\\dropbox\\gridstat\\{0}",
+              "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
+              ) );
 
+            MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
+              "d:\\shares\\public\\dropbox\\gridstat\\tfl-out",
+              "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
+              ) );
 
             if (Passes == 0)
                ReportProgress(
@@ -160,7 +167,7 @@ namespace Butler
                ReportProgress(string.Format(
                   "Pass Number {0} done - next pass ({1}) {2:HH:mm}",
                   Passes, Pollinterval, DateTime.Now.AddMinutes(Pollinterval)));
-               Thread.Sleep(Pollinterval * 60 * 1000); //  minutes
+               Thread.Sleep(Pollinterval * 60 * 1000); //  <pollInterval> hours
 
                if (!MyWorker.CancellationPending) continue;
 

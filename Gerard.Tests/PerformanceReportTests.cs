@@ -18,7 +18,15 @@ namespace Gerard.Tests
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
 
-		[TestMethod]
+      [TestMethod]
+      public void TestDoPerformanceReportForParticularWeekJob()  // 2015-11-11 2 min
+      {
+         var sut = new PerformanceReportJob( new FakeTimeKeeper( season:"2015", week:"18") );
+         var outcome = sut.DoJob();
+         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+      }
+
+      [TestMethod]
 		public void TestDoPerformanceJordanReedWeek06()
 		{
 			var p = new NFLPlayer("REEDJO02");
@@ -83,7 +91,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestGoBackOneMonth()
       {
-         var sut = new PerformanceReportGenerator();
+         var sut = new PerformanceReportGenerator(new TimeKeeper() );
          var master = new YahooMaster( "Yahoo", "YahooOutput.xml" );
          var theSeason = Int32.Parse( Utility.CurrentSeason() );
          var weekIn = Utility.PreviousWeek();
@@ -111,7 +119,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestAllPositionsCurrentWeekYahoo()
       {
-         var sut = new PerformanceReportGenerator();
+         var sut = new PerformanceReportGenerator(new TimeKeeper() );
          var master = new YahooMaster( "Yahoo", "YahooOutput.xml" );
          var theSeason = Int32.Parse( Utility.CurrentSeason() );
          var weekIn = Utility.PreviousWeek();

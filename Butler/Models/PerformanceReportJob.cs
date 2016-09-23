@@ -10,7 +10,7 @@ namespace Butler.Models
       public PerformanceReportJob( IKeepTheTime timekeeper )
       {
          Name = "Performance Report job";
-         Report = new PerformanceReportGenerator();
+         Report = new PerformanceReportGenerator(timekeeper);
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

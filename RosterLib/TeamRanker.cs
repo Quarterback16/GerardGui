@@ -39,7 +39,11 @@ namespace RosterLib
 
 		public void RankTeams( DateTime when )
 		{
-			if (! ForceReRank)
+			if ( ForceReRank)
+         {
+            Logger.Info( "  Ranking forced" );
+         }
+         else
 			{
 				if (HaveAlreadyRated(when))
 				{
@@ -47,6 +51,10 @@ namespace RosterLib
                LoadRatings(when);
 					return;
 				}
+            else
+            {
+               Logger.Info( "  Generating ratings for {0:d}", when );
+            }
 			}
 #if DEBUG
 			var stopwatch = new Stopwatch();
@@ -81,7 +89,8 @@ namespace RosterLib
 
 		public bool HaveAlreadyRated( DateTime when )
 		{
-			// get ratings
+         // get ratings
+         var theSunday = TimeKeeper.GetSundayFor( when );
 			var ds = Utility.TflWs.GetUnitRatings( when );
 			return ds.Tables[ 0 ].Rows.Count > 0;
 		}
@@ -114,7 +123,7 @@ namespace RosterLib
 			}
 		}
 
-		private static void WriteRatings( DataTable dt, DateTime when )
+		private void WriteRatings( DataTable dt, DateTime when )
 		{
 			foreach ( DataRow dr in dt.Rows )
 			{
@@ -126,7 +135,10 @@ namespace RosterLib
 				var pd = dr[ "RIntRatio" ].ToString();
 				var ratings = string.Format( "{0}{1}{2}{3}{4}{5}", po, ro, pp, pr, rd, pd );
 				var teamCode = dr[ "TEAM" ].ToString();
-				Utility.TflWs.SaveUnitRatings( ratings, when, teamCode );
+
+            var theSunday = TimeKeeper.GetSundayFor( when );
+            //Logger.Info( "  Saving URATINGS for Sunday {0:d}", theSunday );
+            Utility.TflWs.SaveUnitRatings( ratings, theSunday, teamCode );
 			}
 		}
 

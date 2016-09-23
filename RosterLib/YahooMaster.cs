@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml;
 using RosterLib.Models;
+using NLog;
 
 namespace RosterLib
 {
@@ -91,30 +92,35 @@ namespace RosterLib
 			TheHt.Add( stat.FormatKey(), stat );
 		}
 
-		#region  Persistence
+      #region  Persistence
 
-		public void Dump2Xml()
+      public void Dump2Xml()
+      {
+         if ( ( TheHt.Count <= 0 ) || !IsDirty ) return;
+
+         Utility.EnsureDirectory( Filename );  //  will create the dir if its not there
+
+         var writer = new XmlTextWriter( Filename, null );
+
+         writer.WriteStartDocument();
+         writer.WriteComment( "Comments: " + Name );
+         writer.WriteStartElement( "stat-list" );
+
+         var myEnumerator = TheHt.GetEnumerator();
+         while ( myEnumerator.MoveNext() )
+         {
+            var t = ( YahooOutput ) myEnumerator.Value;
+            WriteStatNode( writer, t );
+         }
+         writer.WriteEndElement();
+         writer.WriteEndDocument();
+         writer.Close();
+      }
+
+      public void Dump2Xml(Logger logger)
 		{
-			if ( ( TheHt.Count <= 0 ) || !IsDirty ) return;
-
-			Utility.EnsureDirectory( Filename );  //  will create the dir if its not there
-
-			var writer = new XmlTextWriter( Filename, null );
-
-			writer.WriteStartDocument();
-			writer.WriteComment( "Comments: " + Name );
-			writer.WriteStartElement( "stat-list" );
-
-			var myEnumerator = TheHt.GetEnumerator();
-			while ( myEnumerator.MoveNext() )
-			{
-				var t = (YahooOutput) myEnumerator.Value;
-				WriteStatNode( writer, t );
-			}
-			writer.WriteEndElement();
-			writer.WriteEndDocument();
-			writer.Close();
-			Utility.Announce( Filename + " created" );
+         Dump2Xml();
+			logger.Info( "  " + Filename + " written" );
 		}
 
 		private static void WriteStatNode( XmlWriter writer, YahooOutput stat )

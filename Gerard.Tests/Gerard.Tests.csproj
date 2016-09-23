@@ -60,7 +60,6 @@
     <Compile Include="ConfigReaderTests.cs" />
     <Compile Include="DefensiveReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
-    <Compile Include="DownloadTests.cs" />
     <Compile Include="DropBoxCopyTflToVesuviusJobTests.cs" />
     <Compile Include="FakeClock.cs" />
     <Compile Include="FaMarketTests.cs" />

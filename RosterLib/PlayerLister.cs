@@ -1,3 +1,4 @@
+using RosterLib.Interfaces;
 using System.Collections;
 using System.Data;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ namespace RosterLib
    public class PlayerLister
    {
       public IWeekMaster WeekMaster;
+      public IKeepTheTime TimeKeeper;
 
       public string FileOut { get; set; }
 
@@ -61,9 +63,11 @@ namespace RosterLib
       public PlayerLister(string catCode,
                           bool faOnly,
                           [Optional] string fantasyLeague,
-                          [Optional] bool startersOnly
+                          [Optional] bool startersOnly,
+                          [Optional] IKeepTheTime timekeeper
          )
       {
+         if (timekeeper != null) TimeKeeper = timekeeper;
          PrimariesOnly = true;
          ActivesOnly = true;
          FreeAgentsOnly = false;
@@ -93,6 +97,17 @@ namespace RosterLib
          WeeksToGoBack = Constants.K_WEEKS_IN_A_SEASON; //  default
       }
 
+      public PlayerLister(IKeepTheTime timekeeper)
+      {
+         PrimariesOnly = true;
+         ActivesOnly = true;
+         FreeAgentsOnly = false;
+         Tc = new TeamCheckList();
+         PlayerList = new ArrayList();
+         TimeKeeper = timekeeper;
+         WeeksToGoBack = Constants.K_WEEKS_IN_A_SEASON; // default
+      }
+
       public PlayerLister()
       {
          PrimariesOnly = true;
@@ -100,7 +115,6 @@ namespace RosterLib
          FreeAgentsOnly = false;
          Tc = new TeamCheckList();
          PlayerList = new ArrayList();
-
          WeeksToGoBack = Constants.K_WEEKS_IN_A_SEASON; // default
       }
 
@@ -269,7 +283,7 @@ namespace RosterLib
 
          if (_mFormat.Equals("weekly"))
          {
-            var html = new RenderStatsToWeekly(_mMyScorer, WeekMaster)
+            var html = new RenderStatsToWeekly(_mMyScorer, WeekMaster, TimeKeeper)
                {
                   CurrentSeasonOnly = true,
                   FullStart = AllWeeks,

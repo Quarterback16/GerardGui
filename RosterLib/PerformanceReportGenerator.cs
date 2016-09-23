@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using NLog;
+using RosterLib.Interfaces;
 
 namespace RosterLib
 {
@@ -12,15 +13,20 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public PerformanceReportGenerator()
+      public PerformanceReportGenerator(IKeepTheTime timekeeper)
       {
          Logger = LogManager.GetCurrentClassLogger();
          Name = "Fantasy Performance Reports";
-         Lister = new PlayerLister {WeeksToGoBack = 1, StartersOnly = true};
-         //Lister.SetFormat( "Last 4 weeks" );
+         Lister = new PlayerLister( timekeeper ) {
+            WeeksToGoBack = 1,
+            StartersOnly = true
+         };
          var master = new YahooMaster( "Yahoo", "YahooOutput.xml" );
+         Logger.Info( "  using {0} which has {1} stats", master.Filename, master.TheHt.Count );
          var theWeek =
-            new NFLWeek( Int32.Parse( Utility.CurrentSeason() ), weekIn: Utility.PreviousWeek(), loadGames: false );
+            new NFLWeek( Int32.Parse( timekeeper.CurrentSeason() ), 
+            weekIn: Int32.Parse( timekeeper.PreviousWeek() ), 
+            loadGames: false );
          var gs = new EspnScorer( theWeek ) { Master = master };
          Configs = new List<PerformanceReportConfig>
             {
@@ -59,52 +65,11 @@ namespace RosterLib
                      Scorer = gs,
                      Week = theWeek
                   },
-               //new PerformanceReportConfig
-               //   {
-               //      Category = Constants.K_QUARTERBACK_CAT,
-               //      Position = "QB",
-               //      Scorer = gs,
-               //      Week = theWeek,
-               //      WeeksToGoBack = 4
-               //   },
-               //new PerformanceReportConfig
-               //   {
-               //      Category = Constants.K_RUNNINGBACK_CAT,
-               //      Position = "RB",
-               //      Scorer = gs,
-               //      Week = theWeek,
-               //      WeeksToGoBack = 4
-               //   },
-               //new PerformanceReportConfig
-               //   {
-               //      Category = Constants.K_RECEIVER_CAT,
-               //      Position = "WR",
-               //      Scorer = gs,
-               //      Week = theWeek,
-               //      WeeksToGoBack = 4
-               //   },
-               //new PerformanceReportConfig
-               //   {
-               //      Category = Constants.K_RECEIVER_CAT,
-               //      Position = "TE",
-               //      Scorer = gs,
-               //      Week = theWeek,
-               //      WeeksToGoBack = 4
-               //   },
-               //new PerformanceReportConfig
-               //   {
-               //      Category = Constants.K_KICKER_CAT,
-               //      Position = "PK",
-               //      Scorer = gs,
-               //      Week = theWeek,
-               //      WeeksToGoBack = 4
-               //   }
-
             };
 
          Leagues = new List<RosterGridLeague>();
          Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Yahoo, Name = "Spitzys League" } );
-#if ! DEBUG2
+#if ! DEBUG
          Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1" } );
          //Leagues.Add( new RosterGridLeague { Id = Constants.K_LEAGUE_Rants_n_Raves, Name = "NFL.COM" } );
 #endif

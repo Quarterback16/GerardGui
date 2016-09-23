@@ -19,7 +19,7 @@ namespace RosterLib
       public override void RenderFullAsHtml()
       {
          YahooMaster.Calculate( Utility.CurrentSeason() );
-         YahooMaster.Dump2Xml();
+         YahooMaster.Dump2Xml(Logger);
       }
 
       public override void RenderAsHtml()
@@ -28,7 +28,7 @@ namespace RosterLib
             YahooMaster.Calculate(Utility.CurrentSeason());
          else
             YahooMaster.Calculate(Utility.CurrentSeason(), Utility.PreviousWeekAsString());
-         YahooMaster.Dump2Xml();
+         YahooMaster.Dump2Xml(Logger);
       }
 
       public override string OutputFilename()

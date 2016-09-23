@@ -25,7 +25,7 @@ namespace Butler.Models
       public override string DoJob()
       {
          // pre-req
-         var preJob = new RankingsJob( TimeKeeper );
+         var preJob = new RankingsJob( TimeKeeper, force: true );
          var outcome = preJob.Execute();
          Logger.Info("Rankings {0}", outcome );
          return Report.DoReport();
@@ -39,6 +39,7 @@ namespace Butler.Models
       public override bool IsTimeTodo(out string whyNot)
       {
          base.IsTimeTodo(out whyNot);
+
          if (string.IsNullOrEmpty(whyNot))
          {
             if ( !SeasonScheduler.ScheduleAvailable(TimeKeeper.CurrentSeason()))

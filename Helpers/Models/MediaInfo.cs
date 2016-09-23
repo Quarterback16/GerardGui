@@ -90,6 +90,9 @@ namespace Helpers.Models
          if (FileName.ToUpper().Contains("INPROGRESS"))
             return;
 
+         if ( FileName.ToUpper().Contains( "RARBG.COM" ) )
+            return;
+
          IsNfl = DetermineNfl();
 
          Format = DetermineFormat();

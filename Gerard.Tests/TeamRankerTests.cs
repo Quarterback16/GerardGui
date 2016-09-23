@@ -18,7 +18,7 @@ namespace Gerard.Tests
       public void ShouldInitialiseTheSeasonFromLastSeason()
       {
          var sut = new RankingsJob( 
-            new FakeTimeKeeper( new System.DateTime( 2016,7,27 ) ),
+            new FakeTimeKeeper( new System.DateTime( 2016,9,9 ) ),
             force: true );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );

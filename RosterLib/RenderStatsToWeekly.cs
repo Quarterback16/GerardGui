@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 using System.Collections;
 using System.Data;
 
@@ -8,6 +9,7 @@ namespace RosterLib
    {
       private readonly IRatePlayers _scorer;
       private readonly IWeekMaster WeekMaster;
+      private readonly IKeepTheTime TimeKeeper;
 
       private const string FieldFormat = "Wk{0:0#}";
 
@@ -17,16 +19,22 @@ namespace RosterLib
 
       public int WeeksToGoBack { get; set; }
 
-      public RenderStatsToWeekly(IRatePlayers scorerIn, IWeekMaster weekMasterIn )
+      public RenderStatsToWeekly(
+         IRatePlayers scorerIn, 
+         IWeekMaster weekMasterIn,
+         IKeepTheTime timekeeper
+         )
       {
          _scorer = scorerIn;
          WeekMaster = weekMasterIn;
+         TimeKeeper = timekeeper;
       }
 
       public RenderStatsToWeekly(IRatePlayers scorerIn )
       {
          _scorer = scorerIn;
       }
+
       public bool FullStart { get; set; }
 
       public string RenderData(ArrayList playerList, string sHead, NFLWeek week)
@@ -118,14 +126,17 @@ namespace RosterLib
          cols.Add("FT", typeof (String));
          cols.Add("tot", typeof (Int32));
 
-         var currentWeek = new NFLWeek(Int32.Parse(Utility.CurrentSeason()), Int32.Parse(Utility.CurrentWeek()), false);
+         var currentWeek = new NFLWeek(
+            Int32.Parse(TimeKeeper.Season), 
+            Int32.Parse(TimeKeeper.Week), 
+            loadGames:false);
 
          for (var w = Constants.K_WEEKS_IN_A_SEASON; w > 0; w--)
          {
             var fieldName = string.Format(FieldFormat, currentWeek.WeekNo);
             Utility.Announce( string.Format( "Adding field: {0}", fieldName ) );
             cols.Add(fieldName, typeof (String));
-            currentWeek = currentWeek.PreviousWeek(currentWeek,false,false);
+            currentWeek = currentWeek.PreviousWeek(currentWeek,loadgames:false, regularSeasonGamesOnly: false);
          }
          foreach (NFLPlayer p in plyrList)
          {
@@ -150,19 +161,20 @@ namespace RosterLib
                   {
                      nScore = _scorer.RatePlayer( p, scoreWeek );
                      nTot += nScore;
-                     //TODO:  Update player game Metrics
                      weeksDone++;
                   }
                }
 	            if (game != null && game.Played())
 	            {
-		            dr[ string.Format(FieldFormat, scoreWeek.WeekNo) ] = string.Format("{0:0}:{1}", nScore, cOp) + "<br>"
-		                                                                 + OpponentDefence(p, game);
+		            dr[ string.Format(FieldFormat, scoreWeek.WeekNo) ] 
+                     = string.Format("{0:0}:{1}", nScore, cOp) + "<br>"
+		                 + OpponentDefence(p, game);
 	            }
 	            else
 	            {
-						dr[ string.Format( FieldFormat, scoreWeek.WeekNo ) ] = string.Format( "{0:#}:{1}", nScore, cOp ) + "<br>"
-																							  + OpponentDefence( p, game );		            
+						dr[ string.Format( FieldFormat, scoreWeek.WeekNo ) ] 
+                     = string.Format( "{0:#}:{1}", nScore, cOp ) + "<br>"
+					        + OpponentDefence( p, game );		            
 	            }
 
 	            scoreWeek = WeekMaster != null ? WeekMaster.PreviousWeek(scoreWeek) : scoreWeek.PreviousWeek(scoreWeek,false,false);
