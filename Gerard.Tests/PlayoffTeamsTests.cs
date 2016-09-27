@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPlayoffTeamsJob()  //   
       {
-         var sut = new PlayOffTeamsJob(new TimeKeeper());
+         var sut = new PlayOffTeamsJob(new TimeKeeper(null));
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }

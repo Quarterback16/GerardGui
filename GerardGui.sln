@@ -55,7 +55,6 @@ Global
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

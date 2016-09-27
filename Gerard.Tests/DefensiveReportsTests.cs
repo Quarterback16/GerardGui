@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDefensiveReportsJob()  //  2015-08-20  7 mins
       {
-			var sut = new DefensiveReportsJob( new TimeKeeper() );
+			var sut = new DefensiveReportsJob( new TimeKeeper(null) );
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue(run.Date.Equals(DateTime.Now.Date));

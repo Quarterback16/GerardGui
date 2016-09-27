@@ -167,9 +167,14 @@ namespace RosterLib.RosterGridReports
 
             if ( team.Team.RushUnit == null )
                team.Team.LoadRushUnit();
+            else
+               Logger.Info( "   >>> Rush unit loaded {0} rushers", team.Team.RushUnit.Runners.Count() );
 
-            if (team.Team.RushUnit.AceBack != null)
+
+            if ( team.Team.RushUnit.AceBack != null)
                bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
+            else
+               Logger.Info( "   >>> No Ace back for {0}", team.Team.Name );
          }
          else
          {

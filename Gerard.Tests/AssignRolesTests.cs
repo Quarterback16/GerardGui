@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoAssignRolesJob()  //  8 mins
       {
-         var sut = new AssignRolesJob(new TimeKeeper());
+         var sut = new AssignRolesJob(new TimeKeeper(null));
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
@@ -39,7 +39,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestSingleTeam()
       {
-         var sut = new RoleAssignmentReport( "CP", new TimeKeeper() );
+         var sut = new RoleAssignmentReport( "CP", new TimeKeeper(null) );
          sut.RenderAsHtml();
          Assert.IsTrue( sut.RunTime > new TimeSpan( 0,0,0 ) );
       }

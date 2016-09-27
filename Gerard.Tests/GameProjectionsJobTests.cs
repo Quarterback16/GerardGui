@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoGameProjectionJob()  //  156 min 2015-08-27, 70 min 2015-12-09
       {
-         var sut = new GameProjectionsJob( new TimeKeeper() );
+         var sut = new GameProjectionsJob( new TimeKeeper(null) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

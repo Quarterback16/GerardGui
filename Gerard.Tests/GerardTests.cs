@@ -15,7 +15,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoFantasyProjectionJob()
       {
-         var sut = new FantasyProjectionJob( new TimeKeeper() );
+         var sut = new FantasyProjectionJob( new TimeKeeper(null) );
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
@@ -23,7 +23,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoBalanceReport()
       {
-         var sut = new BalanceReportJob(new TimeKeeper());
+         var sut = new BalanceReportJob(new TimeKeeper(null));
          string whyNot;
          Assert.IsFalse(sut.IsTimeTodo(out whyNot));
       }

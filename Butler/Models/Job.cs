@@ -26,7 +26,7 @@ namespace Butler.Models
 		{
 			MyHoldList = new HoldList();
 			MyHoldList.LoadFromXml(".//xml//hold-jobs.xml");
-         TimeKeeper = new TimeKeeper();
+         TimeKeeper = new TimeKeeper(null);
          Logger = NLog.LogManager.GetCurrentClassLogger();
 		}
 

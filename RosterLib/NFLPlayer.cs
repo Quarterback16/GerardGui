@@ -1449,15 +1449,15 @@ namespace RosterLib
 
       public string ProjectionLink( string season )
       {
-         var url = string.Format( "<a href =\"file:///{3}{1}//PlayerProjections/{0}.htm\">{2}</a>", 
-            PlayerCode, season, PlayerName, Utility.OutputDirectory() );
+         var url = string.Format( "<a href =\"..//..//PlayerProjections/{0}.htm\">{2}</a>", 
+            PlayerCode, season, PlayerName );
          return url;
       }
 
 		public string ProjectionLink(string season, int padding)
 		{
-			var url = string.Format("<a href =\"file:///{3}{1}//PlayerProjections/{0}.htm\">{2}</a>",
-				PlayerCode, season, PlayerName.PadRight(padding), Utility.OutputDirectory());
+			var url = string.Format("<a href =\"..//..//PlayerProjections/{0}.htm\">{2}</a>",
+				PlayerCode, season, PlayerName.PadRight(padding));
 			return url;
 		}
 

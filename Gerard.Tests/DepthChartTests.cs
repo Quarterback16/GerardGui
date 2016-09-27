@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoDepthChartJob()  //  2015-09-10 5 mins, 20 min debug
       {
-         var sut = new DepthChartJob(new TimeKeeper());
+         var sut = new DepthChartJob(new TimeKeeper(null));
          var outcome = sut.DoJob();
          Console.WriteLine("outcome={0}", outcome);
          Assert.IsFalse(string.IsNullOrEmpty(outcome));

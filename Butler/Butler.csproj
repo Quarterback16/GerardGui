@@ -38,6 +38,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependancies\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.2\lib\net40-client\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -55,11 +59,9 @@
     <Compile Include="Helpers\DiskDetector.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\HoldList.cs" />
-    <Compile Include="Helpers\SystemClock.cs" />
     <Compile Include="Helpers\XmlList.cs" />
     <Compile Include="Historian.cs" />
     <Compile Include="Implementations\SeasonScheduler.cs" />
-    <Compile Include="Interfaces\IClock.cs" />
     <Compile Include="Interfaces\IDetectMovies.cs" />
     <Compile Include="Interfaces\IHistorian.cs" />
     <Compile Include="Interfaces\IHoldList.cs" />

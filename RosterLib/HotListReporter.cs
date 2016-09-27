@@ -26,7 +26,7 @@ namespace RosterLib
          Name = "Hot Lists";
          Configs = new List<HotListConfig>();
          Configs.Add(new HotListConfig { Category = Constants.K_QUARTERBACK_CAT, Position = "QB", FreeAgents = true, Starters = true });
-#if ! DEBUG2
+#if ! DEBUG
          Configs.Add(new HotListConfig { Category = Constants.K_RUNNINGBACK_CAT, Position = "RB", FreeAgents = false, Starters = false });
          Configs.Add(new HotListConfig { Category = Constants.K_RECEIVER_CAT, Position = "WR", FreeAgents = true, Starters = true });
          Configs.Add(new HotListConfig { Category = Constants.K_RECEIVER_CAT, Position = "TE", FreeAgents = true, Starters = true });

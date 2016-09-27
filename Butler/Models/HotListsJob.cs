@@ -1,4 +1,5 @@
 ﻿using RosterLib;
+using RosterLib.Interfaces;
 
 namespace Butler.Models
 {
@@ -6,11 +7,11 @@ namespace Butler.Models
    {
       public RosterGridReport Report { get; set; }
 
-      public HotListsJob()
+      public HotListsJob(IKeepTheTime timekeeper)
       {
          Name = "Hot Lists";
          Report = new HotListReporter();
-         TimeKeeper = new TimeKeeper();
+         TimeKeeper = timekeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
       }

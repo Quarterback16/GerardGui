@@ -45,10 +45,14 @@ namespace Butler
 
       public IHistorian Historian { get; private set; }
 
-      public Butler(string version)
+      public Butler(string version, IKeepTheTime timekeeper )
       {
          Version = version;
-         TimeKeeper = new TimeKeeper();
+         if ( timekeeper != null )
+            TimeKeeper = timekeeper;
+         else
+            TimeKeeper = new TimeKeeper( null );
+
          Historian = new Historian();
          Logger = LogManager.GetCurrentClassLogger();
 			Logger.Info( "ver:{0}", Version);
@@ -99,7 +103,7 @@ namespace Butler
             MyJobs.Add( new RookiesJob( TimeKeeper ) );
             MyJobs.Add( new OutputProjectionsJob( Historian ) );  //  needs game projections
             MyJobs.Add( new FantasyProjectionJob( TimeKeeper ) );
-            MyJobs.Add( new HotListsJob() );   
+            MyJobs.Add( new HotListsJob( TimeKeeper ) );   
             MyJobs.Add( new UnitReportsJob( Historian ) );
             MyJobs.Add( new TeamCardsJob( TimeKeeper ) );
             MyJobs.Add( new OldRosterGridJob( TimeKeeper ) ); 

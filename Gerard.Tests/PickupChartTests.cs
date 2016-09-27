@@ -31,7 +31,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJobNow()
       {
-         var sut = new PickupChartJob( new TimeKeeper() );
+         var sut = new PickupChartJob( new TimeKeeper(null) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

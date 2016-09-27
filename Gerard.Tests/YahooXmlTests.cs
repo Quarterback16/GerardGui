@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
-			var sut = new YahooXmlJob(new TimeKeeper());
+			var sut = new YahooXmlJob(new TimeKeeper(null));
 			var outcome = sut.DoJob();
 			Assert.IsFalse(string.IsNullOrEmpty(outcome));
 		}
@@ -19,7 +19,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDo_YahooXmlJob()
       {
-         var sut = new YahooXmlJob(new TimeKeeper());
+         var sut = new YahooXmlJob(new TimeKeeper(null));
          string whyNot;
          Assert.IsFalse(sut.IsTimeTodo(out whyNot));
          Console.WriteLine(whyNot);
@@ -81,7 +81,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoFullYahooXmlJob()  //   fails at 104 mins
       {
-         var sut = new YahooXmlFullJob(new TimeKeeper());
+         var sut = new YahooXmlFullJob(new TimeKeeper(null));
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }

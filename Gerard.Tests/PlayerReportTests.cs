@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestPlayerReportsJob()
       {
-         var sut = new PlayerReportsJob( new TimeKeeper() );
+         var sut = new PlayerReportsJob( new TimeKeeper(null) );
          sut.DoJob();
          var run = sut.Report.LastRun;
          Console.WriteLine( "Last Run : {0}", run );

@@ -10,7 +10,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestOldRosterGridJob()  //  2015-12-09  2 mins
       {
-         var sut = new OldRosterGridJob( new TimeKeeper() );
+         var sut = new OldRosterGridJob( new TimeKeeper(null) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

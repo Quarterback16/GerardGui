@@ -10,7 +10,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestCurrentGeneratePlayerProjectionsJob()   
       {
-         var sut = new GameProjectionReportsJob( new TimeKeeper() );
+         var sut = new GameProjectionReportsJob( new TimeKeeper(null) );
          var resultOut = sut.DoJob();
          Assert.IsTrue( resultOut.Length > 0 );
       }

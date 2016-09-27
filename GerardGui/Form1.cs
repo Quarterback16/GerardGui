@@ -1,4 +1,5 @@
 ﻿using RosterLib;
+using RosterLib.Interfaces;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -10,8 +11,11 @@ namespace GerardGui
    {
       public string LastMessage { get; set; }
 
-      public GerardForm()
+      private readonly IKeepTheTime TimeKeeper;
+
+      public GerardForm(IKeepTheTime timeKeeper )
       {
+         TimeKeeper = timeKeeper;
          InitializeComponent();
          backgroundWorker1.ProgressChanged += backgroundWorker1_ProgressChanged;
          backgroundWorker1.DoWork += backgroundWorker1_DoWork;
@@ -54,7 +58,7 @@ namespace GerardGui
       private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
       {
          var helperBW = sender as BackgroundWorker;
-         var rs = new Butler.Butler(Text)
+         var rs = new Butler.Butler(Text, this.TimeKeeper )
             {
                Pollinterval = Int32.Parse(ConfigurationManager.AppSettings["PollInterval"]),
                Verbose = ConfigurationManager.AppSettings["Verbose"] == "true",

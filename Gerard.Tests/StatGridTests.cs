@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestStatGridJob()   // 4 mins
       {
-         var sut = new StatGridJob(new TimeKeeper());
+         var sut = new StatGridJob(new TimeKeeper(null));
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue(run.Date.Equals(DateTime.Now.Date));

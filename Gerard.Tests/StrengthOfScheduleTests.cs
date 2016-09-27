@@ -20,7 +20,7 @@ namespace Gerard.Tests
       public void TestTimetoDoStengthOfSchedule()
       {
 //         var sut = new StrengthOfScheduleJob( new FakeTimeKeeper() );
-         var sut = new StrengthOfScheduleJob( new TimeKeeper() );
+         var sut = new StrengthOfScheduleJob( new TimeKeeper(null) );
          string whyNot;
          Assert.IsTrue( sut.IsTimeTodo( out whyNot ) );
          Console.WriteLine( "Final:Reason for not doing>{0}", whyNot );
@@ -29,7 +29,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestHowStengthOfScheduleDterminesCurrentSeason()
       {
-         var sut = new TimeKeeper();
+         var sut = new TimeKeeper(null);
          var result = sut.CurrentSeason( new DateTime( 2016, 7, 24 ) );
          Assert.AreEqual( "2016", result );
          Console.WriteLine( "Season>{0}", result );

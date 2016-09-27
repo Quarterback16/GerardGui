@@ -83,7 +83,7 @@ namespace Gerard.Tests
       public void TestPeakTime()
       {
          var testDateTime = new DateTime( 2014, 09, 04, 3, 42, 0 );
-         var sut = new TimeKeeper();
+         var sut = new TimeKeeper(null);
          Assert.IsFalse( sut.IsItPeakTime( testDateTime ) );
       }
 

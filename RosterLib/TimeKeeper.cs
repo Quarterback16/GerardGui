@@ -28,10 +28,13 @@ namespace RosterLib
       public DateTime SeasonStarts { get; set; }
       public DateTime RegularSeasonEnds { get; set; }
 
-      public TimeKeeper()
+      public TimeKeeper( IClock clock)
       {
          Logger = LogManager.GetCurrentClassLogger();
-         SystemClock = new SystemClock();
+         if ( clock == null )
+            SystemClock = new SystemClock();
+         else
+            SystemClock = clock;
          SetSchedule();
       }
 
@@ -39,17 +42,10 @@ namespace RosterLib
       {
          Season = CurrentSeason();
          SeasonScheduler = new SeasonScheduler();
-         ScheduleAvailable = SeasonScheduler.ScheduleAvailable(Season);
-         if (!ScheduleAvailable) return;
-         SeasonStarts = SeasonScheduler.SeasonStarts(Season);
-         RegularSeasonEnds = SeasonScheduler.RegularSeasonEnds(Season);
-      }
-
-      public TimeKeeper( IClock clock)
-      {
-         Logger = LogManager.GetCurrentClassLogger();
-         SystemClock = clock;
-         SetSchedule();
+         ScheduleAvailable = SeasonScheduler.ScheduleAvailable( Season );
+         if ( !ScheduleAvailable ) return;
+         SeasonStarts = SeasonScheduler.SeasonStarts( Season );
+         RegularSeasonEnds = SeasonScheduler.RegularSeasonEnds( Season );
       }
 
       public bool IsItPreseason()
