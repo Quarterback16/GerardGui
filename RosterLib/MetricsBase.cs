@@ -58,7 +58,7 @@ namespace RosterLib
 		public void Load(bool skipPostseason )
 		{
 			var ds = _tflWs.GetTeams( Season, "" );
-			var teams = ds.Tables["teams"];
+			var teams = ds.Tables["team"];
 			foreach ( DataRow dr in teams.Rows )
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();
@@ -83,7 +83,7 @@ namespace RosterLib
 		{
 			Season = seasonIn;
 			var ds = _tflWs.GetTeams( _season, "" );
-			var teams = ds.Tables["teams"];
+			var teams = ds.Tables["team"];
 			foreach ( DataRow dr in teams.Rows )
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();

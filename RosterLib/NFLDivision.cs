@@ -57,7 +57,7 @@ namespace RosterLib
 			var strFilter = Filters.TeamFilter();
 
 			var ds = Utility.TflWs.GetTeams( Season, Code );
-			var dt = ds.Tables["teams"];
+			var dt = ds.Tables["team"];
 			foreach (DataRow dr in dt.Rows)
 			{
 				var strTeamCode = dr["teamid"].ToString();

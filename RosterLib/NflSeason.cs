@@ -190,7 +190,7 @@ namespace RosterLib
          Utility.Announce(string.Format("LoadTeamList: Loading {0} team List", yearIn));
 #endif
          var ds = Utility.TflWs.GetTeams(yearIn, "");
-         var teams = ds.Tables["teams"];
+         var teams = ds.Tables["team"];
          foreach (DataRow dr in teams.Rows)
          {
             TeamKeyList.Add(yearIn + dr["TEAMID"]);

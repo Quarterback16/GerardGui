@@ -27,7 +27,7 @@ namespace RosterLib
          Lister = new PlayerLister();
          Configs = new List<StarterConfig>();
          Configs.Add(new StarterConfig { Category = Constants.K_QUARTERBACK_CAT, Position = "QB" });
-#if ! DEBUG2
+#if ! DEBUG
          Configs.Add(new StarterConfig { Category = Constants.K_RUNNINGBACK_CAT, Position = "RB" });
          Configs.Add(new StarterConfig { Category = Constants.K_RECEIVER_CAT, Position = "WR" });
          Configs.Add(new StarterConfig { Category = Constants.K_RECEIVER_CAT, Position = "TE" });
@@ -55,11 +55,16 @@ namespace RosterLib
 
       public string RenderStarters(string cat, string sPos, [System.Runtime.InteropServices.Optional] string fantasyLeague)
       {
-         Lister.SortOrder = Int32.Parse(Utility.CurrentWeek()) > 0 ? "POINTS DESC" : "CURSCORES DESC";
+         Lister.SortOrder = Int32.Parse( TimeKeeper.Week ) > 0 ? "POINTS DESC" : "CURSCORES DESC";
          PlayoffsOnly = PlayoffsOnly;
 
-         var theWeek = new NFLWeek(Int32.Parse(Utility.CurrentSeason()), Int32.Parse(Utility.CurrentWeek()), false);
+         var theWeek = new NFLWeek(
+            Int32.Parse(TimeKeeper.Season), 
+            Int32.Parse(TimeKeeper.Week), 
+            loadGames:false);
+
          var gs = new GS4Scorer(theWeek);
+
          Lister.RenderToCsv = DoCsv;
          Lister.SetScorer(gs);
          Lister.StartersOnly = true;
@@ -80,7 +85,7 @@ namespace RosterLib
       public void WritePlayerProjectionReports()
       {
          foreach (NFLPlayer p in Lister.PlayerList)
-            p.PlayerProjection(Utility.CurrentSeason());
+            p.PlayerProjection(TimeKeeper.Season);
       }
    }
 

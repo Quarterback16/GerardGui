@@ -18,12 +18,17 @@ namespace GerardGui
       {
          Application.EnableVisualStyles();
          Application.SetCompatibleTextRenderingDefault(false);
+#if USING_DI
          Bootstrap();
          Application.Run( container.GetInstance<GerardForm>());
+#else
+         Application.Run( new GerardForm(new TimeKeeper( null ) ) );
+#endif
       }
 
       private static void Bootstrap()
       {
+#if USING_DI
          container = new Container();
 
          // Register your types
@@ -32,6 +37,7 @@ namespace GerardGui
          container.RegisterSingleton<GerardForm>();
          // Optionally verify the container.
          container.Verify();
+#endif
       }
    }
 }

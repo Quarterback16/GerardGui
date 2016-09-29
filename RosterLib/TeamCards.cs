@@ -15,7 +15,6 @@ namespace RosterLib
 		public TeamCards( bool doPlayerReports )
 		{
 			Name = "Team Cards";
-			RosterReport = new NFLRosterReport(Season) {Season = Season};
 		   DoPlayerReports = doPlayerReports;
 		   Leagues = new List<RosterGridLeague>
 		   {
@@ -25,7 +24,8 @@ namespace RosterLib
 
 		public override void RenderAsHtml()
 		{
-			foreach (var league in Leagues)
+         RosterReport = new NFLRosterReport( Season ) { Season = Season };
+         foreach ( var league in Leagues)
 			{
 				RosterReport.TeamCards();
 			}

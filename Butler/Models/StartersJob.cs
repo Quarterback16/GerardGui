@@ -11,7 +11,10 @@ namespace Butler.Models
       {
          Name = "Starters";
          TimeKeeper = timeKeeper;
-         Report = new Starters(doCsv:false);  //  separate job now for the CSV
+         Report = new Starters( doCsv: false )
+         {
+            TimeKeeper = TimeKeeper
+         }; 
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
       }

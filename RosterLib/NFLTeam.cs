@@ -3459,7 +3459,7 @@ namespace RosterLib
          if (GameList == null) GameList = new ArrayList();
          GameList.Clear();
          var ds = Utility.TflWs.GetSeason(sTeam, sSeason);
-         var dt = ds.Tables["games"];
+         var dt = ds.Tables["sched"];
          foreach (DataRow dr in dt.Rows)
          {
             var gameCode = string.Format("{0}:{1}-{2}", sSeason, dr["WEEK"], dr["GAMENO"]);
