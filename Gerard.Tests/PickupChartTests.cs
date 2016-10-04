@@ -117,10 +117,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestBookiePredictedResult()
       {
-         var sut = new NFLGame( "2014:16-G" );
+         var sut = new NFLGame( "2016:04-O" );
          sut.CalculateSpreadResult();
          var predictedResult = sut.BookieTip.PredictedScore();
-         Assert.AreEqual( "CP 23-CL 17", predictedResult );
+         Assert.AreEqual( "MV*24vNG*20", predictedResult );
       }
 
       [TestMethod]

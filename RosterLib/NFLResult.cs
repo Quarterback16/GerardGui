@@ -91,7 +91,19 @@
          var loser = LosingTeam();
          var loserScore = LosingScore();
          var joiner = Joiner();
-         return string.Format( "{0} {1,2}{4}{2} {3,2}", winner, winnerScore, loser, loserScore, joiner  );
+         var winnerPoFlag = PlayoffFlag( winner );
+         var loserPoFlag = PlayoffFlag( loser );
+         return string.Format( "{0}{5}{1,2}{4}{2}{6}{3,2}", 
+            winner, winnerScore, loser, loserScore, joiner, winnerPoFlag, loserPoFlag  );
+      }
+
+      private string PlayoffFlag( string teamCode )
+      {
+         var flag = " ";
+         var team = new NflTeam( teamCode );
+         if ( team.IsPlayoffBound )
+            flag = "*";
+         return flag;
       }
 
       private string Joiner()

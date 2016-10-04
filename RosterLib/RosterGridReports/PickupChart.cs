@@ -89,7 +89,9 @@ namespace RosterLib.RosterGridReports
       private static string GameBit( IWinOrLose team )
       {
          team.Game.CalculateSpreadResult();
-         var predictedResult = team.IsWinner ? team.Game.BookieTip.PredictedScore() : team.Game.BookieTip.PredictedScoreFlipped();
+         var predictedResult = team.IsWinner 
+            ? team.Game.BookieTip.PredictedScore() 
+            : team.Game.BookieTip.PredictedScoreFlipped();
          var theLine = team.Game.TheLine();
 	      var url = team.Game.GameProjectionUrl();
          return string.Format( "<a href='{0}'>{1}</a> {2,3}", url, predictedResult, theLine );
