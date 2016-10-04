@@ -89,23 +89,21 @@ namespace TFLLib.Caching
          if ( string.IsNullOrWhiteSpace( key ) )
             throw new ArgumentNullException( "key" );
 
-         //using ( _redis = ConnectionMultiplexer.Connect( ConnectionString ) )
-         //{
-            var namespacedDependsOnKey = NamespacedKey( dependsOnKey );
-            key = NamespacedKey( key );
-            timeToLive = EnsureTimeToLive( timeToLive );
+         var namespacedDependsOnKey = NamespacedKey( dependsOnKey );
+         key = NamespacedKey( key );
+         timeToLive = EnsureTimeToLive( timeToLive );
 
-            // Ensure all dependents are removed
-            if ( !string.IsNullOrWhiteSpace( dependsOnKey ) )
-               RemoveInternal( dependsOnKey );
+         // Ensure all dependents are removed
+         if ( !string.IsNullOrWhiteSpace( dependsOnKey ) )
+            RemoveInternal( dependsOnKey );
 
-            Cache.StringSet(
-               key,
-               Serialize( o ),
-               timeToLive.Value,
-               When.Always,
-               CommandFlags.FireAndForget );
-         //}
+         Cache.StringSet(
+            key,
+            Serialize( o ),
+            timeToLive.Value,
+            When.Always,
+            CommandFlags.FireAndForget );
+
       }
 
       public bool TryGet<T>( string key, out T value )
@@ -113,8 +111,8 @@ namespace TFLLib.Caching
          if ( string.IsNullOrWhiteSpace( key ) )
             throw new ArgumentNullException( "key" );
 
-         //using ( _redis = ConnectionMultiplexer.Connect( ConnectionString ) )
-         //{
+         try
+         {
             value = default( T );
 
             key = NamespacedKey( key );
@@ -125,9 +123,15 @@ namespace TFLLib.Caching
             {
                value = Deserialize<T>( cachedValue );
             }
-         //}
 
-         return !Equals( value, default( T ) );
+            return !Equals( value, default( T ) );
+         }
+         catch ( Exception ex )
+         {
+            Logger.ErrorException( "RedisCacheRepository TryGet failed", ex );
+         }
+         value = default( T );
+         return false;
       }
 
       #region  Privates
