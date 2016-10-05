@@ -1570,7 +1570,7 @@ namespace RosterLib
 
 	      var detailLine = string.Format( formatStr, 
 		      JerseyNo,
-		      ProjectionLink(nextGame.Season).PadRight( 25 ),
+		      ProjectionLink(nextGame.Season, 25).PadRight( 25 ),
 		      CurrTeam.TeamCode,
 		      PlayerRole,
 		      PlayerPos.PadRight( 12 ),

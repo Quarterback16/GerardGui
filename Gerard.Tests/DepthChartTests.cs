@@ -21,9 +21,9 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoDepthCharts()
       {
-         var  sut = new DepthChartJob(new FakeTimeKeeper( isPreSeason:true, isPeakTime:false));
+         var  sut = new DepthChartJob(new TimeKeeper(null));
          string whyNot;
-         Assert.IsTrue(sut.IsTimeTodo(out whyNot));
+         Assert.IsFalse(sut.IsTimeTodo(out whyNot));
          Console.WriteLine(whyNot);
       }
 

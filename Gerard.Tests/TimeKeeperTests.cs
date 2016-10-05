@@ -87,7 +87,15 @@ namespace Gerard.Tests
          Assert.IsFalse( sut.IsItPeakTime( testDateTime ) );
       }
 
-		[TestMethod]
+      [TestMethod]
+      public void TestPeakTimeWhen6to1()
+      {
+         var testDateTime = new DateTime( 2014, 09, 04, 13, 42, 0 );
+         var sut = new TimeKeeper( null );
+         Assert.IsTrue( sut.IsItPeakTime( testDateTime ) );
+      }
+
+      [TestMethod]
 		public void TestTimekeeperKnowslastweek()
 		{
 			var sut = new TimeKeeper(new FakeClock(new DateTime(2015, 11, 17, 12, 0, 0)));
