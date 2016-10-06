@@ -838,15 +838,31 @@ namespace TFLLib
 
       public DataSet GetTeamPlayers(string teamCode, string strCat)
       {
-         var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
-         commandStr += " order by CATEGORY";
-         return GetNflDataSet( "player", commandStr );
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetTeamPlayers-DataSet", 
+            teamCode, strCat );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
+            commandStr += " order by CATEGORY";
+            ds = GetNflDataSet( "player", commandStr );
+            cache.Set( keyValue, ds );
+         }
+         return ds;
       }
 
       public DataSet GetPlayer(string playerCode)
       {
-         var commandStr = string.Format("SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode);
-         return GetNflDataSet( "player", commandStr );
+         var keyValue = string.Format( "{0}:{1}", "GetPlayer-DataSet", playerCode );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format( 
+               "SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode );
+            ds = GetNflDataSet( "player", commandStr );
+            cache.Set( keyValue, ds );
+         }
+         return ds;
       }
 
       public string GetPlayerName(string playerCode)

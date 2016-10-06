@@ -60,6 +60,7 @@
     <Compile Include="ButlerProcessingTests.cs" />
     <Compile Include="CollectorTests.cs" />
     <Compile Include="ConfigReaderTests.cs" />
+    <Compile Include="DataLibrarianTests.cs" />
     <Compile Include="DefensiveReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
     <Compile Include="DropBoxCopyTflToVesuviusJobTests.cs" />
