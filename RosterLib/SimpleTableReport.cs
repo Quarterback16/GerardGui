@@ -172,7 +172,8 @@ namespace RosterLib
       public string RenderAsHtml(string fileName, bool persist)
       {
          if (ReportHeader == null) ReportHeader = _header;
-            ReportHeader = string.Format("{0} as of {1}", ReportHeader, DateTime.Now.ToString("dd MMM yy HH:MM tt") );
+            ReportHeader = string.Format("{0} as of {1}", 
+               ReportHeader, DateTime.Now.ToString("ddd dd MMM yy HH:MM tt") );
          var h = new HtmlFile( fileName, ReportHeader ) {AnnounceIt = AnnounceIt};
          AddStyles(h);
          var html = string.Format("<h3>{0}</h3>", ReportHeader) + Header(_header);

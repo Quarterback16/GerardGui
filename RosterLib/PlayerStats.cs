@@ -88,6 +88,7 @@ namespace RosterLib
       private static decimal Average( decimal quotient, int divisor )
       {
          //  need to do decimal other wise INT() will occur
+         if ( divisor == 0 ) return 0.0M;
          return ( quotient/Decimal.Parse( divisor.ToString() ) );
       }
 

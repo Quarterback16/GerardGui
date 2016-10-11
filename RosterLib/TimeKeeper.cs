@@ -97,6 +97,7 @@ namespace RosterLib
 
          Logger.Debug( string.Format( "Peak time is between {0} and {1}", startHour, endHour ) );
 
+         if ( endHour == startHour ) return false;  //  forget about Peak scenario
          if ( endHour > startHour ) 
             return theDateTime.Hour > startHour && theDateTime.Hour < endHour;
          else

@@ -1021,7 +1021,7 @@ namespace RosterLib
 
          //  Performance stats
          LoadPerformances(Config.AllGames, false, WhichSeason());
-         TallyPerformance(true, true, WhichSeason());
+         TallyPerformance(allGames:true, currSeasonOnly:true, whichSeason: WhichSeason());
          if (TotStats != null)
          {
             //  Career Stats

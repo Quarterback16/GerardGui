@@ -1117,7 +1117,7 @@ namespace RosterLib
          return unitRating;
       }
 
-      private string StarDefensiveBack(string teamCode)
+      public string StarDefensiveBack(string teamCode)
       {
          return StarBack("FS", teamCode);
       }

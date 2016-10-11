@@ -39,8 +39,32 @@ namespace Gerard.Tests
          Console.WriteLine( " Runtime : {0}", sut.Report.RunTime );
       }
 
+      [TestMethod]
+      public void TestOpponent()
+      {
+         var g = new NFLGame("2016:04-J");
+         var opp = g.Opponent( "DB" );
+         Assert.AreEqual( "TB", opp );
+      }
 
-		[TestMethod]
+      
+      [ TestMethod ]
+      public void TestStarDefensiveBack()
+      {
+         var g = new NFLGame( "2016:04-J" );
+         var star = g.StarDefensiveBack( "TB" );
+         Assert.AreEqual( "DStewart", star );
+      }
+
+      public void TestUnitReportNiners()
+      {
+         //  Fake historian garantees job will run always
+         var sut = new NflTeam( "SF" );
+         var r = sut.PoReport();
+         Assert.IsTrue( r.Length > 0 );
+      }
+
+      [TestMethod]
 		public void TestOutputFileName()
 		{
 			//  Fake historian garantees job will run always

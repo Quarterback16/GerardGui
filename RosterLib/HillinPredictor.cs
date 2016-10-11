@@ -102,7 +102,7 @@ namespace RosterLib
 		public void PredictSeason( string season, DateTime projectionDate, string fileOut )
 		{
 			var html = new HtmlFile( fileOut,
-									" Win Projections as of " + projectionDate.ToString( "dd MMM yy" ) );
+									" Win Projections as of " + projectionDate.ToString( "ddd dd MMM yy" ) );
 			html.AddToBody( Header( "Season Projections - Hillin Predictor - " + season ) );
 			html.AddToBody( SeasonOut( "Spread", projectionDate, season ) );
 			html.Render();

@@ -122,17 +122,6 @@ namespace Gerard.Tests
          Assert.IsTrue(result.Equals(sut.LatestAddition));
       }
 
-
-
-
-      public void TestUnitReportNiners()
-      {
-         //  Fake historian garantees job will run always
-         var sut = new NflTeam("SF");
-         var r = sut.PoReport();
-         Assert.IsTrue(r.Length > 0);
-      }
-
       [TestMethod]
       public void TestHistorian()
       {

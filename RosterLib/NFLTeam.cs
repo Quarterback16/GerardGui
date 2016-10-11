@@ -2393,12 +2393,13 @@ namespace RosterLib
       {
          var sb = new StringBuilder();
          sb.Append(PoReport());
+#if ! DEBUG
          sb.Append(PdReport());
          sb.Append(RoReport());
          sb.Append(RdReport());
          sb.Append(PpReport());
          sb.Append(PrReport());
-
+#endif
          return sb.ToString();
       }
 
@@ -2439,7 +2440,7 @@ namespace RosterLib
       #region Unit methods
 
       /// <summary>
-      ///   Prints out unit stats for the last 17 games
+      ///   Prints out unit stats for the last 8 games
       /// </summary>
       /// <param name="seasonIn"></param>
       /// <returns></returns>
@@ -2458,10 +2459,13 @@ namespace RosterLib
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
 
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break; 
                g.MetricsCalculated = false;
                g.TallyMetrics(metric: String.Empty);
                s += HtmlLib.TableRowOpen();
@@ -2472,7 +2476,9 @@ namespace RosterLib
                   HtmlLib.TableDataAttr(
                      string.Format("{0} {1}", g.ResultOut(TeamCode, true), g.ScoreOut(TeamCode)), "ALIGN='CENTER'"); // 3
                s += HtmlLib.TableData(g.UnitStar(KUnitcodePo, TeamCode)); //  4.1 Leader
-               s += HtmlLib.TableData(g.UnitStar(KUnitcodePd, g.Opponent(TeamCode))); //  4.2 Key
+               var opp = g.Opponent( TeamCode );
+               var oppStar = g.UnitStar( KUnitcodePd, opp);
+               s += HtmlLib.TableData( oppStar ); //  4.2 Key
                s +=
                   HtmlLib.TableDataAttr(g.CurrRating(KUnitcodePd, g.Opponent(TeamCode)).ToString(),
                                         "ALIGN='CENTER'"); //  5. Opp RD Rating
@@ -2518,10 +2524,13 @@ namespace RosterLib
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
 
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break;
                g.MetricsCalculated = false; //  force a recalculation
                g.TallyMetrics(String.Empty);
                s += HtmlLib.TableRowOpen();
@@ -2571,11 +2580,13 @@ namespace RosterLib
          s += UnitHeader("YDr Alwd", "Tdr Alwd", KUnitcodeRo);
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
-
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break;
                g.MetricsCalculated = false;
                g.TallyMetrics(String.Empty);
                s += HtmlLib.TableRowOpen();
@@ -2626,11 +2637,13 @@ namespace RosterLib
          s += UnitHeader("YDp Alwd", "Tdp Alwd", KUnitcodePo);
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
-
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break;
                g.MetricsCalculated = false;
                g.TallyMetrics(String.Empty);
                s += HtmlLib.TableRowOpen();
@@ -2682,11 +2695,13 @@ namespace RosterLib
          s += UnitHeader("SAK", "SAK", KUnitcodePp);
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
-
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break;
                g.MetricsCalculated = false;
                g.TallyMetrics(String.Empty);
                s += HtmlLib.TableRowOpen();
@@ -2730,11 +2745,13 @@ namespace RosterLib
          s += UnitHeader("SAKa", "SAK", KUnitcodePr);
 
          LoadPreviousGames(TeamCode, seasonIn); //  get the last 17 games played into the Game List
-
+         var gameCount = 0;
          foreach (NFLGame g in GameList)
          {
             if (g.Played())
             {
+               gameCount++;
+               if ( gameCount > 8 ) break;
                g.MetricsCalculated = false;
                g.TallyMetrics(String.Empty);
                s += HtmlLib.TableRowOpen();

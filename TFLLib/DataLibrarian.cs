@@ -131,20 +131,41 @@ namespace TFLLib
 
       public DataSet GetLineup(string teamCode, string season, int week)
       {
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetLineup-DataSet",
+                                       season, week, teamCode );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM LINEUP where TEAMCODE='{0}' and WEEK='{1:0#}' and SEASON='{2}'",
-            teamCode, week, season);
+            teamCode, week, season );
 
-         return GetNflDataSet( "lineup", commandStr );
+            ds = GetNflDataSet( "lineup", commandStr );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public DataSet GetStarts(string playerCode, string season)
       {
-         string commandStr = string.Format(
+         playerCode = FixSingleQuotes( playerCode );
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetStarts-DataSet", 
+            season, playerCode );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            string commandStr = string.Format(
             "SELECT DISTINCT * FROM LINEUP where PLAYERID='{0}' and SEASON='{1}' and START",
-            playerCode, season);
+            playerCode, season );
 
-         return GetNflDataSet( "lineup", commandStr );
+            ds = GetNflDataSet( "lineup", commandStr );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       #endregion LINEUP
@@ -153,30 +174,24 @@ namespace TFLLib
 
       public DataRow TeamDataFor(string teamCode, string season)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}", "TeamDataFor-DataSet", teamCode, season );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
-            "SELECT * FROM TEAM where SEASON='{0}' and TEAMID='{1}'", season, teamCode );
-            ds = GetNflDataSet( "team", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var keyValue = string.Format( "{0}:{1}:{2}", "TeamDataFor-DataSet", 
+            teamCode, season );
+         var commandStr = string.Format("SELECT * FROM TEAM where SEASON='{0}' and TEAMID='{1}'", 
+            season, teamCode );
+         var ds = CacheCommand( keyValue, commandStr, "team", "TeamDataFor" );
          return ds.Tables[0].Rows.Count > 0 ? ds.Tables[0].Rows[0] : null;
       }
 
       public string TeamFor(string teamCode, string season)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}", "TeamFor-DataSet", teamCode, season );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
-               "SELECT CITY, TEAMNAME FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
-               season, teamCode );
-            ds = GetNflDataSet( "team", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var keyValue = string.Format( "{0}:{1}:{2}", "TeamFor-DataSet", 
+            teamCode, season );
+         var commandStr = string.Format(
+            "SELECT CITY, TEAMNAME FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
+            season, teamCode );
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "TeamFor" );
+
          var team = "???";
          if (ds.Tables[0].Rows.Count > 0)
             team = ds.Tables[0].Rows[0]["City"].ToString().Trim() + " " + ds.Tables[0].Rows[0]["Teamname"].ToString().Trim();
@@ -185,10 +200,15 @@ namespace TFLLib
 
       public string GetDivFor(string teamCode, string season)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetDivFor-DataSet",
+            teamCode, season );
+
          var commandStr = string.Format(
             "SELECT DIVISION FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
             season, teamCode);
-         var ds = GetNflDataSet( "team", commandStr );
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "GetDivFor" );
+
          var div = "?";
          if (ds.Tables[0].Rows.Count > 0)
             div = ds.Tables[0].Rows[0]["DIVISION"].ToString().Trim();
@@ -197,10 +217,14 @@ namespace TFLLib
 
       public string GetRatingsFor(string teamCode, string season)
       {
+         var keyValue = string.Format( "{0}:{1}", "GetRatingsFor-DataSet",
+                              teamCode, season );
          var commandStr = string.Format(
             "SELECT RATE FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
             season, teamCode);
-         var ds = GetNflDataSet( "team", commandStr );
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "GetRatingsFor" );
+
          var rate = "?";
          if (ds.Tables[0].Rows.Count > 0)
             rate = ds.Tables[0].Rows[0]["RATE"].ToString().Trim();
@@ -214,38 +238,43 @@ namespace TFLLib
       /// <returns></returns>
       public string Teams(string season)
       {
+         var keyValue = string.Format( "{0}:{1}", "Teams-DataSet", season);
+
          var commandStr = string.Format(
             "SELECT CITY, TEAMNAME FROM TEAM where SEASON='{0}'", season);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "team");
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "Teams" );
+
          var teamsXml = ds.GetXml();
          return teamsXml;
       }
 
       public DataSet TeamRecord(string teamCode, string season)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}", "TeamDataFor-DataSet", teamCode, season );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}", "TeamDataFor-DataSet", 
+            teamCode, season );
+
+         var commandStr = string.Format(
             "SELECT * FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
             season, teamCode );
-            ds = GetNflDataSet( "team", commandStr );
-            cache.Set( keyValue, ds );
-         }
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "TeamRecord" );
+
          return ds;
       }
 
       public int GetTeamStat(string teamCode, string statName, string season)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetTeamStat-DataSet",
+                     teamCode, statName, season );
+
          var stat = 0;
          var commandStr = string.Format(
             "SELECT * FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
             season, teamCode);
-         var ds = GetNflDataSet( "team", commandStr );
-         var dt = ds.Tables["team"];
+
+         var ds = CacheCommand( keyValue, commandStr, "team", "GetTeamStat" );
+         var dt = ds.Tables[ 0 ];
          if (dt.Rows.Count == 1)
          {
             var dr = dt.Rows[0];
@@ -274,7 +303,8 @@ namespace TFLLib
       /// <returns></returns>
       public DataSet GetTeams(string season, [Optional] string div)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}", "GetTeams-DataSet", season, div );
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetTeams-DataSet", 
+            season, div );
          DataSet ds;
          if ( !cache.TryGet( keyValue, out ds ) )
          {
@@ -288,6 +318,8 @@ namespace TFLLib
             ds = GetNflDataSet( "team", commandStr );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
@@ -331,7 +363,7 @@ namespace TFLLib
                   season, week, game);
          }
 
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "ScoresDs" );
       }
 
       public DataSet ScoresDs(string scoreType, string teamCode, string season, string week, string game)
@@ -340,7 +372,7 @@ namespace TFLLib
                   "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and TEAM='{3}' and SCORE='{4}'",
                   season, week, game, teamCode, scoreType);
 
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "ScoresDs2" );
       }
 
       public int CountScoresByType(string season, string scoreType)
@@ -348,7 +380,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and SCORE='{1}'", season, scoreType);
 
-         var ds = GetNflDataSet( "score", commandStr );
+         var ds = GetNflDataSet( "score", commandStr, "CountScoresByType" );
 
          return ds.Tables[0].Rows.Count;
       }
@@ -358,7 +390,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and SCORE='{1}'", season, scoreType);
 
-         var ds = GetNflDataSet( "score", commandStr );
+         var ds = GetNflDataSet( "score", commandStr, "ScoresDtByType" );
 
          return ds.Tables[0];
       }
@@ -375,23 +407,25 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}'",
             scoreType, playerId);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetScoresFor" );
       }
 
-      public DataSet GetSeasonScoresFor(string scoreType, string season1, string season2)
+      public DataSet GetSeasonScoresFor(
+         string scoreType, string season1, string season2)
       {
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SCORE='{0}' and ( season>='{1}' and season <='{2}' )",
             scoreType, season1, season2);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetSeasonScoresFor" );
       }
 
-      public DataSet GetPlayersScoring(string scoreType, string season1, string season2, string scoreSlot)
+      public DataSet GetPlayersScoring(
+         string scoreType, string season1, string season2, string scoreSlot)
       {
          var commandStr = string.Format(
             "SELECT DISTINCT PLAYERID{3} FROM SCORE where SCORE='{0}' and ( season>='{1}' and season <='{2}' )",
             scoreType, season1, season2, scoreSlot);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetPlayersScoring" );
       }
 
       /// <summary>
@@ -403,21 +437,23 @@ namespace TFLLib
       /// <param name="week">the week</param>
       /// <param name="gameCode">the game</param>
       /// <returns>DataSet</returns>
-      public DataSet GetTeamScoresFor(string scoreType, string teamCode, string season, string week, string gameCode)
+      public DataSet GetTeamScoresFor(
+         string scoreType, string teamCode, string season, string week, string gameCode)
       {
          var commandStr = string.Format(
             "SELECT * FROM SCORE where TEAM='{1}' and SCORE='{0}' and SEASON='{2}' and WEEK='{3}' and GAMENO='{4}'",
             scoreType, teamCode, season, week, gameCode);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetTeamScoresFor" );
       }
 
-      public int GetTotTeamScoresFor(string scoreType, string teamCode, string season, string week, string gameCode)
+      public int GetTotTeamScoresFor(
+         string scoreType, string teamCode, string season, string week, string gameCode)
       {
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and SCORE='{3}' and TEAM='{4}'",
             season, week, gameCode, scoreType, teamCode);
 
-         var ds = GetNflDataSet( "score", commandStr );
+         var ds = GetNflDataSet( "score", commandStr, "GetTotTeamScoresFor" );
 
          return ds.Tables[0].Rows.Count;
       }
@@ -432,28 +468,32 @@ namespace TFLLib
             var commandStr = string.Format(
             "SELECT * FROM SCORE where TEAM='{1}' and SCORE='{0}' and SEASON='{2}'",
             scoreType, teamCode, season );
-            ds = GetNflDataSet( "score", commandStr );
+            ds = GetNflDataSet( "score", commandStr, "GetTeamScoresFor" );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
-      public DataSet GetTeamRegularSeasonScoresFor(string scoreType, string teamCode, string season)
+      public DataSet GetTeamRegularSeasonScoresFor(
+         string scoreType, string teamCode, string season)
       {
          var commandStr = string.Format(
             "SELECT * FROM SCORE where TEAM='{1}' and SCORE='{0}' and SEASON='{2}' and WEEK < '18'",
             scoreType, teamCode, season);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetTeamRegularSeasonScoresFor" );
       }
 
-      public DataSet GetTeamDefensiveScoresFor(string teamCode, string season, string week, string gameCode)
+      public DataSet GetTeamDefensiveScoresFor(
+         string teamCode, string season, string week, string gameCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "GetTeamDefensiveScoresFor-DataSet",
+                       teamCode, season, week, gameCode );
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and TEAM='{3}' and (SCORE='F' or SCORE='I' or SCORE='K' or SCORE = 'S' or SCORE = 'T')",
             season, week, gameCode, teamCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "score");
+         var ds = CacheCommand( keyValue, commandStr, "score", "ResultFor" );
          return ds;
       }
 
@@ -469,7 +509,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where substr( WHEN, 1, 1 ) = '5' and SEASON='{0}' and WEEK='{1}' and GAMENO='{2}'",
             season, week, gameCode);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetOvertimeScoresFor" );
       }
 
       public DataSet GetScoresForWeek(string scoreType, string playerId, string season, int week)
@@ -479,7 +519,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
             scoreType, playerId, week, season);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetScoresForWeek" );
       }
 
       public DataSet GetTDcForWeek( string playerId, string season, int week)
@@ -489,7 +529,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID1='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
             "P", playerId, week, season);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetTDcForWeek" );
       }
 
       public DataSet GetTDpForWeek(string playerId, string season, int week)
@@ -499,7 +539,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where PLAYERID2='{1}' and SCORE='{0}' and WEEK='{2:0#}' and SEASON='{3}'",
             "P", playerId, week, season);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "GetTDpForWeek" );
       }
 
       public DataSet GetScoresForWeeks(string scoreType, string playerId, string season, int fromWeek, int toWeek, string id)
@@ -516,9 +556,11 @@ namespace TFLLib
             scoreType, playerId, fromWeek, season, toWeek, id );
 
             commandStr += " order by WEEK ASC";
-            ds = GetNflDataSet( "score", commandStr );
+            ds = GetNflDataSet( "score", commandStr, "GetScoresForWeeks" );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
@@ -527,7 +569,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{1}' and (PLAYERID1=\"{2}\" or PLAYERID2=\"{2}\")",
             season, week, playerId);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "PlayerScoresDs" );
       }
 
       public DataSet PenaltyScores(string season, string week, string teamCode)
@@ -535,19 +577,22 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{2}' and TEAM='{1}' and SCORE='R' and DISTANCE=1",
             season, teamCode, week);
-         return GetNflDataSet( "score", commandStr );
+         return GetNflDataSet( "score", commandStr, "PenaltyScores" );
       }
 
-      public decimal TeamScores(string scoreCode, string season, string week, string game, string teamCode)
+      public decimal TeamScores(
+         string scoreCode, string season, string week, string game, string teamCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "TeamDataFor-DataSet",
+             scoreCode, season, week, game, teamCode );
+
          var commandStr = string.Format(
             "SELECT * FROM SCORE where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAM='{2}' and SCORE='{4}'",
             season, game, teamCode, week, scoreCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "score");
-         var scores = ds.Tables[0].Rows.Count;
 
+         var ds = CacheCommand( keyValue, commandStr, "score", "TeamScores" );
+
+         var scores = ds.Tables[0].Rows.Count;
          return Decimal.Parse(scores.ToString( CultureInfo.InvariantCulture ));
       }
 
@@ -559,40 +604,49 @@ namespace TFLLib
             "SELECT * FROM SCORE where ( PLAYERID1=\"{0}\" or PLAYERID2=\"{0}\" ) and WEEK='{2:0#}' and SEASON='{1}' and GAMENO='{3}'",
             playerId, season, week, gameCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "score");
+         var ds = GetNflDataSet( "score", commandStr, "AnyScoresForGame" );
          var dt = ds.Tables["score"];
          return (dt.Rows.Count > 0);
-      }
-
-      private static string FixSingleQuotes(string playerId)
-      {
-         if (playerId.Contains('\''))
-            playerId = playerId.Replace("'", "''");
-         return playerId;
       }
 
       #endregion SCORE
 
       #region STAT
 
-      public DataSet PlayerStatsDs(string season, string week, [Optional] string playerId)
+      public DataSet PlayerStatsDs( string season, string week, [Optional] string playerId )
       {
-         var commandStr = string.Format(string.IsNullOrEmpty(playerId)
+         playerId = FixSingleQuotes( playerId );
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "PlayerStatsDs-DataSet",
+            season, week, playerId );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         { 
+            var commandStr = string.Format( string.IsNullOrEmpty( playerId )
             ? "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}'"
-            : "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and PLAYERID=\"{2}\"", season, week, playerId);
-         return GetNflDataSet( "stat", commandStr );
+            : "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and PLAYERID=\"{2}\"", season, week, playerId );
+            ds = GetNflDataSet( "stat", commandStr, "PlayerStatsDs" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public int GetStat(string statCode, string season, string week, string game)
       {
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "GetStat-DataSet",
+                               season, week, statCode, game );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT sum(QTY) as sum FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}'",
-            season, week, game, statCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            season, week, game, statCode );
+            ds = GetNflDataSet( "stat", commandStr, "GetStat" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          var dr = ds.Tables[0].Rows[0];
          var nSumStat = (int)dr["sum"];
          return nSumStat;
@@ -600,21 +654,41 @@ namespace TFLLib
 
       public DataSet GetStats(string statCode, string teamCode, string season, string week, string game)
       {
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "GetStats-DataSet",
+            statCode, teamCode, season, week, game );
+
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}' and TEAMID='{4}'",
-            season, week, game, statCode, teamCode);
-         return GetNflDataSet( "stat", commandStr );
+            season, week, game, statCode, teamCode );
+            ds = GetNflDataSet( "stat", commandStr, "GetStats" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
-      public decimal GetTotStats(string teamCode, string statCode, string season, string week, string game)
+      public decimal GetTotStats(
+         string teamCode, string statCode, string season, string week, string game)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "GetTotStats-DataSet",
+            teamCode, statCode, season, week, game );
+         DataSet ds;
          var nSumStat = 0.0M;
-         var commandStr = string.Format(
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT sum(QTY) as sum FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}' and TEAMID='{4}'",
-            season, week, game, statCode, teamCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            season, week, game, statCode, teamCode );
+
+            ds = GetNflDataSet( "stat", commandStr, "GetTotStats" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          if (ds.Tables[0].Rows.Count > 0)
          {
             var dr = ds.Tables[0].Rows[0];
@@ -624,15 +698,24 @@ namespace TFLLib
          return nSumStat;
       }
 
-      public decimal TeamStats(string statCode, string season, string week, string game, string teamCode)
+      public decimal TeamStats(
+         string statCode, string season, string week, string game, string teamCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "TeamStats - DataSet",
+            season, week, statCode, game, teamCode  );
+         DataSet ds;
          var stats = 0.0M;
-         var commandStr = string.Format(
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
-            season, game, teamCode, week, statCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            season, game, teamCode, week, statCode );
+
+            ds = GetNflDataSet( "stat", commandStr, "TeamStats" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          if (ds.Tables[0].Rows.Count > 0)
          {
             var dt = ds.Tables["stat"];
@@ -644,15 +727,25 @@ namespace TFLLib
          return stats;
       }
 
-      public string PlayerStats(string statCode, string season, string week, string game, string teamCode)
+      public string PlayerStats(
+         string statCode, string season, string week, string game, string teamCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "PlayerStatsDs-DataSet",
+            season, week, statCode, game, teamCode );
+
+         DataSet ds;
          var thisGame = "";
-         var commandStr = string.Format(
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
-            season, game, teamCode, week, statCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            season, game, teamCode, week, statCode );
+
+            ds = GetNflDataSet( "stat", commandStr, "PlayerStats" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          if (ds.Tables[0].Rows.Count > 0)
          {
             var dt = ds.Tables["stat"];
@@ -664,16 +757,24 @@ namespace TFLLib
          return thisGame;
       }
 
-      public string PlayerStats(string statCode, string season, string week, string playerId)
+      public string PlayerStats(
+         string statCode, string season, string week, string playerId)
       {
          playerId = FixSingleQuotes(playerId);
          var thisGame = "";
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "PlayerStats-DataSet",
+            season, week, playerId, statCode  );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and PLAYERID='{2}' and STAT='{3}'",
-            season, week, playerId, statCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            season, week, playerId, statCode );
+            ds = GetNflDataSet( "stat", commandStr, "PlayerStats" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          if (ds.Tables[0].Rows.Count > 0)
          {
             var dt = ds.Tables["stat"];
@@ -685,12 +786,14 @@ namespace TFLLib
          return thisGame;
       }
 
-      public DataSet GetStatsForWeeks(string playerId, string season, int fromWeek, int toWeek, string statType)
+      public DataSet GetStatsForWeeks(
+         string playerId, string season, int fromWeek, int toWeek, string statType)
       {
          playerId = FixSingleQuotes( playerId );
 
          var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}",
-               "GetStatsForWeeks-DataSet", playerId, season, fromWeek, toWeek, statType );
+               "GetStatsForWeeks-DataSet", 
+               playerId, season, fromWeek, toWeek, statType );
          DataSet ds;
          if ( !cache.TryGet( keyValue, out ds ) )
          {
@@ -698,22 +801,31 @@ namespace TFLLib
             "SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK>='{3:0#}'  and WEEK<='{1:0#}' and SEASON='{2}' and STAT='{4}'",
             playerId, fromWeek, season, toWeek, statType );
 
-            ds = GetNflDataSet( "stat", commandStr );
+            ds = GetNflDataSet( "stat", commandStr, "GetStatsForWeeks" );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
       public bool AnyStatsForGame(string playerId, string season, int week, string gameCode)
       {
          playerId = FixSingleQuotes(playerId);
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2:00}:{3}:{4}", "AnyStatsForGame-DataSet",
+            season, week, playerId, gameCode );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK='{2:0#}'  and SEASON='{1}' and GAMENO='{3}'",
-            playerId, season, week, gameCode);
+            playerId, season, week, gameCode );
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "stat");
+            ds = GetNflDataSet( "stat", commandStr, "AnyStatsForGame" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          var dt = ds.Tables["stat"];
          return (dt.Rows.Count > 0);
       }
@@ -741,94 +853,151 @@ namespace TFLLib
          if ( surname.Contains( '\'' ) )
             surname = surname.Replace( "'", "''" );
 
-         var commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}", "GetPlayer-DataSet", 
+            firstName, surname);
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format(
             "SELECT * FROM PLAYER where SURNAME='{0}' and FIRSTNAME='{1}' order by DOB desc", surname, firstName );
-         return GetNflDataSet( "player", commandStr );
+            ds = GetNflDataSet( "player", commandStr, "GetPlayer" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public DataSet GetReturners()
       {
-         const string commandStr = "SELECT * FROM PLAYER where CURRTEAM<>'??' and CURRTEAM<>'  ' " +
+         var keyValue = string.Format( "{0}", "GetReturners-DataSet");
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            const string commandStr = "SELECT * FROM PLAYER where CURRTEAM<>'??' and CURRTEAM<>'  ' " +
                                    "and ( POSDESC like '%KR%' or POSDESC like '%PR%' ) and ROLE <> ' '";
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "returners");
+            ds = GetNflDataSet( "returners", commandStr, "GetReturners" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
       public DataSet GetCurrentScoring(string categoryIn)
       {
-         string commandStr = string.Format(
-            "SELECT CURSCORES, * FROM PLAYER where CATEGORY='{0}' ", categoryIn);
+         var keyValue = string.Format( "{0}:{1}", "GetCurrentScoring-DataSet",
+            categoryIn );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            string commandStr = string.Format(
+            "SELECT CURSCORES, * FROM PLAYER where CATEGORY='{0}' ", categoryIn );
 
-         commandStr += " and CURSCORES > 0 ORDER BY 1 DESC";
+            commandStr += " and CURSCORES > 0 ORDER BY 1 DESC";
 
-         return GetNflDataSet( "player", commandStr );
+            ds = GetNflDataSet( "player", commandStr, "GetCurrentScoring" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public DataSet GetScoring(string categoryIn, bool currentOnly, int season)
       {
-         string commandStr = string.Format(
-            "SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn);
+         var keyValue = string.Format( "{0}:{1}:{2}:{3:0000}", "GetScoring-DataSet",
+            categoryIn, currentOnly, season );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            string commandStr = string.Format(
+            "SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn );
 
-         if (currentOnly) commandStr += " and CURRTEAM<>'??' and CURRTEAM<>'  ' ";
+            if ( currentOnly ) commandStr += " and CURRTEAM<>'??' and CURRTEAM<>'  ' ";
 
-         commandStr += " and SCORES > 10 ORDER BY 1 DESC";
+            commandStr += " and SCORES > 10 ORDER BY 1 DESC";
 
-         return GetNflDataSet( "player", commandStr );
+            ds = GetNflDataSet( "player", commandStr, "GetScoring" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public DataSet GetFreeAgents(string categoryIn, bool currentOnly, int season)
       {
-         var commandStr = string.Format(
-            "SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn);
-
-         if (currentOnly) commandStr += " and Role = 'S' and FTEAM = and CURRTEAM<>'??' and CURRTEAM<>'  ' ";
-
-         commandStr += " and SCORES > 10 ORDER BY 1 DESC";
-         return GetNflDataSet( "player", commandStr );
-      }
-
-      public DataSet GetPlayer(string teamCode, string strCat, string strRole, string strPos)
-      {
-         string commandStr;
-
-         if (strCat == "*")
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetFreeAgents-DataSet",
+            categoryIn, currentOnly, season.ToString() );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
          {
-            commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' ";
-            if (strRole != "*" || !string.IsNullOrEmpty(strRole))
-               commandStr += " and ROLE ='" + strRole + "'";
+            var commandStr = string.Format(
+            "SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn );
+
+            if ( currentOnly ) commandStr += " and Role = 'S' and FTEAM = and CURRTEAM<>'??' and CURRTEAM<>'  ' ";
+
+            commandStr += " and SCORES > 10 ORDER BY 1 DESC";
+            ds = GetNflDataSet( "player", commandStr, "GetFreeAgents" );
+            cache.Set( keyValue, ds );
          }
          else
+            CacheHit( keyValue );
+         return ds;
+      }
+
+      public DataSet GetPlayer(
+         string teamCode, string strCat, string strRole, string strPos)
+      {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "GetPlayer4-DataSet",
+                                       teamCode, strCat, strRole, strPos );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
          {
-            if (strPos.Equals("RB"))
+            string commandStr;
+
+            if ( strCat == "*" )
             {
-               commandStr =
-                  "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "'" + " and " +
-                  "CATEGORY ='" + strCat + "'"
-                  + " and ( POSDESC like '%RB%' or POSDESC like '%HB%' )";
-               if (strRole != "*" && !string.IsNullOrEmpty(strRole))
+               commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' ";
+               if ( strRole != "*" || !string.IsNullOrEmpty( strRole ) )
                   commandStr += " and ROLE ='" + strRole + "'";
             }
             else
             {
-               if (strRole == String.Empty)
+               if ( strPos.Equals( "RB" ) )
+               {
                   commandStr =
                      "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "'" + " and " +
-                     "CATEGORY ='" + strCat + "'";
+                     "CATEGORY ='" + strCat + "'"
+                     + " and ( POSDESC like '%RB%' or POSDESC like '%HB%' )";
+                  if ( strRole != "*" && !string.IsNullOrEmpty( strRole ) )
+                     commandStr += " and ROLE ='" + strRole + "'";
+               }
                else
-                  commandStr =
-                     "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "'" + " and " +
-                     "CATEGORY ='" + strCat + "'" + " and " +
-                     "ROLE ='" + strRole + "'";
+               {
+                  if ( strRole == String.Empty )
+                     commandStr =
+                        "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "'" + " and " +
+                        "CATEGORY ='" + strCat + "'";
+                  else
+                     commandStr =
+                        "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "'" + " and " +
+                        "CATEGORY ='" + strCat + "'" + " and " +
+                        "ROLE ='" + strRole + "'";
+               }
             }
-         }
-         if ((strPos != "*") && strPos != "RB")
-            commandStr += " and POSDESC like '%" + strPos.Trim() + "%'";
+            if ( ( strPos != "*" ) && strPos != "RB" )
+               commandStr += " and POSDESC like '%" + strPos.Trim() + "%'";
 
-         commandStr += " order by CATEGORY";
-         return GetNflDataSet( "player", commandStr );
+            commandStr += " order by CATEGORY";
+            ds = GetNflDataSet( "player", commandStr, "GetPlayer" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+         return ds;
       }
 
       public DataSet GetPlayer(string teamCode, string strRole, string strPos)
@@ -845,32 +1014,46 @@ namespace TFLLib
          {
             var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
             commandStr += " order by CATEGORY";
-            ds = GetNflDataSet( "player", commandStr );
+            ds = GetNflDataSet( "player", commandStr, "GetTeamPlayers" );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
       public DataSet GetPlayer(string playerCode)
       {
+         playerCode = FixSingleQuotes( playerCode );
          var keyValue = string.Format( "{0}:{1}", "GetPlayer-DataSet", playerCode );
          DataSet ds;
          if ( !cache.TryGet( keyValue, out ds ) )
          {
             var commandStr = string.Format( 
                "SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode );
-            ds = GetNflDataSet( "player", commandStr );
+            ds = GetNflDataSet( "player", commandStr, "GetPlayer3" );
             cache.Set( keyValue, ds );
          }
+         else
+            CacheHit( keyValue );
          return ds;
       }
 
       public string GetPlayerName(string playerCode)
       {
-         var commandStr = string.Format("SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         playerCode = FixSingleQuotes( playerCode );
+         var keyValue = string.Format( "{0}:{1}", "GetPlayerName-DataSet",
+            playerCode );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr = string.Format( "SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode );
+
+            ds = GetNflDataSet( "player", commandStr , "GetPlayerName");
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
          var dt = ds.Tables["player"];
          var dr = dt.Rows[0];
          return string.Format("{1} {0}", dr["SURNAME"].ToString().Trim(), dr["FIRSTNAME"].ToString().Substring(0, 1));
@@ -915,9 +1098,8 @@ namespace TFLLib
          {
             commandStr += string.Format(" and ( ROOKIEYR = {0})", rookieYr);
          }
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+
+         var ds = GetNflDataSet( "player", commandStr, "GetPlayers4" );
 
          //  optionally filter on position
          if (!string.IsNullOrEmpty(sPos))
@@ -966,9 +1148,8 @@ namespace TFLLib
                   "SELECT * FROM PLAYER where CURRTEAM == '" + teamCode + "' and ROLE='" + role + "' and " +
                   "CATEGORY ='" + strCat + "'";
          }
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+
+         var ds = GetNflDataSet( "player", commandStr, "GetCurrentPlayers" );
 
          //  optionally filter on position
          if (!string.IsNullOrEmpty(sPos))
@@ -1001,9 +1182,7 @@ namespace TFLLib
             "SELECT * FROM PLAYER where  CURRTEAM != '??' and ROLE='S' and " +
             "CURRTEAM != '??' and OCCURS( player.CATEGORY, '" + strCats + "' ) > 0";
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         var ds = GetNflDataSet( "player", commandStr, "GetOffensivePlayers" );
 
          return ds;
       }
@@ -1022,9 +1201,7 @@ namespace TFLLib
          if (!sRole.Equals("*"))
             commandStr += " and ROLE='" + sRole + "' ";
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         var ds = GetNflDataSet( "player", commandStr, "GetPlayersByRole" );
 
          //  optionally filter on position
          if (!string.IsNullOrEmpty(sPos))
@@ -1051,19 +1228,14 @@ namespace TFLLib
       {
          const string commandStr = "SELECT DISTINCT POSDESC FROM PLAYER";
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         var ds = GetNflDataSet( "player", commandStr, "GetDistinctPositions" );
          return ds.Tables[0];
       }
 
       public DataTable GetDistinctColleges()
       {
          const string commandStr = "SELECT DISTINCT COLLEGE FROM PLAYER";
-
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         var ds = GetNflDataSet( "player", commandStr, "GetDistinctColleges" );
          return ds.Tables[0];
       }
 
@@ -1082,9 +1254,7 @@ namespace TFLLib
             formatStr = "SELECT * FROM PLAYER WHERE FIRSTNAME='{0}' and SURNAME='{1}' and COLLEGE='{2}' AND DTOC(DOB)='{3}'";
             commandStr = string.Format(formatStr, firstname, surname, college, dob);
          }
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "player");
+         var ds = GetNflDataSet( "player", commandStr, "PlayerExists" );
 
          return (ds.Tables[0].Rows.Count > 0);
       }
@@ -1160,12 +1330,20 @@ namespace TFLLib
 
       public DateTime GetSeasonStartDate(string season)
       {
-         var commandStr =
-            string.Format("select * from SEASON where season='{0}'", season);
+         var keyValue = string.Format( "{0}:{1}", "GetSeasonStartDate-DataSet",
+                              season );
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            var commandStr =
+            string.Format( "select * from SEASON where season='{0}'", season );
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "season");
+            ds = GetNflDataSet( "season", commandStr, "GetSeasonStartDate" );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue );
+
          DataTable dt = ds.Tables["SEASON"];
          if (dt.Rows.Count > 0)
             return DateTime.Parse(dt.Rows[0]["SUNDAY1"].ToString());
@@ -1180,9 +1358,7 @@ namespace TFLLib
       {
          //  get all the players who ever played for the team
          var commandStr = string.Format("SELECT * FROM SERVE where TEAMID='{0}'", teamCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "SERVE");
+         var ds = GetNflDataSet( "serve", commandStr, "MovesDs" );
          var dt = ds.Tables["SERVE"];
          var nullDate = new DateTime(1899, 12, 30);
          //  Drop any out of range records
@@ -1238,12 +1414,20 @@ namespace TFLLib
             sTeam = "??";
          else
          {
-            //  There are single quotes in the data!
-            var commandStr = string.Format(
-               "select TEAMID, FROM, TO from SERVE where PLAYERID=\"{0}\" order by 2 desc", playerId);
-            var da = new OleDbDataAdapter(commandStr, OleDbConn);
-            var ds = new DataSet();
-            da.Fill(ds, "serve");
+            var keyValue = string.Format( "{0}:{1}:{2}:{3}", "PlayedFor-DataSet",
+               playerId, season, week );
+            DataSet ds;
+            if ( !cache.TryGet( keyValue, out ds ) )
+            {
+               var commandStr = string.Format(
+                   "select TEAMID, FROM, TO from SERVE where PLAYERID=\"{0}\" order by 2 desc", playerId );
+
+               ds = GetNflDataSet( "serve", commandStr, "PlayedFor" );
+               cache.Set( keyValue, ds );
+            }
+            else
+               CacheHit( keyValue );
+
             var dt = ds.Tables["serve"];
             foreach (DataRow dr in dt.Rows)
             {
@@ -1267,12 +1451,14 @@ namespace TFLLib
       /// <returns></returns>
       public string Drafted(string playerCode)
       {
+         var keyValue = string.Format( "{0}:{1}", "Drafted-DataSet",
+                                       playerCode );
          var drafted = "??";
          var commandStr =
             "select * from SERVE where PLAYERID=\"" + playerCode + "\" order by SERVE.FROM";
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "serve");
+
+         var ds = CacheCommand( keyValue, commandStr, "SERVE", "Drafted" );
+
          var dt = ds.Tables["serve"];
          foreach (DataRow dr in dt.Rows)
          {
@@ -1290,12 +1476,13 @@ namespace TFLLib
       /// <returns>The season in which the player retired.</returns>
       public string Retired(string playerCode)
       {
+         var keyValue = string.Format( "{0}:{1}", "Retired-DataSet",
+                              playerCode );
          var lastSeason = "";
          var commandStr =
             "select * from SERVE where PLAYERID=\"" + playerCode + "\" order by SERVE.FROM";
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "serve");
+
+         var ds = CacheCommand( keyValue, commandStr, "serve", "Retired" );
          var dt = ds.Tables["serve"];
          foreach (DataRow dr in dt.Rows)
          {
@@ -1319,13 +1506,10 @@ namespace TFLLib
             "select GAMEDATE from SCHED where SEASON='{0}' and WEEK='{1:0#}'",
             season, week);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dStart = ds.Tables[0].Rows.Count > 0
                               ? DateTime.Parse(ds.Tables[0].Rows[0]["GAMEDATE"].ToString())
                               : new DateTime(1, 1, 1);
-
          return dStart;
       }
 
@@ -1333,48 +1517,33 @@ namespace TFLLib
       {
          var keyValue = string.Format( "{0}:{1}:{2}:{3}", "ResultFor-DataSet", 
             teamCode, season, week );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
+         var commandStr = string.Format(
             "select * from SCHED where SEASON='{0}' and WEEK='{1:0#}' and (HOMETEAM='{2}' or AWAYTEAM='{2}')",
             season, week, teamCode );
 
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var ds = CacheCommand( keyValue, commandStr, "sched", "ResultFor" );
          return ds;
       }
 
       public DataSet GameFor(string season, string week, string gameNo)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}:{3}", 
-            "GameFor-DataSet", season, week, gameNo );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
-            "select * from SCHED where SEASON='{0}' and WEEK='{1:0#}' and GAMENO='{2}'",
-            season, Int32.Parse( week ), gameNo );
-
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GameFor-DataSet", 
+            season, week, gameNo );
+         var commandStr = string.Format(
+         "select * from SCHED where SEASON='{0}' and WEEK='{1:0#}' and GAMENO='{2}'",
+         season, Int32.Parse( week ), gameNo );
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GameFor" );
          return ds;
       }
 
       public DataSet SchedDs(string season, string week)
       {
-         var keyValue = string.Format( "{0}:{1}:{2}", "SchedDs-DataSet", season, week );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            string commandStr = string.Format(
+         var keyValue = string.Format( "{0}:{1}:{2}", "SchedDs-DataSet", 
+            season, week );
+         string commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1}'",
             season, week );
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var ds = CacheCommand( keyValue, commandStr, "sched", "SchedDs" );
          return ds;
       }
 
@@ -1388,15 +1557,10 @@ namespace TFLLib
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "TeamSchedDs-DataSet", 
             season, teamCode );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
+         var commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' and (AWAYTEAM='{1}' or HOMETEAM='{1}') ORDER BY WEEK",
             season, teamCode );
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var ds = CacheCommand( keyValue, commandStr, "sched", "TeamSchedDs" );
          return ds;
       }
 
@@ -1404,15 +1568,11 @@ namespace TFLLib
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "GetSeason-DataSet",
             sTeam, sSeason );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format(
+
+         var commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' and (HOMETEAM='{1}' or AWAYTEAM='{1}') ORDER BY WEEK",
             sSeason, sTeam );
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GetSeason" );
          return ds;
       }
 
@@ -1441,39 +1601,35 @@ namespace TFLLib
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "GetGames-DataSet", 
             seasonIn, weekIn );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            string commandStr = string.Format(
+         string commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1:0#}'",
             seasonIn, weekIn );
 
-            ds = GetNflDataSet( "sched", commandStr );
-            cache.Set( keyValue, ds );
-         }
+         var ds = CacheCommand( keyValue, commandStr, "sched", "ResultFor" );
          return ds;
       }
 
       public DataSet GetSeason(string seasonIn, string startWeek, string endWeek)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetSeason-DataSet",
+                                       seasonIn, startWeek, endWeek );
          string commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK>='{1}' and WEEK<='{2}'",
             seasonIn, startWeek, endWeek);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GetSeason" );
          return ds;
       }
 
       public DataSet GetSeason(string seasonIn)
       {
+         var keyValue = string.Format( "{0}:{1}", "GetSeason2-DataSet",
+                                       seasonIn );
          var commandStr = string.Format(
             "SELECT * FROM SCHED where SEASON='{0}' order by GAMEDATE, GAMEHOUR", seasonIn);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GetSeason2" );
+
          return ds;
       }
 
@@ -1487,19 +1643,17 @@ namespace TFLLib
       {
          const string commandStr = "SELECT * FROM SCHED";
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          return ds;
       }
 
       public DataSet GetAllGames(int season)
       {
+         var keyValue = string.Format( "{0}:{1}", "GetAllGames-DataSet",
+                                       season );
          var commandStr = string.Format("SELECT * FROM SCHED WHERE SEASON = '{0}'", season);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GetAllGames" );
          return ds;
       }
 
@@ -1508,9 +1662,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}')", teamCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          return ds;
       }
 
@@ -1520,9 +1672,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}') and SEASON='{1}' order by GAMEDATE",
             teamCode, season);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          return ds;
       }
 
@@ -1532,9 +1682,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}') and SEASON='{1}' and WEEK < '18' order by GAMEDATE",
             teamCode, season);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          return ds;
       }
 
@@ -1549,9 +1697,7 @@ namespace TFLLib
          var commandStr = string.Format(
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}') ORDER BY GAMEDATE", teamCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          foreach (var dr in dt.Rows.Cast<DataRow>()
             .Where(dr => DateTime.Parse(dr["GameDate"].ToString()) < since))
@@ -1565,9 +1711,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}'",
             season, week, gameCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          return dt.Rows.Count > 0 ? dt.Rows[0] : null;
       }
@@ -1578,9 +1722,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1}' and (HOMETEAM='{2}' or AWAYTEAM='{2}')",
             season, week, teamCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          return dt.Rows.Count > 0 ? dt.Rows[0] : null;
       }
@@ -1589,9 +1731,7 @@ namespace TFLLib
       {
          var commandStr = string.Format("SELECT * FROM SCHED where GAMEDATE = {{{0:MM/dd/yyyy}}}", when);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          return dt.Rows.Count > 0 ? dt.Rows[0]["WEEK"].ToString() : "0";
       }
@@ -1600,9 +1740,7 @@ namespace TFLLib
       {
          var commandStr = string.Format("SELECT * FROM SCHED where GAMEDATE = {{{0:MM/dd/yyyy}}}", when);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          if (dt.Rows.Count > 0)
             return dt.Rows[0];
@@ -1614,9 +1752,7 @@ namespace TFLLib
       {
          var commandStr = string.Format("SELECT * FROM SCHED where GAMEDATE = {{{0:MM/dd/yyyy}}}", when);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          return dt.Rows.Count > 0 ? dt.Rows[0] : null;
       }
@@ -1627,9 +1763,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1}' and (HOMETEAM='{2}' or AWAYTEAM='{2}')",
             season, week, teamCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var dr = dt.Rows[0];
          return dr["GAMENO"].ToString();
@@ -1641,9 +1775,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' ",
             season, week, gameCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          DataTable dt = ds.Tables["SCHED"];
          DataRow dr = dt.Rows[0];
          return dr;
@@ -1656,9 +1788,7 @@ namespace TFLLib
          var gameNo = "";
          var commandStr = string.Format(
             "SELECT * FROM SCHED where (HOMETEAM='{0}') or (AWAYTEAM='{0}') order by GAMEDATE", teamCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          foreach (DataRow dr in dt.Rows)
          {
@@ -1681,9 +1811,7 @@ namespace TFLLib
          var gameNo = "";
          var commandStr = string.Format(
             "SELECT * FROM SCHED where (HOMETEAM='{0}') or (AWAYTEAM='{0}') order by GAMEDATE", teamCode);
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          foreach (var dr in dt.Rows.Cast<DataRow>().TakeWhile(dr => DateTime.Parse(dr["GameDate"].ToString()) < when))
          {
@@ -1703,9 +1831,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' and AWAYTEAM='{1}') or (HOMETEAM='{1}' and AWAYTEAM='{0}')",
             teamCodeOne, teamCodeTwo);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var aaWeek = new TimeSpan(7, 0, 0, 0);
 
@@ -1729,9 +1855,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' and AWAYTEAM='{1}') or (HOMETEAM='{1}' and AWAYTEAM='{0}') and (HOMESCORE>0 and AWAYSCORE>0) order by GAMEDATE",
             teamCode1, teamCode2);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var firstRec = true;
          foreach (DataRow dr in dt.Rows)
@@ -1751,9 +1875,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}') and SEASON > '{1}' order by GAMEDATE DESCENDING",
             teamCode, nSeason - 2);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var nGameCount = 0;
          foreach (DataRow dr in dt.Rows)
@@ -1778,9 +1900,7 @@ namespace TFLLib
             "SELECT * FROM SCHED where (HOMETEAM='{0}' or AWAYTEAM='{0}') and GAMEDATE < {{{1:MM/dd/yyyy}}} order by GAMEDATE DESCENDING",
             teamCode, theDate);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var nGameCount = 0;
          foreach (DataRow dr in dt.Rows)
@@ -1808,9 +1928,7 @@ namespace TFLLib
 #if DEBUG
          Console.WriteLine("Comand={0}", commandStr);
 #endif
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "sched");
+         var ds = GetNflDataSet( "sched", commandStr );
          var dt = ds.Tables["SCHED"];
          var nGameCount = 0;
          foreach (DataRow dr in dt.Rows)
@@ -1962,20 +2080,27 @@ namespace TFLLib
 
       public DataSet GetUnitRatings(DateTime when)
       {
-         var commandStr =
-            string.Format("select * from URATINGS where SUNDAY={{{0:MM/dd/yyyy}}}", when);
+         var keyValue = string.Format( "{0}:{1}", "GetUnitRatings-DataSet",
+             when.Date.ToLongDateString() );
 
-         return GetNflDataSet( "uratings", commandStr );
+         var commandStr =
+            string.Format("select * from URATINGS where SUNDAY={{{0:MM/dd/yyyy}}}", 
+            when);
+
+         var ds = CacheCommand( keyValue, commandStr, "uratings", "GetUnitRatings" );
+         return ds;
       }
 
       public string GetUnitRatings(DateTime when, string teamCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetUnitRatings2-DataSet",
+             when.Date.ToLongDateString(), teamCode );
+
          var commandStr =
             string.Format("select * from URATINGS where TEAMCODE = '{1}' AND SUNDAY={{{0:MM/dd/yyyy}}}", when, teamCode);
 
-         var da = new OleDbDataAdapter(commandStr, OleDbConn);
-         var ds = new DataSet();
-         da.Fill(ds, "uratings");
+         var ds = CacheCommand( keyValue, commandStr, "uratings", "GetUnitRatings2" );
+
          var ratings = "??????";
          if (ds.Tables[0].Rows.Count > 0)
             ratings = ds.Tables[0].Rows[0]["ratings"].ToString();
@@ -1987,11 +2112,7 @@ namespace TFLLib
          var formatStr = "INSERT INTO URATINGS (SUNDAY, TEAMCODE, RATINGS)";
          formatStr += "VALUES( {{{0:MM/dd/yyyy}}},'{1}','{2}' )";
          var commandStr = string.Format(formatStr, when, teamCode, ratings);
-         OleDbConn.Close();
-         OleDbConn.Open();
-         var cmd = new OleDbCommand(commandStr, OleDbConn);
-         cmd.ExecuteNonQuery();
-         OleDbConn.Close();
+         ExecuteNflCommand( commandStr );
       }
 
       #endregion URATINGS
@@ -2204,15 +2325,15 @@ namespace TFLLib
 
       public DataSet GetPlayerGameMetrics(string playerCode, string gameCode)
       {
-         if ( playerCode.Contains('\''))
-            playerCode = playerCode.Replace("'", "''");
-
+         playerCode = FixSingleQuotes( playerCode );
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetPlayerGameMetrics-DataSet",
+                        playerCode, gameCode );
          var commandStr =
             string.Format(
                "select * from PGMETRIC where PLAYERID='{0}' and GAMECODE = '{1}'",
                playerCode, gameCode);
 
-         return GetNflDataSet( "pgmetrics", commandStr );
+         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetPlayerGameMetrics" );
       }
 
       public void InsertPlayerGameMetric(string playerId, string gameCode,
@@ -2265,32 +2386,39 @@ namespace TFLLib
 
       public DataSet GetAllPlayerGameMetrics(string season, string week)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetAllPlayerGameMetrics-DataSet",
+                           season, week );
          var gameCode = string.Format("{0}:{1}-", season, week);
          var commandStr =
             string.Format(
                "select * from PGMETRIC where GAMECODE like'%{0}%'", gameCode);
 
-         return GetNflDataSet( "pgmetrics", commandStr );
+         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetAllPlayerGameMetrics" );
       }
 
       public DataSet GetAllPlayerGameMetrics(string season)
       {
+         var keyValue = string.Format( "{0}:{1}", "GetAllPlayerGameMetrics2-DataSet",
+                  season );
          var gameCode = string.Format("{0}:", season);
          var commandStr =
             string.Format(
                "select * from PGMETRIC where GAMECODE like'%{0}%'", gameCode);
-         return GetNflDataSet( "pgmetrics", commandStr );
+         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetAllPlayerGameMetrics2" );
       }
 
       public DataSet GetAllPlayerGameMetricsForPlayer(string season, string playerCode)
       {
          playerCode = playerCode.Replace("'", "''");
+         var keyValue = string.Format( "{0}:{1}:{2}", "GetAllPlayerGameMetricsForPlayer-DataSet",
+                           season, playerCode );
          var gameCode = string.Format("{0}:", season);
          var commandStr =
             string.Format(
-               "select * from PGMETRIC where GAMECODE like'%{0}%' and PLAYERID = '{1}'", gameCode, playerCode);
+               "select * from PGMETRIC where GAMECODE like'%{0}%' and PLAYERID = '{1}'", 
+               gameCode, playerCode);
 
-         return GetNflDataSet( "pgmetrics", commandStr );
+         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetAllPlayerGameMetricsForPlayer" );
       }
 
       public void ClearPlayerGameMetrics(string gameKey)
@@ -2301,9 +2429,16 @@ namespace TFLLib
 
       #endregion PGMETRIC
 
-		#region Utility
+      #region Utility
 
-		private void ExecuteNflCommand(string commandStr)
+      private static string FixSingleQuotes( string playerId )
+      {
+         if ( playerId.Contains( '\'' ) )
+            playerId = playerId.Replace( "'", "''" );
+         return playerId;
+      }
+
+      private void ExecuteNflCommand(string commandStr)
       {
          try
          {
@@ -2334,9 +2469,9 @@ namespace TFLLib
          return null;
       }
 
-      private DataSet GetNflDataSet( string tableName, string commandStr )
+      private DataSet GetNflDataSet( string tableName, string commandStr, string caller = "" )
       {
-         IoTrace( commandStr );
+         IoTrace( commandStr, caller );
          var da = new OleDbDataAdapter( commandStr, OleDbConn );
          var ds = new DataSet();
          da.Fill( ds, tableName );
@@ -2350,11 +2485,35 @@ namespace TFLLib
 		}
 
       static int ioCount = 0;
-      public void IoTrace( string ioCommand )
+      public void IoTrace( string ioCommand, string caller = "")
       {
          if ( Logger == null ) Logger = LogManager.GetCurrentClassLogger();
          ioCount++;
-         Logger.Trace( string.Format( "   ({0}) >>>{1}", ioCount, ioCommand ) );
+         Logger.Trace( string.Format( "   ({0}) >>>{1}  {2}", 
+            ioCount, ioCommand, caller ) );
+      }
+
+      static int hitCount = 0;
+      public void CacheHit( string keyValue, string caller = "" )
+      {
+         if ( Logger == null ) Logger = LogManager.GetCurrentClassLogger();
+         hitCount++;
+         Logger.Trace( string.Format( "   cache ({0}) hit ({1}) {2}", 
+            hitCount, keyValue, caller ) );
+      }
+
+      private DataSet CacheCommand( string keyValue,
+            string commandStr, string dsName, string caller = "" )
+      {
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            ds = GetNflDataSet( dsName, commandStr, caller );
+            cache.Set( keyValue, ds );
+         }
+         else
+            CacheHit( keyValue, caller );
+         return ds;
       }
 
       #endregion

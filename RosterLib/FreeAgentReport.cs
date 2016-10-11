@@ -16,7 +16,8 @@ namespace RosterLib
 			{
 				var t = Masters.Tm.GetTeam(teamKey);
 				var fileOut = string.Format("{0}FreeAgents\\FA-{1}.htm", Utility.OutputDirectory(), t.TeamCode);
-				var h = new HtmlFile(fileOut, " Free Agents as of " + DateTime.Now.ToString("dd MMM yy") +
+				var h = new HtmlFile(fileOut, " Free Agents as of " + 
+               DateTime.Now.ToString("ddd dd MMM yy") +
 				                              "  Week " + Utility.CurrentWeek());
 				h.AddToBody(Header(t));
 				h.AddToBody(t.FreeAgents(true, true, true));

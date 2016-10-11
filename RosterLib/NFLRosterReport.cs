@@ -91,7 +91,7 @@ namespace RosterLib
 		{
 			FileOut = string.Format("{0}{1}\\RosterReport\\RosterReport.htm", Utility.OutputDirectory(), Season );
 			_html = new HtmlFile(FileOut,
-			                     "NFL Rosters as of " + DateTime.Now.ToString("dd MMM yy HH:mm"),
+			                     "NFL Rosters as of " + DateTime.Now.ToString("ddd dd MMM yy HH:mm"),
 			                     "dir='ltr' xmlns:v='urn:schemas-microsoft-com:vml' gpmc_reportInitialized='false'",
 			                     "report.css",
 			                     "report.vb",
@@ -104,7 +104,7 @@ namespace RosterLib
 			FileOut = string.Format("{0}Kickers\\Kickers_{1}.htm", Utility.OutputDirectory(), Utility.CurrentSeason());
 
 			_html = new HtmlFile(FileOut,
-			                     " Kicker Projections as of " + DateTime.Now.ToString("dd MMM yy"));
+			                     " Kicker Projections as of " + DateTime.Now.ToString("ddd dd MMM yy"));
 
 			_html.AddToBody(Header("Kicker Projections"));
 			_html.AddToBody(KickersOut());
@@ -119,7 +119,7 @@ namespace RosterLib
 			FileOut = ProjectionFileName( metricName, season);
 
 			_html = new HtmlFile(FileOut,
-			                     " Win Projections as of " + projectionDate.ToString("dd MMM yy"));
+			                     " Win Projections as of " + projectionDate.ToString("ddd dd MMM yy"));
 
 			_html.AddToBody(Header("Season Projections " + metricName + " - " + season));
 			_html.AddToBody( SeasonOut( metricName, projectionDate));

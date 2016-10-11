@@ -33,7 +33,7 @@ namespace RosterLib
 	      foreach (string teamKey in SeasonMaster.TeamKeyList)
          {
             TeamUnits( season, teamKey );
-#if DEBUG2
+#if DEBUG
             break;
 #endif
          }
@@ -52,6 +52,7 @@ namespace RosterLib
 
 		   var fileOut = string.Format( "{0}\\{2}\\Units\\{1}-Units.htm",
 			   Utility.OutputDirectory(), t.TeamCode, season );
+
 		   var h = new HtmlFile( fileOut,
 			   string.Format( " Unit Reports as of {0}  Week {1}",
 				   DateTime.Now.ToString( "dd MMM yy" ), Utility.CurrentWeek() ) );
@@ -61,18 +62,22 @@ namespace RosterLib
 		   h.Render();
 
 		   PoSnippet( t );
-		   RoSnippet( t );
+#if !DEBUG
+         RoSnippet( t );
 		   PpSnippet( t );
 		   PrSnippet( t );
 		   RdSnippet( t );
 		   PdSnippet( t );
+#endif
 	   }
 
-	   #region Headers
+#region Headers
 
       private static string Header(NflTeam t)
       {
-         return HtmlLib.H2(string.Format("Unit Reports for {0}", t.NameOut()));
+         return HtmlLib.H2(string.Format("Unit Reports for {0} as of {1}", 
+            t.NameOut(), DateTime.Now.ToString( "ddd dd MMM yy hh:mm" ) )
+            );
       }
 
       private static string HeaderPo(NflTeam t)
@@ -105,9 +110,9 @@ namespace RosterLib
          return HtmlLib.H2(string.Format("Pass Defense Unit for {0}", t.NameOut()));
       }
 
-      #endregion Headers
+#endregion Headers
 
-      #region Snippets
+#region Snippets
 
       public void PoSnippet(NflTeam t)
       {
@@ -185,15 +190,15 @@ namespace RosterLib
          h.Render();
       }
 
-      #endregion Snippets
+#endregion Snippets
 
-      #region IDisposable Members
+#region IDisposable Members
 
       public void Dispose()
       {
          GC.SuppressFinalize(obj: true); // as a service to those who might inherit from us
       }
 
-      #endregion IDisposable Members
+#endregion IDisposable Members
    }
 }

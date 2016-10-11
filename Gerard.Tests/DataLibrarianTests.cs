@@ -18,6 +18,13 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
+      public void TestGetPlayerName()
+      {
+         var results = Utility.TflWs.GetPlayerName( "MONTJO01" );
+         Assert.IsTrue( results.Equals( "J Montana" ) );
+      }
+
+      [TestMethod]
       public void TestGetTeamPlayers()
       {
          var results = Utility.TflWs.GetTeamPlayers( "SF", "2" );

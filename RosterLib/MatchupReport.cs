@@ -203,7 +203,8 @@ namespace RosterLib
 										_game.Week, 
 										_game.Season );
 
-				var h = new HtmlFile( FileOut, " Matchup as of " + DateTime.Now.ToString( "dd MMM yy" ) );
+				var h = new HtmlFile( FileOut, " Matchup as of " + 
+               DateTime.Now.ToString( "ddd dd MMM yy" ) );
 				h.AddToBody( s );
 				h.Render();
 			}
