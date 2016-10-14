@@ -13,7 +13,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestGameProjectionsReport() 
       {
-         var cut = new GameProjectionsReport( new FakeTimeKeeper("2016","00") );
+         var cut = new GameProjectionsReport( new FakeTimeKeeper("2016","06") );
          Assert.IsNotNull( cut );
          cut.RenderAsHtml();
       }

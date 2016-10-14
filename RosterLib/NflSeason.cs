@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Xml;
+using NLog;
 
 namespace RosterLib
 {
@@ -12,6 +13,8 @@ namespace RosterLib
    /// </summary>
    public class NflSeason
    {
+      public Logger Logger { get; set; }
+
       private int _mWeeks = 21;
 
       private ArrayList _mTeamKeyList;
@@ -95,7 +98,7 @@ namespace RosterLib
             var l = t.Lineup(Year, week);
             l.DumpKeyPlayers();
             if (l.MissingKeys > 0)
-               Utility.Announce(string.Format("{0} is missing {1} key players", t.NameOut(), l.MissingKeys));
+               Logger.Trace( string.Format("{0} is missing {1} key players", t.NameOut(), l.MissingKeys));
          }
       }
 
@@ -103,7 +106,7 @@ namespace RosterLib
 
       private void LoadDivisionList(string yearIn)
       {
-         //Utility.Announce( string.Format( "LoadDivisionList: Loading {0} division List...", yearIn ) );
+         Logger.Trace( string.Format( "LoadDivisionList: Loading {0} division List...", yearIn ) );
          var nfc = new NflConference("NFC", yearIn);
          ConferenceList.Add(nfc);
          LoadNfc(nfc);
@@ -114,28 +117,24 @@ namespace RosterLib
 
       public void LoadNfc(NflConference conf)
       {
-#if DEBUG
-         Utility.Announce("NewRosterReport:LoadNFC Loading NFC");
-#endif
+         Logger.Trace( "NewRosterReport:LoadNFC Loading NFC");
          conf.AddDiv("East", "A");
          conf.AddDiv("North", "B");
          conf.AddDiv("South", "C");
          conf.AddDiv("West", "D");
-         //Utility.Announce( "NewRosterReport:LoadNFC Loading NFC - finished" );
+         Logger.Trace( "NewRosterReport:LoadNFC Loading NFC - finished" );
       }
 
       public void LoadAfc(NflConference conf)
       {
-#if DEBUG
-         Utility.Announce("NewRosterReport:LoadAFC Loading AFC");
-#endif
+         Logger.Trace( "NewRosterReport:LoadAFC Loading AFC");
+
          conf.AddDiv("East", "E");
          conf.AddDiv("North", "F");
          conf.AddDiv("South", "G");
          conf.AddDiv("West", "H");
-#if DEBUG
-         Utility.Announce("NewRosterReport:LoadAFC Loading AFC - finished");
-#endif
+
+         Logger.Trace( "NewRosterReport:LoadAFC Loading AFC - finished");
       }
 
       public void LoadRegularWeeks()
@@ -171,24 +170,23 @@ namespace RosterLib
 
       private void LoadGameList(string yearIn)
       {
-#if DEBUG
-         Utility.Announce(string.Format("LoadGameList: Loading {0} game List...", yearIn));
-#endif
+
+         Logger.Trace(string.Format("LoadGameList: Loading {0} game List...", yearIn));
+
          if (GameList == null) GameList = new List<NFLGame>();
          var gameDt = Utility.TflWs.GetSeasonDt(yearIn);
          foreach (var g in from DataRow dr in gameDt.Rows select new NFLGame(dr))
             GameList.Add(g);
 
-#if DEBUG
-         Utility.Announce(string.Format("LoadGameList: Loaded {0} games.", GameList.Count));
-#endif
+         Logger.Trace(string.Format("LoadGameList: Loaded {0} games.", GameList.Count));
       }
 
       private void LoadTeamList(string yearIn)
       {
-#if DEBUG
-         Utility.Announce(string.Format("LoadTeamList: Loading {0} team List", yearIn));
-#endif
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+
+         Logger.Trace( string.Format("LoadTeamList: Loading {0} team List", yearIn));
+
          var ds = Utility.TflWs.GetTeams(yearIn, "");
          var teams = ds.Tables["team"];
          foreach (DataRow dr in teams.Rows)
@@ -196,9 +194,8 @@ namespace RosterLib
             TeamKeyList.Add(yearIn + dr["TEAMID"]);
             TeamList.Add(new NflTeam(dr["TEAMID"].ToString(), yearIn));
          }
-#if DEBUG
-         Utility.Announce(string.Format("LoadTeamList: Loaded {0} teams.", TeamList.Count));
-#endif
+
+         Logger.Trace( string.Format("LoadTeamList: Loaded {0} teams.", TeamList.Count));
       }
 
       #endregion Load
@@ -210,7 +207,7 @@ namespace RosterLib
          TeamKeyList = new ArrayList();
          foreach (XmlNode n in node.ChildNodes)
          {
-            Utility.Announce("processing " + n.Name);
+            Logger.Trace( "processing " + n.Name);
             switch (n.Name)
             {
                case "year":
@@ -278,7 +275,7 @@ namespace RosterLib
 
       private void CalculateAverageScores(int toWeek)
       {
-         Utility.Announce(string.Format(" Calculating Average Scores for {0} upto week {1}", Year, toWeek));
+         Logger.Trace( string.Format(" Calculating Average Scores for {0} upto week {1}", Year, toWeek));
 
          if (AverageScores == null)
          {
@@ -318,7 +315,7 @@ namespace RosterLib
             AverageScores[w - 1, 2] = totalPoints;
             AverageScores[w - 1, 3] = nGames;
 
-            Utility.Announce(
+            Logger.Trace(
                string.Format("   Week {0:#0} - {1:#0} games - Average score {2:#0} Total Points {3:####0}",
                    w, AverageScores[w - 1, 1], AverageScores[w - 1, 0], totalPoints));
          }
@@ -327,7 +324,7 @@ namespace RosterLib
       public void DumpTeams()
       {
          foreach (string key in TeamKeyList)
-            Utility.Announce(string.Format("\t[{0}]", key));
+            Logger.Trace( string.Format("\t[{0}]", key));
       }
 
       #region Schedule<yyyy>.xml
@@ -355,7 +352,7 @@ namespace RosterLib
             writer.WriteEndDocument();
             writer.Close();
 
-            Utility.Announce(fileName + " created");
+            Logger.Trace( fileName + " created");
          }
       }
 
@@ -548,7 +545,7 @@ namespace RosterLib
          var compareByPower = new Comparison<NflTeam>(CompareTeamsByPower);
          TeamList.Sort(compareByPower);
          foreach (var t in TeamList)
-            Utility.Announce(string.Format("{0,-20} : {1:00.0} : {2:00.0} : {3:'+'00.0;'-'00.0'}  ",
+            Logger.Trace( string.Format("{0,-20} : {1:00.0} : {2:00.0} : {3:'+'00.0;'-'00.0'}  ",
                t.NameOut(), t.StartingPowerRating, t.PowerRating, t.PowerRating - t.StartingPowerRating));
       }
 

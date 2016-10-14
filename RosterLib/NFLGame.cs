@@ -837,7 +837,8 @@ namespace RosterLib
             else if (AwayScore > HomeScore)
                theResult = abbreviate ? "W" : "Won";
             else if (AwayScore < HomeScore) theResult = abbreviate ? "L" : "Lost";
-            theResult = string.Format( "{3} v {0} {1,2}-{2,2} ", AwayTeam, HomeScore, AwayScore, theResult );
+            theResult = string.Format( "{3} v {0} {1,2}-{2,2} ", 
+               AwayTeam, HomeScore, AwayScore, theResult );
          }
          else
          {
@@ -846,7 +847,8 @@ namespace RosterLib
             else if (HomeScore > AwayScore)
                theResult = abbreviate ? "W" : "Won";
             else if (HomeScore < AwayScore) theResult = abbreviate ? "L" : "Lost";
-            theResult = string.Format( "{3} @ {0} {1,2}-{2,2} ", HomeTeam, AwayScore, HomeScore, theResult );
+            theResult = string.Format( "{3} @ {0} {1,2}-{2,2} ", 
+               HomeTeam, AwayScore, HomeScore, theResult );
          }
          return string.Format( "|{0}", theResult );
       }
@@ -2295,7 +2297,7 @@ namespace RosterLib
 
 		public string SummaryUrl( string textOut )
 		{
-			var summaryFile = string.Format( "<a href='..//{1}//GameSummaries//Week {0}//{2}@{3}.htm'>|{4} {5} @ {6} {7}</a>",
+			var summaryFile = string.Format( "<a href='..//{1}//GameSummaries//Week {0}//{2}@{3}.htm'>|{4} {5,2} @ {6} {7,2}</a>",
 				Week, Season, AwayTeam, HomeTeam, AwayTeam, AwayScore, HomeTeam, HomeScore );
 			return summaryFile;
 		}

@@ -715,7 +715,7 @@ namespace RosterLib
          {
             var g = GameForWeek( i );
             if ( ! g.Played() ) g.LoadPrediction();
-            sb.Append( g.GameLink( g.ResultFor( TeamCode, true ) ) );
+            sb.Append( g.GameLink( g.ResultFor( TeamCode, abbreviate:true ) ) );
          }
          return sb.ToString();
       }

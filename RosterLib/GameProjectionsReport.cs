@@ -5,7 +5,6 @@ namespace RosterLib
    public class GameProjectionsReport : RosterGridReport
    {
       public NflSeason NflSeason { get; private set; }
-      public IKeepTheTime TimeKeeper { get; set; }
 
       public GameProjectionsReport(IKeepTheTime timekeeper)
       {

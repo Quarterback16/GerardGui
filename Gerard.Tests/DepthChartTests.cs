@@ -114,9 +114,17 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDepthChartLoadsStarters()
       {
-         var sut = new DepthChartReport("2015", "SF") {LeagueInFocus = "G1"};
+         var sut = new DepthChartReport("2016", "SF") {LeagueInFocus = "YH"};
          sut.Execute();
          Assert.IsTrue(sut.PlayerCount > 0);
+      }
+
+      [TestMethod]
+      public void TestDepthChartResultOutput()
+      {
+         var sut = new NFLGame( "2016:01-P");
+         var output = sut.ResultFor("SF", abbreviate: true );
+         Assert.AreEqual( "|W v SL 28-0", output );
       }
 
       [TestMethod]
