@@ -133,7 +133,7 @@
          var joiner = JoinerFlipped();
          var winnerPoFlag = PlayoffFlag( winner );
          var loserPoFlag = PlayoffFlag( loser );
-         return string.Format( "{0}{5}{1,2}{4}{2}{6}{3,2}", 
+         return string.Format( "{0}{6}{1,2}{4}{2}{5}{3,2}", 
             loser, loserScore, winner, winnerScore, joiner, winnerPoFlag, loserPoFlag );
       }
 

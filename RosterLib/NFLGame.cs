@@ -859,7 +859,17 @@ namespace RosterLib
          if ( IsBye() ) return string.Format( "|{0}", theResult );
          if (Played())
          {
-            // actuals
+            //TODO actuals
+            if ( teamInFocus == HomeTeam )
+            {
+               theResult = string.Format( " ({0}-{1}-{2}-{3}-{4}) ",
+                  HomeTDp, HomeTDr, HomeTDd, HomeTDs, HomeFg );
+            }
+            else
+            {
+               theResult = string.Format( " ({0}-{1}-{2}-{3}-{4}) ",
+                 AwayTDp, AwayTDr, AwayTDd, AwayTDs, AwayFg );
+            }
          }
          else
          {
@@ -1686,6 +1696,21 @@ namespace RosterLib
 
       #endregion Projections
 
+      #region Actuals
+
+      public int HomeYdr { get; set; }
+
+      public int HomeYdp { get; set; }
+
+      public int HomeFg { get; set; }
+
+      public int AwayFg { get; set; }
+
+      public int AwayYdr { get; set; }
+
+      public int AwayYdp { get; set; }
+
+      #endregion Projections
       public bool IsOnTv { get; set; }
 
       public decimal Spread { get; set; }
@@ -1706,8 +1731,6 @@ namespace RosterLib
 
       public int HomeTDs { get; set; }
 
-      public int HomeFg { get; set; }
-
       public decimal HomeSaKa
       {
          get { return _homeSaKa; }
@@ -1721,8 +1744,6 @@ namespace RosterLib
       public int AwayTDd { get; set; }
 
       public int AwayTDs { get; set; }
-
-      public int AwayFg { get; set; }
 
       public decimal AwaySaKa
       {
