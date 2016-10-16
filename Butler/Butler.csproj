@@ -106,6 +106,7 @@
     <Compile Include="Models\TflDataBackupJob.cs" />
     <Compile Include="Models\UnitReportsJob.cs" />
     <Compile Include="Models\UpdateActualsJob.cs" />
+    <Compile Include="Models\UpdateTeamActualsJob.cs" />
     <Compile Include="Models\UpdateTflJob.cs" />
     <Compile Include="Models\YahooXmlFullJob.cs" />
     <Compile Include="Models\YahooXmlJob.cs" />

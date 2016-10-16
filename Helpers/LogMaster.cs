@@ -28,9 +28,9 @@ namespace Helpers
       public void PutItem(LogItem m)
       {
          var filespec = m.Filespec;
-         if (!TheHT.ContainsKey(filespec))
+         if (!TheHt.ContainsKey(filespec))
          {
-            TheHT.Add(filespec, m);
+            TheHt.Add(filespec, m);
             IsDirty = true;
          }
       }
@@ -42,7 +42,7 @@ namespace Helpers
       /// </summary>
       public void Dump2Xml()
       {
-         if ((TheHT.Count > 0) && IsDirty)
+         if ((TheHt.Count > 0) && IsDirty)
          {
             var writer = new XmlTextWriter(string.Format("{0}", Filename), null);
             writer.Formatting = Formatting.Indented;
@@ -51,7 +51,7 @@ namespace Helpers
             writer.WriteComment("Comments: " + Name);
             writer.WriteStartElement("logfile-list");
 
-            var myEnumerator = TheHT.GetEnumerator();
+            var myEnumerator = TheHt.GetEnumerator();
             while (myEnumerator.MoveNext())
             {
                var m = (LogItem)myEnumerator.Value;

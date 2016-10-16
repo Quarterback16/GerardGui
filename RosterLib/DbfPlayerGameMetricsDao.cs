@@ -15,8 +15,6 @@ namespace RosterLib
 
       public PlayerGameMetrics Get(string playerCode, string gameCode)
       {
-         //  the caching idea doesnt work very well as it actually creates duplicate records
-         //  in the database esp when testing
 
          PlayerGameMetrics pgm;
 
@@ -61,7 +59,6 @@ namespace RosterLib
             pgm.ProjFG = 0;
             pgm.ProjPat = 0;
          }
-         MyPgmMaster.PutPgm(pgm);
          return pgm;
       }
 

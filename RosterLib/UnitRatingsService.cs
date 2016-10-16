@@ -118,7 +118,12 @@ namespace RosterLib
 			var dt = ds.Tables["uratings"]; 
 			foreach ( DataRow dr in dt.Rows )
 			{
-				RatingsHt.Add( dr[ "TEAMCODE" ].ToString(), new UnitRatings( dr[ "RATINGS" ].ToString() ) );
+            var teamCode = dr[ "TEAMCODE" ].ToString();
+            var ratings = new UnitRatings( dr[ "RATINGS" ].ToString() );
+            if ( RatingsHt.ContainsKey( teamCode ) )
+               RatingsHt[ teamCode ] = ratings;
+            else
+               RatingsHt.Add( teamCode, ratings );
 			}
 			LastDateRanked = when;
 		}

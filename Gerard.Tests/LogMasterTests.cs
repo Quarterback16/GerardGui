@@ -11,7 +11,7 @@ namespace Gerard.Tests
       {
          var lm = new LogMaster(".\\xml\\mail-list.xml");
 
-         Assert.IsTrue( lm.TheHT.Count  > 0);
+         Assert.IsTrue( lm.TheHt.Count  > 0);
       }
 
    }

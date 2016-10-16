@@ -1,4 +1,6 @@
-﻿namespace RosterLib
+﻿using System;
+
+namespace RosterLib
 {
    public class YahooProjectedPointsMessage
 	{
@@ -36,5 +38,11 @@
          }
          return statLine;
       }
-	}
+
+      internal bool TestPlayer()
+      {
+         if ( Player == null ) return false;
+         return Player.PlayerCode.Equals("BRADTO01");
+      }
+   }
 }

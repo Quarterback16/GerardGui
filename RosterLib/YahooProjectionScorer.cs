@@ -1,4 +1,6 @@
-﻿namespace RosterLib
+﻿using Helpers;
+
+namespace RosterLib
 {
    /// <summary>
    ///   Calculates Yahoo points based on projections

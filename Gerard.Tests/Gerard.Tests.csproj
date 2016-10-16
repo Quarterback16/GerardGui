@@ -124,6 +124,7 @@
     <Compile Include="UnitRatingTests.cs" />
     <Compile Include="UnitReportsTests.cs" />
     <Compile Include="UpdateActualsJobTests.cs" />
+    <Compile Include="UpdateTeamActualsJobTests.cs" />
     <Compile Include="UtilityTests.cs" />
     <Compile Include="WeekMasterTests.cs" />
     <Compile Include="XmlLoaderTests.cs" />

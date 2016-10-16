@@ -49,7 +49,7 @@ namespace Butler.Models
 
          // load files meta data ur interested in
          var keys = new List<string>();
-         foreach (System.Collections.DictionaryEntry de in LogMaster.TheHT)
+         foreach (System.Collections.DictionaryEntry de in LogMaster.TheHt)
             keys.Add(de.Key.ToString());
 
          if ( ThereAreNoFiles(keys) )
@@ -59,7 +59,7 @@ namespace Butler.Models
 
          foreach (string key in keys)
          {
-            var logitem = (LogItem)LogMaster.TheHT[key];
+            var logitem = (LogItem)LogMaster.TheHt[key];
             lastDate = MailLogFiles(logitem);
             if (lastDate != new DateTime(1, 1, 1))
             {

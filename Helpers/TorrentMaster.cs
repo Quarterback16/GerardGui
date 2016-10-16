@@ -8,7 +8,7 @@ namespace Helpers
 {
    public class TorrentMaster : XmlCache
    {
-      private Logger Logger;
+
       private readonly INormaliseTitles TitleNormaliser;
 
       #region Constructors
@@ -29,15 +29,15 @@ namespace Helpers
                AddXmlMedia(node);
 
             //  Create the XML navigation objects to allow xpath queries
-            epXmlDoc = new System.Xml.XPath.XPathDocument(Filename);
+            EpXmlDoc = new System.Xml.XPath.XPathDocument(Filename);
             // bad implementation - does not throw an exeception if XML is invalid
             Utility.Announce(string.Format("{0} loaded OK!", Filename));
-            nav = epXmlDoc.CreateNavigator();
+            Nav = EpXmlDoc.CreateNavigator();
 
             //DumpHt();
             //DumpMedia();
             Utility.Announce(string.Format("Master constructed : {0}-{1} {2} items",
-               name, Filename, TheHT.Count));
+               name, Filename, TheHt.Count));
          }
          catch (IOException e)
          {
@@ -59,9 +59,9 @@ namespace Helpers
       {
          TorrentItem m;
          var theTitle = TitleNormaliser.NormaliseTitle(item.Title, item.Type);
-         if (TheHT.ContainsKey(theTitle))
+         if (TheHt.ContainsKey(theTitle))
          {
-            m = (TorrentItem)TheHT[item.Title.ToUpper()];
+            m = (TorrentItem)TheHt[item.Title.ToUpper()];
             CacheHits++;
          }
          else
@@ -84,7 +84,7 @@ namespace Helpers
       {
          title = TitleNormaliser.NormaliseTitle(title, type);
          Logger.Debug( string.Format( "Looking for {0} in the HT", title ) );
-         return TheHT.ContainsKey(title);
+         return TheHt.ContainsKey(title);
       }
 
       #endregion Reading
@@ -94,9 +94,9 @@ namespace Helpers
       public void PutItem(TorrentItem m)
       {
          var title = m.Title;
-         if (!TheHT.ContainsKey( title ))
+         if (!TheHt.ContainsKey( title ))
          {
-            TheHT.Add( title, m );
+            TheHt.Add( title, m );
             IsDirty = true;
             Logger.Trace( string.Format( "    {0} added to HT", title ) );
          }
@@ -123,7 +123,7 @@ namespace Helpers
       /// </summary>
       public void Dump2Xml()
       {
-         if ((TheHT.Count > 0) && IsDirty)
+         if ((TheHt.Count > 0) && IsDirty)
          {
             var writer = new XmlTextWriter(string.Format("{0}", Filename), null);
 
@@ -131,7 +131,7 @@ namespace Helpers
             writer.WriteComment("Comments: " + Name);
             writer.WriteStartElement("torrent-list");
 
-            var myEnumerator = TheHT.GetEnumerator();
+            var myEnumerator = TheHt.GetEnumerator();
             while (myEnumerator.MoveNext())
             {
                var m = (TorrentItem)myEnumerator.Value;
@@ -162,7 +162,7 @@ namespace Helpers
 
       public void DumpMedia()
       {
-         var myEnumerator = TheHT.GetEnumerator();
+         var myEnumerator = TheHt.GetEnumerator();
          while (myEnumerator.MoveNext())
          {
             var s = (TorrentItem)myEnumerator.Value;

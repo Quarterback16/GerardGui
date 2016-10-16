@@ -92,6 +92,7 @@ namespace Butler
             MyJobs.Add( new StatGridJob( TimeKeeper ) );
             MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
             MyJobs.Add( new UpdateActualsJob( TimeKeeper ) );
+            MyJobs.Add( new UpdateTeamActualsJob( TimeKeeper ) );
 
             #endregion
 

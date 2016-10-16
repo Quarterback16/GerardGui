@@ -1,19 +1,51 @@
-﻿namespace RosterLib
+﻿using NLog;
+using System;
+
+namespace RosterLib
 {
    /// <summary>
    ///   This is a "Filter"
    /// </summary>
    public class LoadPlayerGameMetric
    {
-      public LoadPlayerGameMetric( YahooProjectedPointsMessage input )
+      public Logger Logger { get; set; }
+
+      public LoadPlayerGameMetric()
       {
-         if ( input.Game != null )
-            Process( input, new DbfPlayerGameMetricsDao() );
+         Logger = NLog.LogManager.GetCurrentClassLogger();
       }
 
-      private static void Process( YahooProjectedPointsMessage input, IPlayerGameMetricsDao dao )
+      public LoadPlayerGameMetric( YahooProjectedPointsMessage input )
       {
-         input.PlayerGameMetrics = dao.Get( input.Player.PlayerCode, input.Game.GameKey() );
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+         if ( input.Game != null && input.Player != null )
+            Process( input, new DbfPlayerGameMetricsDao() );
+         else
+         {
+            if (input.Game == null )
+               Logger.Error( "Input missing Game" );
+            else
+               Logger.Error( "Input missing Player" );
+         }
+
+      }
+
+      private void Process( YahooProjectedPointsMessage input, IPlayerGameMetricsDao dao )
+      {
+         if ( dao == null ) throw new ArgumentNullException( "dao", "parameter is null" );
+         if ( input != null )
+         {
+
+            input.PlayerGameMetrics = dao.Get( input.Player.PlayerCode, input.Game.GameKey() );
+            if ( input.TestPlayer() )
+            {
+               Logger.Info( "PGM got {0}", input.PlayerGameMetrics );
+            }
+         }
+         else
+         {
+            Logger.Info( "input is null" );
+         }
       }
    }
 }

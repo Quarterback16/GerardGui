@@ -45,12 +45,12 @@ namespace Butler.Models
          var lastDate = new DateTime(1, 1, 1);
 
          var keys = new List<string>();
-         foreach (System.Collections.DictionaryEntry de in LogMaster.TheHT)
+         foreach (System.Collections.DictionaryEntry de in LogMaster.TheHt)
             keys.Add(de.Key.ToString());
 
          foreach (string key in keys)
          {
-            var logitem = (LogItem)LogMaster.TheHT[key];
+            var logitem = (LogItem)LogMaster.TheHt[key];
             lastDate = MailLogFiles(logitem);
             if (lastDate != new DateTime(1, 1, 1))
             {

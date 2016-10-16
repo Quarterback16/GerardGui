@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Xml;
 using System.Xml.XPath;
+using NLog;
 
 namespace RosterLib
 {
 	public class XmlCache : ICache
 	{
-		protected XPathDocument EpXmlDoc;
+      public Logger Logger { get; set; }
+
+      protected XPathDocument EpXmlDoc;
 		protected XPathNavigator Nav;
 
 		public XmlCache( string entityName )
 		{
-			CacheMisses = 0;
+         Logger = NLog.LogManager.GetCurrentClassLogger();
+
+         CacheMisses = 0;
 			CacheHits = 0;
 			IsDirty = false;
-#if DEBUG
-			//Utility.Announce(string.Format("XmlCache.Init Constructing {0} master", entityName ) );
-#endif
+			Logger.Trace(string.Format("XmlCache.Init Constructing {0} master", entityName ) );
 			Name = entityName;
 			TheHt = new Hashtable();
 		}
@@ -56,9 +59,9 @@ namespace RosterLib
 		{
 			var myEnumerator = TheHt.GetEnumerator();
 			var i = 0;
-			Utility.Announce( "\t-INDEX-\t-KEY-\t-VALUE-" );
+			Logger.Trace( "\t-INDEX-\t-KEY-\t-VALUE-" );
 			while ( myEnumerator.MoveNext() )
-				Utility.Announce( string.Format( "\t[{0}]:\t{1}\t{2}", i++, myEnumerator.Key, myEnumerator.Value ) );			
+				Logger.Trace( string.Format( "\t[{0}]:\t{1}\t{2}", i++, myEnumerator.Key, myEnumerator.Value ) );			
 		}
 	}
 }

@@ -440,10 +440,13 @@ namespace TFLLib
       public DataSet GetTeamScoresFor(
          string scoreType, string teamCode, string season, string week, string gameCode)
       {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "GetTeamScoresFor-DataSet",
+            scoreType, teamCode, season, week, gameCode );
          var commandStr = string.Format(
             "SELECT * FROM SCORE where TEAM='{1}' and SCORE='{0}' and SEASON='{2}' and WEEK='{3}' and GAMENO='{4}'",
             scoreType, teamCode, season, week, gameCode);
-         return GetNflDataSet( "score", commandStr, "GetTeamScoresFor" );
+         var ds = CacheCommand( keyValue, commandStr, "score", "GetTeamScoresFor" );
+         return ds;
       }
 
       public int GetTotTeamScoresFor(
@@ -993,7 +996,7 @@ namespace TFLLib
 
             commandStr += " order by CATEGORY";
             ds = GetNflDataSet( "player", commandStr, "GetPlayer" );
-            cache.Set( keyValue, ds );
+            cache.Set( keyValue, ds, new TimeSpan( 2, 0, 0 ) );
          }
          else
             CacheHit( keyValue );
@@ -1009,16 +1012,10 @@ namespace TFLLib
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "GetTeamPlayers-DataSet", 
             teamCode, strCat );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
-            commandStr += " order by CATEGORY";
-            ds = GetNflDataSet( "player", commandStr, "GetTeamPlayers" );
-            cache.Set( keyValue, ds );
-         }
-         else
-            CacheHit( keyValue );
+
+         var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
+         commandStr += " order by CATEGORY";
+         var ds = CacheCommand( keyValue, commandStr, "player", "GetTeamPlayers" );
          return ds;
       }
 
@@ -1026,16 +1023,14 @@ namespace TFLLib
       {
          playerCode = FixSingleQuotes( playerCode );
          var keyValue = string.Format( "{0}:{1}", "GetPlayer-DataSet", playerCode );
-         DataSet ds;
-         if ( !cache.TryGet( keyValue, out ds ) )
-         {
-            var commandStr = string.Format( 
+
+         var commandStr = string.Format( 
                "SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode );
-            ds = GetNflDataSet( "player", commandStr, "GetPlayer3" );
-            cache.Set( keyValue, ds );
-         }
-         else
-            CacheHit( keyValue );
+
+         var ds = CacheCommand( keyValue, commandStr, "player",
+            new TimeSpan( 1, 0, 0 ),
+            "GetPlayer3"
+            );
          return ds;
       }
 
@@ -2333,7 +2328,7 @@ namespace TFLLib
                "select * from PGMETRIC where PLAYERID='{0}' and GAMECODE = '{1}'",
                playerCode, gameCode);
 
-         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetPlayerGameMetrics" );
+         return NoCacheCommand( keyValue, commandStr, "pgmetrics", "GetPlayerGameMetrics" );
       }
 
       public void InsertPlayerGameMetric(string playerId, string gameCode,
@@ -2502,6 +2497,25 @@ namespace TFLLib
             hitCount, keyValue, caller ) );
       }
 
+      private DataSet CacheCommand( 
+         string keyValue,
+         string commandStr, 
+         string dsName, 
+         TimeSpan timeSpan,
+         string caller = ""
+         )
+      {
+         DataSet ds;
+         if ( !cache.TryGet( keyValue, out ds ) )
+         {
+            ds = GetNflDataSet( dsName, commandStr, caller );
+            cache.Set( keyValue, ds, timeSpan );
+         }
+         else
+            CacheHit( keyValue, caller );
+         return ds;
+      }
+
       private DataSet CacheCommand( string keyValue,
             string commandStr, string dsName, string caller = "" )
       {
@@ -2513,6 +2527,16 @@ namespace TFLLib
          }
          else
             CacheHit( keyValue, caller );
+         return ds;
+      }
+
+      private DataSet NoCacheCommand( 
+         string keyValue,
+         string commandStr, string dsName, string caller = "" )
+      {
+         
+         var ds = GetNflDataSet( dsName, commandStr, caller );
+
          return ds;
       }
 
