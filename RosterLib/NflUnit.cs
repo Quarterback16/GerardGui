@@ -28,5 +28,16 @@ namespace RosterLib
       {
          ErrorMessages.Add( msg );
       }
+
+      public void Announce( string message )
+      {
+         if ( Logger == null )
+            Logger = NLog.LogManager.GetCurrentClassLogger();
+
+         //Logger.Info( "   " + message );
+#if DEBUG
+         Utility.Announce( message );
+#endif
+      }
    }
 }

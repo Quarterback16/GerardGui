@@ -88,6 +88,7 @@
     <Compile Include="MediaMailerJobTests.cs" />
     <Compile Include="OldRosterGridTests.cs" />
     <Compile Include="OutputProjectionsTests.cs" />
+    <Compile Include="PassUnitTests.cs" />
     <Compile Include="PerformanceReportTests.cs" />
     <Compile Include="FakeHistorian.cs" />
     <Compile Include="FakeTimeKeeper.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="RecordActualsTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />
     <Compile Include="RunReportJobTests.cs" />
+    <Compile Include="RushUnitTests.cs" />
     <Compile Include="SeasonProjectionTests.cs" />
     <Compile Include="SeasonSchedulerTests.cs" />
     <Compile Include="StarterJobTests.cs" />

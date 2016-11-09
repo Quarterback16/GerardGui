@@ -36,8 +36,8 @@ namespace Butler.Models
          }
          if ( string.IsNullOrEmpty( whyNot ) )
          {
-            if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
-               whyNot = "Its not Wednesday or Thursday";
+            if ( !TimeKeeper.IsItWednesday( DateTime.Now ) )
+               whyNot = "Its not Wednesday";
          }
          if (string.IsNullOrEmpty(whyNot))
          {

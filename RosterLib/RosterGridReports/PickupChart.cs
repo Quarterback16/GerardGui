@@ -170,8 +170,9 @@ namespace RosterLib.RosterGridReports
             if ( team.Team.RushUnit == null )
                team.Team.LoadRushUnit();
             else
-               Logger.Info( "   >>> Rush unit loaded {0} rushers", team.Team.RushUnit.Runners.Count() );
-
+               Logger.Info( "   >>> Rush unit loaded {0} rushers; Ace back {1}", 
+                  team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );
+            
 
             if ( team.Team.RushUnit.AceBack != null)
                bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
@@ -182,6 +183,7 @@ namespace RosterLib.RosterGridReports
          {
             Logger.Info( "   >>> No QB1 for {0}", team.Team.Name );
          }
+         Logger.Info( "   >>> bit = {0}", bit );
          return string.Format( "{0,-36}", bit );
       }
 

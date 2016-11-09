@@ -69,11 +69,11 @@ namespace RosterLib
          return output;
       }
 
-      private static string DumpPlayer( string pos, NFLPlayer player, int count )
+      private string DumpPlayer( string pos, NFLPlayer player, int count )
       {
          var plyrName = ( player == null ) ? "none" : player.PlayerName;
          var p = string.Format("{2} ({1}): {0}", plyrName, count, pos);
-         Utility.Announce( p );
+         Announce( p );
          return p;
       }
 
@@ -85,7 +85,7 @@ namespace RosterLib
          SetQbRoles();
          SetReceiverRoles();
          if (Q1==null)
-            Logger.Info( "   >>> Warning no QI for {0}", TeamCode );
+            Announce(string.Format( "   >>> Warning no Q1 for {0}", TeamCode ));
          return DumpUnit();
       }
 
@@ -95,7 +95,7 @@ namespace RosterLib
          foreach ( var p in Quarterbacks )
          {
 #if DEBUG
-            //Utility.Announce(string.Format("   Examining QB {0}", p.PlayerName));
+            Announce(string.Format("   Examining QB {0}", p.PlayerName));
 #endif
             //Logger.Info( "   Examining QB {0} pos {1}", p.PlayerName, p.PlayerPos );
             if ( p.IsQuarterback() )
@@ -106,7 +106,7 @@ namespace RosterLib
                   Q1 = p;
                   nQ1++;
 #if DEBUG
-                  Utility.Announce( string.Format( "      Setting Starter to {0}", p.PlayerName ) );
+                  Announce( string.Format( "      Setting Starter to {0}", p.PlayerName ) );
 #endif
                   //Logger.Info("      Setting Starter to {0}", p.PlayerName );
                }
@@ -115,7 +115,7 @@ namespace RosterLib
                   Q2 = p;
                   nQ2++;
 #if DEBUG
-                  Utility.Announce( string.Format( "       Setting Backup to {0}", p.PlayerName ) );
+                  Announce( string.Format( "       Setting Backup to {0}", p.PlayerName ) );
 #endif
                }
             }
@@ -128,7 +128,7 @@ namespace RosterLib
          foreach ( var p in Receivers )
          {
 #if DEBUG
-            Utility.Announce(string.Format("   Examining Rec {0}", p.PlayerName));
+            Announce(string.Format("   Examining Rec {0}", p.PlayerName));
 #endif
             if ( p.HasPos( "W1" ) )
             {
@@ -137,7 +137,7 @@ namespace RosterLib
                   W1 = p;
                   nW1++;
 #if DEBUG
-                  Utility.Announce( string.Format( "      Setting W1 to {0}", p.PlayerName ) );
+                  Announce( string.Format( "      Setting W1 to {0}", p.PlayerName ) );
 #endif
                }
             }
@@ -149,7 +149,7 @@ namespace RosterLib
                   W2 = p;
                   nW2++;
 #if DEBUG
-                  Utility.Announce( string.Format( "      Setting W2 to {0}", p.PlayerName ) );
+                  Announce( string.Format( "      Setting W2 to {0}", p.PlayerName ) );
 #endif
                }
             }
@@ -161,7 +161,7 @@ namespace RosterLib
                   W3 = p;
                   nW3++;
 #if DEBUG
-                  Utility.Announce( string.Format( "      Setting W3 to {0}", p.PlayerName ) );
+                  Announce( string.Format( "      Setting W3 to {0}", p.PlayerName ) );
 #endif
                }
             }
@@ -173,7 +173,7 @@ namespace RosterLib
                   TE = p;
                   nTE++;
 #if DEBUG
-                  Utility.Announce( string.Format( "      Setting TE to {0}", p.PlayerName ) );
+                  Announce( string.Format( "      Setting TE to {0}", p.PlayerName ) );
 #endif
                }
             }
@@ -223,7 +223,7 @@ namespace RosterLib
          errors += CheckCount( nTE, "TE", 2 );  //  some teams start 2 TEs
 
 #if DEBUG
-         Utility.Announce(string.Format("{0} errors", errors ));
+         Announce(string.Format("{0} errors", errors ));
 #endif
          return ( errors > 0 );
       }
@@ -240,7 +240,7 @@ namespace RosterLib
       private int CheckCount( int theCount, string thePos, int max )
       {
 	      if (theCount <= max) return 0;
-	      Utility.Announce( string.Format( "{1} is Too many {2} for {0}", TeamCode, theCount, thePos ) );
+	      Announce( string.Format( "{1} is Too many {2} for {0}", TeamCode, theCount, thePos ) );
 	      return 1;
       }
 
@@ -281,7 +281,7 @@ namespace RosterLib
             Receivers.Sort(compareByTouches);
             return DumpUnitByTouches( totTouches );
          }
-         Utility.Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode));
+         Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode));
 
          return output;
       }
@@ -311,7 +311,7 @@ namespace RosterLib
             Quarterbacks.Sort(compareByYdp);
             return DumpUnitByPassingYardage( totYdp );
          }
-         Utility.Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode));
+         Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode));
          return output;
       }
 
@@ -346,8 +346,7 @@ namespace RosterLib
             return DumpTightendsByTouches( totTouches );
          }
          var msg = string.Format( "TE:{0}:{1} is a bye week for {2}", season, week, TeamCode );
-         Utility.Announce( msg );
-         //Logger.Info( msg );
+         Announce( msg );
          return output;
       }
 
@@ -386,9 +385,8 @@ namespace RosterLib
                                      p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.Touches,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
                );
-            Utility.Announce( msg );
+            Announce( msg );
             output.Add( msg );
-            //Logger.Info( "Storing role and pos " + msg );
             Utility.TflWs.StorePlayerRoleAndPos( p.PlayerRole, p.PlayerPos, p.PlayerCode );
          }
          return output;
@@ -421,7 +419,7 @@ namespace RosterLib
                                      p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.YDc,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge()
                );
-            Utility.Announce(msg);
+            Announce(msg);
             output.Add( msg );
             Logger.Info( "Storing role and pos " + msg );
             Utility.TflWs.StorePlayerRoleAndPos(p.PlayerRole, p.PlayerPos, p.PlayerCode);
@@ -466,7 +464,7 @@ namespace RosterLib
                                      p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.YDc,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge()
                );
-            Utility.Announce(msg);
+            Announce(msg);
             output.Add( msg );
 
             Utility.TflWs.StorePlayerRoleAndPos(p.PlayerRole, p.PlayerPos, p.PlayerCode);
@@ -517,7 +515,7 @@ namespace RosterLib
                                      p.ProjectionLink( 25 ), p.PlayerRole, p.TotStats.Touches,
                                      load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
                );
-            Utility.Announce( msg );
+            Announce( msg );
             output.Add( msg );
 
             Utility.TflWs.StorePlayerRoleAndPos( p.PlayerRole, p.PlayerPos, p.PlayerCode );
@@ -579,13 +577,13 @@ namespace RosterLib
          return output;
       }
 
-      private static string AnnouncePlayer( NFLPlayer p, decimal load )
+      private string AnnouncePlayer( NFLPlayer p, decimal load )
       {
          var msg = string.Format( "{0,-25} ({6}) : {7} : {1} : {2,3} : {3,5:##0.0}% : {4} : {5}",
 				p.ProjectionLink(25), p.PlayerRole, p.TotStats.YDc,
             load, p.PlayerRole, p.PlayerPos, p.PlayerAge(), p.Owner
             );
-         Utility.Announce( msg );
+         Announce( msg );
          return msg;
       }
    }

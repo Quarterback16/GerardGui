@@ -111,6 +111,7 @@ namespace Butler
             MyJobs.Add( new DefensiveReportsJob( TimeKeeper ) );
             MyJobs.Add( new SuggestedLineupsJob( TimeKeeper ) );
             MyJobs.Add( new PickupChartJob( TimeKeeper ) );
+            MyJobs.Add( new PreviousPickupChartJob( TimeKeeper, Historian ) );
             MyJobs.Add( new StartersJob( TimeKeeper ) );
 
             #endregion

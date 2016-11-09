@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using NLog;
 
 namespace RosterLib
 {
@@ -35,11 +36,16 @@ namespace RosterLib
 
       public void Add( NFLPlayer player )
       {
-         Runners.Add( player );
+         if ( Runners.Contains( player ) )
+            Announce( string.Format("Duplicate player {0}", player.PlayerName ));
+         else
+            Runners.Add( player );
       }
 
       public List<string> Load( string teamCode )
       {
+         Reset();
+         Announce( string.Format( "Loading Runners for {0}", teamCode ) );
          TeamCode = teamCode;
          var ds = Utility.TflWs.GetTeamPlayers( teamCode, Constants.K_RUNNINGBACK_CAT );
          var dt = ds.Tables[ "player" ];
@@ -73,11 +79,11 @@ namespace RosterLib
             {
                R2 = p;
                nR2++;
-#if DEBUG
-               Utility.Announce( string.Format( "Setting Backup to {0}", p.PlayerName ) );
-#endif
+
+               Announce( string.Format( "Setting Backup to {0}", p.PlayerName ) );
             }
          }
+         Announce( string.Format( "{0} backups", nR2 ) );
       }
 
       private void SetGoalLineBack()
@@ -86,6 +92,7 @@ namespace RosterLib
          {
             if (!p.IsShortYardageBack()) continue;
             GoalLineBack = p;
+            Announce( string.Format( "{0} is the Goalline back", p.PlayerName ) );
             break;
          }
       }
@@ -97,6 +104,9 @@ namespace RosterLib
 
          foreach ( var p in Runners )
          {
+            Announce( string.Format( "Plyr {0} role:{1} pos:{2}", 
+               p.PlayerName, p.PlayerRole, p.PlayerPos ) );
+
             if (!p.IsStarter() || p.IsFullback()) continue;
 
             nStarters++;
@@ -107,14 +117,30 @@ namespace RosterLib
 
             Committee += p.PlayerNameShort + " + ";
             Starters.Add(p);
-#if DEBUG
-            Utility.Announce( string.Format( "Setting Ace to {0}", p.PlayerName ) );
-#endif
+
+            Announce( string.Format( "Setting Ace to {0}", p.PlayerName ) );
          }
+
+         Announce( string.Format( "{0} starters", nStarters ) );
          if (nStarters == 1) return;
          AceBack = null;
          IsAceBack = false;
       }
+
+      private void Reset()
+      {
+         Runners.Clear();
+         GoalLineBack = null;
+         AceBack = null;
+         R1 = null;
+         R2 = null;
+
+         nR1 = 0;
+         nR2 = 0;
+         Committee = string.Empty;
+         Starters.Clear();
+         IsAceBack = false;
+   }
 
       public bool HasIntegrityError()
       {
@@ -124,9 +150,9 @@ namespace RosterLib
          if ( nR2 > 1 )   //  zero is okay
          {
             var msg = string.Format( "{1} is Too many R2 for {0}", TeamCode, nR2 );
-#if DEBUG
-            Utility.Announce( msg );
-#endif
+
+            Announce( msg );
+
             AddError( msg ); 
             return true;
          }
@@ -142,30 +168,31 @@ namespace RosterLib
          unit += DumpPlayer("R2", R2 == null ? string.Empty : R2.PlayerNameShort, nR2) + Environment.NewLine;
 
          var ace = string.Format("Ace back : {0}", AceBack);
-         Utility.Announce( ace );
+         Announce( ace );
          unit += ace + Environment.NewLine;
          var r2 = string.Format("R2       : {0}", R2);
-         Utility.Announce( r2 );
+         Announce( r2 );
          unit += r2 + Environment.NewLine;
          var goalline = string.Format("Goaline  : {0}", GoalLineBack);
-         Utility.Announce( goalline );
+         Announce( goalline );
          unit += goalline + Environment.NewLine;
          foreach (var runner in Runners)
          {
-            var runr = string.Format("{3:00} {0,-25} : {1} : {2}", 
-               runner.PlayerName.PadRight(25), runner.PlayerRole, runner.PlayerPos, runner.JerseyNo);
-            Utility.Announce(runr);
+            var runr = string.Format("{3,2} {0,-25} : {1} : {2}", 
+               runner.PlayerName.PadRight(25), runner.PlayerRole, runner.PlayerPos, 
+               runner.JerseyNo);
+            Announce(runr);
             unit += runr + Environment.NewLine;
          }
          output.Add( unit + Environment.NewLine );
          return output;
       }
 
-      private static string DumpPlayer( string pos, string player, int count )
+      private string DumpPlayer( string pos, string player, int count )
       {
          var plyrName = player ?? "none";
          var p = string.Format("{2} ({1}): {0}", plyrName, count, pos);
-         Utility.Announce( p );
+         Announce( p );
          return p;
       }
 
@@ -219,7 +246,7 @@ namespace RosterLib
 
          }
          else
-            Utility.Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode ));
+            Announce(string.Format("{0}:{1} is a bye week for {2}", season, week, TeamCode ));
          return output;
       }
 
@@ -275,7 +302,7 @@ namespace RosterLib
                runner.PlayerName.PadRight( 25 ), runner.PlayerRole, runner.TotStats.Rushes,
                load, runner.PlayerRole, runner.PlayerPos
                );
-            Utility.Announce(msg);
+            Announce(msg);
             output.Add( msg );
          }
          return output;
@@ -310,7 +337,7 @@ namespace RosterLib
                load, runner.PlayerRole, runner.PlayerPos, runner.Owner
                );
             runner.TotStats.TouchLoad = load;
-            Utility.Announce( msg );
+            Announce( msg );
             output.Add( msg );
          }
          return output;

@@ -3,25 +3,27 @@ using NLog;
 using RosterLib;
 using RosterLib.RosterGridReports;
 using System;
+using Butler.Interfaces;
 
 namespace Butler.Models
 {
-   public class PickupChartJob : Job
+   public class PreviousPickupChartJob : Job
    {
+      public IHistorian Historian { get; set; }
+
       public int Week { get; set; }
 
       public RosterGridReport Report { get; set; }
 
-      public PickupChartJob( IKeepTheTime timekeeper, bool previous = false )
+      public PreviousPickupChartJob( IKeepTheTime timekeeper, IHistorian historian )
       {
-         Name = "Pickup Chart";
+         Name = "Previous Pickup Chart";
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
-         if ( previous )
-            Week = Int32.Parse( TimeKeeper.PreviousWeek() );
-         else
-            Week = TimeKeeper.CurrentWeek( DateTime.Now );
-         if (Week == 0) Week = 1;  //  in preseason lets look ahead to the first game
+         Historian = historian;
+
+         Week = Int32.Parse( TimeKeeper.PreviousWeek() );
+
          Report = new PickupChart(
             TimeKeeper.CurrentSeason( DateTime.Now ), Week );
       }
@@ -39,11 +41,8 @@ namespace Butler.Models
          if ( OnHold() ) whyNot = "Job is on hold";
          if ( string.IsNullOrEmpty( whyNot ) )
          {
-            //  check if there is any new data
-            whyNot = Report.CheckLastRunDate();
             if ( TimeKeeper.IsItPeakTime() )
                whyNot = "Peak time - no noise please";
-
          }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

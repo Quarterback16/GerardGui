@@ -43,8 +43,8 @@ namespace TFLLib.Caching
          try
          {
             _redis = ConnectionMultiplexer.Connect( ConnectionString );
-            DefaultTimeToLive = new TimeSpan( 4, 0, 0 );
-            MaxTimeToLive = new TimeSpan( 6, 0, 0 );
+            DefaultTimeToLive = new TimeSpan( 2, 0, 0 );
+            MaxTimeToLive = new TimeSpan( 4, 0, 0 );
             Serializer = new XmlSerializer();
          }
          catch ( Exception ex )
