@@ -1,4 +1,6 @@
 ﻿using NLog;
+using RosterLib.Interfaces;
+using System;
 
 namespace RosterLib
 {
@@ -8,26 +10,31 @@ namespace RosterLib
       public YahooMaster YahooMaster { get; set; }
 
       public bool FullSeason { get; set; }
-      public YahooMasterGenerator( bool fullSeason )
+      public YahooMasterGenerator( bool fullSeason, IKeepTheTime timeKeeper )
       {
          Name = "Yahoo Master Generator";
          YahooMaster = new YahooMaster("Yahoo", "YahooOutput.xml");
          Logger = LogManager.GetCurrentClassLogger();
          FullSeason = fullSeason;
+         TimeKeeper = timeKeeper;
       }
 
       public override void RenderFullAsHtml()
       {
-         YahooMaster.Calculate( Utility.CurrentSeason() );
+         YahooMaster.Calculate( TimeKeeper.Season );
          YahooMaster.Dump2Xml(Logger);
       }
 
       public override void RenderAsHtml()
       {
-         if (FullSeason)
-            YahooMaster.Calculate(Utility.CurrentSeason());
+         if ( FullSeason )
+            YahooMaster.Calculate( TimeKeeper.Season );
          else
-            YahooMaster.Calculate(Utility.CurrentSeason(), Utility.PreviousWeekAsString());
+         {
+            Logger.Info( "  Generating Yahoo xml for Season {0} Week {1}",
+               TimeKeeper.Season, TimeKeeper.Week );
+            YahooMaster.Calculate( TimeKeeper.Season, TimeKeeper.Week );
+         }
          YahooMaster.Dump2Xml(Logger);
       }
 

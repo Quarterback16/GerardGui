@@ -170,20 +170,20 @@ namespace RosterLib.RosterGridReports
             if ( team.Team.RushUnit == null )
                team.Team.LoadRushUnit();
             else
-               Logger.Info( "   >>> Rush unit loaded {0} rushers; Ace back {1}", 
+               Logger.Trace( "   >>> Rush unit loaded {0} rushers; Ace back {1}", 
                   team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );
             
 
             if ( team.Team.RushUnit.AceBack != null)
                bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
             else
-               Logger.Info( "   >>> No Ace back for {0}", team.Team.Name );
+               Logger.Trace( "   >>> No Ace back for {0}", team.Team.Name );
          }
          else
          {
-            Logger.Info( "   >>> No QB1 for {0}", team.Team.Name );
+            Logger.Trace( "   >>> No QB1 for {0}", team.Team.Name );
          }
-         Logger.Info( "   >>> bit = {0}", bit );
+         Logger.Trace( "   >>> bit = {0}", bit );
          return string.Format( "{0,-36}", bit );
       }
 

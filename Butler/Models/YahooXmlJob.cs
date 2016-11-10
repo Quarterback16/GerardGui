@@ -12,7 +12,7 @@ namespace Butler.Models
       public YahooXmlJob( IKeepTheTime timekeeper )
       {
          Name = "Yahoo Xml job";
-         Report = new YahooMasterGenerator(FullSeason);
+         Report = new YahooMasterGenerator(FullSeason, timekeeper);
          TimeKeeper = timekeeper;
          IsNflRelated = true;
          Logger = LogManager.GetCurrentClassLogger();
