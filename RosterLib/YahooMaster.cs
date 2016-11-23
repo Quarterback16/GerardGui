@@ -33,7 +33,7 @@ namespace RosterLib
 			}
 			catch ( IOException e )
 			{
-				Utility.Announce( string.Format( "Unable to open {1} xmlfile - {0}", e.Message, Filename ) );
+				Logger.Error( string.Format( "Unable to open {1} xmlfile - {0}", e.Message, Filename ) );
 			}
 		}
 
@@ -120,7 +120,7 @@ namespace RosterLib
       public void Dump2Xml(Logger logger)
 		{
          Dump2Xml();
-			logger.Info( "  " + Filename + " written" );
+			Logger.Info( "  " + Filename + " written" );
 		}
 
 		private static void WriteStatNode( XmlWriter writer, YahooOutput stat )

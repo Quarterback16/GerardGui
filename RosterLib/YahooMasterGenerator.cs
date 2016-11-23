@@ -28,7 +28,10 @@ namespace RosterLib
       public override void RenderAsHtml()
       {
          if ( FullSeason )
+         {
             YahooMaster.Calculate( TimeKeeper.Season );
+            Logger.Info( "  Generating Yahoo xml for full Season}" );
+         }
          else
          {
             Logger.Info( "  Generating Yahoo xml for Season {0} Week {1}",

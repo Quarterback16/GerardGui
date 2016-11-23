@@ -29,5 +29,16 @@ namespace Gerard.Tests
          var count2 = pu2.Count;
          Assert.IsTrue( count1 == count2 );
       }
+
+      [TestMethod]
+      public void TestDump()
+      {
+         var team = new NflTeam( "TB" );
+         var t = team.LoadPassUnit();
+         Console.WriteLine( "   >>> Pass unit loaded {0} receivers; Ace receiver {1}",
+            team.PassUnit.Receivers.Count, team.PassUnit.AceReceiver );
+         team.PassUnit.DumpUnit();
+         Assert.IsTrue( team.PassUnit.Receivers.Count < 50 );
+      }
    }
 }

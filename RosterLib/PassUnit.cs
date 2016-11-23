@@ -60,7 +60,7 @@ namespace RosterLib
          unit += DumpPlayer("TE", TE, nTE) + Environment.NewLine;
          foreach ( var receiver in Receivers )
          {
-            var rec = string.Format("{3:00} {0,-25} : {1} : {2}",
+            var rec = string.Format("{3,2} {0,-25} : {1} : {2}",
                receiver.ProjectionLink(25), receiver.PlayerRole, receiver.PlayerPos, receiver.JerseyNo);
             unit += rec + Environment.NewLine;
             Utility.Announce( rec );

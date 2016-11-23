@@ -118,7 +118,7 @@ namespace RosterLib
             dr["PROJ"] = GameProjection(g, Player.CurrTeam.TeamCode, Player.PlayerCat, Player.PlayerRole);
             dr[ "STATS" ] = yahooMsg.StatLine();
             dr[ "FP" ] = yahooMsg.Player.Points ;
-            dr["ACTUAL"] = ActualScores(g);
+            dr["ACTUAL"] = Player.ActualFpts(g);
 				dr["ACTUALSTAT"] = Player.ActualStatsFor(g);
 				dr["VAR"] = 0;
             dt.Rows.Add(dr);

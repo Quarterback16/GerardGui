@@ -49,6 +49,7 @@ namespace RosterLib
 
       private void GenerateReport(StarterConfig rpt)
       {
+         Logger.Info( "Generating Starter report {0} for {1}", rpt.Category, LeagueCode );
          WriteProjectionReports = true;  //  Will gnerate a page for each player 
          RenderStarters(rpt.Category, rpt.Position, LeagueCode);
       }
@@ -74,8 +75,13 @@ namespace RosterLib
 
          var fileOut = Lister.Render(string.Format("{1}-Starters-{0}", sPos, fantasyLeague));
 
-         if (WriteProjectionReports)
+         if ( WriteProjectionReports )
+         {
+            Logger.Info( "Writing PP Reports" );
             WritePlayerProjectionReports();
+         }
+         else
+            Logger.Info( "Skipping PP Reports" );
 
          Lister.Clear();
 
@@ -84,8 +90,11 @@ namespace RosterLib
 
       public void WritePlayerProjectionReports()
       {
-         foreach (NFLPlayer p in Lister.PlayerList)
-            p.PlayerProjection(TimeKeeper.Season);
+         foreach ( NFLPlayer p in Lister.PlayerList )
+         {
+            Logger.Info( "    Writing pp for {0}", p.PlayerName );
+            p.PlayerProjection( TimeKeeper.Season );
+         }
       }
    }
 

@@ -15,6 +15,7 @@ namespace Gerard.Tests
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
+         Console.WriteLine( "Check output {0}", sut.Report.OutputFilename() );
       }
 
       [TestMethod]
@@ -24,6 +25,15 @@ namespace Gerard.Tests
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
+      }
+
+      [TestMethod]
+      public void TestUpdateGameActuals()
+      {
+         var g = new NFLGame( "2016:09-A" );
+         g.RefreshTotals();
+         var g2 = new NFLGame( "2016:09-A" );
+         Assert.IsTrue( g2.Spread == g.Spread );
       }
    }
 }

@@ -2063,8 +2063,8 @@ namespace RosterLib
 
       public List<YahooOutput> GenerateYahooOutput()
       {
-         TallyYahooFor( HomeNflTeam, announceIt: false );
-         TallyYahooFor( AwayNflTeam, announceIt: false );
+         TallyYahooFor( HomeNflTeam, announceIt: true );
+         TallyYahooFor( AwayNflTeam, announceIt: true );
          return YahooList;
       }
 

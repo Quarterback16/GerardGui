@@ -1789,36 +1789,45 @@ namespace RosterLib
 			}			   
 	   }
 
+      /// <summary>
+      ///   Get the stats from the PGM record 
+      /// </summary>
+      /// <param name="g"></param>
+      /// <returns></returns>
 	   public string ActualStatsFor(NFLGame g)
 	   {
-			var stats = string.Empty;
-			TallyScores(g.Season, g.WeekNo );
+         var dao = new DbfPlayerGameMetricsDao();
+         var pgm = dao.Get( PlayerCode, g.GameKey() );
+         var stats = string.Empty;
 			switch (PlayerCat)
 			{
 				case Constants.K_QUARTERBACK_CAT:
-					stats = string.Format("{0} ({1})", CurrentGameMetrics.YDp, CurrentGameMetrics.TDp );
+					stats = string.Format("{0} ({1})", pgm.YDp, pgm.TDp );
 					break;
 
 				case Constants.K_RUNNINGBACK_CAT:
-					//TODO:
-					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeYdr, g.ProjectedHomeTdr)
-					//	: string.Format("{0}({1})", g.ProjectedAwayYdr, g.ProjectedAwayTdr);
-					break;
+               stats = string.Format( "{0}({1}) {2}({3})", pgm.YDr, pgm.TDr, pgm.YDc, pgm.TDc );
+               break;
+
 				case Constants.K_RECEIVER_CAT:
-					//TODO:
-					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeTdp, g.ProjectedHomeTdp)
-					//	: string.Format("{0}({1})", g.ProjectedAwayYdp, g.ProjectedAwayTdp);
-					break;
+               stats = string.Format( "{0}({1}) {2}({3})", pgm.YDr, pgm.TDr, pgm.YDc, pgm.TDc );
+               break;
+
 				case Constants.K_KICKER_CAT:
-					//TODO:
-					//stats = g.IsHome(teamInFocus) ? string.Format("{0}({1})", g.ProjectedHomeFg, g.ProjectedHomeFg)
-					//	: string.Format("{0}({1})", g.ProjectedAwayFg, g.ProjectedAwayFg);
-					break;
+               stats = string.Format( "{0}({1})", pgm.FG, pgm.Pat );
+               break;
 			}
 			return stats;
 		}
 
-	   public void UpdateActuals(IPlayerGameMetricsDao dao)
+      public int ActualFpts( NFLGame g )
+      {
+         var dao = new DbfPlayerGameMetricsDao();
+         var pgm = dao.Get( PlayerCode, g.GameKey() );
+         return pgm.FantasyPoints;
+      }
+
+      public void UpdateActuals(IPlayerGameMetricsDao dao)
 	   {
 		   if (CurrentGameMetrics == null) return;
 		   CurrentGameMetrics.FantasyPoints = (int) Points;
