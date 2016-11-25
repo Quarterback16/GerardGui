@@ -29,9 +29,9 @@ namespace RosterLib
       public int ProjPat { get; set; }
       public int Pat { get; set; }
 
-		public int FantasyPoints { get; set; }
+		public decimal FantasyPoints { get; set; }
 
-      public int ProjectedFantasyPoints { get; set; }
+      public decimal ProjectedFantasyPoints { get; set; }
 
       public bool IsEmpty { get; set; }
 

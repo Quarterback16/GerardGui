@@ -33,7 +33,8 @@ namespace RosterLib
          if ( input.TestPlayer() )
             Logger.Info( string.Format("Projected TDp = {0} * 4 = {1}", input.PlayerGameMetrics.ProjTDp, input.PlayerGameMetrics.ProjTDp * 4));
 
-         var yardagePts = Math.Floor( (decimal) input.PlayerGameMetrics.ProjYDp / 25 );
+//         var yardagePts = Math.Floor( (decimal) input.PlayerGameMetrics.ProjYDp / 25 );
+         var yardagePts = (decimal) input.PlayerGameMetrics.ProjYDp / 25.0M;
          if ( input.TestPlayer() )
             Logger.Info( string.Format("Projected YDp = {0} / 25 = {1}", input.PlayerGameMetrics.ProjYDp, input.PlayerGameMetrics.ProjYDp / 25 ));
 

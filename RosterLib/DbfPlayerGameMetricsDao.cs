@@ -42,6 +42,7 @@ namespace RosterLib
                YDc = IntValue(ds, "ydc"),
                FG  = IntValue(ds, "fg"),
                Pat = IntValue(ds, "pat"),
+               FantasyPoints = DecimalValue(ds, "YahooPts"),
                IsEmpty = false
             };
          }
@@ -82,7 +83,7 @@ namespace RosterLib
                      pgm.PlayerId, pgm.GameKey,
                      pgm.ProjYDp, pgm.YDp, pgm.ProjYDr, pgm.YDr,
                      pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
-                     pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
+                     pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat, pgm.FantasyPoints
                );
             commandStr = "Player Metric not found";
          }
@@ -111,7 +112,7 @@ namespace RosterLib
 				   pgm.PlayerId, pgm.GameKey,
 				   pgm.ProjYDp, pgm.YDp, pgm.ProjYDr, pgm.YDr,
 				   pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
-				   pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
+				   pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat, pgm.FantasyPoints
 				   );
 			   commandStr = "Player Metric not found";
 		   }

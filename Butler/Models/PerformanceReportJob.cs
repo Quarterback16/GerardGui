@@ -34,11 +34,6 @@ namespace Butler.Models
                whyNot = "Peak time - no noise please";
             }
          }
-         if ( string.IsNullOrEmpty( whyNot ) )
-         {
-            if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
-               whyNot = "Its not Wednesday or Thursday";
-         }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 

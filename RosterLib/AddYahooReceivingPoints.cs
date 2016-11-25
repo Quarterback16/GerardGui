@@ -24,7 +24,8 @@ namespace RosterLib
          Utility.Announce( string.Format( "Projected TDc = {0} * 6 = {1}",
             input.PlayerGameMetrics.ProjTDc, input.PlayerGameMetrics.ProjTDc * 6 ) );
 #endif
-         var yardagePts = Math.Floor( ( decimal ) input.PlayerGameMetrics.ProjYDc / 10 );
+//         var yardagePts = Math.Floor( ( decimal ) input.PlayerGameMetrics.ProjYDc / 10 );
+         var yardagePts =  (decimal) input.PlayerGameMetrics.ProjYDc / 10.0M;
 #if DEBUG
          Utility.Announce( string.Format( "Projected YDc = {0} / 10 = {1}",
             input.PlayerGameMetrics.ProjYDc, input.PlayerGameMetrics.ProjYDc / 10 ) );

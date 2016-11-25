@@ -55,8 +55,12 @@ namespace RosterLib.RosterGridReports
 		   foreach (var p in plist)
 		   {
 			   var pts = Scorer.RatePlayer(p, Week);
-				//p.DumpMetrics();
-				if ( pts > 0 )
+            p.Points = pts;
+#if DEBUG
+            if (p.PlayerCode.Equals("BRATCA01"))
+               p.DumpMetrics();
+#endif
+            if ( pts > 0 )
 					body.AppendLine(string.Format("   {0,25} : {1,2} > {2,8}", 
 						p.PlayerNameShort, pts, p.ActualStats()) );
 			   p.UpdateActuals(Dao);

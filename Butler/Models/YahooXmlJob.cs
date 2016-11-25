@@ -24,15 +24,8 @@ namespace Butler.Models
          base.IsTimeTodo(out whyNot);
          if ( string.IsNullOrEmpty( whyNot ) )
          {
-            //  check if there is any new data
-            whyNot = Report.CheckLastRunDate();
             if (TimeKeeper.IsItPeakTime())
                whyNot = "Peak time - no noise please";
-         }
-         if ( string.IsNullOrEmpty( whyNot ) )
-         {
-            if ( !TimeKeeper.IsItWednesdayOrThursday( DateTime.Now ) )
-               whyNot = "Its not Wednesday or Thursday";
          }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

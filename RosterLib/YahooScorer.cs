@@ -86,8 +86,9 @@ namespace RosterLib
          var ptsForTDcatches = PointsFor( plyr, 6, Constants.K_SCORE_TD_PASS, id: "1" );
          plyr.Points += ptsForTDcatches;
 #if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for TD catches", plyr.PlayerName, ptsForTDcatches ) );
+         if (plyr.PlayerCode.Equals("BRATCA01"))
+            Utility.Announce( string.Format(
+             "{0} has {1} points for TD catches", plyr.PlayerName, ptsForTDcatches ) );
 #endif
          //  2 points for a 2 point conversion
          var ptsForPATcatches = PointsFor( plyr, 2, Constants.K_SCORE_PAT_PASS, id: "1" );
@@ -179,7 +180,7 @@ namespace RosterLib
 
       #endregion IRatePlayers Members
 
-      private int PointsForStats( NFLPlayer plyr, int increment, string forStatType, decimal divisor )
+      private decimal PointsForStats( NFLPlayer plyr, int increment, string forStatType, decimal divisor )
       {
          var qty = 0.0M;
          if ( WeekHasPassed )
@@ -224,8 +225,10 @@ namespace RosterLib
             }
          }
 
-         var pts = Math.Floor( qty / divisor );
-         var points = Convert.ToInt32( pts ) * increment;
+         //var pts = Math.Floor( qty / divisor );
+         var pts =  qty / divisor;
+         //var points = Convert.ToInt32( pts ) * increment;
+         var points = pts * increment;
 
          return points;
       }

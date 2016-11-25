@@ -24,7 +24,8 @@ namespace RosterLib
          Utility.Announce(string.Format("Projected TDr = {0} * 6 = {1}", 
             input.PlayerGameMetrics.ProjTDp, input.PlayerGameMetrics.ProjTDp * 6 ));
 #endif
-         var yardagePts = Math.Floor((decimal)input.PlayerGameMetrics.ProjYDr / 10 );
+//         var yardagePts = Math.Floor((decimal)input.PlayerGameMetrics.ProjYDr / 10 );
+         var yardagePts = (decimal) input.PlayerGameMetrics.ProjYDr / 10.0M;
 #if DEBUG
          Utility.Announce(string.Format("Projected YDr = {0} / 10 = {1}", 
             input.PlayerGameMetrics.ProjYDp, input.PlayerGameMetrics.ProjYDr / 10 ));
@@ -35,7 +36,7 @@ namespace RosterLib
 #if DEBUG
          Utility.Announce(string.Format("Projected FP = {0}", input.Player.Points));
 #endif
-         input.PlayerGameMetrics.ProjectedFantasyPoints = (int) input.Player.Points;
+         input.PlayerGameMetrics.ProjectedFantasyPoints = input.Player.Points;
       }
 
    }

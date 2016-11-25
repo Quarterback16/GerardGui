@@ -56,12 +56,12 @@ namespace RosterLib
          str.AddColumn(new ReportColumn("Matchup", "MATCH", "{0}"));
          str.AddColumn(new ReportColumn("Score", "SCORE", "{0}"));
          str.AddColumn(new ReportColumn("OppUnit", "OPPRATE", "{0}"));
-         str.AddColumn(new ReportColumn("Projection", "PROJ", "{0:0.0}", true));
+         str.AddColumn(new ReportColumn("Proj", "PROJ", "{0:0.0}", true));
          str.AddColumn(new ReportColumn("Y-FP", "FP", "{0:0.0}", true));
          str.AddColumn(new ReportColumn("Stats", "STATS", "{0}"));
          str.AddColumn(new ReportColumn("Actual", "ACTUAL", "{0:0.0}", true));
-			str.AddColumn(new ReportColumn("ActStats", "ACTUALSTAT", "{0:0.0}", true));
-         str.AddColumn(new ReportColumn("Variation", "VAR", "{0:0.0}"));
+			str.AddColumn(new ReportColumn("ActStats", "ACTUALSTAT", "{0:0.0}"));
+         str.AddColumn(new ReportColumn("Variation", "VAR", "{0:0.0}", tally:true));
          str.LoadBody(BuildTable());
          str.SubHeader = SubHeading();
          str.RenderAsHtml(FileName(), true);
@@ -85,9 +85,9 @@ namespace RosterLib
          cols.Add("PROJ", typeof (Int16));
          cols.Add("FP", typeof (Decimal));
          cols.Add("STATS", typeof (String));
-         cols.Add("ACTUAL", typeof (Int16));
+         cols.Add("ACTUAL", typeof (Decimal));
 			cols.Add("ACTUALSTAT", typeof(String));
-         cols.Add("VAR", typeof (Int16));
+         cols.Add("VAR", typeof (Decimal));
 
          var gameCount = 1;
          var byeDone = false;
@@ -102,10 +102,10 @@ namespace RosterLib
                dr["SCORE"] = "";
                dr["OPPRATE"] = "";
                dr["PROJ"] = 0;
-               dr["FP"] = 0;
+               dr["FP"] = 0.0M;
                dr["STATS"] = "";
                dr["ACTUAL"] = 0;
-               dr["VAR"] = 0;
+               dr["VAR"] = 0.0M;
                dt.Rows.Add(dr);
                dr = dt.NewRow();
                byeDone = true;
@@ -117,10 +117,12 @@ namespace RosterLib
             dr["OPPRATE"] = OppUnitRating(g, Player.CurrTeam.TeamCode, Player.PlayerCat);
             dr["PROJ"] = GameProjection(g, Player.CurrTeam.TeamCode, Player.PlayerCat, Player.PlayerRole);
             dr[ "STATS" ] = yahooMsg.StatLine();
-            dr[ "FP" ] = yahooMsg.Player.Points ;
-            dr["ACTUAL"] = Player.ActualFpts(g);
+            var projPts = yahooMsg.Player.Points;
+            dr[ "FP" ] = projPts;
+            var actPts = Player.ActualFpts( g );
+            dr["ACTUAL"] = actPts;
 				dr["ACTUALSTAT"] = Player.ActualStatsFor(g);
-				dr["VAR"] = 0;
+				dr["VAR"] = actPts - projPts;
             dt.Rows.Add(dr);
             gameCount++;
          }

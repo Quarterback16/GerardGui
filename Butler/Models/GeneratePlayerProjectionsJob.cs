@@ -13,7 +13,6 @@ namespace Butler.Models
 
       public ISeasonScheduler SeasonScheduler { get; set; }
 
-
 		public GeneratePlayerProjectionsJob( IKeepTheTime timeKeeper )
 		{
          Name = "Generate Player Projections";
@@ -30,20 +29,12 @@ namespace Butler.Models
 			var ppg = new PlayerProjectionGenerator( playerCache: null );
 			var gameList = new ArrayList();
 
-			if (TimeKeeper.IsItPreseason())
-			{
-				// do the whole season
-				Logger.Debug( "   Doing whole season" );
-				var s = new NflSeason( Utility.CurrentSeason(), true, false ); //  long time to load
-				foreach ( var game in s.GameList )
-					gameList.Add( game );
-			}
-			else
-			{
-				//  do the upcoming week
-				var w = new NFLWeek( TimeKeeper.Season, TimeKeeper.Week );
-				gameList = w.GameList();
-			}
+         //  do any unplayed games
+         Logger.Debug( "   Doing whole season" );
+			var s = new NflSeason( TimeKeeper.Season, loadGames: true, loadDivisions: false ); //  long time to load
+			foreach ( var game in s.GameList )
+				if (! game.Played() )
+               gameList.Add( game );
 
 			var nGames = 0;
 			foreach ( var game in gameList.Cast<NFLGame>() )

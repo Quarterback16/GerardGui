@@ -2335,7 +2335,7 @@ namespace TFLLib
          int projYDp, int YDp, int projYDr, int ydr,
          int projTDp, int TDp, decimal projTDr, int tdr,
          int projTDc, int TDc, int projYDc, int YDc,
-         int projFG, int fg, int projPat, int pat
+         int projFG, int fg, int projPat, int pat, decimal fpts
          )
       {
          var plyrId = playerId.Replace( "'", "''" );
@@ -2343,7 +2343,7 @@ namespace TFLLib
             "INSERT INTO PGMETRIC (PLAYERID, GAMECODE, projYDp, YDp, projYDr, ydr, projTDp, TDp, projTDr, tdr, projTDc, TDc, projYDc, YDc, projFG, FG, ProjPat, PAT, YahooPts)";
          formatStr += "VALUES( '{0}','{1}',{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18} )";
          var commandStr = string.Format(formatStr, plyrId, gameCode,
-              projYDp, YDp, projYDr, ydr, projTDp, TDp, projTDr, tdr, projTDc, TDc, projYDc, YDc, projFG, fg, projPat, pat, 0);
+              projYDp, YDp, projYDr, ydr, projTDp, TDp, projTDr, tdr, projTDc, TDc, projYDc, YDc, projFG, fg, projPat, pat, fpts);
          ExecuteNflCommand( commandStr );
       }
 
@@ -2368,7 +2368,7 @@ namespace TFLLib
           int TDp, int tdr,
           int TDc, int YDc,
           int fg,  int pat,
-			 int fp
+			 decimal fp
          )
       {
          playerId = playerId.Replace("'", "''");

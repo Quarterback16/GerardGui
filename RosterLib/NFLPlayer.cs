@@ -1806,11 +1806,11 @@ namespace RosterLib
 					break;
 
 				case Constants.K_RUNNINGBACK_CAT:
-               stats = string.Format( "{0}({1}) {2}({3})", pgm.YDr, pgm.TDr, pgm.YDc, pgm.TDc );
+               stats = string.Format( "{0}({1})", pgm.YDr, pgm.TDr );
                break;
 
 				case Constants.K_RECEIVER_CAT:
-               stats = string.Format( "{0}({1}) {2}({3})", pgm.YDr, pgm.TDr, pgm.YDc, pgm.TDc );
+               stats = string.Format( "{0}({1})", pgm.YDc, pgm.TDc );
                break;
 
 				case Constants.K_KICKER_CAT:
@@ -1820,7 +1820,7 @@ namespace RosterLib
 			return stats;
 		}
 
-      public int ActualFpts( NFLGame g )
+      public decimal ActualFpts( NFLGame g )
       {
          var dao = new DbfPlayerGameMetricsDao();
          var pgm = dao.Get( PlayerCode, g.GameKey() );
@@ -1830,7 +1830,7 @@ namespace RosterLib
       public void UpdateActuals(IPlayerGameMetricsDao dao)
 	   {
 		   if (CurrentGameMetrics == null) return;
-		   CurrentGameMetrics.FantasyPoints = (int) Points;
+		   CurrentGameMetrics.FantasyPoints = Points;
 		   CurrentGameMetrics.UpdateAcuals(dao);
 	   }
    }

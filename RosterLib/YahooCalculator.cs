@@ -12,7 +12,7 @@
          var msg = new YahooProjectedPointsMessage { Player = p };
 	      if (g.IsBye()) return msg;
 
-	      msg.Player.Points = 0;
+	      msg.Player.Points = 0.0M;
 	      msg.Game = g;
 
 	      if (yahooPipeline != null) yahooPipeline.Execute( msg );
