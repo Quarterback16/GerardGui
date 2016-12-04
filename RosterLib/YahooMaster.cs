@@ -56,9 +56,7 @@ namespace RosterLib
 				Quantity = 0.0M
 			};
 
-#if DEBUG
-//			Utility.Announce( string.Format( "StatMaster:Getting Stat {0}", stat.FormatKey() ) );
-#endif
+			Announce( string.Format( "StatMaster:Getting Stat {0}", stat.FormatKey() ) );
 
 			var key = stat.FormatKey();
 			if ( TheHt.ContainsKey( key ) )
@@ -69,9 +67,7 @@ namespace RosterLib
 			else
 			{
 				//  new it up
-#if DEBUG
-//				Utility.Announce( string.Format( "StatMaster:Instantiating Stat {0}", stat.FormatKey() ) );
-#endif
+				Announce( string.Format( "StatMaster:Instantiating Stat {0}", stat.FormatKey() ) );
 				PutStat( stat );
 				IsDirty = true;
 				CacheMisses++;
@@ -136,11 +132,11 @@ namespace RosterLib
 
 		#endregion
 
-
 		public void Calculate( string season, string week )
 		{
-			var theWeek = new NFLWeek( season, week );
+         var theWeek = new NFLWeek( season, week );
 			theWeek.LoadGameList();
+         Logger.Info( "{0} Games loaded", theWeek._gameList.Count );
 			foreach ( var nflStat in theWeek.GameList().Cast<NFLGame>()
 				.Select( game => game.GenerateYahooOutput() ).SelectMany( statList => statList ) )
 				PutStat( nflStat );
@@ -152,14 +148,10 @@ namespace RosterLib
 			theSeason.LoadRegularWeeksToDate();
 			foreach ( var week in theSeason.RegularWeeks )
 			{
-#if DEBUG
-				Utility.Announce( string.Format( "YahooMaster:Calculate Season {0} Week {1}", season, week.WeekNo ) );
-#endif
+				Announce( string.Format( "YahooMaster:Calculate Season {0} Week {1}", season, week.WeekNo ) );
 				Calculate( theSeason.Year, week.Week );
 			}
 		}
 	}
-
-
 }
 

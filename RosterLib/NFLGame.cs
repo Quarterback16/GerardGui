@@ -8,6 +8,7 @@ using System.Data;
 using System.Text;
 using System.Xml;
 using TFLLib;
+using NLog;
 
 namespace RosterLib
 {
@@ -40,6 +41,8 @@ namespace RosterLib
       private const int KLastAfternoonTimeslot = 6;
 
       public string Id { get; set; }
+
+      public Logger Logger { get; set; }
 
       public NflTeam HomeNflTeam;
       public NflTeam AwayNflTeam;
@@ -2160,16 +2163,23 @@ namespace RosterLib
 
       public List<NFLPlayer> LoadLineupPlayers(string teamCode)
       {
-#if DEBUG
-         Utility.Announce( string.Format("NFLGame.LoadLineupPlayers for {0}:{1}",
+         Announce( string.Format("NFLGame.LoadLineupPlayers for {0}:{1}",
              teamCode, GameCodeOut() ) );
-#endif
+
          var LineupDs = Utility.TflWs.GetLineup(teamCode, Season, WeekNo);
          var lineup = new Lineup(LineupDs);
-#if DEBUG
-         Utility.Announce(string.Format("NFLGame.LoadLineupPlayers {0} players in lineup", lineup.PlayerList.Count ) );
-#endif
+
+         Announce(string.Format("NFLGame.LoadLineupPlayers {0} players in lineup", lineup.PlayerList.Count ) );
+
          return lineup.PlayerList;
+      }
+
+      private void Announce( string msg )
+      {
+         if ( Logger == null )
+            Logger = NLog.LogManager.GetCurrentClassLogger();
+
+         Logger.Info( msg );
       }
 
       public decimal OpponentPowerRating(string teamCode, string week)

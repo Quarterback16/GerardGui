@@ -195,11 +195,23 @@ namespace RosterLib.RosterGridReports
          c.Calculate( p, g );
 			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", 
             p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
-         return string.Format( "{0,-11} {3}  {1}  {2,2:#0}  {4} ", 
-            namePart, defensiveRating, p.Points, owners, ActualOutput(g,p) );
+         return string.Format( "{0,-11} {3}  {1}  {2,2:#0}{5} {4} ", 
+            namePart, defensiveRating, p.Points, owners, ActualOutput(g,p),
+            DomeBit(g,p));
       }
 
-		public string ActualOutput(NFLGame g, NFLPlayer p)
+      private string DomeBit( NFLGame g, NFLPlayer p )
+      {
+         var bit = " ";
+         if (p.IsKicker() )
+         {
+            if ( g.IsDomeGame() )
+               bit = "+";
+         }
+         return bit;
+      }
+
+      public string ActualOutput(NFLGame g, NFLPlayer p)
 		{
 			if ( ! g.Played() )
 				return "____";

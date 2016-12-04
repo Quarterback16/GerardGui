@@ -1,6 +1,7 @@
 ﻿using Helpers;
 using System;
 using System.Data;
+using NLog;
 
 namespace RosterLib
 {
@@ -9,6 +10,8 @@ namespace RosterLib
    /// </summary>
    public class YahooScorer : IRatePlayers
    {
+      public Logger Logger { get; set; }
+
       public IPlayerGameMetricsDao PgmDao { get; set; }
 
       public bool WeekHasPassed { get; set; }
@@ -22,6 +25,7 @@ namespace RosterLib
          Name = "Yahoo Scorer";
          Week = week;
          PgmDao = new DbfPlayerGameMetricsDao();
+         Logger = NLog.LogManager.GetCurrentClassLogger();
       }
 
       #region IRatePlayers Members
@@ -149,11 +153,10 @@ namespace RosterLib
 
          #endregion Kicking
 
-#if DEBUG
-         Utility.Announce( string.Format(
+         Logger.Info( string.Format(
             "{0} has {1} in week {2}:{3}",
                plyr.PlayerName, plyr.Points, week.Season, week.Week ) );
-#endif
+
          // side effect - store metrics
          if (!WeekHasPassed) return plyr.Points;
 

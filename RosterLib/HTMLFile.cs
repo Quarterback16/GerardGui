@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Collections;
-
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -10,7 +10,9 @@ namespace RosterLib
 	/// </summary>
 	public class HtmlFile
 	{
-		private string _filename;
+      public List<string> TopScripts { get; private set; }
+      public List<string> Scripts { get; private set; }
+      private string _filename;
 		private readonly string _title;
 		private readonly string _header;
 		private readonly string _cssFile;
@@ -46,7 +48,21 @@ namespace RosterLib
 
 		public ArrayList StyleList { get; set; }
 
-		public void AddToBody( string strBody )
+      public void AddTopScript( string scriptText )
+      {
+         if ( TopScripts == null ) TopScripts = new List<string>();
+
+         TopScripts.Add( scriptText );
+      }
+
+      public void AddScript( string scriptText )
+      {
+         if ( Scripts == null ) Scripts = new List<string>();
+
+         Scripts.Add( scriptText );
+      }
+
+      public void AddToBody( string strBody )
 		{
 			_bodyList.Add(strBody);
 		}
@@ -79,6 +95,8 @@ namespace RosterLib
 				if ( _script2.Length > 0 )
 					sw.WriteLine( "\t" + HtmlLib.JSScriptFile( _script2 ) );
 			}
+         if ( TopScripts != null )
+            RenderTopScripts(sw);
 			
 			if ( StyleList.Count > 0 )
 			{
@@ -100,7 +118,11 @@ namespace RosterLib
 				sw.WriteLine( myEnumerator.Current );
 
 			sw.WriteLine( HtmlLib.DivClose() );
-			
+
+         if ( Scripts != null )
+         {
+            WriteScripts( sw );
+         }
 			sw.WriteLine( HtmlLib.BodyClose() );
 			sw.WriteLine( HtmlLib.HtmlClose() );
 			sw.Close();
@@ -108,8 +130,24 @@ namespace RosterLib
 			if ( AnnounceIt )
 			   Utility.Announce( string.Format( "   {0} has been rendered", _filename ) );
 		}
-		
-		public void AddStyle( string style )
+
+      private void WriteScripts( StreamWriter sw )
+      {
+         foreach ( var item in Scripts )
+         {
+            sw.WriteLine( "    {0}", item );
+         }
+      }
+
+      private void RenderTopScripts( StreamWriter sw )
+      {
+         foreach ( var item in TopScripts )
+         {
+            sw.WriteLine( "    <script type='text / javascript' {0}></script>", item);
+         }
+      }
+
+      public void AddStyle( string style )
 		{
 			StyleList.Add( style );
 		}

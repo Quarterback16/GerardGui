@@ -63,5 +63,10 @@ namespace RosterLib
 			while ( myEnumerator.MoveNext() )
 				Logger.Trace( string.Format( "\t[{0}]:\t{1}\t{2}", i++, myEnumerator.Key, myEnumerator.Value ) );			
 		}
+
+      public void Announce( string message )
+      {
+         Logger.Trace( message );
+      }
 	}
 }

@@ -34,7 +34,8 @@ namespace RosterLib
 			{
 				//Console.WriteLine("{0}: {1}", key, gameDict[key]);
 				var g = gameDict[ key ];
-				g.Id = seed.ToString();
+            if (g.Id=="0")
+				   g.Id = seed.ToString();
 				var url = g.GamebookUrl();
 				Console.WriteLine( url );
 				var uri = new Uri( url );

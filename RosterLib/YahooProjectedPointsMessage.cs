@@ -42,7 +42,7 @@ namespace RosterLib
       internal bool TestPlayer()
       {
          if ( Player == null ) return false;
-         return Player.PlayerCode.Equals("BRADTO01");
+         return Player.PlayerCode.Equals("XXXXXX01");
       }
    }
 }

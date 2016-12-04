@@ -19,15 +19,19 @@ namespace RosterLib
          Name = "Fantasy Performance Reports";
          Lister = new PlayerLister( timekeeper ) {
             WeeksToGoBack = 1,
-            StartersOnly = true
+            StartersOnly = false
          };
+
          var master = new YahooMaster( "Yahoo", "YahooOutput.xml" );
          Logger.Info( "  using {0} which has {1} stats", master.Filename, master.TheHt.Count );
+
          var theWeek =
             new NFLWeek( Int32.Parse( timekeeper.CurrentSeason() ), 
             weekIn: Int32.Parse( timekeeper.PreviousWeek() ), 
             loadGames: false );
+
          var gs = new EspnScorer( theWeek ) { Master = master };
+
          Configs = new List<PerformanceReportConfig>
             {
                new PerformanceReportConfig
@@ -64,6 +68,89 @@ namespace RosterLib
                      Position = "PK",
                      Scorer = gs,
                      Week = theWeek
+                  },
+               //  4 weeks back
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_QUARTERBACK_CAT,
+                     Position = "QB",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 4
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RUNNINGBACK_CAT,
+                     Position = "RB",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 4
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RECEIVER_CAT,
+                     Position = "WR",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 4
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RECEIVER_CAT,
+                     Position = "TE",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 4
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_KICKER_CAT,
+                     Position = "PK",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 4
+                  },
+
+               //  1 week back
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_QUARTERBACK_CAT,
+                     Position = "QB",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 1
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RUNNINGBACK_CAT,
+                     Position = "RB",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 1
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RECEIVER_CAT,
+                     Position = "WR",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 1
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_RECEIVER_CAT,
+                     Position = "TE",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 1
+                  },
+               new PerformanceReportConfig
+                  {
+                     Category = Constants.K_KICKER_CAT,
+                     Position = "PK",
+                     Scorer = gs,
+                     Week = theWeek,
+                     WeeksToGoBack = 1
                   },
             };
 

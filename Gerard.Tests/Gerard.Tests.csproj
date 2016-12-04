@@ -72,7 +72,9 @@
     <Compile Include="GameProjectionTests.cs" />
     <Compile Include="GameSummaryTests.cs" />
     <Compile Include="GeneratePlayerProjectionsTests.cs" />
+    <Compile Include="GoogleChartTests.cs" />
     <Compile Include="HotListTests.cs" />
+    <Compile Include="HtmlFileTests.cs" />
     <Compile Include="IsRetiredTest.cs" />
     <Compile Include="IterSortTests.cs" />
     <Compile Include="LineupTests.cs" />

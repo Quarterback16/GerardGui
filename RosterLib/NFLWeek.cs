@@ -3,6 +3,7 @@ using System.Data;
 using System.Collections;
 using System.Linq;
 using TFLLib;
+using NLog;
 using System.Runtime.InteropServices; //  for [Optional]
 
 namespace RosterLib
@@ -17,12 +18,13 @@ namespace RosterLib
 	{
 		protected readonly DataLibrarian TflWs;
 		private DataSet _sched;
-		private ArrayList _gameList;
+		public ArrayList _gameList;
 
+      #region  Accessors
 
-		#region  Accessors
+      public Logger Logger { get; set; }
 
-		public string Week { get; set; }
+      public string Week { get; set; }
 
 		public int WeekNo
 		{
@@ -205,9 +207,8 @@ namespace RosterLib
 
 		public void LoadGameList()
 		{
-#if DEBUG
-			Utility.Announce(string.Format("LoadGameList: Loading Teams Week {0}", Week ) );
-#endif
+			Announce(string.Format("LoadGameList: Loading Teams Week {0}", Week ) );
+
 			_sched = Utility.TflWs.GetGames(Int32.Parse(Season), WeekNo);
 			if (_sched != null)
 			{
@@ -215,26 +216,29 @@ namespace RosterLib
 				var dt = _sched.Tables[0];
 				foreach (DataRow dr in dt.Rows)
 				{
-#if DEBUG
 					var gameCode = string.Format("{0}:{1}-{2}", Season, dr["WEEK"], dr["GAMENO"]);
-					RosterLib.Utility.Announce(string.Format("LoadGameList: getting Game:{0}", gameCode ));
-#endif
-					//NFLGame g = Masters.Gm.GetGame( gameCode ); 
-					//if ( g == null )
-					//{
+					Announce(string.Format("LoadGameList: getting Game:{0}", gameCode ));
+
 					var g = new NFLGame(dr);
-					//   Masters.Gm.AddGame( g );
-					//}
+
 					_gameList.Add(g);
 				}
 			}
 			else
-				Utility.Announce(string.Format("LoadGameList: No Sched"));
+				Announce(string.Format("LoadGameList: No Sched"));
 		}
 
-		#endregion
+      private void Announce( string msg )
+      {
+         if (Logger==null)
+            Logger = NLog.LogManager.GetCurrentClassLogger();
 
-		public NFLWeek PreviousWeek(NFLWeek theWeek, bool loadgames, bool regularSeasonGamesOnly )
+         Logger.Info( msg );
+      }
+
+      #endregion
+
+      public NFLWeek PreviousWeek(NFLWeek theWeek, bool loadgames, bool regularSeasonGamesOnly )
 		{
 			var previousWeekNo = theWeek.WeekNo - 1;
 			var previousSeasonNo = theWeek.SeasonNo;
