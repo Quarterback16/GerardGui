@@ -2083,12 +2083,19 @@ namespace RosterLib
             var qty = scorer.RatePlayer(nflPlayer, theWeek);
             if (qty > 0.0M)
             {
-               YahooList.Add(new YahooOutput(
+               Announce( string.Format( "{0} for {1} in {2}", 
+                  qty, nflPlayer.PlayerName, Season + ":" + Week ) );
+
+               var yo = new YahooOutput(
                                  Season,
                                  Week,
                                  nflPlayer.PlayerCode,
                                  qty,
-                                 Opponent(nflTeam.TeamCode)));
+                                 Opponent( nflTeam.TeamCode ));
+
+               Announce( string.Format( "adding {0}",yo.StatOut() ) );
+
+               YahooList.Add(yo);
             }
          }
       }

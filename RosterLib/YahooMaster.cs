@@ -30,6 +30,7 @@ namespace RosterLib
 				var listNode = XmlDoc.ChildNodes[ 2 ];
 				foreach ( XmlNode node in listNode.ChildNodes )
 					AddXmlStat( node );
+            Announce( string.Format("{0} items loaded", TheHt.Count ));
 			}
 			catch ( IOException e )
 			{
@@ -92,7 +93,13 @@ namespace RosterLib
 
       public void Dump2Xml()
       {
-         if ( ( TheHt.Count <= 0 ) || !IsDirty ) return;
+         if ( ( TheHt.Count <= 0 ) || !IsDirty )
+         {
+            Announce( "Cache not dirty" );
+            return;
+         }
+
+         Announce( string.Format( "Writing cache to {0}", Filename ) );
 
          Utility.EnsureDirectory( Filename );  //  will create the dir if its not there
 
@@ -116,7 +123,7 @@ namespace RosterLib
       public void Dump2Xml(Logger logger)
 		{
          Dump2Xml();
-			Logger.Info( "  " + Filename + " written" );
+			Announce( "  " + Filename + " written" );
 		}
 
 		private static void WriteStatNode( XmlWriter writer, YahooOutput stat )
@@ -136,7 +143,8 @@ namespace RosterLib
 		{
          var theWeek = new NFLWeek( season, week );
 			theWeek.LoadGameList();
-         Logger.Info( "{0} Games loaded", theWeek._gameList.Count );
+         Announce( string.Format("{0} Games loaded for {1}:{2}", 
+            theWeek._gameList.Count, season, week ) );
 			foreach ( var nflStat in theWeek.GameList().Cast<NFLGame>()
 				.Select( game => game.GenerateYahooOutput() ).SelectMany( statList => statList ) )
 				PutStat( nflStat );
@@ -148,7 +156,8 @@ namespace RosterLib
 			theSeason.LoadRegularWeeksToDate();
 			foreach ( var week in theSeason.RegularWeeks )
 			{
-				Announce( string.Format( "YahooMaster:Calculate Season {0} Week {1}", season, week.WeekNo ) );
+				Announce( string.Format( "YahooMaster:Calculate Season {0} Week {1}", 
+               season, week.WeekNo ) );
 				Calculate( theSeason.Year, week.Week );
 			}
 		}

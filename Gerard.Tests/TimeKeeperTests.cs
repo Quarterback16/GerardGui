@@ -8,6 +8,22 @@ namespace Gerard.Tests
    public class TimeKeeperTests
    {
       [TestMethod]
+      public void TestWeekCutsOverOnMonday()
+      {
+         int lastWeek = 0;
+         for ( int d = 0; d < 7; d++ )
+         {
+            var day = d + 1;
+            var testDate = new DateTime( 2016, 12, day );
+            var sut = new TimeKeeper( new FakeClock( testDate ) );
+            Console.WriteLine( "{0,10:dddd} {0,10:d} {1} {2}", testDate, sut.Season, sut.Week );
+            if ( testDate.ToString( "dddd" ).Equals( "Monday" ) )
+               Assert.IsTrue( Int32.Parse( sut.Week ) > lastWeek );
+            lastWeek = Int32.Parse(sut.Week);
+         }
+      }
+
+      [TestMethod]
       public void TestCurrentWeek()
       {
          var sut = new TimeKeeper( new FakeClock( new DateTime( 2015, 03, 16 ) ) );  // set clock to March

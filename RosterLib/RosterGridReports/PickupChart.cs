@@ -63,9 +63,10 @@ namespace RosterLib.RosterGridReports
          var qb = GetQBBit( team, c );
          var rb = GetRunnerBit( team, c );
          var gameBit = GameBit( team );
+         var timeBit = TimeBit( team );
 
          lineNo++;
-         bodyOut.Append( string.Format( "{0,2}  {1}", lineNo, gameBit ) );
+         bodyOut.Append( string.Format( "{0,2} {2} {1}", lineNo, gameBit, timeBit ) );
          bodyOut.Append( string.Format( " {0}", qb ) );
          bodyOut.Append( string.Format( " {0}", rb ) );
          //    spit out the WR1 line
@@ -85,6 +86,13 @@ namespace RosterLib.RosterGridReports
       }
 
       #region  Bits and Pieces
+
+      private static string TimeBit( IWinOrLose team )
+      {
+         var dayName = team.Game.GameDate.ToString("dddd").Substring(0,2);
+         var bit = string.Format( "{0}{1}", dayName, team.Game.Hour );
+         return bit;
+      }
 
       private static string GameBit( IWinOrLose team )
       {
