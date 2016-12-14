@@ -40,7 +40,7 @@ namespace RosterLib.RosterGridReports
             var theKey = dr["TEAMID"].ToString();
             var team = new NflTeam(theKey);
             var inPlayoffs = false;
-            if (team.WinningRecord())
+            if (team.Above500())
             {
                bodyOut.AppendLine(string.Format("{0,-25} {1}", team.NameOut(), team.RecordOut()));
                inPlayoffs = true;

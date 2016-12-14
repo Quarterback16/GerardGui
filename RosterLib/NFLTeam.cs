@@ -5202,5 +5202,13 @@ namespace RosterLib
          else
             return false;
       }
+
+      public bool Above500()
+      {
+         if ( Clip() > 0.5M )
+            return true;
+         else
+            return false;
+      }
    }
 }
