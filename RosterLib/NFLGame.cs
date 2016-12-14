@@ -120,6 +120,22 @@ namespace RosterLib
          GridStatsList = new List<GridStatsOutput>();
       }
 
+      public decimal DefensiveFantasyPtsFor( string teamCode )
+      {
+         if ( !Played() ) return 0.0M;
+
+         NflTeam team;
+         if ( IsAway( teamCode ) )
+            team = AwayNflTeam;
+         else
+            team = HomeNflTeam;
+
+         if ( GameWeek == null ) GameWeek = new NFLWeek( Season, Week );
+         var calculator = new DefensiveScoringCalculator( GameWeek, offset: 0 );
+         calculator.Calculate( team: team, game: this );
+         return team.FantasyPoints;
+      }
+
       /// <summary>
       ///   Game key is YYYY:0W-X
       /// </summary>
@@ -829,31 +845,54 @@ namespace RosterLib
          return theResult;
       }
 
-      public string ResultFor( string teamInFocus, bool abbreviate )
+      public string ResultFor( string teamInFocus, bool abbreviate, bool barIt = true )
       {
+         string dividerChar;
+         if ( barIt )
+            dividerChar = "|";
+         else
+            dividerChar = "";
+
          var theResult = "     BYE     ";
-         if (IsBye()) return string.Format( "|{0}", theResult );
+
+         if (IsBye()) return string.Format( "{1}{0}", theResult, dividerChar );
          if (teamInFocus == HomeTeam)
          {
-            if (HomeScore > AwayScore) theResult = abbreviate ? "W" : "Won ";
-            else if (HomeScore < AwayScore) theResult = abbreviate ? "L" : "Lost";
-            else if (AwayScore > HomeScore)
+            if ( HomeScore > AwayScore )
+               theResult = abbreviate ? "W" : "Won ";
+            else if ( HomeScore < AwayScore )
+               theResult = abbreviate ? "L" : "Lost";
+            else if ( AwayScore > HomeScore )
                theResult = abbreviate ? "W" : "Won";
-            else if (AwayScore < HomeScore) theResult = abbreviate ? "L" : "Lost";
-            theResult = string.Format( "{3} v {0} {1,2}-{2,2} ", 
+            else if ( AwayScore < HomeScore )
+            {
+               theResult = abbreviate ? "L" : "Lost";
+               theResult = string.Format( "{3} v {0} {1,2}-{2,2} ",
                AwayTeam, HomeScore, AwayScore, theResult );
+               }
+            else if ( AwayScore == 0 && HomeScore == 0 )
+               theResult = string.Format( "{1} v {0}",
+               AwayTeam, HomeTeam );
          }
          else
          {
-            if (AwayScore > HomeScore) theResult = abbreviate ? "W" : "Won ";
-            else if (AwayScore < HomeScore) theResult = abbreviate ? "L" : "Lost";
-            else if (HomeScore > AwayScore)
+            if ( AwayScore > HomeScore )
+               theResult = abbreviate ? "W" : "Won ";
+            else if ( AwayScore < HomeScore )
+               theResult = abbreviate ? "L" : "Lost";
+            else if ( HomeScore > AwayScore )
                theResult = abbreviate ? "W" : "Won";
-            else if (HomeScore < AwayScore) theResult = abbreviate ? "L" : "Lost";
-            theResult = string.Format( "{3} @ {0} {1,2}-{2,2} ", 
+            else if ( HomeScore < AwayScore )
+            {
+               theResult = abbreviate ? "L" : "Lost";
+               theResult = string.Format( "{3} @ {0} {1,2}-{2,2} ",
                HomeTeam, AwayScore, HomeScore, theResult );
+               }
+            else if ( AwayScore == 0 && HomeScore == 0 )
+               theResult = string.Format( "{1} @ {0}",
+               HomeTeam, AwayTeam );
          }
-         return string.Format( "|{0}", theResult );
+         return string.Format( "{1}{0}", theResult, dividerChar );
       }
 
       public string ScoreCountsFor( string teamInFocus  )
@@ -1374,6 +1413,10 @@ namespace RosterLib
                isDome = true;
                break;
 
+            case "DC":
+               isDome = true;
+               break;
+
             case "DL":
                isDome = true;
                break;
@@ -1383,7 +1426,7 @@ namespace RosterLib
                break;
 
             case "SL":
-               isDome = true;
+               isDome = false;
                break;
 
             default:
@@ -2186,7 +2229,7 @@ namespace RosterLib
          if ( Logger == null )
             Logger = NLog.LogManager.GetCurrentClassLogger();
 
-         Logger.Info( msg );
+         Logger.Trace( msg );
       }
 
       public decimal OpponentPowerRating(string teamCode, string week)
@@ -2229,7 +2272,13 @@ namespace RosterLib
 
       public void CalculateSpreadResult()
       {
-         if ( Spread != 0 )
+         if ( Spread == 0 )
+         {
+            // OTB, give it to the home team 21-20
+            HomeScore = 21;
+            AwayScore = 20;
+         }
+         else
          {
             //  what is the bookies tip
             var winningScore = 0.0M;

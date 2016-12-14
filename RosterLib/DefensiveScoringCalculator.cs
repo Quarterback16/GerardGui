@@ -17,7 +17,7 @@ namespace RosterLib
 		{
 			StartWeek = startWeek;
 			if (startWeek.WeekNo < 2 )
-				StartWeek = startWeek.PreviousWeek(startWeek, false, true);
+				StartWeek = startWeek.PreviousWeek(startWeek, loadgames: false, regularSeasonGamesOnly: true);
 			Offset = offset;
 			Team = new NflTeam("SF");
 		}
@@ -39,20 +39,32 @@ namespace RosterLib
 
 			CountStats();
 
-			Team.FantasyPoints += (int) Team.TotSacks;
-			Team.FantasyPoints += Team.TotInterceptions * 2;
+			Team.FantasyPoints += Team.TotSacks;
+#if DEBUG
+         Utility.Announce( string.Format( "  Defense got {0} sacks for {0} FP",
+            Team.TotSacks  ) );
+#endif
+         Team.FantasyPoints += Team.TotInterceptions * 2;
+#if DEBUG
+         Utility.Announce( string.Format( "  Defense got {0} intercepts for {1} FP",
+            Team.TotInterceptions, Team.TotInterceptions * 2 ) );
+#endif
 
-			CountYardage( opponentCode );
+         CountYardage( opponentCode );
 
 			Team.PtsAgin = CountPointsAllowed();
 			var defFantasyPts =  PointsForAllowing( Team.PtsAgin );
 			Team.FantasyPoints += defFantasyPts;
 
 #if DEBUG
-			Utility.Announce( string.Format( "  Defense gave up {0} real points for {1} FP", Team.PtsAgin, defFantasyPts ));
+			Utility.Announce( string.Format( "  Defense gave up {0} real points for {1} FP", 
+            Team.PtsAgin, defFantasyPts ));
 #endif
 
-			Team.Games++;
+#if DEBUG
+         Utility.Announce( string.Format( "  FP total {0}", Team.FantasyPoints ) );
+#endif
+         Team.Games++;
 		}
 
 		private static int PointsForAllowing( int pointsAllowed )
@@ -126,14 +138,15 @@ namespace RosterLib
 													Int32.Parse( dt.Rows[i]["DISTANCE"].ToString() ) );
 
 				Team.FantasyPoints += s.Points();
-
-				if (s.TypeCode.Equals(Constants.K_SCORE_SAFETY)) continue;
-				Team.DefensiveScores++;
 #if DEBUG
-				Utility.Announce( string.Format( "   Defensive score! :{0} {1}-{2} yds", Team.DefensiveScores, s.TypeCode, s.Distance ) );
+            Utility.Announce( string.Format( "   Defensive score! :{0} {1}-{2} yds {3} FP",
+               Team.DefensiveScores, s.TypeCode, s.Distance, s.Points() ) );
 #endif
+            if ( s.TypeCode.Equals( Constants.K_SCORE_SAFETY ) )
+               continue;
+
+				Team.DefensiveScores++;
 			}
 		}
-
 	}
 }

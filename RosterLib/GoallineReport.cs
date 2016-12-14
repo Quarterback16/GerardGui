@@ -5,23 +5,15 @@ using System.Data;
 
 namespace RosterLib
 {
-   public class GoallineReport : IHtmlReport
+   public class GoallineReport : RosterGridReport, IHtmlReport
 	{
-		#region  Properties
-
-		public string FileOut { get; set; }
-
 		public Dictionary<string, NflTeam> TeamList { get; set; }
-
-		public string Season { get; set; }
 
 		public string Week { get; set; }
 
-		#endregion
-
 		public void Render()
 		{
-			LoadTeams();
+			LoadTeams();  //  By each Team
 
 			var heading = Week == null ? "GL Scores Season " + Season : "Scores : Week " + Week;
 			var str = new SimpleTableReport( heading );
@@ -31,10 +23,11 @@ namespace RosterLib
 			str.AddColumn( new ReportColumn( "Total", "TOTAL", "{0}" ) );
 			AddWeeklyColumns( str );
 
-			str.LoadBody( BuildTable() );
+			str.LoadBody( BuildAndLoadDataTable() );
+
 			FileOut = Week == null ? string.Format( "{0}{1}//Scores//GLScores.htm", Utility.OutputDirectory(), Season )
 				: string.Format( "{0}{1}//Scores//GLScores-{2}.htm", Utility.OutputDirectory(), Season, Week );
-			str.RenderAsHtml( FileOut, true );
+			str.RenderAsHtml( FileOut, persist: true );
 		}
 
 		private static void AddWeeklyColumns( SimpleTableReport str )
@@ -46,34 +39,48 @@ namespace RosterLib
 			}
 		}
 
-		private DataTable BuildTable()
-		{
-			var dt = new DataTable();
-			var cols = dt.Columns;
-			cols.Add( "TEAM", typeof( String ) );
-			cols.Add( "TOTAL", typeof( Int32 ) );
-			AddWeeklyReportCols( cols );
+		private DataTable BuildAndLoadDataTable()
+      {
+         DataTable dt = BuildDataTable();
 
-			var ds = Week == null ? Utility.TflWs.ScoresDs( Season ) : Utility.TflWs.ScoresDs( Season, Week );
+         var scores = Week == null ?
+            Utility.TflWs.ScoresDs( Season )
+            : Utility.TflWs.ScoresDs( Season, Week );
 
-			var dt2 = ds.Tables[ 0 ];
+         LoadDataTable( dt, scores );
 
-			foreach ( DataRow dr in dt2.Rows )
-				IncrementTeamwith( dr );
+         dt.DefaultView.Sort = "TOTAL DESC";
+         return dt;
+      }
 
-			foreach ( KeyValuePair<string, NflTeam> team in TeamList )
-			{
-				DataRow dr = dt.NewRow();
-				dr[ "TEAM" ] = team.Value.Name;
-				dr[ "TOTAL" ] = team.Value.TotTDs;
-				AddWeeklyScorers( dr, team );
-				dt.Rows.Add( dr );
-			}
-			dt.DefaultView.Sort = "TOTAL DESC";
-			return dt;
-		}
+      private void LoadDataTable( DataTable dt, DataSet scores )
+      {
+         var scoresTable = scores.Tables[ 0 ];
 
-		private void AddWeeklyReportCols( DataColumnCollection cols )
+         foreach ( DataRow dr in scoresTable.Rows )
+            IncrementTeamwith( dr );
+
+         foreach ( KeyValuePair<string, NflTeam> team in TeamList )
+         {
+            DataRow dr = dt.NewRow();
+            dr[ "TEAM" ] = team.Value.Name;
+            dr[ "TOTAL" ] = team.Value.TotTDs;
+            AddWeeklyScorers( dr, team );
+            dt.Rows.Add( dr );
+         }
+      }
+
+      private DataTable BuildDataTable()
+      {
+         var dt = new DataTable();
+         var cols = dt.Columns;
+         cols.Add( "TEAM", typeof( String ) );
+         cols.Add( "TOTAL", typeof( Int32 ) );
+         AddWeeklyReportCols( cols );
+         return dt;
+      }
+
+      private void AddWeeklyReportCols( DataColumnCollection cols )
 		{
 			for ( int i = 1; i < 18; i++ )
 			{
@@ -116,7 +123,6 @@ namespace RosterLib
 					}
 				}
 			}
-
 		}
 
 		private static void AddGoallineScorer( DataRow dr, NflTeam t )

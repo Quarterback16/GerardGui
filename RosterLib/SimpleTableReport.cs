@@ -286,6 +286,7 @@ namespace RosterLib
                s += HtmlLib.TableRowClose();
             }
             s += TotalLine(tot);
+            s += AverageLine( tot, rowCount );
             s += HtmlLib.TableClose();
          }
          return s;
@@ -348,6 +349,41 @@ namespace RosterLib
          return tl;
       }
 
+      private string AverageLine( int[] tot, int rowCount )
+      {
+         var tl = "";
+
+         if ( !Totals ) return "";
+
+         if ( Body != null )
+         {
+            tl = HtmlLib.TableRowOpen();
+            if ( DoRowNumbers )
+               tl += HtmlLib.TableDataAttr( "Averages", "ALIGN='RIGHT' VALIGN='TOP'" );
+
+            for ( int i = 0; i < _columns.Count; i++ )
+            {
+               var col = ( ReportColumn ) _columns[ i ];
+               if ( col.CanAccumulate )
+               {
+                  var dc = Body.Columns[ col.Source ];
+                  var sData = FormatData( dc, col.Format, ((decimal) tot[ i ] / (decimal) rowCount).ToString() );
+                  tl += HtmlLib.TableDataAttr( sData, AttrFor( dc, ( ReportColumn.ColourDelegate ) null, "" ) );
+                  LastTotal = tot[ i ];
+               }
+               else if ( col.ColumnTotalDelegate != null )
+               {
+                  string output = col.ColumnTotalDelegate();
+                  tl += HtmlLib.TableDataAttr( output, "ALIGN='CENTER' VALIGN='TOP'" );
+               }
+               else
+                  tl += HtmlLib.TableData( HtmlLib.HtmlPad( "", 1 ) );
+            }
+            tl += HtmlLib.TableRowClose();
+         }
+         return tl;
+      }
+
       private string ColHeaders()
       {
          var headers = "";
@@ -363,7 +399,10 @@ namespace RosterLib
          return headers;
       }
 
-      private static string AttrFor(DataColumn dc, ReportColumn.ColourDelegateFromRole bgColour, string theValue)
+      private static string AttrFor(
+         DataColumn dc, 
+         ReportColumn.ColourDelegateFromRole bgColour, 
+         string theValue)
       {
          var sAttr = "";
          if (dc != null)
@@ -383,7 +422,10 @@ namespace RosterLib
          return sAttr + " VALIGN='TOP'";
       }
 
-      private static string AttrFor(DataColumn dc, ReportColumn.ColourDelegate bgColour, string theValue)
+      private static string AttrFor(
+         DataColumn dc, 
+         ReportColumn.ColourDelegate bgColour, 
+         string theValue)
       {
          var sAttr = "";
          if (dc != null)
@@ -391,6 +433,7 @@ namespace RosterLib
             if (dc.DataType == Type.GetType("System.Decimal") ||
                 dc.DataType == Type.GetType("System.Int32"))
                sAttr = "ALIGN='RIGHT'";
+               //sAttr = "class='num'";
             if (dc.DataType != null && dc.DataType == Type.GetType("System.String"))
                sAttr = "ALIGN='CENTER'";
 
@@ -398,6 +441,7 @@ namespace RosterLib
             {
                if ( ( !string.IsNullOrEmpty( theValue ) ) )
                {
+                  //  look for data with a colon in it (we only need to use the number)
                   var numberSpot = theValue.IndexOf(":", StringComparison.Ordinal);
                   if ( numberSpot > -1 )
                   {
@@ -408,6 +452,8 @@ namespace RosterLib
                         if (!numberPart.Equals( ":" ))
                            sAttr += " BGCOLOR=" + bgColour( Int32.Parse( numberPart ) );
                   }
+                  else
+                     sAttr += " BGCOLOR=" + bgColour( (int) Decimal.Parse( theValue ) );
                }
             }
          }
@@ -451,11 +497,9 @@ namespace RosterLib
 
       private static string TopLine()
       {
-         var theDate = string.Format("Report Date: {0} ", DateTime.Now.ToString("dd MMM yy  HH:mm"));
-//			if ( string.IsNullOrEmpty( this.SubHeader ) )
+         var theDate = string.Format("Report Date: {0} ", 
+            DateTime.Now.ToString("dd MMM yy  HH:mm"));
          return theDate;
-//			else
-//				return string.Format( "{0}&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.&nbsp.{1}", SubHeader, theDate );
       }
 
       private string Footer()
@@ -581,6 +625,7 @@ namespace RosterLib
          AddStyle("#main { margin-left:1em; }");
          AddStyle("#dtStamp { font-size:0.8em; }");
          AddStyle(".end { clear: both; }");
+         AddStyle( ".num { mso-number-format: General; }" );
          AddStyle(".gponame { color:white; background:black }");
          AddStyle(
             "label { display:block; float:left; width:130px; padding: 3px 5px; margin: 0px 0px 5px 0px; text-align:right; }");
@@ -664,6 +709,17 @@ namespace RosterLib
          Format = format;
          Type = type;
          CanAccumulate = tally;
+      }
+
+      public ReportColumn( string header, string source, string format, Type type, bool tally,
+         ColourDelegate colourDelegateIn )
+      {
+         Header = header;
+         Source = source;
+         Format = format;
+         Type = type;
+         CanAccumulate = tally;
+         BackGroundColourDelegate = colourDelegateIn;
       }
 
       public ReportColumn(string header, string source, string format, bool tally)

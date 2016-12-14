@@ -53,20 +53,20 @@ namespace RosterLib
 		/// <returns></returns>
 		public NFLGame GetGame(string gameCode)
 		{
-#if DEBUG
+#if DEBUG2
 			Utility.Announce( string.Format("Gm:GetGame - cache get on {0}", gameCode ) );
 #endif
 			var g = (NFLGame) _gameHt[gameCode];
 			if (g == null)
 			{
 				CacheMisses++;
-#if DEBUG
+#if DEBUG2
 				Utility.Announce( string.Format( "Gm:cache miss on {0}", gameCode ) );
 #endif
 			}
 			else
 			{
-#if DEBUG
+#if DEBUG2
 				Utility.Announce( "Gm:Got game from cache" );
 #endif
 				CacheHits++;

@@ -233,7 +233,7 @@ namespace RosterLib
          if (Logger==null)
             Logger = NLog.LogManager.GetCurrentClassLogger();
 
-         Logger.Info( msg );
+         Logger.Trace( msg );
       }
 
       #endregion

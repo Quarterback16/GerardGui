@@ -1,25 +1,50 @@
+using System;
 using System.Data;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace RosterLib
 {
-   class TeamReport
+   public class TeamReport : RosterGridReport, IHtmlReport
    {
-      private DataTable data;
+      public SimpleTableReport Ste { get; set; }
 
-      #region  Accessors
-      
-      public DataTable Data
+      public string Heading { get; set; }
+
+      public Dictionary<string, NflTeam> TeamList { get; set; }
+
+      public DataTable Data { get; set; }
+
+      public TeamReport() : base()
       {
-         get { return data; }
-         set { data = value; }
+         LoadTeams();
       }
 
-      #endregion
+      public void Render()
+      {
+         Render( Ste, Heading );
+      }
 
-      private void Render( SimpleTableReport r, string header )
+      public void Render( SimpleTableReport r, string header )
       {
          r.LoadBody( Data );
-         r.RenderAsHtml(string.Format("{0}{1}.htm", Utility.OutputDirectory(), header), true);
+         r.RenderAsHtml(FileOut, persist:true);
+      }
+
+      private void LoadTeams()
+      {
+         var ds = Utility.TflWs.TeamsDs( Season );
+         DataTable dt = ds.Tables[ "Team" ];
+         TeamList = new Dictionary<string, NflTeam>();
+
+         foreach ( DataRow dr in dt.Rows )
+         {
+            var t = new NflTeam( dr[ "TEAMID" ].ToString(), Season,
+                                     Int32.Parse( dr[ "WINS" ].ToString() ),
+                                     dr[ "TEAMNAME" ].ToString() );
+            t.MetricsHt = new Hashtable();
+            TeamList.Add( t.TeamCode, t );
+         }
       }
    }
 }

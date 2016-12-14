@@ -1531,6 +1531,17 @@ namespace TFLLib
          return ds;
       }
 
+      public DataSet GameForTeam( string season, string week, string teamCode )
+      {
+         var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GameForTeam-DataSet",
+            season, week, teamCode );
+         var commandStr = string.Format(
+         "select * from SCHED where SEASON='{0}' and WEEK='{1:0#}' and (HOMETEAM='{2}' or AWAYTEAM='{2}')",
+         season, Int32.Parse( week ), teamCode );
+         var ds = CacheCommand( keyValue, commandStr, "sched", "GameForTeam" );
+         return ds;
+      }
+
       public DataSet SchedDs(string season, string week)
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "SchedDs-DataSet", 

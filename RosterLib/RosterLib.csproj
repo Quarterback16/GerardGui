@@ -103,6 +103,7 @@
     <Compile Include="FantasyLeague.cs" />
     <Compile Include="FantasyProjectionReport.cs" />
     <Compile Include="FantasyProjectionReporter.cs" />
+    <Compile Include="FantasyReport.cs" />
     <Compile Include="FGDefenceUnit.cs" />
     <Compile Include="FieldGoal.cs" />
     <Compile Include="FieldGoalResult.cs" />

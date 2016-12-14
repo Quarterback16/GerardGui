@@ -153,7 +153,7 @@ namespace RosterLib
 
          #endregion Kicking
 
-         Logger.Info( string.Format(
+         Logger.Trace( string.Format(
             "{0} has {1} in week {2}:{3}",
                plyr.PlayerName, plyr.Points, week.Season, week.Week ) );
 

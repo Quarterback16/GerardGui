@@ -88,6 +88,7 @@ namespace Butler
             MyJobs.Add( new AssignRolesJob( TimeKeeper ) );  //  sets the ROLE on players based on actual stats
             MyJobs.Add( new YahooXmlJob( TimeKeeper ) );
             MyJobs.Add( new PerformanceReportJob( TimeKeeper ) );
+            MyJobs.Add( new FantasyReportJob( TimeKeeper ) );
             MyJobs.Add( new DepthChartJob( TimeKeeper ) );
             MyJobs.Add( new StatGridJob( TimeKeeper ) );
             MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
