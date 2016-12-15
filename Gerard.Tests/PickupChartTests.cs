@@ -184,5 +184,23 @@ namespace Gerard.Tests
 			sut.Calculate(p, g);
 			Assert.IsTrue(p.Points > 1);
 		}
+
+      [TestMethod]
+      public void TestW2Bit()
+      {
+         var sut = new PickupChart( season:"2016", week:15 );
+         var g = new NFLGame( "2016:15-M" );
+         var team = new Winner
+         {
+            Team = g.Team( "NE" ),
+            Margin = Math.Abs( g.Spread ),
+            Home = g.IsHome( "NE" ),
+            Game = g
+         };
+         team.Team.LoadPassUnit();
+         team.Team.PassUnit.SetReceiverRoles();
+         var bit = sut.GetW2Bit( team, new YahooCalculator() );
+         Assert.AreEqual( "CHogan", team.Team.PassUnit.W2.PlayerNameShort );
+      }
    }
 }

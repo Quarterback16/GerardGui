@@ -1,6 +1,6 @@
 ﻿namespace RosterLib.RosterGridReports
 {
-   interface IWinOrLose
+   public interface IWinOrLose
    {
       RosterLib.NFLGame Game { get; set; }
       bool Home { get; set; }

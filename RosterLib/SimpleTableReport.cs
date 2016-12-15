@@ -367,7 +367,7 @@ namespace RosterLib
                if ( col.CanAccumulate )
                {
                   var dc = Body.Columns[ col.Source ];
-                  var sData = FormatData( dc, col.Format, ((decimal) tot[ i ] / (decimal) rowCount).ToString() );
+                  var sData = FormatData( dc, "{0:0.0}", string.Format("{0:0.0}", ((decimal) tot[ i ] / (decimal) rowCount) ) );
                   tl += HtmlLib.TableDataAttr( sData, AttrFor( dc, ( ReportColumn.ColourDelegate ) null, "" ) );
                   LastTotal = tot[ i ];
                }

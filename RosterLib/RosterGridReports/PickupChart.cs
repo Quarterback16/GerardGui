@@ -32,7 +32,7 @@ namespace RosterLib.RosterGridReports
          FileOut = Report.FileOut;
       }
 
-      private string GenerateBody()
+      public string GenerateBody()
       {
          var bodyOut = new StringBuilder();
 
@@ -54,7 +54,7 @@ namespace RosterLib.RosterGridReports
          return bodyOut.ToString();
       }
 
-      private int GenerateChart( 
+      public int GenerateChart( 
          StringBuilder bodyOut, YahooCalculator c, int lineNo, IWinOrLose team )
       {
 	      team.Team.LoadKickUnit();
@@ -122,7 +122,7 @@ namespace RosterLib.RosterGridReports
 		   return bit;
 	   }
 
-	   private string GetW2Bit( IWinOrLose team, YahooCalculator c )
+	   public string GetW2Bit( IWinOrLose team, YahooCalculator c )
       {
 			var bit = NoneBit( team );
 			if ( team.Team.PassUnit.W2 != null )
@@ -233,7 +233,7 @@ namespace RosterLib.RosterGridReports
 
       #endregion
 
-      private IEnumerable<Winner> GetWinners()
+      public IEnumerable<Winner> GetWinners()
       {
          var week = new NFLWeek( Season, Week );
          var winners = new List<Winner>();
@@ -254,7 +254,7 @@ namespace RosterLib.RosterGridReports
          return winners;
       }
 
-      private IEnumerable<Loser> GetLosers()
+      public IEnumerable<Loser> GetLosers()
       {
          var week = new NFLWeek( Season, Week );
          var losers = new List<Loser>();

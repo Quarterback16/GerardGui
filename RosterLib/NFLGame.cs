@@ -1425,8 +1425,8 @@ namespace RosterLib
                isDome = true;
                break;
 
-            case "SL":
-               isDome = false;
+            case "AC":
+               isDome = true;
                break;
 
             default:

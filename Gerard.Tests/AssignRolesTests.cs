@@ -26,8 +26,6 @@ namespace Gerard.Tests
          Console.WriteLine(whyNot);
       }
 
-
-
       [TestMethod]
       public void TestNextGame()
       {
@@ -90,13 +88,15 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestAnaliseReceptionYardage()
       {
-         var sut = new NflTeam("JJ");
+         var sut = new NflTeam("NE");
          sut.LoadPassUnit();
          Assert.IsTrue(sut.PassUnit.Receivers.Count > 0);
          Utility.Announce(string.Format("Loaded {0} receivers", sut.PassUnit.Receivers.Count));
 
          sut.PassUnit.DumpUnit();
-         sut.PassUnit.AnalyseWideouts("2014", "07");
+         sut.PassUnit.AnalyseWideouts("2016", "14");
+         sut.PassUnit.SetReceiverRoles();
+         sut.PassUnit.DumpUnit();
 //         sut.PassUnit.AnalyseTightends("2014", "04");
       }
 

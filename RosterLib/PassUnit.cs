@@ -122,7 +122,7 @@ namespace RosterLib
          }
       }
 
-      private void SetReceiverRoles()
+      public void SetReceiverRoles()
       {
          //  can only have one backup, any others need to be given roles of R for reserve
          foreach ( var p in Receivers )

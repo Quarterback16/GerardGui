@@ -46,5 +46,14 @@ namespace Gerard.Tests
          Console.WriteLine( "Report generated to {0}", outcome );
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
+
+      [TestMethod]
+      public void TestTylerLocket()
+      {
+         var sut = new NFLPlayer( "LOCKTY01" );
+         var outcome = sut.PlayerReport( true );
+         Console.WriteLine( "Report generated to {0}", outcome );
+         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+      }
    }
 }

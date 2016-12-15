@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestFantasyReportJob()   
       {
-         var sut = new FantasyReportJob( new FakeTimeKeeper( season: "2016", week: "14" ) );
+         var sut = new FantasyReportJob( new TimeKeeper(null) );
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );

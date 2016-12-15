@@ -14,7 +14,7 @@ namespace RosterLib
       public FantasyReport(IKeepTheTime timekeeper) : base()
       {
          Name = "Fantasy Report";
-         Week = timekeeper.Week;
+         Week = timekeeper.PreviousWeek();
 
          Heading = Name;
 
