@@ -47,6 +47,7 @@ namespace RosterLib
 
 			Game = new NFLGame(GameKey);
 	      WeekHasPassed = Game.Played();
+         if ( !WeekHasPassed ) return plyr.Points;
 
          Week = week;  //  set the global week, other wise u will get the same week all the time
          plyr.Points = 0;  //  start from scratch
@@ -158,10 +159,9 @@ namespace RosterLib
                plyr.PlayerName, plyr.Points, week.Season, week.Week ) );
 
          // side effect - store metrics
-         if (!WeekHasPassed) return plyr.Points;
 
          if ( plyr.GameMetrics.ContainsKey( GameKey ) )
-            PgmDao.SaveActuals( plyr.GameMetrics[ GameKey ]  );
+            PgmDao.SaveActuals( plyr.GameMetrics[ GameKey ], plyr.Points  );
          else
          {
 #if DEBUG

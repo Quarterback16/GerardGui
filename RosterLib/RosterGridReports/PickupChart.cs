@@ -172,15 +172,17 @@ namespace RosterLib.RosterGridReports
             var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam(team.Game);
             var defensiveRating = nextOppTeam.DefensiveRating(Constants.K_RUNNINGBACK_CAT);
 
-            bit = string.Format("<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}       ",
-               team.Team.TeamCode, Week - 1, defensiveRating);
+            bit = string.Format(
+               "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}      ",
+               team.Team.TeamCode, 
+               Week - 1, 
+               defensiveRating);
 
             if ( team.Team.RushUnit == null )
                team.Team.LoadRushUnit();
             else
                Logger.Trace( "   >>> Rush unit loaded {0} rushers; Ace back {1}", 
-                  team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );
-            
+                  team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );            
 
             if ( team.Team.RushUnit.AceBack != null)
                bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
@@ -203,9 +205,25 @@ namespace RosterLib.RosterGridReports
          c.Calculate( p, g );
 			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", 
             p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
-         return string.Format( "{0,-11} {3}  {1}  {2,2:#0}{5} {4} ", 
-            namePart, defensiveRating, p.Points, owners, ActualOutput(g,p),
-            DomeBit(g,p));
+         return string.Format( "{6}{0,-11} {3}  {1}  {2,2:#0}{5} {4}", 
+            namePart, 
+            defensiveRating, 
+            p.Points, 
+            owners, 
+            ActualOutput(g,p),
+            DomeBit(g,p),
+            ReturnerBit( p )
+            );
+      }
+
+      private string ReturnerBit( NFLPlayer p )
+      {
+         var returnerBit = " ";
+         if ( p.IsReturner() )
+         {
+            returnerBit = "-";
+         }
+         return returnerBit;
       }
 
       private string DomeBit( NFLGame g, NFLPlayer p )

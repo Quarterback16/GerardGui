@@ -122,6 +122,7 @@
     <Compile Include="SuggestedLineupTests.cs" />
     <Compile Include="TeamCardTests.cs" />
     <Compile Include="TeamRankerTests.cs" />
+    <Compile Include="TeReportTests.cs" />
     <Compile Include="TestGamebookGetter.cs" />
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />

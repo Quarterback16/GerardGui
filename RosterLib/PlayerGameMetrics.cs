@@ -89,7 +89,7 @@ namespace RosterLib
 
 	   public void UpdateAcuals(IPlayerGameMetricsDao dao)
 	   {
-		   dao.SaveActuals(this);
+		   dao.SaveActuals(this, fpts: this.FantasyPoints);
 	   }
 
       public string Season()

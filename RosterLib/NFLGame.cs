@@ -2155,24 +2155,35 @@ namespace RosterLib
 			return AwayPlayers;
 		}
 
-		public List<NFLPlayer> LoadAllFantasyAwayPlayers()
+		public List<NFLPlayer> LoadAllFantasyAwayPlayers(string catFilter = "")
 		{
-			AwayPlayers = new List<NFLPlayer>();
-			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_QUARTERBACK_CAT));
-			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_RUNNINGBACK_CAT));
-			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_RECEIVER_CAT));
-			AwayPlayers.AddRange(LoadTeamPlayersForCat(AwayTeam, Constants.K_KICKER_CAT));
-			return AwayPlayers;
+         AwayPlayers = new List<NFLPlayer>();
+         if ( string.IsNullOrEmpty( catFilter ) )
+         {
+            AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_QUARTERBACK_CAT ) );
+            AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_RUNNINGBACK_CAT ) );
+            AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_RECEIVER_CAT ) );
+            AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_KICKER_CAT ) );
+         }
+         else
+            AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, catFilter ) );
+
+         return AwayPlayers;
 		}
 
-		public List<NFLPlayer> LoadAllFantasyHomePlayers()
+		public List<NFLPlayer> LoadAllFantasyHomePlayers( string catFilter = "" )
 		{
 			HomePlayers = new List<NFLPlayer>();
-			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_QUARTERBACK_CAT));
-			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_RUNNINGBACK_CAT));
-			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_RECEIVER_CAT));
-			HomePlayers.AddRange(LoadTeamPlayersForCat(HomeTeam, Constants.K_KICKER_CAT));
-			return HomePlayers;
+         if ( string.IsNullOrEmpty( catFilter ) )
+         {
+            HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_QUARTERBACK_CAT ) );
+            HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_RUNNINGBACK_CAT ) );
+            HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_RECEIVER_CAT ) );
+            HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_KICKER_CAT ) );
+         }
+         else
+            HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, catFilter ) );
+            return HomePlayers;
 		}
 
 		private static IEnumerable<NFLPlayer> LoadTeamPlayersForCat(string teamCode, string playerCat)

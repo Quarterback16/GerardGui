@@ -36,7 +36,6 @@ namespace RosterLib
          Leagues = new List<RosterGridLeague> {new RosterGridLeague {Id = Constants.K_LEAGUE_Yahoo, Name = "Yahoo"}};
       }
 
-
       public override void RenderAsHtml()
       {
          foreach (var league in Leagues)
@@ -77,11 +76,11 @@ namespace RosterLib
 
          if ( WriteProjectionReports )
          {
-            Logger.Info( "Writing PP Reports" );
+            Logger.Trace( "Writing PP Reports" );
             WritePlayerProjectionReports();
          }
          else
-            Logger.Info( "Skipping PP Reports" );
+            Logger.Trace( "Skipping PP Reports" );
 
          Lister.Clear();
 
@@ -92,7 +91,7 @@ namespace RosterLib
       {
          foreach ( NFLPlayer p in Lister.PlayerList )
          {
-            Logger.Info( "    Writing pp for {0}", p.PlayerName );
+            Logger.Trace( "    Writing pp for {0}", p.PlayerName );
             p.PlayerProjection( TimeKeeper.Season );
          }
       }

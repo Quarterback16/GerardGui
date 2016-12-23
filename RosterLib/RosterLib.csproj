@@ -334,6 +334,7 @@
     <Compile Include="TeamReport.cs" />
     <Compile Include="TeamUnit.cs" />
     <Compile Include="TEPMaster.cs" />
+    <Compile Include="TeReport.cs" />
     <Compile Include="TflDataService.cs" />
     <Compile Include="TimeKeeper.cs" />
     <Compile Include="TippingComp.cs" />

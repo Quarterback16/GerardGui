@@ -102,7 +102,7 @@ namespace RosterLib
          }
       }
 
-	   public void SaveActuals(PlayerGameMetrics pgm)
+	   public void SaveActuals(PlayerGameMetrics pgm, decimal fpts)
 	   {
          string commandStr;
          var oldPgm = Get(pgm.PlayerId, pgm.GameKey);
@@ -112,7 +112,7 @@ namespace RosterLib
 				   pgm.PlayerId, pgm.GameKey,
 				   pgm.ProjYDp, pgm.YDp, pgm.ProjYDr, pgm.YDr,
 				   pgm.ProjTDp, pgm.TDp, pgm.ProjTDr, pgm.TDr, pgm.ProjTDc, pgm.TDc, pgm.ProjYDc, pgm.YDc,
-				   pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat, pgm.FantasyPoints
+				   pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat, fpts
 				   );
 			   commandStr = "Player Metric not found";
 		   }
@@ -124,7 +124,7 @@ namespace RosterLib
 					   pgm.YDp, pgm.YDr,
 					   pgm.TDp, pgm.TDr, pgm.TDc, pgm.YDc,
 					   pgm.FG, pgm.Pat,
-						pgm.FantasyPoints
+						fpts
 					   );
 		   }
 #if DEBUG

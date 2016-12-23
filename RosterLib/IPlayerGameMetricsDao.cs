@@ -18,7 +18,7 @@ namespace RosterLib
 
       void Save( PlayerGameMetrics pgm );
 
-		void SaveActuals(PlayerGameMetrics pgm);
+		void SaveActuals(PlayerGameMetrics pgm, decimal fpts);
 
       void ClearGame( string gameKey );
 
