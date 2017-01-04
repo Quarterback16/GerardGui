@@ -1130,12 +1130,44 @@ namespace RosterLib
          return catCode == Constants.K_RUNNINGBACK_CAT ? RdRating() : PdRating();
       }
 
-		public string DefensiveUnit(string catCode)
+      public string OffensiveRating( string catCode )
+      {
+         var offRating = PoRating();
+
+         switch ( catCode )
+         {
+            case Constants.K_QUARTERBACK_CAT:
+               offRating = PoRating();
+               break;
+
+            case Constants.K_RUNNINGBACK_CAT:
+               offRating = RoRating();
+               break;
+
+            case Constants.K_RECEIVER_CAT:
+               offRating = PoRating();
+               break;
+
+            case Constants.K_KICKER_CAT:
+               offRating = PoRating();
+               break;
+         }
+
+         return offRating;
+      }
+
+      public string DefensiveUnit(string catCode)
 		{
 			return catCode == Constants.K_RUNNINGBACK_CAT ? RDUnitLink(RdRating()) : PDUnitLink(PdRating());
 		}
 
-	   private string PDUnitLink(string pdRating)
+      public string DefensiveUnitMatchUp( string catCode, string matchUp )
+      {
+         return catCode == Constants.K_RUNNINGBACK_CAT 
+            ? RDUnitLink( matchUp ) : PDUnitLink( matchUp );
+      }
+
+      private string PDUnitLink(string pdRating)
 	   {
 		   return string.Format("<a href='..\\Units\\PassDef\\PD-{0}.htm'>{1}</a>", TeamCode, pdRating);
 	   }

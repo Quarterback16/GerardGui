@@ -21,7 +21,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPerformanceReportForParticularWeekJob()  // 2015-11-11 2 min
       {
-         var sut = new PerformanceReportJob( new FakeTimeKeeper( season:"2015", week:"18") );
+         var sut = new PerformanceReportJob( new FakeTimeKeeper( season:"2016", week:"15") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -36,7 +36,17 @@ namespace Gerard.Tests
 			Assert.IsTrue( nScore == 0 );
 		}
 
-		[TestMethod]
+      [TestMethod]
+      public void TestDoPerformanceDrewBreesWeek201610()
+      {
+         var p = new NFLPlayer( "BREEDR01" );
+         var week10 = new NFLWeek( "2016", 10 );
+         var _scorer = new YahooScorer( week10 );
+         var nScore = _scorer.RatePlayer( p, week10 );
+         Assert.IsTrue( nScore > 0 );
+      }
+
+      [TestMethod]
 		public void TestDoPerformanceWilleSneadWeek08Scores()
 		{
 			var p = new NFLPlayer( "SNEAWI01" );

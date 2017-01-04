@@ -118,7 +118,7 @@ namespace RosterLib.RosterGridReports
 
 	   private string NoneBit( IWinOrLose team )
 	   {
-		   var bit = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                            ", team.Team.TeamCode, Week - 1 );
+		   var bit = string.Format( " <a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                            ", team.Team.TeamCode, Week - 1 );
 		   return bit;
 	   }
 
@@ -170,24 +170,37 @@ namespace RosterLib.RosterGridReports
          {
             // get the next opponent by using the QB
             var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam(team.Game);
-            var defensiveRating = nextOppTeam.DefensiveRating(Constants.K_RUNNINGBACK_CAT);
-
-            bit = string.Format(
-               "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>dual</a>                    {2}      ",
-               team.Team.TeamCode, 
-               Week - 1, 
-               defensiveRating);
 
             if ( team.Team.RushUnit == null )
                team.Team.LoadRushUnit();
             else
                Logger.Trace( "   >>> Rush unit loaded {0} rushers; Ace back {1}", 
-                  team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );            
+                  team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );
 
-            if ( team.Team.RushUnit.AceBack != null)
-               bit = PlayerPiece(team.Team.RushUnit.AceBack, team.Game, c);
+            if ( team.Team.RushUnit.AceBack != null )
+               bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
             else
+            {
+               var dualBacks = team.Team.RushUnit.Committee;
+               dualBacks = dualBacks.Substring( 0, dualBacks.Length - 3 );
+               if ( dualBacks.Length < 20 )
+                  dualBacks = dualBacks + new string( ' ', 20 - dualBacks.Length );
+               if ( dualBacks.Length > 20 )
+                  dualBacks = dualBacks.Substring( 0, 20 );
+
+               var p = team.Team.RushUnit.R1;
+               var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
+               var matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
+
+               bit = string.Format(
+                  "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{3}</a> {2}          ",
+                  team.Team.TeamCode,
+                  Week - 1,
+                  matchupLink,
+                  dualBacks
+                  );
                Logger.Trace( "   >>> No Ace back for {0}", team.Team.Name );
+            }
          }
          else
          {
@@ -200,20 +213,65 @@ namespace RosterLib.RosterGridReports
       public string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
       {
          var nextOppTeam = p.NextOpponentTeam( g );
-			var defensiveRating = nextOppTeam.DefensiveUnit(p.PlayerCat);
-			var owners = p.LoadAllOwners();
+			//var defensiveRating = nextOppTeam.DefensiveUnit(p.PlayerCat);
+         var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
+         var matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
+         var owners = p.LoadAllOwners();
          c.Calculate( p, g );
 			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>", 
             p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
-         return string.Format( "{6}{0,-11} {3}  {1}  {2,2:#0}{5} {4}", 
-            namePart, 
-            defensiveRating, 
+         if ( p.PlayerCat.Equals(Constants.K_KICKER_CAT))
+         {
+            return string.Format( " {0,-11}  {1}  {2,2:#0}{3} {4}",
+               namePart,
+               owners,
+               p.Points,
+               DomeBit( g, p ),
+               ActualOutput( g, p )
+               );
+         }
+         return string.Format( "{6}{0,-11}{7} {3}  {1}  {2,2:#0}{5} {4}", 
+            namePart,
+            matchupLink,  //  defensiveRating, 
             p.Points, 
             owners, 
             ActualOutput(g,p),
             DomeBit(g,p),
-            ReturnerBit( p )
+            ReturnerBit( p ),
+            ShortYardageBit( p )
             );
+      }
+
+      private string PlusMatchup( NFLPlayer p, NflTeam nextOppTeam, NflTeam pTeam )
+      {
+         var matchUp = "-";
+         var oppRating = nextOppTeam.DefensiveRating( p.PlayerCat );
+         var oppNumber = GetAsciiValue( oppRating );
+         var plrRating = pTeam.OffensiveRating( p.PlayerCat );
+         var plrNumber = GetAsciiValue( plrRating );
+         if ( plrNumber <= oppNumber )
+         {
+            matchUp = "+";
+            if ( oppNumber - plrNumber >= 3 )
+               matchUp = "*";  //  big mismatch
+         }
+         return matchUp;
+      }
+
+      private static int GetAsciiValue( string rating )
+      {
+         byte[] value = Encoding.ASCII.GetBytes( rating );
+         return value[ 0 ];
+      }
+
+      private object ShortYardageBit( NFLPlayer p )
+      {
+         var shortYardageBit = " ";
+         if ( p.IsShortYardageBack() )
+         {
+            shortYardageBit = "$";
+         }
+         return shortYardageBit;
       }
 
       private string ReturnerBit( NFLPlayer p )

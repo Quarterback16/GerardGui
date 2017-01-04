@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2016",week:"15") );
+         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2016",week:"17") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -202,5 +202,17 @@ namespace Gerard.Tests
          var bit = sut.GetW2Bit( team, new YahooCalculator() );
          Assert.AreEqual( "CHogan", team.Team.PassUnit.W2.PlayerNameShort );
       }
+
+      [TestMethod]
+      public void TestAjayiWeek16_2016()
+      {
+         var c = new YahooCalculator();
+         var sut = new PickupChart( season: "2016", week: 16 );
+         var p = new NFLPlayer( "AJAYJA01" );
+         var g = new NFLGame( "2016:16-B" );
+         var result = sut.PlayerPiece( p, g, c );
+         Console.WriteLine( "Piece is {0}", result );
+      }
+
    }
 }

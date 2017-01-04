@@ -16,7 +16,11 @@ namespace RosterLib
 		public string RenderHtml()
 		{
 			FileOut = string.Format( "{0}{1}//{2}//{3}.htm", Utility.OutputDirectory(), Season, Folder, InstanceName );
-			ReportHeader = string.Format( "{0} for {1}", ReportType, InstanceName );
+         if ( ! string.IsNullOrEmpty( InstanceName ) )
+            ReportHeader = string.Format( "{0}", InstanceName );
+         else
+            ReportHeader = string.Format( "{0}", ReportType );
+
 			var reportHeader = string.Format( "{0} as of {1}", ReportHeader,
             DateTime.Now.ToString( "ddd dd MMM yy HH:MM tt" ) );
 			var h = new HtmlFile( FileOut, reportHeader );
