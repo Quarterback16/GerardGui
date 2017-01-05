@@ -46,8 +46,10 @@ namespace Butler.Models
 
 		   if (!IsNflRelated) return string.IsNullOrEmpty( whyNot );
 
-		   if (TimeKeeper.IsItPostSeason())
-		      whyNot = "Its the Post Season";
+         //  some jobs like pickup charts u still want to run in the post season 
+         //  ( daily Fantasy leagues) : push this decion down to the individual jobs
+		   //if (TimeKeeper.IsItPostSeason())
+		   //   whyNot = "Its the Post Season";
 
 #if DEBUG
          Console.WriteLine( "Base:Reason for not doing>{0}", whyNot );

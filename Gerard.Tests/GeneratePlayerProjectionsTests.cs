@@ -12,7 +12,7 @@ namespace Gerard.Tests
       public void TestCurrentGeneratePlayerProjectionsJob()   //  4 min
       {
          //  upcoming week only
-         var sut = new GeneratePlayerProjectionsJob(new TimeKeeper(null));
+         var sut = new GeneratePlayerProjectionsJob(new TimeKeeper(clock:null));
          var resultOut = sut.DoJob();
          Assert.IsTrue(resultOut.Length > 0);
       }
@@ -28,9 +28,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoGeneratePlayerProjectionsJob()
       {
-         var sut = new GeneratePlayerProjectionsJob(new FakeTimeKeeper());
+         var sut = new GeneratePlayerProjectionsJob( new TimeKeeper( clock: null ) );
          string whyNot;
-         Assert.IsTrue(sut.IsTimeTodo(out whyNot));
+         var result = sut.IsTimeTodo( out whyNot );
+         Assert.IsTrue(result);
          Console.WriteLine(whyNot);
       }
 

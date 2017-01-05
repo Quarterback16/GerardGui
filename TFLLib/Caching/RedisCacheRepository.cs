@@ -126,9 +126,9 @@ namespace TFLLib.Caching
 
             return !Equals( value, default( T ) );
          }
-         catch ( Exception ex )
+         catch ( Exception )
          {
-            Logger.ErrorException( "RedisCacheRepository TryGet failed", ex );
+            //Logger.ErrorException( "RedisCacheRepository TryGet failed", ex );
          }
          value = default( T );
          return false;

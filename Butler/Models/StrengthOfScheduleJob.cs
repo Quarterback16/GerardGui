@@ -3,6 +3,7 @@ using RosterLib;
 using System;
 using NLog;
 using Butler.Implementations;
+using RosterLib.Helpers;
 
 namespace Butler.Models
 {

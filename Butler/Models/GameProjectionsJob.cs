@@ -2,6 +2,7 @@
 using RosterLib;
 using System;
 using Butler.Implementations;
+using RosterLib.Helpers;
 
 namespace Butler.Models
 {

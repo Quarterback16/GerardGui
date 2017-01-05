@@ -4,7 +4,7 @@ using RosterLib.Interfaces;
 
 namespace Butler.Implementations
 {
-   public class SeasonScheduler : ISeasonScheduler
+   public class SeasonScheduler2 : ISeasonScheduler
    {
       public bool ScheduleAvailable( string season )
       {
