@@ -291,6 +291,8 @@ namespace RosterLib.RosterGridReports
          {
             if ( g.IsDomeGame() )
                bit = "+";
+            else if ( g.IsBadWeather() )
+               bit = "-";
          }
          return bit;
       }

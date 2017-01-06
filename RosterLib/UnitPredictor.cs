@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using NLog;
 
 namespace RosterLib
 {
@@ -38,7 +39,9 @@ namespace RosterLib
 
 		public bool WriteProjection { get; set; }
 
-		public UnitPredictor()
+      public Logger Logger { get; set; }
+
+      public UnitPredictor()
 		{
 			//  Matrix for predicting TD passes POvPD
 			_tdp = new[,]
@@ -173,7 +176,7 @@ namespace RosterLib
 
 			var score = 0;
 			if ( string.IsNullOrEmpty( teamRatings ) || string.IsNullOrEmpty( oppRatings ))
-				Utility.Announce( "Ratings not found - skipping score calculation" );
+				Announce( "Ratings not found - skipping score calculation" );
 			else
 			{
 				var fg = isHome ? 2 : 1;
@@ -254,26 +257,26 @@ namespace RosterLib
 		}
 
 		[Conditional("DEBUG")]
-		private static void DumpCalculations(bool isHome, NFLGame game, int tdr, string pr, string pp, string ro, int tds,
+		private void DumpCalculations(bool isHome, NFLGame game, int tdr, string pr, string pp, string ro, int tds,
 		                                     int tdd, string rd, string oppRatings, string teamRatings, int ppr, int tdp,
 		                                     int score, string pd, string po, int fg)
 		{
 			var team = isHome ? game.HomeTeamName : game.AwayTeamName;
-			Utility.Announce(string.Format("team {2} Ratings : {0}-{3} opponentRatings {1}-{4}",
+			Announce(string.Format("team {2} Ratings : {0}-{3} opponentRatings {1}-{4}",
 													 teamRatings, oppRatings, team, 
 													 Utility.RatingPts(teamRatings),
 													 Utility.RatingPts(oppRatings) ) );
 			if (game.IsDomeGame())
-				Utility.Announce("Adding FG for Dome game");
+				Announce("Adding FG for Dome game");
 			if (game.IsBadWeather())
-				Utility.Announce("Subtracting FG for bad weather");
-			Utility.Announce(string.Format("PO-{1} v PD-{2}:TD passes: {0}", tdp-ppr, po, pd));
-			Utility.Announce(string.Format("PP-{1} v PR-{2}:TD passes: {0}", ppr, pp, pr));
-			Utility.Announce(string.Format("RO-{1} v RD-{2}:TD runs: {0}", tdr, ro, rd));
-			Utility.Announce(string.Format("Field goals: {0}", fg ));
-			Utility.Announce(string.Format("Defensive Scores: {0}", tdd));
-			Utility.Announce(string.Format("Special Team Scores: {0}", tds));
-			Utility.Announce(string.Format("Total Score: {0}", score));
+				Announce("Subtracting FG for bad weather");
+			Announce(string.Format("PO-{1} v PD-{2}:TD passes: {0}", tdp-ppr, po, pd));
+			Announce(string.Format("PP-{1} v PR-{2}:TD passes: {0}", ppr, pp, pr));
+			Announce(string.Format("RO-{1} v RD-{2}:TD runs: {0}", tdr, ro, rd));
+			Announce(string.Format("Field goals: {0}", fg ));
+			Announce(string.Format("Defensive Scores: {0}", tdd));
+			Announce(string.Format("Special Team Scores: {0}", tds));
+			Announce(string.Format("Total Score: {0}", score));
 		}
 
 		private static int SpecialTeamScores( bool isPrime, bool isHome )
@@ -349,7 +352,7 @@ namespace RosterLib
 			return val;
 		}
 		
-		private static void AuditIt( NFLGame game, NFLResult res, int homeRating, int awayRating )
+		private void AuditIt( NFLGame game, NFLResult res, int homeRating, int awayRating )
 		{
 			const string debugTeamCode = "SF";
 			var debugTeamRank = "(0-0)";
@@ -383,11 +386,19 @@ namespace RosterLib
 			if (!bAudit) return;
 
 #if DEBUG
-			Utility.Announce(string.Format(" {5} Debug Team {0} {1}, is {2} vs {3} {4}",
+			Announce(string.Format(" {5} Debug Team {0} {1}, is {2} vs {3} {4}",
 			                               debugTeamCode, debugTeamRank, strVenue, oppTeamCode, oppRank, game.GameCodeOut()));
 
-			Utility.Announce(res.LogResult());  //  verbosity
+			Announce(res.LogResult());  //  verbosity
 #endif
 		}
-	}
+
+      private void Announce( string msg )
+      {
+         if ( Logger == null )
+            Logger = NLog.LogManager.GetCurrentClassLogger();
+
+         Logger.Info( msg );
+      }
+   }
 }

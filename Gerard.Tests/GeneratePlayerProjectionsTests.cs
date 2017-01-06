@@ -38,10 +38,18 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestSingleGameProjection()  //  17 sec  2015-08-11
       {
-         var game = new NFLGame( "2015:01-A" );  
-         var ppg = new PlayerProjectionGenerator(null);
+         var game = new NFLGame( "2016:18-C" );  //  MD@PS
+         var ppg = new PlayerProjectionGenerator(playerCache:null);
          ppg.Execute( game );
          Assert.IsTrue(  ppg != null );
+      }
+
+      [TestMethod]
+      public void TestGettingTheKicker()
+      {
+         var team = new NflTeam( "PS" );
+         team.SetKicker();
+         Assert.AreEqual( expected: "Chris Boswell", actual: team.Kicker.PlayerName );
       }
    }
 }

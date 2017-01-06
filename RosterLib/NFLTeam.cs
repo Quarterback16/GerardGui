@@ -247,7 +247,9 @@ namespace RosterLib
       //  Do not use a single K for place kickers now
       public NFLPlayer SetKicker()
       {
-         var ds = Utility.TflWs.GetPlayer(TeamCode, "S", "PK");
+         var ds = Utility.TflWs.GetPlayer(
+            TeamCode, strRole: Constants.K_ROLE_STARTER, strPos: "PK");
+
          if (ds.Tables[0].Rows.Count == 1)
          {
             var kickerId = ds.Tables[0].Rows[0]["PLAYERID"].ToString();
@@ -3887,9 +3889,10 @@ namespace RosterLib
             //  load the projections
             for (var i = 0; i < _sched.GameList.Count; i++)
             {
-               if (i > 15) continue;
+               if (i > 20) continue;
                game = (NFLGame)_sched.GameList[i];
                result = strategy.PredictGame(game, new DbfPredictionStorer(), projectionDate);
+               if ( i > 15 ) continue;
 #if DEBUG
                Utility.Announce(result.LogResult());
 #endif
@@ -3902,6 +3905,7 @@ namespace RosterLib
                if (metric > 0) projWins++;
                if (metric == 0) projTies++;
                if (metric < 0) projLosses++;
+
 
                om.AddWeeklyOutput(
                   Int32.Parse(game.Week), metric,
