@@ -2,6 +2,8 @@
 using System;
 using System.Data;
 using NLog;
+using RosterLib.Interfaces;
+using RosterLib.Services;
 
 namespace RosterLib
 {
@@ -14,6 +16,8 @@ namespace RosterLib
 
       public IPlayerGameMetricsDao PgmDao { get; set; }
 
+      public IYahooStatService YahooStatService { get; set; }
+
       public bool WeekHasPassed { get; set; }
 
       public string GameKey { get; set; }
@@ -25,6 +29,7 @@ namespace RosterLib
          Name = "Yahoo Scorer";
          Week = week;
          PgmDao = new DbfPlayerGameMetricsDao();
+         YahooStatService = new YahooStatService();
          Logger = NLog.LogManager.GetCurrentClassLogger();
       }
 
@@ -36,6 +41,12 @@ namespace RosterLib
       {
          // Points for Scores and points for stats
          if ( week.WeekNo.Equals( 0 ) ) return 0;
+
+         //  Check the stats service first
+         if ( YahooStatService.IsStat( plyr.PlayerCode, week.Season, week.Week ) )
+         {
+            return YahooStatService.GetStat( plyr.PlayerCode, week.Season, week.Week );
+         }
 
          if ( plyr.TeamCode == null )
          {

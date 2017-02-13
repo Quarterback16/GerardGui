@@ -113,6 +113,13 @@ namespace RosterLib
 
 		public const string KOwnerSteveColonna = "O001";
 
-		#endregion
-	}
+      #endregion
+
+      public static class DefaultFileName
+      {
+         public static readonly string YahooXml = "YahooOutput.xml";
+      }
+   }
+
+
 }

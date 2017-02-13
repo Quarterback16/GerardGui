@@ -11,8 +11,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
-			var sut = new YahooXmlJob(new TimeKeeper(null));
-			var outcome = sut.DoJob();
+			var sut = new YahooXmlJob(new FakeTimeKeeper(season: "2016", week: "19"  ));
+			var outcome = sut.DoJob();  // just current week
 			Assert.IsFalse(string.IsNullOrEmpty(outcome));
 		}
 

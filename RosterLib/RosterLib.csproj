@@ -159,6 +159,7 @@
     <Compile Include="Interfaces\IKeepTheTime.cs" />
     <Compile Include="Interfaces\IRankTeams.cs" />
     <Compile Include="Interfaces\ISeasonScheduler.cs" />
+    <Compile Include="Interfaces\IYahooStatService.cs" />
     <Compile Include="IPgmMaster.cs" />
     <Compile Include="IPlayerGameMetricsDao.cs" />
     <Compile Include="IPlayerMaster.cs" />
@@ -301,6 +302,7 @@
     <Compile Include="SeasonMaster.cs" />
     <Compile Include="SeasonOpponent.cs" />
     <Compile Include="SeasonProjectionReport.cs" />
+    <Compile Include="Services\YahooStatService.cs" />
     <Compile Include="SimpleDefencePredictor.cs" />
     <Compile Include="SimpleFGPredictor.cs" />
     <Compile Include="SimplePredictor.cs" />
@@ -334,7 +336,7 @@
     <Compile Include="TeamReport.cs" />
     <Compile Include="TeamUnit.cs" />
     <Compile Include="TEPMaster.cs" />
-    <Compile Include="TeReport.cs" />
+    <Compile Include="PositionReport.cs" />
     <Compile Include="TflDataService.cs" />
     <Compile Include="TimeKeeper.cs" />
     <Compile Include="TippingComp.cs" />

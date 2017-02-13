@@ -2004,6 +2004,23 @@ namespace RosterLib
          return spreadOut;
       }
 
+      public string GetFormattedSpread(string teamcodeInFocus )
+      {
+         var spread = GetSpread();
+         if ( spread == 0.0M ) return "OTB";
+         if ( spread == 0.5M ) return "PKM";
+         var spreadOut = string.Format( "{0:#}", spread );
+         if ( IsHome( teamcodeInFocus ) )
+         {
+            if ( spread > 0 ) spreadOut = "+" + spreadOut;
+         }
+         else
+         {
+            if ( spread > 0 ) spreadOut = "-" + spreadOut;
+         }
+         return spreadOut;
+      }
+
       public decimal ProjectedSpread()
       {
          return (ProjectedHomeScore - ProjectedAwayScore);
@@ -2497,9 +2514,9 @@ namespace RosterLib
           return IsBye() ? new string(' ', 11) : GetPrediction("unit").ToString();
       }
 
-      public string TheLine()
+      public string TheLine(string teamCodeInFocus)
       {
-          return IsBye() ? "BYE" : GetFormattedSpread();
+          return IsBye() ? "BYE" : GetFormattedSpread( teamCodeInFocus );
       }
 
       public string GameApKey()

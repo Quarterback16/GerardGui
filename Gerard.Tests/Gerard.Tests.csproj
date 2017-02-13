@@ -123,7 +123,7 @@
     <Compile Include="SuggestedLineupTests.cs" />
     <Compile Include="TeamCardTests.cs" />
     <Compile Include="TeamRankerTests.cs" />
-    <Compile Include="TeReportTests.cs" />
+    <Compile Include="PositionReportTests.cs" />
     <Compile Include="TestGamebookGetter.cs" />
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />
@@ -139,6 +139,7 @@
     <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
     <Compile Include="YahooProjectionScorerTests.cs" />
+    <Compile Include="YahooStatServiceTests.cs" />
     <Compile Include="YahooXmlTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestGetGamebooksForCurrentWeek()
       {
-         const string weekToDownload = "17";  //now put into Debug mode
+         const string weekToDownload = "21";  //now put into Debug mode
 
          var week = new NFLWeek("2016", weekToDownload );
          var sut = new GamebookGetter( new Downloader( 
@@ -23,12 +23,12 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDownloadSinglePdf()
       {
-         const string weekToDownload = "08";  //now put into Debug mode
+         const string weekToDownload = "21";  //now put into Debug mode
 
          var week = new NFLWeek( "2016", weekToDownload );
          var sut = new Downloader(
             string.Format( "g:\\tfl\\nfl\\gamebooks\\week {0}\\", weekToDownload ) );
-         var uri = new Uri("http://www.nfl.com/liveupdate/gamecenter/57010/ATL_Gamebook.pdf");
+         var uri = new Uri("http://www.nfl.com/liveupdate/gamecenter/57157/ATL_Gamebook.pdf");
          var result = sut.Download( uri );
          Assert.IsTrue( result );
       }

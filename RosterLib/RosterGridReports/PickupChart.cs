@@ -100,7 +100,7 @@ namespace RosterLib.RosterGridReports
          var predictedResult = team.IsWinner 
             ? team.Game.BookieTip.PredictedScore() 
             : team.Game.BookieTip.PredictedScoreFlipped();
-         var theLine = team.Game.TheLine();
+         var theLine = team.Game.TheLine(team.Team.TeamCode);
 	      var url = team.Game.GameProjectionUrl();
          return string.Format( "<a href='{0}'>{1}</a> {2,3}", url, predictedResult, theLine );
       }
@@ -394,7 +394,6 @@ namespace RosterLib.RosterGridReports
       public NflTeam Team { get; set; }
 
       public bool Home { get; set; }
-
 
       public bool IsWinner { get; set; }
 
