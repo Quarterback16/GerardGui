@@ -132,6 +132,7 @@ namespace Butler
             MyJobs.Add( new FreeAgentMarketJob( TimeKeeper ) ); //  regular - pre season
             MyJobs.Add( new StrengthOfScheduleJob( TimeKeeper ) ); //  once off - pre season
             MyJobs.Add( new PlayerReportsJob( TimeKeeper ) );
+            MyJobs.Add( new PositionReportJob( TimeKeeper ) );
             #endregion
 
             MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,

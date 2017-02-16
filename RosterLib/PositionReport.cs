@@ -11,7 +11,11 @@ namespace RosterLib
       public string PositionAbbr { get; set; }
       public string PositionCategory { get; set; }
 
+      public string RootFolder { get; set; }
+
       Func<NFLPlayer, bool> PositionDelegate;
+
+      public IBreakdown PlayerBreakdowns { get; set; }
 
       public PositionReport( 
          IKeepTheTime timekeeper, 
@@ -20,6 +24,7 @@ namespace RosterLib
       {
          Options = new List<PositionReportOptions>();
          Options.Add( config );
+         PlayerBreakdowns = new PreStyleBreakdown();
       }
 
       public PositionReport(
@@ -27,10 +32,61 @@ namespace RosterLib
           ) : base()
       {
          Options = new List<PositionReportOptions>();
+         LoadAllTheOptions();
+         PlayerBreakdowns = new PreStyleBreakdown();
+      }
+
+      public void LoadAllTheOptions()
+      {
+         AddQuarterbackReport();
+         AddRunningBackReport();
+         AddWideReceiverReport();
+         AddTightEndReport();
+         AddKickerReport();
+      }
+
+      private void AddTightEndReport()
+      {
          var config = new PositionReportOptions();
          config.Topic = "Tight Ends";
          config.PositionCategory = Constants.K_RECEIVER_CAT;
          config.PosDelegate = IsTe;
+         Options.Add( config );
+      }
+
+      private void AddWideReceiverReport()
+      {
+         var config = new PositionReportOptions();
+         config.Topic = "Wide Receivers";
+         config.PositionCategory = Constants.K_RECEIVER_CAT;
+         config.PosDelegate = IsWr;
+         Options.Add( config );
+      }
+
+      private void AddRunningBackReport()
+      {
+         var config = new PositionReportOptions();
+         config.Topic = "Running Backs";
+         config.PositionCategory = Constants.K_RUNNINGBACK_CAT;
+         config.PosDelegate = IsRb;
+         Options.Add( config );
+      }
+
+      private void AddQuarterbackReport()
+      {
+         var config = new PositionReportOptions();
+         config.Topic = "Quarterbacks";
+         config.PositionCategory = Constants.K_QUARTERBACK_CAT;
+         config.PosDelegate = IsQb;
+         Options.Add( config );
+      }
+
+      private void AddKickerReport()
+      {
+         var config = new PositionReportOptions();
+         config.Topic = "Kickers";
+         config.PositionCategory = Constants.K_KICKER_CAT;
+         config.PosDelegate = IsPk;
          Options.Add( config );
       }
 
@@ -39,6 +95,25 @@ namespace RosterLib
          return ( p.PlayerCat == Constants.K_RECEIVER_CAT ) && p.Contains( "TE", p.PlayerPos );
       }
 
+      public bool IsWr( NFLPlayer p )
+      {
+         return ( p.PlayerCat == Constants.K_RECEIVER_CAT ) && p.Contains( "WR", p.PlayerPos );
+      }
+
+      public bool IsRb( NFLPlayer p )
+      {
+         return ( p.PlayerCat == Constants.K_RUNNINGBACK_CAT ) && p.Contains( "RB", p.PlayerPos );
+      }
+
+      public bool IsQb( NFLPlayer p )
+      {
+         return ( p.PlayerCat == Constants.K_QUARTERBACK_CAT ) && p.Contains( "QB", p.PlayerPos );
+      }
+
+      public bool IsPk( NFLPlayer p )
+      {
+         return ( p.PlayerCat == Constants.K_KICKER_CAT );
+      }
 
       public override void RenderAsHtml()
       {
@@ -48,8 +123,10 @@ namespace RosterLib
             Heading = Name;
             PositionCategory = item.PositionCategory;
             PositionDelegate = item.PosDelegate;
-            FileOut = string.Format( "{0}{1}//Scores//{2}-Scores.htm",
+            PositionAbbr = item.PositionAbbr;
+            RootFolder = string.Format( "{0}{1}//Scores//",
                         Utility.OutputDirectory(), Season, item.PositionAbbr );
+            FileOut = string.Format( "{0}{1}-Scores.htm", RootFolder, item.PositionAbbr );
             RenderSingle();
          }
       }
@@ -181,11 +258,11 @@ namespace RosterLib
                if ( ds.Tables[ 0 ].Rows.Count != 1 )
                   continue;
 
-               var tePts = CalculateFpts( team, theWeek, ds );
-               totPts += tePts;
+               var pts = CalculateFpts( team, theWeek, ds );
+               totPts += pts;
                var fieldName = string.Format( FieldFormat, theWeek );
 
-               teamRow[ fieldName ] = tePts;
+               teamRow[ fieldName ] = LinkFor( team.TeamCode, theWeek, pts);
             }
             teamRow[ "TOTAL" ] = totPts;
             Data.Rows.Add( teamRow );
@@ -196,6 +273,12 @@ namespace RosterLib
                break;
 #endif
          }
+      }
+
+      private string LinkFor( string teamCode, string theWeek, decimal pts )
+      {
+         var link = $"<a href='.//breakdowns//{teamCode}-{PositionAbbr}-{theWeek}.htm'>{pts}";
+         return link;
       }
 
       private decimal CalculateFpts( NflTeam team, string theWeek, DataSet gameDs )
@@ -213,27 +296,34 @@ namespace RosterLib
          var pts = 0.0M;
          var week = new NFLWeek( Season, theWeek );
 
-         pts = TallyPts( playerList, week );
+         pts = TallyPts( playerList, week, team.TeamCode );
 
          //TODO: AddLine to break down and Dump Breakdown
-
          return pts;
       }
 
       private decimal TallyPts( 
          List<NFLPlayer> playerList, 
-         NFLWeek week )
+         NFLWeek week,
+         string teamCode )
       {
          var pts = 0.0M;
          var scorer = new YahooScorer( week );
+         var breakDownKey = $"{teamCode}-{PositionAbbr}-{week.Week}";
          foreach ( var p in playerList )
          {
             if ( PositionDelegate( p ) )
             {
-               pts += scorer.RatePlayer( p, week );
-               //TODO: AddLine to break down
+               var plyrPts = scorer.RatePlayer( p, week );
+               if ( plyrPts != 0 )
+               {
+                  PlayerBreakdowns.AddLine( breakDownKey,
+                     line: $"{p.PlayerName} {plyrPts.ToString()}" );
+               }
+               pts += plyrPts;
             }
          }
+         PlayerBreakdowns.Dump( breakDownKey, $"{RootFolder}\\breakdowns\\{breakDownKey}.htm" );
          return pts;
       }
 
@@ -241,12 +331,12 @@ namespace RosterLib
       {
          string sColour;
 
-         if ( theValue < 200 )
-            sColour = "RED";
-         else if ( theValue < 300 )
-            sColour = "GREEN";
+         if ( theValue < 250 )
+            sColour = Constants.Colour.Bad;
+         else if ( theValue < 290 )
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -254,12 +344,12 @@ namespace RosterLib
       {
          string sColour;
 
-         if ( theValue < 70 )
-            sColour = "RED";
-         else if ( theValue < 140 )
-            sColour = "GREEN";
+         if ( theValue < 100 )
+            sColour = Constants.Colour.Bad; 
+         else if ( theValue < 145 )
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -268,11 +358,11 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 50 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 100 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -280,12 +370,12 @@ namespace RosterLib
       {
          string sColour;
 
-         if ( theValue < 200 )
-            sColour = "RED";
-         else if ( theValue < 400 )
-            sColour = "GREEN";
+         if ( theValue < 325 )
+            sColour = Constants.Colour.Bad;
+         else if ( theValue < 390 )
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -293,12 +383,12 @@ namespace RosterLib
       {
          string sColour;
 
-         if ( theValue < 100 )
-            sColour = "RED";
-         else if ( theValue < 350 )
-            sColour = "GREEN";
+         if ( theValue < 220 )
+            sColour = Constants.Colour.Bad;
+         else if ( theValue < 325 )
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -307,11 +397,11 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 10 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 20 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -320,11 +410,13 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 5 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 7 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
+         else if ( theValue < 20 )
+            sColour = Constants.Colour.Good;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Excellent;  // Extremely good
          return sColour;
       }
 
@@ -333,11 +425,11 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 5 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 10 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -346,11 +438,11 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 10 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 25 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 
@@ -359,11 +451,11 @@ namespace RosterLib
          string sColour;
 
          if ( theValue < 10 )
-            sColour = "RED";
+            sColour = Constants.Colour.Bad;
          else if ( theValue < 20 )
-            sColour = "GREEN";
+            sColour = Constants.Colour.Average;
          else
-            sColour = "YELLOW";
+            sColour = Constants.Colour.Good;
          return sColour;
       }
 

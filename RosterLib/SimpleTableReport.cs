@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 //using Excel = Microsoft.Office.Interop.Excel;
 
-
 namespace RosterLib
 {
    public class SimpleTableReport
@@ -446,18 +445,40 @@ namespace RosterLib
                   if ( numberSpot > -1 )
                   {
                      var numberPart = theValue.Substring( 0, numberSpot );
-                     if (numberPart.Equals( "-" ))
+                     if ( numberPart.Equals( "-" ) )
                         numberPart = theValue.Substring( 0, 2 );
                      if ( !string.IsNullOrEmpty( numberPart ) )
-                        if (!numberPart.Equals( ":" ))
+                        if ( !numberPart.Equals( ":" ) )
                            sAttr += " BGCOLOR=" + bgColour( Int32.Parse( numberPart ) );
                   }
                   else
-                     sAttr += " BGCOLOR=" + bgColour( (int) Decimal.Parse( theValue ) );
+                  {
+                     decimal parsedVal = 0.0M;
+                     if ( Decimal.TryParse( theValue, out parsedVal ))
+                        sAttr += " BGCOLOR=" + bgColour( ( int ) parsedVal );
+                     else
+                     {
+                        var decimalString = GetInnerText( theValue );
+                        decimal parsedStringVal = 0.0M;
+                        if ( Decimal.TryParse( decimalString, out parsedStringVal ) )
+                           sAttr += " BGCOLOR=" + bgColour( ( int ) parsedStringVal );
+                     }
+                  }
                }
             }
          }
          return sAttr + " VALIGN='TOP'";
+      }
+
+      private static string GetInnerText( string theValue )
+      {
+         var txt = System.Text.RegularExpressions.Regex.Replace( theValue, "(<[a|A][^>]*>|)", "" );
+         return txt;
+      }
+
+      private static string GetNumbers( string input )
+      {
+         return new string( input.Where( c => char.IsDigit( c ) || c == '.').ToArray() );
       }
 
       private static string FormatData(DataColumn dc, string format, string data)
