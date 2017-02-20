@@ -261,6 +261,7 @@
     <Compile Include="PlayerReport.cs" />
     <Compile Include="PlayerStats.cs" />
     <Compile Include="PointAfter.cs" />
+    <Compile Include="PointsAllowedReport.cs" />
     <Compile Include="Prediction.cs" />
     <Compile Include="PreStyleBreakdown.cs" />
     <Compile Include="ProjectedLineup.cs" />
@@ -372,6 +373,7 @@
     <Compile Include="YahooProjector.cs" />
     <Compile Include="YahooReporter.cs" />
     <Compile Include="YahooScorer.cs" />
+    <Compile Include="YahooXmlScorer.cs" />
     <Compile Include="YardsPassing.cs" />
     <Compile Include="YardsReceiving.cs" />
     <Compile Include="YardsRushing.cs" />

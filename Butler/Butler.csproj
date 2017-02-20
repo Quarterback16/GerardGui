@@ -94,6 +94,7 @@
     <Compile Include="Models\PlayerReportsJob.cs" />
     <Compile Include="Models\PlayOffTeamsJob.cs" />
     <Compile Include="Models\GameProjectionsJob.cs" />
+    <Compile Include="Models\PointsAllowedReportJob.cs" />
     <Compile Include="Models\PositionReportJob.cs" />
     <Compile Include="Models\PreviousPickupChartJob.cs" />
     <Compile Include="Models\RankingsJob.cs" />

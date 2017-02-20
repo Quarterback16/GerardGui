@@ -108,6 +108,7 @@
     <Compile Include="PlayerProjectionTests.cs" />
     <Compile Include="PlayerReportTests.cs" />
     <Compile Include="PlayoffTeamsTests.cs" />
+    <Compile Include="PointsAllowedReportTests.cs" />
     <Compile Include="PositionReportJobTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullMetricsFromPredictionTests.cs" />

@@ -8,6 +8,14 @@ namespace Gerard.Tests
    public class TimeKeeperTests
    {
       [TestMethod]
+      public void TestWhatWeekItIs()
+      {
+         var sut = new TimeKeeper( clock:null );
+         Console.WriteLine( $"Season : {sut.Season} Week {sut.Week}" );
+         Assert.IsNotNull( sut );
+      }
+
+      [TestMethod]
       public void TestCurrentSeason()
       {
          var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 01, 05 ) ) );  // set clock to March
@@ -92,6 +100,13 @@ namespace Gerard.Tests
          Assert.IsFalse( sut.IsItPreseason() );
          Assert.IsTrue( sut.IsItRegularSeason() );
          Assert.IsFalse( sut.IsItPostSeason() );
+      }
+
+      [TestMethod]
+      public void TestIsItPostSeasonInFebruary()
+      {
+         var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 02, 14, 12, 0, 0 ) ) );  // set clock to January
+         Assert.IsTrue( sut.IsItPostSeason() );
       }
 
       [TestMethod]

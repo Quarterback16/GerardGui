@@ -7,6 +7,8 @@ namespace RosterLib
 {
    public class PositionReport : TeamReport
    {
+      public string Week { get; set; }
+
       public List<PositionReportOptions> Options { get; set; }
       public string PositionAbbr { get; set; }
       public string PositionCategory { get; set; }
@@ -25,6 +27,7 @@ namespace RosterLib
          Options = new List<PositionReportOptions>();
          Options.Add( config );
          PlayerBreakdowns = new PreStyleBreakdown();
+         SetWeek( timekeeper );
       }
 
       public PositionReport(
@@ -34,6 +37,16 @@ namespace RosterLib
          Options = new List<PositionReportOptions>();
          LoadAllTheOptions();
          PlayerBreakdowns = new PreStyleBreakdown();
+         SetWeek( timekeeper );
+      }
+
+      private void SetWeek( IKeepTheTime timekeeper )
+      {
+         Week = timekeeper.Week;
+         if ( timekeeper.IsItPostSeason() )
+         {
+            Week = Constants.K_GAMES_IN_REGULAR_SEASON.ToString();
+         }
       }
 
       public void LoadAllTheOptions()
@@ -126,7 +139,8 @@ namespace RosterLib
             PositionAbbr = item.PositionAbbr;
             RootFolder = string.Format( "{0}{1}//Scores//",
                         Utility.OutputDirectory(), Season, item.PositionAbbr );
-            FileOut = string.Format( "{0}{1}-Scores.htm", RootFolder, item.PositionAbbr );
+            FileOut = string.Format( "{0}{1}-Scores-{2}.htm", 
+               RootFolder, item.PositionAbbr, Week );
             RenderSingle();
          }
       }
@@ -141,30 +155,6 @@ namespace RosterLib
          Render();
 
          Finish();
-      }
-
-      private const string FieldFormat = "Wk{0:0#}";
-
-      private SimpleTableReport DefineSte()
-      {
-         ReportColumn.ColourDelegate totalColourDelegateIn = PickTotalColourDelegate();
-         var str = new SimpleTableReport( Heading );
-         str.ColumnHeadings = true;
-         str.DoRowNumbers = true;
-         str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
-         str.AddColumn( new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: totalColourDelegateIn ) );
-
-         var startAt =  Constants.K_WEEKS_IN_REGULAR_SEASON;
-
-         for ( var w = startAt; w > 0; w-- )
-         {
-            var header = string.Format( "Week {0}", w );
-            var fieldName = string.Format( FieldFormat, w );
-            ReportColumn.ColourDelegate colourDelegateIn = PickColourDelegate();
-            str.AddColumn( new ReportColumn( header, fieldName, "{0,5}", colourDelegateIn ) );
-         }
-         return str;
       }
 
       private ReportColumn.ColourDelegate PickTotalColourDelegate()
@@ -224,6 +214,30 @@ namespace RosterLib
          return theDelegate;
       }
 
+      private const string FieldFormat = "Wk{0:0#}";
+
+      private SimpleTableReport DefineSte()
+      {
+         ReportColumn.ColourDelegate totalColourDelegateIn = PickTotalColourDelegate();
+         var str = new SimpleTableReport( Heading );
+         str.ColumnHeadings = true;
+         str.DoRowNumbers = true;
+         str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
+         str.AddColumn( new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
+            colourDelegateIn: totalColourDelegateIn ) );
+
+         var startAt =  Constants.K_WEEKS_IN_REGULAR_SEASON;
+
+         for ( var w = startAt; w > 0; w-- )
+         {
+            var header = string.Format( "Week {0}", w );
+            var fieldName = string.Format( FieldFormat, w );
+            ReportColumn.ColourDelegate colourDelegateIn = PickColourDelegate();
+            str.AddColumn( new ReportColumn( header, fieldName, "{0,5}", colourDelegateIn ) );
+         }
+         return str;
+      }
+
       private DataTable BuildDataTable()
       {
          var dt = new DataTable();
@@ -266,12 +280,6 @@ namespace RosterLib
             }
             teamRow[ "TOTAL" ] = totPts;
             Data.Rows.Add( teamRow );
-
-#if DEBUG2
-            tCount++;
-            if (tCount > 1)
-               break;
-#endif
          }
       }
 
@@ -298,7 +306,6 @@ namespace RosterLib
 
          pts = TallyPts( playerList, week, team.TeamCode );
 
-         //TODO: AddLine to break down and Dump Breakdown
          return pts;
       }
 
@@ -308,7 +315,7 @@ namespace RosterLib
          string teamCode )
       {
          var pts = 0.0M;
-         var scorer = new YahooScorer( week );
+         var scorer = new YahooXmlScorer( week );
          var breakDownKey = $"{teamCode}-{PositionAbbr}-{week.Week}";
          foreach ( var p in playerList )
          {

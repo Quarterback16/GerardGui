@@ -18,7 +18,7 @@ namespace Gerard.Tests
          options.PositionCategory = Constants.K_RECEIVER_CAT;
 
          var sut = new PositionReport( 
-            new FakeTimeKeeper( season: "2016" ),
+            new FakeTimeKeeper( season: "2016", week: "17" ),
             options );
          sut.RenderAsHtml();
          Assert.IsTrue( File.Exists( sut.FileOut ) );
