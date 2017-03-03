@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerard.Tests", "Gerard.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TFLLib", "TFLLib\TFLLib.csproj", "{A3A068EE-3471-4F63-AA69-3B5F57705283}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "Helpers\Helpers.csproj", "{DDA0342A-A7E7-48D7-9CB3-4B7676269740}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GerardWebApp", "GerardWebApp\GerardWebApp.csproj", "{277538B5-12C6-4E96-AF5C-A6AFED454085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ButlerWebApi", "ConsoleApplication1\ButlerWebApi.csproj", "{7DF8597A-BB71-42AE-98FD-596468A94FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "..\Helpers\Helpers.csproj", "{DDA0342A-A7E7-48D7-9CB3-4B7676269740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +44,6 @@ Global
 		{A3A068EE-3471-4F63-AA69-3B5F57705283}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3A068EE-3471-4F63-AA69-3B5F57705283}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3A068EE-3471-4F63-AA69-3B5F57705283}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Release|Any CPU.Build.0 = Release|Any CPU
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{277538B5-12C6-4E96-AF5C-A6AFED454085}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +51,10 @@ Global
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DF8597A-BB71-42AE-98FD-596468A94FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDA0342A-A7E7-48D7-9CB3-4B7676269740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

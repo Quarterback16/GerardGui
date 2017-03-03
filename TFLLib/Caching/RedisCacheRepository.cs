@@ -97,6 +97,8 @@ namespace TFLLib.Caching
          if ( !string.IsNullOrWhiteSpace( dependsOnKey ) )
             RemoveInternal( dependsOnKey );
 
+         if ( Cache == null ) return;
+
          Cache.StringSet(
             key,
             Serialize( o ),

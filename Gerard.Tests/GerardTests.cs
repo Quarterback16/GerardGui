@@ -162,7 +162,7 @@ namespace Gerard.Tests
       public void TestStatReport1()
       {
          var sut = new DataIntegrityChecker();
-         sut.Season = "2013";
+         sut.Season = "2016";
          sut.CheckStats();
          Assert.IsTrue(sut.StatsChecked > 0 && sut.Errors == 0);
       }

@@ -10,8 +10,8 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoBalanceReport()
       {
-         var tk = new FakeTimeKeeper( "2015" );
-         Assert.IsTrue( tk.PreviousSeason().Equals("2014"));
+         var tk = new FakeTimeKeeper( "2016" );
+         Assert.IsTrue( tk.PreviousSeason().Equals("2015"));
          var sut = new BalanceReportJob( tk );
          string whyNot;
          Assert.IsTrue(sut.IsTimeTodo(out whyNot));
@@ -21,7 +21,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoBalanceReportJob()
       {
-         var tk = new FakeTimeKeeper("2015");
+         var tk = new FakeTimeKeeper("2017");
          var sut = new BalanceReportJob(tk);
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));

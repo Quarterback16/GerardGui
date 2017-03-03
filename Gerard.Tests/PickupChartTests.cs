@@ -29,6 +29,20 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
+      public void TestTimetoDoPickupChartReportNow()
+      {
+         var sut = new PickupChartJob( 
+            new TimeKeeper( 
+               clock:new FakeClock(new DateTime(2017,2,26,3,0,0) )) );
+         string whyNot;
+         var result = sut.IsTimeTodo( out whyNot );
+         if ( !string.IsNullOrEmpty( whyNot ) )
+            Console.WriteLine( whyNot );
+         Assert.IsTrue( result );
+      }
+
+
+      [TestMethod]
       public void TestDoPickupChartJobNow()
       {
          var sut = new PickupChartJob( new TimeKeeper(null) );
