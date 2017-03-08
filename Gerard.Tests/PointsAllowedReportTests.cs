@@ -11,11 +11,14 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestReport()
       {
-         var sut = new PointsAllowedReport(
-            new FakeTimeKeeper( season: "2016", week: "17" ) );
-         sut.RenderAsHtml();
-         Assert.IsTrue( File.Exists( sut.FileOut ) );
-         Console.WriteLine( "{0} created.", sut.FileOut );
+         for ( int i = 11; i < 18; i++ )
+         {
+            var sut = new PointsAllowedReport(
+               new FakeTimeKeeper( season: "2016", week: $"{i:0#}" ) );
+            sut.RenderAsHtml();
+            Assert.IsTrue( File.Exists( sut.FileOut ) );
+            Console.WriteLine( "{0} created.", sut.FileOut );
+         }
       }
    }
 }

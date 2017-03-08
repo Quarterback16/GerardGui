@@ -334,17 +334,23 @@ namespace RosterLib
          return pts;
       }
 
-      private static string TotQbBgPicker( int theValue )
+      private string TotQbBgPicker( int theValue )
       {
          string sColour;
+         var multiplier = FractionOfTheSeason();
 
-         if ( theValue < 250 )
+         if ( theValue < ( 250 * multiplier )) 
             sColour = Constants.Colour.Bad;
-         else if ( theValue < 290 )
+         else if ( theValue < ( 290 * multiplier ))
             sColour = Constants.Colour.Average;
          else
             sColour = Constants.Colour.Good;
          return sColour;
+      }
+
+      private decimal FractionOfTheSeason()
+      {
+         return int.Parse(Week) / Constants.K_WEEKS_IN_REGULAR_SEASON;
       }
 
       private static string TotPkBgPicker( int theValue )
@@ -399,13 +405,14 @@ namespace RosterLib
          return sColour;
       }
 
-      private static string QbBgPicker( int theValue )
+      private string QbBgPicker( int theValue )
       {
          string sColour;
+         var multiplier = FractionOfTheSeason();
 
-         if ( theValue < 10 )
+         if ( theValue < ( 10 * multiplier ) )
             sColour = Constants.Colour.Bad;
-         else if ( theValue < 20 )
+         else if ( theValue < ( 20 * multiplier ) )
             sColour = Constants.Colour.Average;
          else
             sColour = Constants.Colour.Good;

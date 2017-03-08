@@ -24,7 +24,7 @@ namespace RosterLib
       public override void RenderAsHtml()
       {
          Name = "Points Allowed Report";
-         Heading = Name;
+         Heading = $"{Name} Week {Season}:{Week}";
          RootFolder = string.Format( "{0}{1}//Scores//",
                      Utility.OutputDirectory(), Season );
          FileOut = string.Format( "{0}Points-Allowed-{1}.htm", RootFolder, Week );
@@ -126,6 +126,7 @@ namespace RosterLib
 #if DEBUG2
          var tCount = 0;
 #endif
+         var asOfWeek = int.Parse( Week );
          foreach ( KeyValuePair<string, NflTeam> teamPair in TeamList )
          {
             var team = teamPair.Value;
@@ -137,6 +138,7 @@ namespace RosterLib
 
             for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
             {
+               if ( w > asOfWeek ) continue;
                string theWeek = string.Format( "{0:0#}", w );
                var ds = Utility.TflWs.GameForTeam( Season, theWeek, team.TeamCode );
                if ( ds.Tables[ 0 ].Rows.Count != 1 )
@@ -176,14 +178,14 @@ namespace RosterLib
 
       private void DumpBreakdown( string teamCode, string positionAbbr )
       {
-         var breakdownKey = $"{teamCode}-{positionAbbr}";
+         var breakdownKey = $"{teamCode}-{positionAbbr}-{Week}";
          TeamBreakdowns.Dump( breakdownKey,
             $"{RootFolder}\\pts-allowed\\{breakdownKey}.htm" );
       }
 
       private string LinkFor( string teamCode, string positionAbbr, decimal pts )
       {
-         var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}.htm'>{pts}";
+         var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}-{Week}.htm'>{pts}";
          return link;
       }
 
@@ -247,88 +249,94 @@ namespace RosterLib
          strPts = strPts.PadLeft( 5 );
          strPts = strPts.Substring(strPts.Length - 5);
          TeamBreakdowns.AddLine(
-            breakdownKey: $"{ team.TeamCode}-{abbr}",
+            breakdownKey: $"{ team.TeamCode}-{abbr}-{Week}",
             line: $@"Wk:{
                theWeek
                } {p.PlayerName,-25} Pts : {strPts}"
              );
       }
 
-      private static string TotQbBgPicker( int theValue )
+      private decimal FractionOfTheSeason()
+      {
+         var multiplier = decimal.Parse( Week ) / Constants.K_WEEKS_IN_REGULAR_SEASON;
+         return multiplier;
+      }
+
+      private string TotQbBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 250 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 290 )
+         if ( theValue < (250 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < (290 * FractionOfTheSeason()) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 
-      private static string TotBgPicker( int theValue )
+      private string TotBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 1035 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 1165 )
+         if ( theValue < (1035 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < (1165 * FractionOfTheSeason()) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 
-      private static string TotPkBgPicker( int theValue )
+      private string TotPkBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 100 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 145 )
+         if ( theValue < ( 100 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < ( 145 * FractionOfTheSeason() ) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 
-      private static string TotTeBgPicker( int theValue )
+      private string TotTeBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 100 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 130 )
+         if ( theValue < ( 100 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < ( 130 * FractionOfTheSeason() ) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 
-      private static string TotWrBgPicker( int theValue )
+      private string TotWrBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 320 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 380 )
+         if ( theValue < ( 320 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < ( 380 * FractionOfTheSeason() ) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 
-      private static string TotRbBgPicker( int theValue )
+      private string TotRbBgPicker( int theValue )
       {
          string sColour;
 
-         if ( theValue < 225 )
-            sColour = Constants.Colour.Bad;
-         else if ( theValue < 300 )
+         if ( theValue < ( 225 * FractionOfTheSeason() ) )
+            sColour = Constants.Colour.Good;
+         else if ( theValue < ( 300 * FractionOfTheSeason() ) )
             sColour = Constants.Colour.Average;
          else
-            sColour = Constants.Colour.Good;
+            sColour = Constants.Colour.Bad;
          return sColour;
       }
 

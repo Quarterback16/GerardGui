@@ -1,5 +1,4 @@
-﻿using System;
-using RosterLib.Interfaces;
+﻿using RosterLib.Interfaces;
 using NLog;
 using RosterLib;
 
