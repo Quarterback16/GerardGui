@@ -335,6 +335,7 @@
     <Compile Include="TeamMaster.cs" />
     <Compile Include="TeamRanker.cs" />
     <Compile Include="TeamReport.cs" />
+    <Compile Include="TeamReports\TopDogReport.cs" />
     <Compile Include="TeamUnit.cs" />
     <Compile Include="TEPMaster.cs" />
     <Compile Include="PositionReport.cs" />

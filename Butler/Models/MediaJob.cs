@@ -35,17 +35,17 @@ namespace Butler.Models
 
       public static string GetDownloadFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "DownloadFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( DownloadFolder ) );
       }
 
       public static string GetMagazineFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "MagazineCollectionFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineCollectionFolder ) );
       }
 
       public static string GetMagazineDestinationFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineDestinationFolder");
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineDestinationFolder ) );
       }
 
       public MediaJob(string folder)

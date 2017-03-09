@@ -133,42 +133,54 @@ namespace Butler.Helpers
    public class ExampleClass
    {
       public static void Example()
-      {
-         var userlist = new List<ExampleUser>();
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Bryan" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1986, 11, 4 ), Firstname = "Michael" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1977, 2, 2 ), Firstname = "Arjan" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1990, 6, 13 ), Firstname = "Pieter" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Ruben" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Bastiaan" } );
-         userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Pieter" } );
+		{
+			var userlist = new List<ExampleUser>();
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Bryan" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1986, 11, 4 ), Firstname = "Michael" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1977, 2, 2 ), Firstname = "Arjan" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1990, 6, 13 ), Firstname = "Pieter" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Ruben" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Bastiaan" } );
+			userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Pieter" } );
 
-         var unsorted = "Unsorted: " + Environment.NewLine;
-         foreach ( ExampleUser user in userlist )
-         {
-            unsorted += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
-         }
+			var unsorted = "Unsorted: " + Environment.NewLine;
+			var builder = new System.Text.StringBuilder();
+			builder.Append( unsorted );
+			foreach ( ExampleUser user in userlist )
+			{
+				builder.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+			}
+			unsorted = builder.ToString();
 
-         userlist.Sort( "Firstname asc" );
-         var sorted1 = "Sorted by Firstname ascending: " + Environment.NewLine;
-         foreach ( ExampleUser user in userlist )
-         {
-            sorted1 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
-         }
+			userlist.Sort( "Firstname asc" );
+			var sorted1 = "Sorted by Firstname ascending: " + Environment.NewLine;
+			var builder1 = new System.Text.StringBuilder();
+			builder1.Append( sorted1 );
+			foreach ( ExampleUser user in userlist )
+			{
+				builder1.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+			}
+			sorted1 = builder1.ToString();
 
-         userlist.Sort( "Firstname asc, Birthday desc" );
-         var sorted2 = "Sorted by Firstname ascending, Birtday descending: " + Environment.NewLine;
-         foreach ( ExampleUser user in userlist )
-         {
-            sorted2 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
-         }
+			userlist.Sort( "Firstname asc, Birthday desc" );
+			var sorted2 = "Sorted by Firstname ascending, Birtday descending: " + Environment.NewLine;
+			var builder2 = new System.Text.StringBuilder();
+			builder2.Append( sorted2 );
+			foreach ( ExampleUser user in userlist )
+			{
+				builder2.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+			}
+			sorted2 = builder2.ToString();
 
-         userlist.Sort( "Birthday asc, Firstname asc" );
-         var sorted3 = "Sorted by Birthday ascending, Firstname ascending: " + Environment.NewLine;
-         foreach ( ExampleUser user in userlist )
-         {
-            sorted3 += String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine );
-         }
-      }
-   }
+			userlist.Sort( "Birthday asc, Firstname asc" );
+			var sorted3 = "Sorted by Birthday ascending, Firstname ascending: " + Environment.NewLine;
+			var builder3 = new System.Text.StringBuilder();
+			builder3.Append( sorted3 );
+			foreach ( ExampleUser user in userlist )
+			{
+				builder3.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+			}
+			sorted3 = builder3.ToString();
+		}
+	}
 }

@@ -9,7 +9,9 @@ namespace GerardGui
 {
     static class Program
     {
+#if USING_DI
       private static Container container;
+#endif
       /// <summary>
       /// The main entry point for the application.
       /// </summary>

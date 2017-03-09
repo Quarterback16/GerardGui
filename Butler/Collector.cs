@@ -43,46 +43,46 @@ namespace Butler
 
       public static string GetTvFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "TvFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( TvFolder ) );
       }
 
       public static string GetShadowTvFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "ShadowTvFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( ShadowTvFolder ) );
       }
 
       public static string GetMovieFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "MovieFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MovieFolder ) );
       }
       public static string GetShadowMovieFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "ShadowMovieFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( ShadowMovieFolder ) );
       }
 
       public static string GetNflFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "NflFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( NflFolder ) );
       }
 
       public static string GetSoccerFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "SoccerFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( SoccerFolder ) );
       }
 
       public static string GetViewQueueFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get( "ViewQueueFolder" );
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( ViewQueueFolder ) );
       }
 
       public static string GetMagazineFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineFolder");
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineFolder ) );
       }
 
       public static string GetMagazineDestinationFolder()
       {
-         return System.Configuration.ConfigurationManager.AppSettings.Get("MagazineDestinationFolder");
+         return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineDestinationFolder ) );
       }
 
 		public bool HaveIt( MediaInfo mi )

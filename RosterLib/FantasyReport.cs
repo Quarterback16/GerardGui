@@ -41,7 +41,9 @@ namespace RosterLib
 
       private void LoadDataTable()
       {
+#if DEBUG2
          var tCount = 0;
+#endif
          foreach ( KeyValuePair<string, NflTeam> team in TeamList )
          {
             CalculateFpts(team.Value);

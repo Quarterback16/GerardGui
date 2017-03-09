@@ -131,6 +131,7 @@
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />
     <Compile Include="TimeKeeperTests.cs" />
+    <Compile Include="TopDogReportTests.cs" />
     <Compile Include="TouchdownTests.cs" />
     <Compile Include="UnitPredictorTests.cs" />
     <Compile Include="UnitRatingTests.cs" />

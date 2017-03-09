@@ -102,7 +102,7 @@ namespace Butler.Models
 		{
 			var ts = Utility.StopTheWatch(Stopwatch, string.Format("Finished Job: {0}", Name));
 			var runStorer = new DbfRunStorer();
-			runStorer.StoreRun(Name, ts, "Job");
+			runStorer.StoreRun(Name, ts, nameof( Job ) );
          LogElapsedTime(ts);
 		}
 

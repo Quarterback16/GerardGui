@@ -122,7 +122,9 @@ namespace RosterLib
 
       public static class Colour
       {
-         public static readonly string Bad = "TOMATO";
+		   public static readonly string Default = "MAGENTA";
+
+		   public static readonly string Bad = "TOMATO";
          public static readonly string Average = "MEDIUMSPRINGGREEN";
          public static readonly string Good = "GOLD";
          public static readonly string Excellent = "YELLOW";

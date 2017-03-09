@@ -277,7 +277,8 @@ namespace RosterLib
                   }
                   if (i > 5) bBlank = false;
                   if (bBlank && ! CarryRow) sData = " ";
-                  if (col.BackGroundColourDelegateFromRole != null)
+
+				  if (col.BackGroundColourDelegateFromRole != null)
                      s += HtmlLib.TableDataAttr(sData, AttrFor(dc, col.BackGroundColourDelegateFromRole, sVal));
                   else
                      s += HtmlLib.TableDataAttr(sData, AttrFor(dc, col.BackGroundColourDelegate, sVal));

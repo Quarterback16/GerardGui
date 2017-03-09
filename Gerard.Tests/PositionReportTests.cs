@@ -11,13 +11,14 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTeReport()
       {
-         var options = new PositionReportOptions();
-         options.Topic = "Tight End";
-         options.PositionAbbr = "TE";
-         options.PosDelegate = IsTe;
-         options.PositionCategory = Constants.K_RECEIVER_CAT;
-
-         var sut = new PositionReport( 
+			var options = new PositionReportOptions()
+			{
+				Topic = "Tight End",
+				PositionAbbr = "TE",
+				PosDelegate = IsTe,
+				PositionCategory = Constants.K_RECEIVER_CAT
+			};
+			var sut = new PositionReport( 
             new FakeTimeKeeper( season: "2016", week: "17" ),
             options );
          sut.RenderAsHtml();

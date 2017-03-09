@@ -24,7 +24,7 @@ namespace Butler.Helpers
                   var item = r.ReadElementContentAsString();
                   Items.Add( item );
                }
-               r.Close();
+               //r.Close();
             }
          }
 		}

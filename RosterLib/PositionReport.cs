@@ -10,9 +10,9 @@ namespace RosterLib
       public string Week { get; set; }
 
       public List<PositionReportOptions> Options { get; set; }
+
       public string PositionAbbr { get; set; }
       public string PositionCategory { get; set; }
-
       public string RootFolder { get; set; }
 
       Func<NFLPlayer, bool> PositionDelegate;
@@ -24,9 +24,11 @@ namespace RosterLib
          PositionReportOptions config
           ) : base()
       {
-         Options = new List<PositionReportOptions>();
-         Options.Add( config );
-         PlayerBreakdowns = new PreStyleBreakdown();
+			Options = new List<PositionReportOptions>
+			{
+				config
+			};
+			PlayerBreakdowns = new PreStyleBreakdown();
          SetWeek( timekeeper );
       }
 
@@ -60,11 +62,13 @@ namespace RosterLib
 
       private void AddTightEndReport()
       {
-         var config = new PositionReportOptions();
-         config.Topic = "Tight Ends";
-         config.PositionCategory = Constants.K_RECEIVER_CAT;
-         config.PosDelegate = IsTe;
-         Options.Add( config );
+			var config = new PositionReportOptions()
+			{
+				Topic = "Tight Ends",
+				PositionCategory = Constants.K_RECEIVER_CAT,
+				PosDelegate = IsTe
+			};
+			Options.Add( config );
       }
 
       private void AddWideReceiverReport()
@@ -333,7 +337,7 @@ namespace RosterLib
          PlayerBreakdowns.Dump( breakDownKey, $"{RootFolder}\\breakdowns\\{breakDownKey}.htm" );
          return pts;
       }
-
+		
       private string TotQbBgPicker( int theValue )
       {
          string sColour;
