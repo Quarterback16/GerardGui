@@ -196,24 +196,5 @@ namespace Gerard.Tests
          Assert.IsTrue(File.Exists(fileOut));
       }
 
-      [TestMethod]
-      public void TestPredictedOutput()
-      {
-         var sut = new ScoreTally("2015", "All Teams", true);
-         sut.Render();
-         var fileOut = sut.FileName();
-         Assert.IsTrue(File.Exists(fileOut), string.Format("Cannot find {0}", fileOut));
-      }
-
-      [TestMethod]
-      public void TestActualOutput()
-      {
-         var sut = new ScoreTally("2014", "Actuals", usingPredictions: false);
-         sut.ForceRefresh = false;
-         sut.Render();
-         var fileOut = sut.FileName();
-         Assert.IsTrue(File.Exists(fileOut), string.Format("Cannot find {0}", fileOut));
-      }
-
    }
 }

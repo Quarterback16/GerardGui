@@ -118,6 +118,7 @@
     <Compile Include="RookieReportJobTests.cs" />
     <Compile Include="RunReportJobTests.cs" />
     <Compile Include="RushUnitTests.cs" />
+    <Compile Include="ScoreTallyTests.cs" />
     <Compile Include="SeasonProjectionTests.cs" />
     <Compile Include="SeasonSchedulerTests.cs" />
     <Compile Include="StarterJobTests.cs" />
