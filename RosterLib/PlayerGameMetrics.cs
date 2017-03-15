@@ -176,17 +176,132 @@ namespace RosterLib
                                  ProjTDc.ToString(CultureInfo.InvariantCulture),
                                  ProjFG.ToString( CultureInfo.InvariantCulture),
                                  ProjPat.ToString( CultureInfo.InvariantCulture),
+                                 YDp.ToString( CultureInfo.InvariantCulture ),
+                                 TDp.ToString( CultureInfo.InvariantCulture ),
+                                 YDr.ToString( CultureInfo.InvariantCulture ),
+                                 TDr.ToString( CultureInfo.InvariantCulture ),
+                                 YDc.ToString( CultureInfo.InvariantCulture),
+                                 TDc.ToString(CultureInfo.InvariantCulture),
+                                 FG.ToString( CultureInfo.InvariantCulture),
+                                 Pat.ToString( CultureInfo.InvariantCulture),
                                  pts.ToString(CultureInfo.InvariantCulture)
                         };
          var html = HtmlLib.TableRow(pgmArray);
          return html;
       }
 
-      public string PgmHeaderRow()
+		public string FormatProjectionsAsTableRow( NFLPlayer player )
+		{
+			if ( player.IsKicker() )
+			{
+				string[] pgmArray = {
+											player.PlayerName,
+											player.RoleOut(),
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											ProjFG.ToString( CultureInfo.InvariantCulture),
+											ProjPat.ToString( CultureInfo.InvariantCulture),
+											ProjectedFantasyPoints.ToString()
+								};
+				var html = HtmlLib.TableRow( pgmArray );
+				return html;
+			}
+			else
+			{
+				string[] pgmArray = {
+											player.PlayerName,
+											player.RoleOut(),
+											ProjYDp.ToString( CultureInfo.InvariantCulture ),
+											ProjTDp.ToString( CultureInfo.InvariantCulture ),
+											ProjYDr.ToString( CultureInfo.InvariantCulture ),
+											ProjTDr.ToString( CultureInfo.InvariantCulture ),
+											ProjYDc.ToString( CultureInfo.InvariantCulture),
+											ProjTDc.ToString( CultureInfo.InvariantCulture),
+											string.Empty,
+											string.Empty,
+											ProjectedFantasyPoints.ToString()
+								};
+				var html = HtmlLib.TableRow( pgmArray );
+				return html;
+			}
+		}
+
+		public string FormatActualsAsTableRow( NFLPlayer player )
+		{
+			if ( player.IsKicker() )
+			{
+				string[] pgmArray = {
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											string.Empty,
+											FG.ToString( CultureInfo.InvariantCulture),
+											Pat.ToString( CultureInfo.InvariantCulture),
+											FantasyPoints.ToString(),
+											VarianceOut()
+								};
+				var html = HtmlLib.TableRow( pgmArray );
+				return html;
+			}
+			else
+			{
+				string[] pgmArray = {
+											string.Empty,
+											string.Empty,
+											YDp.ToString( CultureInfo.InvariantCulture ),
+											TDp.ToString( CultureInfo.InvariantCulture ),
+											YDr.ToString( CultureInfo.InvariantCulture ),
+											TDr.ToString( CultureInfo.InvariantCulture ),
+											YDc.ToString( CultureInfo.InvariantCulture),
+											TDc.ToString( CultureInfo.InvariantCulture),
+											string.Empty,
+											string.Empty,
+											FantasyPoints.ToString(),
+											VarianceOut()
+								};
+				var html = HtmlLib.TableRow( pgmArray );
+				return html;
+			}
+		}
+
+		private string VarianceOut()
+		{
+			var variance = CalculateVariance();
+			if ( variance > 0 )
+				return $"{variance}";
+			else if ( variance < 0 )
+				return $"+{Math.Abs(variance)}";
+			else
+				return "---";
+		}
+
+		private string ActualPlusVariance()
+		{
+			var variance = ProjectedFantasyPoints - FantasyPoints;  
+			return $"{FantasyPoints} {variance}";
+		}
+
+		public string PgmHeaderRow()
       {
          string[] pgmArray = { 
                            "Starter",
                            "Role",
+                           "Proj YDp",
+                           "Proj TDp",
+                           "Proj YDr",
+                           "Proj TDr",
+                           "Proj YDc",
+                           "Proj TDc",
+                           "Proj FG",
+                           "Proj Pat",
                            "YDp",
                            "TDp",
                            "YDr",
@@ -201,7 +316,27 @@ namespace RosterLib
          return html;
       }
 
-      public bool HasNumbers()
+		public string PgmHeaderVerticalRow()
+		{
+			string[] pgmArray = {
+									"Starter",
+									"Role",
+									"YDp",
+									"TDp",
+									"YDr",
+									"TDr",
+									"YDc",
+									"TDc",
+									"FG",
+									"Pat",
+									"F pts",
+									"Var"
+								};
+			var html = HtmlLib.TableHeaderRow( pgmArray );
+			return html;
+		}
+
+		public bool HasNumbers()
       {
          var checkSum = 
                            ProjYDp +
@@ -230,5 +365,27 @@ namespace RosterLib
          var pts = scorer.RatePlayer( p, new NFLWeek( Season(), 99, loadGames: false ) );
          return pts;
       }
-   }
+
+		public decimal CalculateActualFantasyPoints( NFLPlayer p )
+		{
+			var scorer = new YahooProjectionScorer();
+			p.ProjectedTDp = TDp;
+			p.ProjectedYDp = YDp;
+			p.ProjectedYDr = YDr;
+			p.ProjectedTDr = TDr;
+			p.ProjectedYDc = YDc;
+			p.ProjectedTDc = TDc;
+			p.ProjectedFg  = FG;
+			p.ProjectedPat = Pat;
+
+			var pts = scorer.RatePlayer( p, new NFLWeek( Season(), 99, loadGames: false ) );
+			return pts;
+		}
+
+		public decimal CalculateVariance()
+		{
+			return ProjectedFantasyPoints - FantasyPoints;
+		}
+
+	}
 }

@@ -39,7 +39,11 @@ namespace RosterLib
 
          foreach ( DataRow dr in dt.Rows )
          {
-            var t = new NflTeam( dr[ "TEAMID" ].ToString(), Season,
+#if DEBUG2
+				if ( dr[ "TEAMID" ].ToString() != "DB" )
+					continue;
+#endif
+				var t = new NflTeam( dr[ "TEAMID" ].ToString(), Season,
                                      Int32.Parse( dr[ "WINS" ].ToString() ),
                                      dr[ "TEAMNAME" ].ToString() );
             t.MetricsHt = new Hashtable();

@@ -5,6 +5,7 @@ using System.Linq;
 using TFLLib;
 using NLog;
 using System.Runtime.InteropServices; //  for [Optional]
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -174,9 +175,20 @@ namespace RosterLib
 
 		public ArrayList GameList()
 		{
-			//  express the scedule as a collection of games
+			//  express the schedule as a collection of games
 			if (_gameList == null) LoadGameList();
 			return _gameList;
+		}
+
+		public List<NFLGame> GamesList()
+		{
+			var gamesList = new List<NFLGame>();
+			var aGames = GameList();
+			foreach ( NFLGame game in aGames )
+			{
+				gamesList.Add( game );
+			}
+			return gamesList;
 		}
 
 		private void LoadGameList(int season, int week)

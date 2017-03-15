@@ -47,6 +47,16 @@ namespace Gerard.Tests
       }
 
       [TestMethod]
+      public void TestDoPerformanceDerrickCarrWeek201609()
+      {
+         var p = new NFLPlayer( "CARRDE01" );
+         var week= new NFLWeek( "2016", 9 );
+         var _scorer = new YahooScorer( week);
+         var nScore = _scorer.RatePlayer( p, week );
+         Assert.IsTrue( nScore > 0 );
+      }
+
+      [TestMethod]
 		public void TestDoPerformanceWilleSneadWeek08Scores()
 		{
 			var p = new NFLPlayer( "SNEAWI01" );

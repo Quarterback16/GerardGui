@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib.Services;
+using System.Linq;
 
 namespace Gerard.Tests
 {
@@ -7,11 +8,11 @@ namespace Gerard.Tests
    public class YahooStatServiceTests
    {
       [TestMethod]
-      public void TestGetStatsForMattyIce()  
+      public void TestGetStatsForDerrickCarr()  
       {
          var sut = new YahooStatService();
-         var result = sut.GetStat( "RYANMA01", "2016", "01" );
-         Assert.AreEqual( expected: 22.0M, actual: result );
+         var result = sut.GetStat( "CARRDE01", "2016", "09" );
+         Assert.AreEqual( expected: 7.66M, actual: result );
       }
 
       [TestMethod]
@@ -20,6 +21,14 @@ namespace Gerard.Tests
          var sut = new YahooStatService();
          var result = sut.IsStat( "RYANMA01", "2016", "17" );
          Assert.IsTrue( result );
+      }
+
+      [TestMethod]
+      public void TestAallStatsForMattyIce()
+      {
+         var sut = new YahooStatService();
+         var result = sut.LoadStats( "RYANMA01", "2016", "17" );
+         Assert.IsTrue( result.Any() );
       }
    }
 }

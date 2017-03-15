@@ -4221,7 +4221,15 @@ namespace RosterLib
          return string.Format("{0} {1}", Name.Trim(), NickName.Trim()).Trim();
       }
 
-      public override string ToString()
+		public string DepthChartLink()
+		{
+			var url = string.Format( "<a href='../DepthCharts/{0}.htm'>{1}</a>",
+				TeamCode, NameOut() );
+			return url;
+		}
+
+
+		public override string ToString()
       {
          return NameOut();
       }

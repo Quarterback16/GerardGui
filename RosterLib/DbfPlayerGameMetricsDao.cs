@@ -143,7 +143,7 @@ namespace RosterLib
             pgm.PlayerId = dr["PLAYERID"].ToString();
             pgm.GameKey = dr["GAMECODE"].ToString();
             pgm.ProjTDp = IntValue(dr, "projtdp");
-            pgm.ProjTDr = IntValue(dr, "projtdr");
+            pgm.ProjTDr = DecimalValue(dr, "projtdr");
             pgm.ProjTDc = IntValue(dr, "projtdc");
             pgm.ProjYDp = IntValue(dr, "projydp");
             pgm.ProjYDr = IntValue(dr, "projydr");
@@ -247,6 +247,42 @@ namespace RosterLib
                break;
          }
          return qty;
+      }
+
+      public List<PlayerGameMetrics> GetGame( string gameCode )
+      {
+         var pgmList = new List<PlayerGameMetrics>();
+         DataSet ds = Utility.TflWs.GetPlayerGameMetrics( gameCode);
+         DataTable dt = ds.Tables[ 0 ];
+         foreach ( DataRow dr in dt.Rows )
+         {
+            var pgm = new PlayerGameMetrics()
+            {
+               PlayerId = dr[ "PLAYERID" ].ToString(),
+               GameKey = dr[ "GAMECODE" ].ToString(),
+               ProjTDp = IntValue( dr, "projtdp" ),
+               ProjTDr = DecimalValue( dr, "projtdr" ),
+               ProjTDc = IntValue( dr, "projtdc" ),
+               ProjYDp = IntValue( dr, "projydp" ),
+               ProjYDr = IntValue( dr, "projydr" ),
+               ProjYDc = IntValue( dr, "projydc" ),
+               ProjFG = IntValue( dr, "projfg" ),
+               ProjPat = IntValue( dr, "projpat" ),
+               TDp = IntValue( dr, "tdp" ),
+               TDr = IntValue( dr, "tdr" ),
+               TDc = IntValue( dr, "tdc" ),
+               YDp = IntValue( dr, "ydp" ),
+               YDr = IntValue( dr, "ydr" ),
+               YDc = IntValue( dr, "ydc" ),
+               FG = IntValue( dr,  "fg" ),
+               Pat = IntValue( dr, "pat" )
+            };
+            pgmList.Add( pgm );
+         }
+#if DEBUG
+         Utility.Announce( string.Format( "Metric records loaded : {0}", pgmList.Count ) );
+#endif
+         return pgmList;
       }
    }
 }

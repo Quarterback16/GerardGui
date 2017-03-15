@@ -223,9 +223,11 @@ namespace RosterLib
       private SimpleTableReport DefineSte()
       {
          ReportColumn.ColourDelegate totalColourDelegateIn = PickTotalColourDelegate();
-         var str = new SimpleTableReport( Heading );
-         str.ColumnHeadings = true;
-         str.DoRowNumbers = true;
+         var str = new SimpleTableReport( Heading )
+         {
+            ColumnHeadings = true,
+            DoRowNumbers = true
+         };
          str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
          str.AddColumn( new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
             colourDelegateIn: totalColourDelegateIn ) );

@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
-			var sut = new YahooXmlJob(new FakeTimeKeeper(season: "2016", week: "10"  ));
+			var sut = new YahooXmlJob(new FakeTimeKeeper(season: "2016", week: "11"  ));
 			var outcome = sut.DoJob();  // just current week
 			Assert.IsFalse(string.IsNullOrEmpty(outcome));
 		}
@@ -20,9 +20,8 @@ namespace Gerard.Tests
       public void TestTimetoDo_YahooXmlJob()
       {
          var sut = new YahooXmlJob(new TimeKeeper(null));
-         string whyNot;
-         Assert.IsFalse(sut.IsTimeTodo(out whyNot));
-         Console.WriteLine(whyNot);
+			Assert.IsFalse( sut.IsTimeTodo( out string whyNot ) );
+			Console.WriteLine(whyNot);
       }
 
       [TestMethod]
@@ -85,5 +84,14 @@ namespace Gerard.Tests
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
+
+		[TestMethod]
+		public void TestDerekCarr()
+      {
+         var sut = new NFLGame( "2016:09-L" );
+			sut.GenerateYahooOutput();
+			Assert.IsTrue( sut.YahooList.Count > 0 );
+
+		}
    }
 }

@@ -12,6 +12,8 @@ namespace RosterLib
       /// <returns></returns>
       PlayerGameMetrics Get( string playerCode, string gameCode );
 
+      List<PlayerGameMetrics> GetGame( string gameCode );
+
       List<PlayerGameMetrics> GetWeek( string season, string week );
 
       List<PlayerGameMetrics> GetSeason( string season, string playerCode );

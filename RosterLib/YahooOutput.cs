@@ -44,5 +44,9 @@ namespace RosterLib.Models
 		{
 			return string.Format( "{0}:{1}", Quantity, Opponent );
 		}
+		public override string ToString()
+		{
+			return StatOut();
+		}
 	}
 }

@@ -24,9 +24,9 @@ namespace RosterLib.TeamReports
 
 		public void LoadAllTheOptions()
 		{
-			AddQuarterbackReport();
-#if DONE
+			//AddQuarterbackReport();
 			AddRunningBackReport();
+#if DONE
 			AddWideReceiverReport();
 			AddTightEndReport();
 			AddKickerReport();
@@ -75,6 +75,17 @@ namespace RosterLib.TeamReports
 		}
 
 #endif
+
+		private void AddRunningBackReport()
+		{
+			var config = new TopDogReportOptions
+			{
+				Topic = "Runningbacks",
+				PositionAbbr = "RB",
+				PositionCategory = Constants.K_RUNNINGBACK_CAT
+			};
+			Options.Add( config );
+		}
 
 		private void AddQuarterbackReport()
 		{
@@ -150,9 +161,6 @@ namespace RosterLib.TeamReports
 			switch ( PositionAbbr )
 			{
 #if DONE
-				case "RB":
-					theDelegate = RbBgPicker;
-					break;
 
 				case "WR":
 					theDelegate = WrBgPicker;
@@ -161,6 +169,11 @@ namespace RosterLib.TeamReports
 				case "QB":
 					theDelegate = QbBgPicker;
 					break;
+
+				case "RB":
+					theDelegate = RbBgPicker;
+					break;
+
 #if DONE
 				case "PK":
 					theDelegate = PkBgPicker;
@@ -172,6 +185,17 @@ namespace RosterLib.TeamReports
 			}
 			return theDelegate;
 
+		}
+
+		private string RbBgPicker( int theValue )
+		{
+			var colourTable = new Dictionary<string, decimal>()
+			{
+				[ Constants.Colour.Bad ] = 5,
+				[ Constants.Colour.Average ] = 10,
+				[ Constants.Colour.Good ] = Decimal.MaxValue,
+			};
+			return GetColourFor( theValue, colourTable );
 		}
 
 		private string QbBgPicker( int theValue )
@@ -225,7 +249,7 @@ namespace RosterLib.TeamReports
 			{
 				var team = teamPair.Value;
 				var teamRow = Data.NewRow();
-				teamRow[ "TEAM" ] = team.NameOut();
+				teamRow[ "TEAM" ] = team.DepthChartLink();
 				teamRow[ "TOTAL" ] = 0;
 				var totPts = 0.0M;
 

@@ -235,6 +235,7 @@ namespace RosterLib
       {
          return "<TABLE>";
       }
+
       public static string TableWithBorderOpen()
       {
          return "<TABLE border='1'>";
@@ -253,6 +254,21 @@ namespace RosterLib
       public static string TableData( string strData )
       {
          return "<TD>" + strData + "</TD>";
+      }
+
+      public static string ListOpen()
+      {
+         return "<ol>";
+      }
+
+      public static string ListClose()
+      {
+         return "</ol>";
+      }
+
+      public static string ListItem( string strData )
+      {
+         return "<li>" + strData + "</li>";
       }
 
       public static string TableData( string strData, string strColour )
@@ -412,7 +428,7 @@ namespace RosterLib
          html += TableRowOpen();
          for (int i = 0; i < pgmArray.Length; i++)
          {
-            html += TableData( pgmArray[i] );
+            html += TableDataAttr( pgmArray[i], "align='RIGHT'" );
          }
          html += TableRowClose() + Environment.NewLine;
          return html;

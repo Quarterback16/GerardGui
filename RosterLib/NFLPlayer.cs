@@ -77,10 +77,13 @@ namespace RosterLib
 
 	   public void DumpMetrics()
 	   {
-			foreach (KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics)
-			{
-				Console.WriteLine("{0}, {1}", pair.Key, pair.Value);
-			}		   
+         if ( GameMetrics != null )
+         {
+            foreach ( KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics )
+            {
+               Console.WriteLine( "{0}, {1}", pair.Key, pair.Value );
+            }
+         }
 	   }
 
       public PlayerGameMetrics CurrentGameMetrics { get; set; }
@@ -745,7 +748,7 @@ namespace RosterLib
 
       public string RoleOut()
       {
-         var roleOut = "Unknown role";
+         var roleOut = $"Unknown role {PlayerRole}";
 
          switch (PlayerRole)
          {

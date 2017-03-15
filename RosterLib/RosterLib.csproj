@@ -303,6 +303,7 @@
     <Compile Include="SeasonMaster.cs" />
     <Compile Include="SeasonOpponent.cs" />
     <Compile Include="SeasonProjectionReport.cs" />
+    <Compile Include="Services\YahooStat.cs" />
     <Compile Include="Services\YahooStatService.cs" />
     <Compile Include="SimpleDefencePredictor.cs" />
     <Compile Include="SimpleFGPredictor.cs" />

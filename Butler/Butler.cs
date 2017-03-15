@@ -94,12 +94,13 @@ namespace Butler
             MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
             MyJobs.Add( new UpdateActualsJob( TimeKeeper ) );
             MyJobs.Add( new UpdateTeamActualsJob( TimeKeeper ) );
+				//TODO: MyJobs.Add( new GameSummariesJob( TimeKeeper ) );
 
-            #endregion
+				#endregion
 
-            #region  Looking forward to the upcoming games
+				#region  Looking forward to the upcoming games
 
-            MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
+				MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
             MyJobs.Add( new GeneratePlayerProjectionsJob( TimeKeeper ) );
             MyJobs.Add( new GameProjectionReportsJob( TimeKeeper ) );
             MyJobs.Add( new RookiesJob( TimeKeeper ) );

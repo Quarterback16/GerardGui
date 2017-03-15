@@ -1,7 +1,7 @@
 ﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using System;
 
 namespace RosterLib.Services
 {
@@ -34,7 +34,7 @@ namespace RosterLib.Services
             return theStat.Qty;
       }
 
-      private System.Collections.Generic.IEnumerable<YahooStat> LoadStats( 
+      public IEnumerable<YahooStat> LoadStats( 
          string playerId, string season, string week )
       {
          return Xdoc.Element( "stat-list" )
@@ -59,11 +59,4 @@ namespace RosterLib.Services
       }
    }
 
-   public class YahooStat
-   {
-      public string Id { get; set; }
-      public string Season { get; set; }
-      public string Week { get; set; }
-      public decimal Qty { get; set; }
-   }
 }

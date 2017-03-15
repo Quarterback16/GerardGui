@@ -55,5 +55,15 @@ namespace Gerard.Tests
          Assert.AreEqual( expected, msg.Player.Points );
       }
 
-   }
+		[TestMethod]
+		public void TestYahooMaster()
+		{
+			var sut = new YahooMasterGenerator(false, new FakeTimeKeeper(null));
+			var key = string.Format( "{0}:{1}:{2}", "2016", "09", "CARRDE01" );
+			var stat = sut.YahooMaster.TheHt[ key ];
+			Assert.IsNotNull( stat);
+
+		}
+
+	}
 }

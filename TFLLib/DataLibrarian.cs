@@ -2390,6 +2390,17 @@ namespace TFLLib
          return commandStr;
       }
 
+      public DataSet GetPlayerGameMetrics( string gameCode )
+      {
+         var keyValue = string.Format( "{0}:{1}", "GetPlayerGameMetrics-DataSet",
+                           gameCode );
+
+         var commandStr =
+            $"select * from PGMETRIC where GAMECODE = '{gameCode}'";
+
+         return CacheCommand( keyValue, commandStr, "pgmetrics", "GetPlayerGameMetrics" );
+      }
+
       public DataSet GetAllPlayerGameMetrics(string season, string week)
       {
          var keyValue = string.Format( "{0}:{1}:{2}", "GetAllPlayerGameMetrics-DataSet",

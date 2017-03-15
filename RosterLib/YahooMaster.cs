@@ -146,8 +146,11 @@ namespace RosterLib
          Announce( string.Format("{0} Games loaded for {1}:{2}", 
             theWeek._gameList.Count, season, week ) );
 			foreach ( var nflStat in theWeek.GameList().Cast<NFLGame>()
-				.Select( game => game.GenerateYahooOutput() ).SelectMany( statList => statList ) )
+				.Select( game => game.GenerateYahooOutput() )
+				.SelectMany( statList => statList ) )
+			{
 				PutStat( nflStat );
+			}
 		}
 
 		public void Calculate( string season )

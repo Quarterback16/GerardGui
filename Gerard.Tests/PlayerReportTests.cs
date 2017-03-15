@@ -32,7 +32,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestEddieLacy()
       {
-         var sut = new NFLPlayer("LACYED01");
+         var sut = new NFLPlayer("CARRDE01");
          var outcome = sut.PlayerReport();
          Console.WriteLine( "Report generated to {0}", outcome );
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );

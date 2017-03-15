@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 
 namespace RosterLib
 {
@@ -32,7 +33,50 @@ namespace RosterLib
 			DumpDefence();
 		}
 
-		public void DumpOffence()
+      public string DumpAsHtml(string header)
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.H3( header ) );
+         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+         sb.Append( HtmlLib.TableRowOpen() );
+         sb.Append( HtmlLib.TableData( DumpOffenceHtml() ) );
+         sb.Append( HtmlLib.TableData( DumpDefenceHtml() ) );
+         sb.Append( HtmlLib.TableRowClose() );
+         sb.Append( HtmlLib.TableClose() );
+
+         return sb.ToString();
+      }
+
+      private string DumpDefenceHtml()
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.ListOpen() );
+         foreach ( var p in PlayerList )
+         {
+            if ( p.LineupPos.Trim().Length > 0 )
+               if ( p.IsDefence() )
+                  sb.Append( HtmlLib.ListItem( $"{p.LineupPos} {p.PlayerName}" ) );
+         }
+         sb.Append( HtmlLib.ListOpen() );
+         return sb.ToString();
+
+      }
+
+      private string DumpOffenceHtml()
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.ListOpen() );
+         foreach ( var p in PlayerList )
+         {
+            if ( p.LineupPos.Trim().Length > 0 )
+               if ( p.IsOffence() )
+                  sb.Append( HtmlLib.ListItem( $"{p.LineupPos} {p.PlayerName}" ));
+         }
+         sb.Append( HtmlLib.ListOpen() );
+         return sb.ToString();
+      }
+
+      public void DumpOffence()
 		{
 			Utility.Announce(string.Format("--{0}--Offence-------------------", TeamCode));
 			foreach (var p in PlayerList)

@@ -9,6 +9,8 @@ using System.Text;
 using System.Xml;
 using TFLLib;
 using NLog;
+using RosterLib.Interfaces;
+using RosterLib.Services;
 
 namespace RosterLib
 {
@@ -47,6 +49,8 @@ namespace RosterLib
       public NflTeam HomeNflTeam;
       public NflTeam AwayNflTeam;
 
+      public List<PlayerGameMetrics> Pgms { get; set; }
+
       public List<NflStat> StatList { get; set; }
 
       public List<YahooOutput> YahooList { get; set; }
@@ -69,9 +73,13 @@ namespace RosterLib
 
       public NFLResult BookieTip { get; set; }
 
+      public List<NFLPlayer> FantasyPlayers { get; set; }
+
       public IGetPredictions PredictionGetter { get; set; }
 
       public List<PlayerGameMetrics> PlayerGameMetrics { get; set; }
+
+      public IYahooStatService YahooStatsService { get; set; }
 
       public enum Stat
       {
@@ -110,6 +118,104 @@ namespace RosterLib
          AwayTeam = awayCodeIn;
 
          Result = new NFLResult(homeCodeIn, homeScoreIn, awayCodeIn, awayScoreIn);
+      }
+
+      internal string DumpPgmsAsHtml( string header, string teamCodeInFocus )
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.H3( header ) );
+         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+         sb.Append( HtmlLib.TableRowOpen() );
+         sb.Append( HtmlLib.TableData( DumpOffenceHtml( teamCodeInFocus ) ) );
+         sb.Append( HtmlLib.TableData( DumpDefenceHtml( teamCodeInFocus ) ) );
+         sb.Append( HtmlLib.TableRowClose() );
+         sb.Append( HtmlLib.TableClose() );
+         return sb.ToString();
+      }
+
+      internal string DumpFantasyPlayersAsHtml( string header, string teamCodeInFocus )
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.H3( header ) );
+         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+         sb.Append( HtmlLib.TableRowOpen() );
+         sb.Append( HtmlLib.TableData( DumpFantasyHtml( teamCodeInFocus ) ) );
+         sb.Append( HtmlLib.TableRowClose() );
+         sb.Append( HtmlLib.TableClose() );
+         return sb.ToString();
+      }
+
+      private string DumpFantasyHtml( string teamCodeInFocus )
+      {
+         if ( YahooStatsService == null ) YahooStatsService = new YahooStatService();
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.TableOpen() );
+         foreach ( var plyr in FantasyPlayers )
+         {
+				if ( plyr.CurrTeam == null ) continue;
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+            {
+               var pts = YahooStatsService.GetStat( plyr.PlayerCode, Season, Week);
+               sb.Append(HtmlLib.TableRowOpen());
+               sb.Append( HtmlLib.TableDataOpen() );
+               sb.Append(
+                  $"{plyr.PlayerName}" );
+               sb.Append( HtmlLib.TableDataClose() );
+               sb.Append( HtmlLib.TableDataOpen() );
+               sb.Append(
+                  $"{pts}" );
+               sb.Append( HtmlLib.TableDataClose() );
+               sb.Append( HtmlLib.TableRowClose() );
+            }
+         }
+         sb.Append( HtmlLib.TableClose() );
+         return sb.ToString();
+      }
+
+      private string DumpOffenceHtml( string teamCodeInFocus )
+      {
+         var pgmCount = 0;
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.TableOpen() );
+         foreach ( var pgm in Pgms )
+         {
+            pgmCount++;
+            if ( pgmCount == 1 )
+               sb.Append( pgm.PgmHeaderVerticalRow() );
+
+            var plyr = new NFLPlayer( pgm.PlayerId );
+				pgm.ProjectedFantasyPoints = pgm.CalculateProjectedFantasyPoints( plyr );
+				pgm.FantasyPoints = pgm.CalculateActualFantasyPoints( plyr );
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+					if ( plyr.IsOffence() )
+					{
+						sb.Append(
+							$"{pgm.FormatProjectionsAsTableRow( plyr )}" );
+						sb.Append(
+							$"{pgm.FormatActualsAsTableRow( plyr )}" );
+					}
+			}
+         sb.Append( HtmlLib.TableClose() );
+         return sb.ToString();
+      }
+
+      private string DumpDefenceHtml( string teamCodeInFocus )
+      {
+         var sb = new StringBuilder();
+         sb.Append( HtmlLib.TableOpen() );
+         foreach ( var pgm in Pgms )
+         {
+            var plyr = new NFLPlayer( pgm.PlayerId );
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+               if ( plyr.IsDefence() )
+                  sb.Append( 
+                     $"{pgm.FormatAsTableRow( plyr.PlayerName, plyr.RoleOut(), 0 )}"  );
+         }
+         sb.Append( HtmlLib.TableClose() );
+         return sb.ToString();
       }
 
       public NFLGame(string season, string weekIn)
@@ -780,7 +886,12 @@ namespace RosterLib
 
       public string ScoreOut()
       {
-         return string.Format("{0}:{1} {2} {4} @ {3} {5}", Season, Week, AwayTeam, HomeTeam, AwayScore, HomeScore);
+         return $"{Season}:{Week} {AwayTeam} {AwayScore} @ {HomeTeam} {HomeScore}";
+      }
+
+      public string WordyScoreOut()
+      {
+         return $"{Season}:{Week} {AwayNflTeam.NameOut()} {AwayScore} @ {HomeNflTeam.NameOut()} {HomeScore}";
       }
 
       private string SetColour(string tieColour, string teamInFocus)
@@ -2136,6 +2247,7 @@ namespace RosterLib
          var theWeek = new NFLWeek(Season, WeekNo);
 
          var scorer = new YahooScorer(theWeek);
+         //  Lineup could be missing some people
          var playerList = LoadLineupPlayers(nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam);
          foreach (var nflPlayer in playerList)
          {
@@ -2221,22 +2333,48 @@ namespace RosterLib
          LoadAwayLineup();
       }
 
+      public void LoadPgms()
+      {
+         if ( PgmDao == null ) PgmDao = new DbfPlayerGameMetricsDao();
+
+         if ( Pgms == null ) Pgms = new List<PlayerGameMetrics>();
+         Pgms = PgmDao.GetGame( GameKey() );
+
+         FantasyPlayers = new List<NFLPlayer>();
+         foreach ( var pgm in Pgms )
+         {
+            FantasyPlayers.Add( new NFLPlayer( pgm.PlayerId ) );
+         }
+      }
+
+
       public void LoadHomeLineup()
       {
+         //TODO Lineups may be missing people
          HomeLineup = new Lineup( Utility.TflWs.GetLineup( HomeTeam, Season, WeekNo) );
-         HomeQb1 = HomeLineup.GetPlayerAt("QB");
+         HomeQb1 = DetermineHomePlayerAt( "QB");  //  first one you find!!
          HomeQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek(GameKey(), HomeQb1.PlayerCode);
-         HomeRb1 = HomeLineup.GetPlayerAt("RB");
+         HomeRb1 = DetermineHomePlayerAt( "RB");  //TODO:  get this from stats  first one 
          HomeRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek(GameKey(), HomeRb1.PlayerCode);
       }
 
       public void LoadAwayLineup()
       {
          AwayLineup = new Lineup(Utility.TflWs.GetLineup(AwayTeam, Season, WeekNo));
-         AwayQb1 = AwayLineup.GetPlayerAt("QB");
+         AwayQb1 = DetermineAwayPlayerAt( "QB" ); 
          AwayQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek(GameCode, AwayQb1.PlayerCode);
-         AwayRb1 = AwayLineup.GetPlayerAt("RB");
+         AwayRb1 = DetermineAwayPlayerAt( "RB");
          AwayRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek(GameCode, AwayRb1.PlayerCode);
+      }
+
+      private NFLPlayer DetermineAwayPlayerAt( string pos )
+      {
+         return AwayLineup.GetPlayerAt( pos );
+      }
+
+      private NFLPlayer DetermineHomePlayerAt( string pos )
+      {
+         return HomeLineup.GetPlayerAt( pos );
       }
 
       public List<NFLPlayer> LoadLineupPlayers(string teamCode)
@@ -2401,7 +2539,6 @@ namespace RosterLib
 			var urlOut = string.Format( ".//gameprojections//Week {0:0#}/{1}@{2}.htm", Int32.Parse(Week), AwayTeam, HomeTeam );
 			return urlOut;
 		}
-
 
 	   public string SummaryFile()
       {
