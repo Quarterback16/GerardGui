@@ -22,16 +22,17 @@ namespace RosterLib
 		{
 			LoadAllMethods(season);
 			var tc = new TippingComp( Tipsters );
-			OutputFilename = tc.OutputFilename;
 			tc.Render( season, "SU" );
+			OutputFilename = tc.OutputFilename;
 		}
 
 		private void LoadAllMethods(string season)
 		{
 			LoadPredictions(season, "unit");
-			LoadAtsPredictions(season, "hillin");
-			LoadPredictions(season, "nibble");
-			LoadPredictions(season, "Miller");
+			//TODO:  Generate these
+			//LoadAtsPredictions(season, "hillin");
+			//LoadPredictions(season, "nibble");
+			//LoadPredictions(season, "Miller");
 			LoadPredictions( season, "bookie" );
 		}
 
@@ -66,6 +67,7 @@ namespace RosterLib
 							winLoss.Ties++;
 							break;
 					}
+					winLoss.Total++;
 				}
 				Tipsters.Add( method, winLoss );	
 			}

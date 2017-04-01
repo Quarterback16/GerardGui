@@ -24,42 +24,21 @@ namespace RosterLib.TeamReports
 
 		public void LoadAllTheOptions()
 		{
-			//AddQuarterbackReport();
+			AddQuarterbackReport();
 			AddRunningBackReport();
-#if DONE
 			AddWideReceiverReport();
 			AddTightEndReport();
 			AddKickerReport();
-#endif
 		}
 
-#if DONE
+
 		private void AddTightEndReport()
 		{
 			var config = new TopDogReportOptions()
 			{
 				Topic = "Tight Ends",
+				PositionAbbr = "TE",
 				PositionCategory = Constants.K_RECEIVER_CAT
-			};
-			Options.Add( config );
-		}
-
-		private void AddWideReceiverReport()
-		{
-			var config = new TopDogReportOptions
-			{
-				Topic = "Wide Receivers",
-				PositionCategory = Constants.K_RECEIVER_CAT
-			};
-			Options.Add( config );
-		}
-
-		private void AddRunningBackReport()
-		{
-			var config = new TopDogReportOptions
-			{
-				Topic = "Running Backs",
-				PositionCategory = Constants.K_RUNNINGBACK_CAT
 			};
 			Options.Add( config );
 		}
@@ -69,12 +48,22 @@ namespace RosterLib.TeamReports
 			var config = new TopDogReportOptions
 			{
 				Topic = "Kickers",
+				PositionAbbr = "PK",
 				PositionCategory = Constants.K_KICKER_CAT
 			};
 			Options.Add( config );
 		}
 
-#endif
+		private void AddWideReceiverReport()
+		{
+			var config = new TopDogReportOptions
+			{
+				Topic = "Wide Receivers",
+				PositionAbbr = "WR",
+				PositionCategory = Constants.K_RECEIVER_CAT
+			};
+			Options.Add( config );
+		}
 
 		private void AddRunningBackReport()
 		{
@@ -160,12 +149,11 @@ namespace RosterLib.TeamReports
 			ReportColumn.ColourDelegate theDelegate;
 			switch ( PositionAbbr )
 			{
-#if DONE
 
 				case "WR":
 					theDelegate = WrBgPicker;
 					break;
-#endif
+
 				case "QB":
 					theDelegate = QbBgPicker;
 					break;
@@ -174,17 +162,53 @@ namespace RosterLib.TeamReports
 					theDelegate = RbBgPicker;
 					break;
 
-#if DONE
+				case "TE":
+					theDelegate = TeBgPicker;
+					break;
+
 				case "PK":
 					theDelegate = PkBgPicker;
 					break;
-#endif
+
 				default:
 					theDelegate = QbBgPicker;
 					break;
 			}
 			return theDelegate;
 
+		}
+
+		private string PkBgPicker( int theValue )
+		{
+			var colourTable = new Dictionary<string, decimal>()
+			{
+				[ Constants.Colour.Bad ] = 3,
+				[ Constants.Colour.Average ] = 6,
+				[ Constants.Colour.Good ] = Decimal.MaxValue,
+			};
+			return GetColourFor( theValue, colourTable );
+		}
+
+		private string TeBgPicker( int theValue )
+		{
+			var colourTable = new Dictionary<string, decimal>()
+			{
+				[ Constants.Colour.Bad ] = 3,
+				[ Constants.Colour.Average ] = 6,
+				[ Constants.Colour.Good ] = Decimal.MaxValue,
+			};
+			return GetColourFor( theValue, colourTable );
+		}
+
+		private string WrBgPicker( int theValue )
+		{
+			var colourTable = new Dictionary<string, decimal>()
+			{
+				[ Constants.Colour.Bad ] = 8,
+				[ Constants.Colour.Average ] = 16,
+				[ Constants.Colour.Good ] = Decimal.MaxValue,
+			};
+			return GetColourFor( theValue, colourTable );
 		}
 
 		private string RbBgPicker( int theValue )
@@ -253,7 +277,7 @@ namespace RosterLib.TeamReports
 				teamRow[ "TOTAL" ] = 0;
 				var totPts = 0.0M;
 
-				for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
+				for ( var w = Int32.Parse(Week); w > 0; w-- )
 				{
 					var theWeek = $"{w:0#}";
 					var fieldName = string.Format( FieldFormat, theWeek );
@@ -291,12 +315,19 @@ namespace RosterLib.TeamReports
 				playerList = game.LoadAllFantasyAwayPlayers( PositionCategory );
 			else
 				playerList = game.LoadAllFantasyHomePlayers( PositionCategory );
-			NFLPlayer topDog = new NFLPlayer( "MONTJO01" )
+			NFLPlayer topDog = new NFLPlayer()
 			{
 				Points = 0
 			};
 			foreach ( var p in playerList )
 			{
+				if ( PositionAbbr == "TE" )
+				{
+					if ( ! p.IsTe() )
+					{
+						continue;
+					}
+				}
 				p.Points = scorer.RatePlayer( p, week );
 				if ( p.Points > topDog.Points )
 					topDog = p;

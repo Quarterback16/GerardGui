@@ -34,6 +34,7 @@ namespace RosterLib
 			str.ShowElapsedTime = false;
 			str.IsFooter = false;
 			str.AddColumn( new ReportColumn( "Method", "METHOD", "{0}", typeof( String ), false ) );
+			str.AddColumn( new ReportColumn( "Predictions", "GUESSES", "{0}", typeof( Int32 ), tally: true ) );
 			str.AddColumn( new ReportColumn( "Wins", "WINS", "{0}", typeof( Int32 ), tally: true ) );
 			str.AddColumn( new ReportColumn( "Losses", "LOSSES", "{0}", typeof( Int32 ), tally:true ) );
 			str.AddColumn( new ReportColumn( "Ties", "TIES", "{0}", typeof( Int32 ), tally: true ) );
@@ -49,6 +50,7 @@ namespace RosterLib
 			{
 				var dr = str.Body.NewRow();
 				dr["METHOD"] = tipster.Key;
+				dr[ "GUESSES" ] = tipster.Value.Total;
 				dr[ "WINS" ] = tipster.Value.Wins;
 				dr[ "LOSSES" ] = tipster.Value.Losses;
 				dr[ "TIES" ] = tipster.Value.Ties;

@@ -14,9 +14,9 @@ namespace Butler.Models
 
 		public Logger Logger { get; set; }
 
-      public bool IsNflRelated { get; set; }
+        public bool IsNflRelated { get; set; }
 
-      public IKeepTheTime TimeKeeper { get; set; }
+        public IKeepTheTime TimeKeeper { get; set; }
 
 		public Stopwatch Stopwatch { get; set; }
 

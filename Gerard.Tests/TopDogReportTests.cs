@@ -16,5 +16,18 @@ namespace Gerard.Tests
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
 		}
+
+		[TestMethod]
+		public void TestTopDogReportAll()
+		{
+			for ( int w = 1; w < 18; w++ )
+			{
+				var sut = new TopDogReport( new FakeTimeKeeper( season: "2016", week: $"{w:0#}" ) );
+				sut.RenderAsHtml();
+				Assert.IsTrue( File.Exists( sut.FileOut ) );
+				Console.WriteLine( "{0} created.", sut.FileOut );
+			}
+
+		}
 	}
 }

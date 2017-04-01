@@ -40,7 +40,7 @@ namespace RosterLib
          foreach ( DataRow dr in dt.Rows )
          {
 #if DEBUG2
-				if ( dr[ "TEAMID" ].ToString() != "DB" )
+				if ( dr[ "TEAMID" ].ToString() != "SF" )
 					continue;
 #endif
 				var t = new NflTeam( dr[ "TEAMID" ].ToString(), Season,

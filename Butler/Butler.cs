@@ -78,7 +78,12 @@ namespace Butler
 
             MyJobs = new List<Job>();
 
-            MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
+			MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
+				"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
+				"d:\\shares\\public\\dropbox\\lists\\"
+				) );
+
+			MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
             MyJobs.Add( new MediaJob() );  //  regular always
             MyJobs.Add( new LogMailerJob(new MailMan2( configReader ), new LogFileDetector(), configReader ) );  //  once daily
             MyJobs.Add( new MediaMailerJob( new MailMan2( configReader ), new MediaLogDetector(), configReader ) );  //  once daily
@@ -94,13 +99,14 @@ namespace Butler
             MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
             MyJobs.Add( new UpdateActualsJob( TimeKeeper ) );
             MyJobs.Add( new UpdateTeamActualsJob( TimeKeeper ) );
-				//TODO: MyJobs.Add( new GameSummariesJob( TimeKeeper ) );
+			MyJobs.Add( new TopDogReportJob( TimeKeeper ) );
+			MyJobs.Add( new GameSummariesJob( TimeKeeper ) );
 
-				#endregion
+			#endregion
 
-				#region  Looking forward to the upcoming games
+			#region  Looking forward to the upcoming games
 
-				MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
+			MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
             MyJobs.Add( new GeneratePlayerProjectionsJob( TimeKeeper ) );
             MyJobs.Add( new GameProjectionReportsJob( TimeKeeper ) );
             MyJobs.Add( new RookiesJob( TimeKeeper ) );
@@ -147,7 +153,7 @@ namespace Butler
               "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
               ) );
 
-            if (Passes == 0)
+				if (Passes == 0)
                ReportProgress(
                   string.Format("{0} - {1} jobs defined -Starting...",
                                  Version, MyJobs.Count), ButlerConstants.ReportInTextArea);

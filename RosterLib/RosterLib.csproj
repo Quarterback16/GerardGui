@@ -263,6 +263,7 @@
     <Compile Include="PointAfter.cs" />
     <Compile Include="PointsAllowedReport.cs" />
     <Compile Include="Prediction.cs" />
+    <Compile Include="PredictionGenerators\SpreadPredictionGenerator.cs" />
     <Compile Include="PreStyleBreakdown.cs" />
     <Compile Include="ProjectedLineup.cs" />
     <Compile Include="ProjectionMessage.cs" />
@@ -315,7 +316,6 @@
     <Compile Include="SimpleTDrPredictor.cs" />
     <Compile Include="SimpleYDcPredictor.cs" />
     <Compile Include="SimpleYDrPredictor.cs" />
-    <Compile Include="SpreadTips.cs" />
     <Compile Include="StarScorer.cs" />
     <Compile Include="Starters.cs" />
     <Compile Include="StatFactory.cs" />

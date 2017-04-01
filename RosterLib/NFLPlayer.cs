@@ -219,8 +219,10 @@ namespace RosterLib
 
       public NFLPlayer()
       {
-         LastSeason = "";
-      }
+			PlayerCode = string.Empty;
+			PlayerName = string.Empty;
+			LastSeason = string.Empty;
+		}
 
       #endregion
 

@@ -12,7 +12,7 @@ namespace Gerard.Tests
       public void TestReport()
       {
          var sut = new GoallineReport();
-         sut.Season = "2016";
+         sut.Season = "2014";
          //sut.Week = "13";
          sut.Render();
          Assert.IsTrue( File.Exists( sut.FileOut ) );

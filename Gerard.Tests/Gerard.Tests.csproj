@@ -73,6 +73,7 @@
     <Compile Include="GameProjectionReportsJobTests.cs" />
     <Compile Include="GameProjectionsReportTests.cs" />
     <Compile Include="GameProjectionTests.cs" />
+    <Compile Include="GameSummariesJobTests.cs" />
     <Compile Include="GameSummaryTests.cs" />
     <Compile Include="GeneratePlayerProjectionsTests.cs" />
     <Compile Include="GoallineReportTests.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ScoreTallyTests.cs" />
     <Compile Include="SeasonProjectionTests.cs" />
     <Compile Include="SeasonSchedulerTests.cs" />
+    <Compile Include="SpreadPredictionGeneratorTests.cs" />
     <Compile Include="StarterJobTests.cs" />
     <Compile Include="StatGridTests.cs" />
     <Compile Include="StrengthOfScheduleTests.cs" />
@@ -132,6 +134,9 @@
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />
     <Compile Include="TimeKeeperTests.cs" />
+    <Compile Include="TippingCompJobTests.cs" />
+    <Compile Include="TippingControllerTests.cs" />
+    <Compile Include="TopDogReportJobTests.cs" />
     <Compile Include="TopDogReportTests.cs" />
     <Compile Include="TouchdownTests.cs" />
     <Compile Include="UnitPredictorTests.cs" />
