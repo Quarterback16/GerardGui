@@ -1,7 +1,6 @@
 ﻿using RosterLib.Interfaces;
 using RosterLib;
 using System;
-using Butler.Implementations;
 using RosterLib.Helpers;
 
 namespace Butler.Models
@@ -15,7 +14,7 @@ namespace Butler.Models
       public GameProjectionsJob(IKeepTheTime timeKeeper)
       {
          Name = "Game Projections";
-         var week = string.Format( "{0:00}", timeKeeper.CurrentWeek( DateTime.Now ) );
+         var week = $"{timeKeeper.CurrentWeek( DateTime.Now ):00}";
          Report = new SeasonProjectionReport( timeKeeper.CurrentSeason( DateTime.Now ), week );
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
@@ -25,7 +24,6 @@ namespace Butler.Models
 
       public override string DoJob()
       {
-         // pre-req
          var preJob = new RankingsJob( TimeKeeper, force: true );
          var outcome = preJob.Execute();
          Logger.Info("Rankings {0}", outcome );

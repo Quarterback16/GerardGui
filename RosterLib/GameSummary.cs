@@ -12,7 +12,7 @@ namespace RosterLib
 	{
 		public NFLGame Game { get; set; }
 
-      public GameSummary( NFLGame game )
+		public GameSummary( NFLGame game )
 		{
 			SummariseGame( game );
 		}
@@ -40,72 +40,72 @@ namespace RosterLib
 		}
 
 		public void Render()
-      {
-         var str = new SimpleTableReport( "Game Summary " + Game.ScoreOut() );
-         str.AddDenisStyle();
-         str.SubHeader = SubHeading();
-         str.AnnounceIt = true;
-         str.AddColumn( new ReportColumn( "C1", "COL01", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C2", "COL02", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C3", "COL03", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C4", "COL04", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C5", "COL05", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C6", "COL06", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C7", "COL07", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C8", "COL08", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C9", "COL09", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C10", "COL10", "{0}" ) );
-         str.AddColumn( new ReportColumn( "C11", "COL11", "{0}" ) );
+		{
+			var str = new SimpleTableReport( "Game Summary " + Game.ScoreOut() );
+			str.AddDenisStyle();
+			str.SubHeader = SubHeading();
+			str.AnnounceIt = true;
+			str.AddColumn( new ReportColumn( "C1", "COL01", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C2", "COL02", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C3", "COL03", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C4", "COL04", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C5", "COL05", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C6", "COL06", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C7", "COL07", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C8", "COL08", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C9", "COL09", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C10", "COL10", "{0}" ) );
+			str.AddColumn( new ReportColumn( "C11", "COL11", "{0}" ) );
 
-         str.CustomHeader = SummaryHeader();
+			str.CustomHeader = SummaryHeader();
 
-         str.LoadBody( BuildTable() );
-         GenerateFootNote( str );
-         str.RenderAsHtml( FileName(), persist: true );
-      }
+			str.LoadBody( BuildTable() );
+			GenerateFootNote( str );
+			str.RenderAsHtml( FileName(), persist: true );
+		}
 
-      private void GenerateFootNote( SimpleTableReport str )
-      {
-         str.FootNote = DumpFantasyPlayers() + DumpPlayerGameMetrics() + DumpLineups();
-      }
+		private void GenerateFootNote( SimpleTableReport str )
+		{
+			str.FootNote = DumpFantasyPlayers() + DumpPlayerGameMetrics() + DumpLineups();
+		}
 
-      private string DumpFantasyPlayers()
-      {
-         var sb = new StringBuilder();
-         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
-         sb.Append( HtmlLib.TableRowOpen() );
-         sb.Append( HtmlLib.TableData( Game.DumpFantasyPlayersAsHtml( "Home Fantasy Players", Game.HomeTeam ) ) );
-         sb.Append( HtmlLib.TableData( Game.DumpFantasyPlayersAsHtml( "Away Fantasy Players", Game.AwayTeam ) ) );
-         sb.Append( HtmlLib.TableRowClose() );
-         sb.Append( HtmlLib.TableClose() );
-         return sb.ToString();
-      }
+		private string DumpFantasyPlayers()
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+			sb.Append( HtmlLib.TableRowOpen() );
+			sb.Append( HtmlLib.TableData( Game.DumpFantasyPlayersAsHtml( "Home Fantasy Players", Game.HomeTeam ) ) );
+			sb.Append( HtmlLib.TableData( Game.DumpFantasyPlayersAsHtml( "Away Fantasy Players", Game.AwayTeam ) ) );
+			sb.Append( HtmlLib.TableRowClose() );
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
 
-      private string DumpPlayerGameMetrics()
-      {
-         var sb = new StringBuilder();
-         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
-         sb.Append( HtmlLib.TableRowOpen() );
-         sb.Append( HtmlLib.TableData( Game.DumpPgmsAsHtml( "Home PGMs", Game.HomeTeam ) ) );
-         sb.Append( HtmlLib.TableData( Game.DumpPgmsAsHtml( "Away PGMS", Game.AwayTeam ) ) );
-         sb.Append( HtmlLib.TableRowClose() );
-         sb.Append( HtmlLib.TableClose() );
-         return sb.ToString();
-      }
+		private string DumpPlayerGameMetrics()
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+			sb.Append( HtmlLib.TableRowOpen() );
+			sb.Append( HtmlLib.TableData( Game.DumpPgmsAsHtml( "Home PGMs", Game.HomeTeam ) ) );
+			sb.Append( HtmlLib.TableData( Game.DumpPgmsAsHtml( "Away PGMS", Game.AwayTeam ) ) );
+			sb.Append( HtmlLib.TableRowClose() );
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
 
-      private string DumpLineups()
-      {
-         var sb = new StringBuilder();
-         sb.Append( HtmlLib.TableOpen( "border='0'" ) );
-         sb.Append( HtmlLib.TableRowOpen() );
-         sb.Append( HtmlLib.TableData( Game.HomeLineup.DumpAsHtml( "Home Lineup" ) ) );
-         sb.Append( HtmlLib.TableData( Game.AwayLineup.DumpAsHtml( "Away Lineup" ) ) );
-         sb.Append( HtmlLib.TableRowClose() );
-         sb.Append( HtmlLib.TableClose() );
-         return sb.ToString();
-      }
+		private string DumpLineups()
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+			sb.Append( HtmlLib.TableRowOpen() );
+			sb.Append( HtmlLib.TableData( Game.HomeLineup.DumpAsHtml( "Home Lineup" ) ) );
+			sb.Append( HtmlLib.TableData( Game.AwayLineup.DumpAsHtml( "Away Lineup" ) ) );
+			sb.Append( HtmlLib.TableRowClose() );
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
 
-      private static string SummaryHeader()
+		private static string SummaryHeader()
 		{
 			var htmlOut =
 				HtmlLib.TableRowOpen() + "\n\t\t"
@@ -120,17 +120,17 @@ namespace RosterLib
 		{
 			var dt = new DataTable();
 			var cols = dt.Columns;
-			cols.Add( "COL01", typeof (String) );
-			cols.Add( "COL02", typeof (String) );
-			cols.Add( "COL03", typeof (String) );
-			cols.Add( "COL04", typeof (String) );
-			cols.Add( "COL05", typeof (String) );
-			cols.Add( "COL06", typeof (String) );
-			cols.Add( "COL07", typeof (String) );
-			cols.Add( "COL08", typeof (String) );
-			cols.Add( "COL09", typeof (String) );
-			cols.Add( "COL10", typeof (String) );
-			cols.Add( "COL11", typeof (String) );
+			cols.Add( "COL01", typeof( String ) );
+			cols.Add( "COL02", typeof( String ) );
+			cols.Add( "COL03", typeof( String ) );
+			cols.Add( "COL04", typeof( String ) );
+			cols.Add( "COL05", typeof( String ) );
+			cols.Add( "COL06", typeof( String ) );
+			cols.Add( "COL07", typeof( String ) );
+			cols.Add( "COL08", typeof( String ) );
+			cols.Add( "COL09", typeof( String ) );
+			cols.Add( "COL10", typeof( String ) );
+			cols.Add( "COL11", typeof( String ) );
 
 			AddTDrRow( dt );
 			AddTDpRow( dt );
@@ -157,39 +157,39 @@ namespace RosterLib
 			dr[ "COL05" ] = Output( Game.AwayRb1.CurrentGameMetrics.TDr, "TDr" );
 			dr[ "COL06" ] = "RB";
 			dr[ "COL07" ] = Game.HomeRb1.PlayerName;
-			dr[ "COL08" ] = Output(Game.HomeRb1.CurrentGameMetrics.YDp, "YDp");
-			dr[ "COL09" ] = Output(Game.HomeRb1.CurrentGameMetrics.TDp, "TDp");
-			dr[ "COL10" ] = Output(Game.HomeRb1.CurrentGameMetrics.YDr, "YDr");
-			dr[ "COL11" ] = Output(Game.HomeRb1.CurrentGameMetrics.TDr, "TDr");
+			dr[ "COL08" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDp, "YDp" );
+			dr[ "COL09" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDp, "TDp" );
+			dr[ "COL10" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDr, "YDr" );
+			dr[ "COL11" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDr, "TDr" );
 			dt.Rows.Add( dr );
 		}
 
-      private string Output( int qty, string ofWhat )
-      {
-         var what = string.Empty;
-         if ( qty > 0 )
-            what = $"{qty} {ofWhat}";
-         return what;
-      }
+		private string Output( int qty, string ofWhat )
+		{
+			var what = string.Empty;
+			if ( qty > 0 )
+				what = $"{qty} {ofWhat}";
+			return what;
+		}
 
-      private void AddQB1Row( DataTable dt )
+		private void AddQB1Row( DataTable dt )
 		{
 			var dr = dt.NewRow();
 			dr[ "COL01" ] = Game.AwayQb1.PlayerName;
 			dr[ "COL02" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDp, "YDp" );
-			dr[ "COL03" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDp, "TDp");
-			dr[ "COL04" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDr, "YDr");
-			dr[ "COL05" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDr, "TDr");
+			dr[ "COL03" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDp, "TDp" );
+			dr[ "COL04" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDr, "YDr" );
+			dr[ "COL05" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDr, "TDr" );
 			dr[ "COL06" ] = "QB";
 			dr[ "COL07" ] = Game.HomeQb1.PlayerName;
-			dr[ "COL08" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDp, "YDp");
-			dr[ "COL09" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDp, "TDp");
-			dr[ "COL10" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDr, "YDr");
-			dr[ "COL11" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDr, "TDr");
+			dr[ "COL08" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDp, "YDp" );
+			dr[ "COL09" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDp, "TDp" );
+			dr[ "COL10" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDr, "YDr" );
+			dr[ "COL11" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDr, "TDr" );
 			dt.Rows.Add( dr );
 		}
 
-      private void AddYDpRow( DataTable dt )
+		private void AddYDpRow( DataTable dt )
 		{
 			var dr = dt.NewRow();
 			dr[ "COL04" ] = Game.AwayYDp;
@@ -255,20 +255,20 @@ namespace RosterLib
 		private string SubHeading()
 		{
 			var header = Legend();
-			var div = HtmlLib.DivOpen( "id=\"main\"" ) 
-            + GameData() + EndDiv() + HtmlLib.DivClose();
+			var div = HtmlLib.DivOpen( "id=\"main\"" )
+			+ GameData() + EndDiv() + HtmlLib.DivClose();
 			var gameDataHtml = string.Format( "{0}{1}\n", header, div );
 			var html = gameDataHtml + PredictionHtml();
 			return html;
 		}
 
-		#region Team prediction 
+		#region Team prediction
 
 		private string PredictionHtml()
 		{
-			var prediction = Game.GetPrediction("unit");
+			var prediction = Game.GetPrediction( "unit" );
 			var sb = new StringBuilder();
-			sb.Append( HtmlLib.TableOpen("border='1'") );
+			sb.Append( HtmlLib.TableOpen( "border='1'" ) );
 			sb.Append( PredictionHtmlHeader() );
 
 			sb.Append( AwayLine( prediction ) );
@@ -303,7 +303,7 @@ namespace RosterLib
 			var sb = new StringBuilder();
 			sb.Append( HtmlLib.TableRowOpen() );
 			sb.Append( HtmlLib.TableData( Game.HomeTeam ) );
-			sb.Append( HtmlLib.TableData( ScoreOut( prediction.HomeScore, Game.HomeScore) ) );
+			sb.Append( HtmlLib.TableData( ScoreOut( prediction.HomeScore, Game.HomeScore ) ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.HomeTDp, Game.HomeTDp ) ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.HomeTDr, Game.HomeTDr ) ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.HomeFg, Game.HomeFg ) ) );
@@ -313,11 +313,11 @@ namespace RosterLib
 			return sb.ToString();
 		}
 
-		private string AwayLine(NFLResult prediction)
+		private string AwayLine( NFLResult prediction )
 		{
 			var sb = new StringBuilder();
 			sb.Append( HtmlLib.TableRowOpen() );
-			sb.Append( HtmlLib.TableData( Game.AwayTeam) );
+			sb.Append( HtmlLib.TableData( Game.AwayTeam ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.AwayScore, Game.AwayScore ) ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.AwayTDp, Game.AwayTDp ) ) );
 			sb.Append( HtmlLib.TableData( ScoreOut( prediction.AwayTDr, Game.AwayTDr ) ) );
@@ -335,7 +335,7 @@ namespace RosterLib
 			sb.Append( HtmlLib.TableHeaderClose() );
 		}
 
-		#endregion
+		#endregion Team prediction
 
 		private string Legend()
 		{
@@ -363,8 +363,8 @@ namespace RosterLib
 
 		private static string DataOut( string label, string val )
 		{
-         var labelToken = string.Format( "<label>{0}:</label> <value>{1,8}</value>", label, val );
-         return labelToken;
+			var labelToken = string.Format( "<label>{0}:</label> <value>{1,8}</value>", label, val );
+			return labelToken;
 		}
 	}
 }

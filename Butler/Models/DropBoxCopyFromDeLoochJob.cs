@@ -1,5 +1,4 @@
 ﻿using RosterLib;
-using System;
 using RosterLib.Interfaces;
 
 namespace Butler.Models
@@ -37,13 +36,12 @@ namespace Butler.Models
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
-
 			base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				whyNot = "";
 			}
-			if ( ! TimeKeeper.IsItPeakTime()  )
+			if ( !TimeKeeper.IsItPeakTime() )
 			{
 				whyNot = "This job only runs in peak time (needs Delooch)";
 			}
@@ -51,6 +49,5 @@ namespace Butler.Models
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 			return ( string.IsNullOrEmpty( whyNot ) );
 		}
-
 	}
 }

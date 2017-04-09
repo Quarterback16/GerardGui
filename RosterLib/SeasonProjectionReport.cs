@@ -14,20 +14,20 @@ namespace RosterLib
 			// push initialisation out of construtor
 		}
 
-      public SeasonProjectionReport( string season, string week )
-      {
-         Season = season;
-         Week = week;
-      }
+		public SeasonProjectionReport( string season, string week )
+		{
+			Season = season;
+			Week = week;
+		}
 
 		public override void RenderAsHtml()
 		{
 			Name = "Season Projections";
-			RosterReport = new NFLRosterReport(Season);
+			RosterReport = new NFLRosterReport( Season );
 			MetricName = "Spread";
 			RosterReport.SeasonProjection( MetricName, Season, Week, DateTime.Now );
-         SetLastRunDate();
-      }
+			SetLastRunDate();
+		}
 
 		public override string OutputFilename()
 		{
