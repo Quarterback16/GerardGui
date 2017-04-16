@@ -11,8 +11,8 @@ namespace RosterLib
       public string RootFolder { get; set; }
       public IBreakdown TeamBreakdowns { get; set; }
 
-      public PointsAllowedReport( IKeepTheTime timekeeper )
-      {
+      public PointsAllowedReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
          Week = timekeeper.Week;
          if ( timekeeper.IsItPostSeason() )
          {

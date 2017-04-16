@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -12,7 +13,7 @@ namespace RosterLib
 
 		public bool DoPlayerReports { get; set; }
 
-		public TeamCards( bool doPlayerReports )
+		public TeamCards( IKeepTheTime timekeeper, bool doPlayerReports ) : base( timekeeper )
 		{
 			Name = "Team Cards";
 		   DoPlayerReports = doPlayerReports;

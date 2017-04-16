@@ -17,13 +17,8 @@ namespace RosterLib
 
       public List<String> Aces { get; set; }
 
-      public RoleAssignmentReport()
-      {
-         Initialise();
-      }
-
-      public RoleAssignmentReport(IKeepTheTime timekeeper)
-      {
+      public RoleAssignmentReport(IKeepTheTime timekeeper) : base( timekeeper )
+		{
          Initialise(timekeeper);
       }
 
@@ -45,8 +40,8 @@ namespace RosterLib
          if (Logger == null) Logger = LogManager.GetCurrentClassLogger();
       }
 
-      public RoleAssignmentReport( string singleTeamCode, IKeepTheTime timeKeeper )
-      {
+      public RoleAssignmentReport( string singleTeamCode, IKeepTheTime timeKeeper ) : base( timeKeeper )
+		{
          SingleTeam = singleTeamCode;
          Initialise(timeKeeper);
       }

@@ -11,7 +11,7 @@ namespace RosterLib
 
       public YahooScorer Scorer { get; set; }
 
-      public FantasyReport(IKeepTheTime timekeeper) : base()
+      public FantasyReport(IKeepTheTime timekeeper) : base( timekeeper )
       {
          Name = "Fantasy Report";
          Week = timekeeper.PreviousWeek();

@@ -38,7 +38,7 @@ namespace RosterLib
 		public MetricsBase( IBreakdown breakdowns )
 		{
 			_tflWs = Utility.TflWs;
-			Season = SeasonBoss.CurrentSeason();
+			Season = Utility.CurrentSeason();
 			TeamList = new ArrayList();
 			Breakdowns = breakdowns;
 		}	

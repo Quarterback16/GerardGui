@@ -50,7 +50,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestFaMarketGetTeams()
       {
-         var sut = new FaMarket();
+         var sut = new FaMarket(new FakeTimeKeeper(season:"2017") );
          Assert.IsTrue(sut.GetTeams().Rows.Count > 0);
       }
 
@@ -163,7 +163,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestStatGrids()
       {
-         var sut = new StatGrids("2013");
+         var sut = new StatGrids( new FakeTimeKeeper( season: "2013", week: "01" ) );
          sut.RenderAsHtml();
          sut.DumpXml();
          var fileOut = sut.OutputFilename();
@@ -173,13 +173,11 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestFpProjections()
       {
-         var sut = new FpProjections();
+         var sut = new FpProjections( new FakeTimeKeeper( season: "2017" ) );
          sut.RenderAsHtml();
          var fileOut = sut.OutputFilename();
          Assert.IsTrue(File.Exists(fileOut));
       }
-
-
 
       [TestMethod]
       public void TestProjectionKaepernick()

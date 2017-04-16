@@ -10,8 +10,7 @@ namespace Butler.Models
       public TeamCardsJob(IKeepTheTime keeper)
       {
          Name = "Team Cards";
-         TimeKeeper = keeper;
-         Report = new TeamCards(false);
+         Report = new TeamCards(keeper, doPlayerReports:false);
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
       }

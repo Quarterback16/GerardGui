@@ -12,7 +12,7 @@ namespace Gerard.Tests
 		public void TestWeeklyProjection()
 		{
 			var w = new NFLWeek( "2014", "06" ); 
-			var sut = new PlayerProjectionGenerator(null);
+			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2014", week: "06" ), null);
 			var nGames = 0;
 			for ( var i = 0; i < w.GameList().Count; i++ )
 			{
@@ -27,7 +27,7 @@ namespace Gerard.Tests
 		public void TestProjectionOneGame()
 		{
 			var g = new NFLGame("2015:01-C");
-			var sut = new PlayerProjectionGenerator(null);
+			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2015", week: "01" ), null);
 			sut.Execute(g);
 			Assert.IsNotNull(sut);
 		}

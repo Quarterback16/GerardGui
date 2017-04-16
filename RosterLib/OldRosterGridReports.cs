@@ -13,7 +13,7 @@ namespace RosterLib
 		public List<RosterGridConfig> Configs { get; set; }
 		public List<RosterGridLeague> Leagues { get; set; }
 
-		public OldRosterGridReports( IKeepTheTime timekeeper )
+		public OldRosterGridReports(IKeepTheTime timekeeper) : base( timekeeper )
 		{
 			Name = "Old Roster Grids";
 			RosterGrid = new NFLRosterGrid

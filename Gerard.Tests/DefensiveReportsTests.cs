@@ -22,7 +22,7 @@ namespace Gerard.Tests
       public void TestDefensivePatsyReport()
       {
          var week = Utility.CurrentNFLWeek();
-         var ds = new DefensiveScorer();
+         var ds = new DefensiveScorer( new FakeTimeKeeper( season: "2017" ) );
          ds.RenderTeamToDefendAgainst( week );
          Assert.IsTrue( File.Exists( ds.FileOut ), string.Format( "Cannot find {0}", ds.FileOut ) );
       }
@@ -32,7 +32,7 @@ namespace Gerard.Tests
       {
          //  Lists the best Fantasy defence in the last season
          var week = new NFLWeek( "2015", "01" );
-         var ds = new DefensiveScorer();
+         var ds = new DefensiveScorer( new FakeTimeKeeper( season: "2015" ) );
          ds.RenderDefensiveScoringReport( week );
          Assert.IsTrue( File.Exists( ds.FileOut ), string.Format( "Cannot find {0}", ds.FileOut ) );
       }

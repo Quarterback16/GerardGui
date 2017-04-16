@@ -12,9 +12,7 @@ namespace Butler.Models
       {
          Name = "Record Actual Metrics";
          Console.WriteLine("Constructing {0} ...", Name);
-         var season = timeKeeper.CurrentSeason( DateTime.Now );
-         var week = string.Format( "{0:00}", timeKeeper.CurrentWeek(DateTime.Now) );
-         Report = new RecordOfActualMetricsReport( season, week );
+         Report = new RecordOfActualMetricsReport( timeKeeper );
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

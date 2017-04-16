@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -8,8 +9,8 @@ namespace RosterLib
 
       public StatGrid StatGrid { get; set; }
 
-      public StatGrids()
-      {
+      public StatGrids( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
          Name = "Stat Grids";
          Configure();
       }
@@ -32,12 +33,6 @@ namespace RosterLib
                new StatGridConfig {Season = Season, StatType = "INTs"},
                new StatGridConfig {Season = Season, StatType = "INTsThrown"}
             };
-      }
-
-      public StatGrids( string season )
-      {
-         Season = season;
-         Configure();
       }
 
       public override void RenderAsHtml()

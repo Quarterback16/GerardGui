@@ -13,20 +13,11 @@ namespace RosterLib
 
       public ArrayList TeamList { get; set; }
 
-      
-        //  default constructor looks at last year
-
-
-      public BalanceReport(IKeepTheTime tk )
+      public BalanceReport(IKeepTheTime tk ) : base( tk)
       {
          TimeKeeper = tk;
          Season = TimeKeeper.PreviousSeason();
       }
-
-		public BalanceReport( string season )
-		{
-			Season = season;
-		}
 
 		public override string OutputFilename()
 		{

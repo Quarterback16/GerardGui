@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,10 @@ namespace RosterLib
 {
    public class GoallineReport : RosterGridReport, IHtmlReport
 	{
+		public GoallineReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
+
+		}
 		public Dictionary<string, NflTeam> TeamList { get; set; }
 
 		public string Week { get; set; }

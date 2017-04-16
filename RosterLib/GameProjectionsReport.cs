@@ -6,8 +6,8 @@ namespace RosterLib
    {
       public NflSeason NflSeason { get; private set; }
 
-      public GameProjectionsReport(IKeepTheTime timekeeper)
-      {
+      public GameProjectionsReport(IKeepTheTime timekeeper) : base( timekeeper )
+		{
          Name = "Game Projections Report";
          TimeKeeper = timekeeper;
       }

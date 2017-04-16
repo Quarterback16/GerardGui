@@ -37,7 +37,7 @@ namespace Gerard.Tests
          foreach (var t in s.TeamList)
          {
             var isError = false;
-            var sut = new DepthChartReport( theSeason, t.TeamCode );
+            var sut = new DepthChartReport( new FakeTimeKeeper( season: theSeason ), t.TeamCode );
             sut.Execute();
             if (sut.HasIntegrityError())
             {
@@ -78,7 +78,7 @@ namespace Gerard.Tests
       {
          const string teamCode = "NE";
          var t = new NflTeam(teamCode);
-         var sut = new DepthChartReport("2015", teamCode);
+         var sut = new DepthChartReport( new FakeTimeKeeper( season: "2015" ), teamCode );
          sut.Execute();
          var isError = false;
          if (sut.HasIntegrityError())
@@ -107,14 +107,17 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDepthChartConstructor()
       {
-         var sut = new DepthChartReport();
+         var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ) );
          Assert.IsNotNull(sut);
       }
 
       [TestMethod]
       public void TestDepthChartLoadsStarters()
       {
-         var sut = new DepthChartReport("2016", "SF") {LeagueInFocus = "YH"};
+         var sut = new DepthChartReport( new FakeTimeKeeper( season: "2016" ), "SF" )
+		 {
+			 LeagueInFocus = "YH"
+		 };
          sut.Execute();
          Assert.IsTrue(sut.PlayerCount > 0);
       }
@@ -131,7 +134,7 @@ namespace Gerard.Tests
       public void TestMoranNorrisIsNotStarter()
       {
          var role = "?";
-         var sut = new DepthChartReport("2016", "SF");
+         var sut = new DepthChartReport( new FakeTimeKeeper( season: "2016" ), "SF" );
          sut.Execute();
          foreach (var p in sut.NflTeam.PlayerList)
          {

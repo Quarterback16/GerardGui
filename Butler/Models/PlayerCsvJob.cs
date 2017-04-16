@@ -12,7 +12,10 @@ namespace Butler.Models
       {
          Name = "Players CSV";
          TimeKeeper = timeKeeper;
-         var rpt = new PlayerCsv {DoProjections = true};
+         var rpt = new PlayerCsv(timeKeeper)
+		 {
+			 DoProjections = true}
+		 ;
          Report = rpt;
          IsNflRelated = true;
          Logger = LogManager.GetCurrentClassLogger();

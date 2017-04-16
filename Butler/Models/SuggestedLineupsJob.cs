@@ -11,7 +11,7 @@ namespace Butler.Models
       public SuggestedLineupsJob(IKeepTheTime timekeeper)
       {
          Name = "Suggested Lineups";
-         Report = new SuggestedLineup();
+         Report = new SuggestedLineup( timekeeper );
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

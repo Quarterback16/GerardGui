@@ -10,7 +10,7 @@ namespace Butler.Models
       public HotListsJob(IKeepTheTime timekeeper)
       {
          Name = "Hot Lists";
-         Report = new HotListReporter();
+         Report = new HotListReporter( timekeeper );
          TimeKeeper = timekeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

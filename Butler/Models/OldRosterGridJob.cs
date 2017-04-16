@@ -11,7 +11,7 @@ namespace Butler.Models
 		{
 			Name = "Old Roster Grid";
 			TimeKeeper = timeKeeper;
-			Report = new OldRosterGridReports( TimeKeeper );
+			Report = new OldRosterGridReports(timeKeeper);
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 		}

@@ -10,7 +10,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPredictedOutput()
 		{
-			var sut = new ScoreTally( "2015", "All Teams", true );
+			var sut = new ScoreTally( new FakeTimeKeeper( season: "2017" ), "All Teams", true );
 			sut.Render();
 			var fileOut = sut.FileName();
 			Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );
@@ -19,7 +19,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestActualOutput()
 		{
-			var sut = new ScoreTally( "2014", "Actuals", usingPredictions: false )
+			var sut = new ScoreTally( new FakeTimeKeeper( season: "2017" ), "Actuals", usingPredictions: false )
 			{
 				ForceRefresh = false
 			};

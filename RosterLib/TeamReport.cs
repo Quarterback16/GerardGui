@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Collections;
+using RosterLib.Interfaces;
 
 namespace RosterLib
 {
@@ -15,8 +16,8 @@ namespace RosterLib
 
       public DataTable Data { get; set; }
 
-      public TeamReport() : base()
-      {
+      public TeamReport( IKeepTheTime timekeeper ) : base( timekeeper )
+	  {
          LoadTeams();
       }
 

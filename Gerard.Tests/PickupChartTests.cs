@@ -61,7 +61,7 @@ namespace Gerard.Tests
       [TestMethod]
 		public void TestActualOutput()
 		{
-			var sut = new PickupChart(season: "2015", week: 12);
+			var sut = new PickupChart( new FakeTimeKeeper( season: "2015"), week: 12);
 			var p = new NFLPlayer("STAFMA01");
 			var g = new NFLGame("2015:12-A");
 			var result = sut.ActualOutput(g, p);
@@ -98,7 +98,7 @@ namespace Gerard.Tests
       public void TestJamalCharlesWeek1_2016()
       {
          var c = new YahooCalculator();
-         var sut = new PickupChart( season: "2016", week: 1 );
+         var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week: 1 );
          var p = new NFLPlayer( "CHARJA01" );
          var g = new NFLGame( "2016:01-G" );
          var result = sut.PlayerPiece( p, g, c );
@@ -202,7 +202,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestW2Bit()
       {
-         var sut = new PickupChart( season:"2016", week:15 );
+         var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week:15 );
          var g = new NFLGame( "2016:15-M" );
          var team = new Winner
          {
@@ -221,7 +221,7 @@ namespace Gerard.Tests
       public void TestAjayiWeek16_2016()
       {
          var c = new YahooCalculator();
-         var sut = new PickupChart( season: "2016", week: 16 );
+         var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week: 16 );
          var p = new NFLPlayer( "AJAYJA01" );
          var g = new NFLGame( "2016:16-B" );
          var result = sut.PlayerPiece( p, g, c );

@@ -13,8 +13,8 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public PerformanceReportGenerator(IKeepTheTime timekeeper)
-      {
+      public PerformanceReportGenerator(IKeepTheTime timekeeper) : base( timekeeper )
+		{
          Logger = LogManager.GetCurrentClassLogger();
          Name = "Fantasy Performance Reports";
          Lister = new PlayerLister( timekeeper ) {

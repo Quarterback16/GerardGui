@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -20,8 +21,8 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public HotListReporter()
-      {
+      public HotListReporter( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
          WeekMaster = new WeekMaster();
          Name = "Hot Lists";
          Configs = new List<HotListConfig>();

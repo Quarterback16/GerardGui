@@ -4,51 +4,50 @@ using System.Text;
 
 namespace RosterLib.RosterGridReports
 {
+	public class PlayoffTeamsReport : RosterGridReport
+	{
+		public SimplePreReport Report { get; set; }
 
-   public class PlayoffTeamsReport : RosterGridReport
-   {
-      public SimplePreReport Report { get; set; }
+		public int Week { get; set; }
 
-      public int Week { get; set; }
+		public PlayoffTeamsReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
+			Report = new SimplePreReport
+			{
+				ReportType = "Playoff Teams",
+				Folder = "Playoffs",
+				Season = timekeeper.Season,
+				InstanceName = string.Format( "Playoff-Week-{0:0#}", timekeeper.Week )
+			};
+		}
 
-      public PlayoffTeamsReport( IKeepTheTime timekeeper )
-      {
-         Report = new SimplePreReport
-         {
-            ReportType = "Playoff Teams",
-            Folder = "Playoffs",
-            Season = timekeeper.Season,
-            InstanceName = string.Format( "Playoff-Week-{0:0#}", timekeeper.Week )
-         };
-      }
+		public override void RenderAsHtml()
+		{
+			Report.Body = GenerateBody();
+			Report.RenderHtml();
+			FileOut = Report.FileOut;
+		}
 
-      public override void RenderAsHtml()
-      {
-         Report.Body = GenerateBody();
-         Report.RenderHtml();
-         FileOut = Report.FileOut;
-      }
+		private string GenerateBody()
+		{
+			var bodyOut = new StringBuilder();
 
-      private string GenerateBody()
-      {
-         var bodyOut = new StringBuilder();
+			var ds = Utility.TflWs.GetTeams( Utility.CurrentSeason() );
+			var dt = ds.Tables[ 0 ];
+			foreach ( DataRow dr in dt.Rows )
+			{
+				var theKey = dr[ "TEAMID" ].ToString();
+				var team = new NflTeam( theKey );
+				var inPlayoffs = false;
+				if ( team.Above500() )
+				{
+					bodyOut.AppendLine( string.Format( "{0,-25} {1}", team.NameOut(), team.RecordOut() ) );
+					inPlayoffs = true;
+				}
+				Utility.TflWs.UpdatePlayoff( team.Season, team.TeamCode, inPlayoffs );
+			}
 
-         var ds = Utility.TflWs.GetTeams(Utility.CurrentSeason());
-         var dt = ds.Tables[0];
-         foreach (DataRow dr in dt.Rows)
-         {
-            var theKey = dr["TEAMID"].ToString();
-            var team = new NflTeam(theKey);
-            var inPlayoffs = false;
-            if (team.Above500())
-            {
-               bodyOut.AppendLine(string.Format("{0,-25} {1}", team.NameOut(), team.RecordOut()));
-               inPlayoffs = true;
-            }
-            Utility.TflWs.UpdatePlayoff(team.Season, team.TeamCode, inPlayoffs);
-         }
-
-         return bodyOut.ToString();
-      }
-   }
+			return bodyOut.ToString();
+		}
+	}
 }

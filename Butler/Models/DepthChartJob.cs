@@ -11,7 +11,7 @@ namespace Butler.Models
       public DepthChartJob( IKeepTheTime timekeeper )
       {
          Name = "Depth Charts";
-         Report = new DepthChartReport(timekeeper.CurrentSeason());
+         Report = new DepthChartReport(timekeeper);
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

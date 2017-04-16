@@ -300,7 +300,6 @@
     <Compile Include="ScoreFactory.cs" />
     <Compile Include="ScoresReport.cs" />
     <Compile Include="ScoreTally.cs" />
-    <Compile Include="SeasonBoss.cs" />
     <Compile Include="SeasonMaster.cs" />
     <Compile Include="SeasonOpponent.cs" />
     <Compile Include="SeasonProjectionReport.cs" />

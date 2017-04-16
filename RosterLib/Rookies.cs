@@ -1,4 +1,5 @@
-﻿using RosterLib.ReportGenerators;
+﻿using RosterLib.Interfaces;
+using RosterLib.ReportGenerators;
 using System.Collections.Generic;
 
 namespace RosterLib
@@ -13,8 +14,8 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public Rookies()
-      {
+      public Rookies( IKeepTheTime timekeeper ) : base( timekeeper )
+	  {
          Name = "Rookies";
          SetLastRunDate();
 

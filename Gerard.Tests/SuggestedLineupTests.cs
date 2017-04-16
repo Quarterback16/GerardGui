@@ -23,8 +23,12 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_PerfectChallenge,
                                        Constants.KOwnerSteveColonna, "CC",
-                                       Utility.CurrentSeason(),
-                                       1 ) { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
+									   new FakeTimeKeeper( season: "2017", week: "01" ) )
+		 {
+			 IncludeSpread = true,
+			 IncludeRatingModifier = true,
+			 IncludeFreeAgents = true
+		 };
          r2.Render();
          Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
       }
@@ -34,8 +38,8 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_PerfectChallenge,
                                        Constants.KOwnerSteveColonna, "CC",
-                                       "2011",
-                                       1 ) { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
+									   new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
          r2.Render();
          Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
       }
@@ -45,8 +49,8 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Gridstats_NFL1,
                                        Constants.KOwnerSteveColonna, "CC",
-                                       Utility.CurrentSeason(),
-                                       1 ) { IncludeSpread = false, IncludeRatingModifier = false };
+									   new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 { IncludeSpread = false, IncludeRatingModifier = false };
          r2.Render();
          Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
       }
@@ -57,9 +61,8 @@ namespace Gerard.Tests
          //  including free agents will cause a timeout
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
                                        Constants.KOwnerSteveColonna, "BB",
-                                       Utility.CurrentSeason(),
-                                       1 )
-         {
+									   new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 {
             IncludeSpread = true,
             IncludeRatingModifier = true,
             IncludeFreeAgents = false
@@ -72,9 +75,8 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
                                        Constants.KOwnerSteveColonna, "BB",
-                                       Utility.CurrentSeason(),
-                                       2 )
-         {
+									   new FakeTimeKeeper( season: "2011", week: "02" ) )
+		 {
             IncludeSpread = true,
             IncludeRatingModifier = true,
             IncludeFreeAgents = true
@@ -90,8 +92,8 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
                                        Constants.KOwnerSteveColonna, "BB",
-                                       Utility.CurrentSeason(), week: 2 )
-         {
+									   new FakeTimeKeeper( season: "2011", week: "02" ) )
+		 {
             IncludeSpread = true,
             IncludeRatingModifier = false,
             IncludeFreeAgents = true
@@ -108,11 +110,11 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestSpreadModifiers()
       {
-         var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
-                                       Constants.KOwnerSteveColonna, "BB",
-                                       Utility.CurrentSeason(),
-                                       2 );
-         var m1 = r2.PlayerSpread( 14.0M, isHome: true );
+			var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
+										  Constants.KOwnerSteveColonna, "BB",
+										  new FakeTimeKeeper( season: "2011", week: "02" ) );
+
+		 var m1 = r2.PlayerSpread( 14.0M, isHome: true );
          Assert.AreEqual( 1.4M, m1 );
          var m2 = r2.PlayerSpread( 13.0M, isHome: true );
          Assert.AreEqual( 1.3M, m2 );
@@ -140,8 +142,8 @@ namespace Gerard.Tests
       {
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
                                        Constants.KOwnerSteveColonna, "BB",
-                                       Utility.CurrentSeason(),
-                                       1 ) { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
+									   new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
 
          var p = new NFLPlayer( "INGRMA02" );
          var g = new NFLGame( "2011:01-A" );
@@ -157,9 +159,8 @@ namespace Gerard.Tests
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
                                        Constants.KOwnerSteveColonna,
                                        "BB",
-                                       Utility.CurrentSeason(),
-                                       1 )
-         {
+									   new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 {
             IncludeSpread = true,
             IncludeRatingModifier = true,
             IncludeFreeAgents = true

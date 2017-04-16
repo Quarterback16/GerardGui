@@ -9,8 +9,8 @@ namespace RosterLib.RosterGridReports
    {
       public NFLWeek Week { get; set; }
 
-      public TeamMetricsUpdateReport( IKeepTheTime timekeeper )
-      {
+      public TeamMetricsUpdateReport( IKeepTheTime timekeeper ) : base( timekeeper )
+	  {
          Name = "Team Metrics Update Report";
          Season = timekeeper.CurrentSeason();
          Week = new NFLWeek( Season, timekeeper.PreviousWeek() );

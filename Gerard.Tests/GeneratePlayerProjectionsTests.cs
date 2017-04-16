@@ -39,7 +39,7 @@ namespace Gerard.Tests
       public void TestSingleGameProjection()  //  17 sec  2015-08-11
       {
          var game = new NFLGame( "2016:18-C" );  //  MD@PS
-         var ppg = new PlayerProjectionGenerator(playerCache:null);
+         var ppg = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2016", week: "18" ), playerCache:null);
          ppg.Execute( game );
          Assert.IsTrue(  ppg != null );
       }

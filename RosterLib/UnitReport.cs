@@ -1,3 +1,4 @@
+using RosterLib.Interfaces;
 using System;
 
 namespace RosterLib
@@ -10,8 +11,8 @@ namespace RosterLib
    {
 	   public NflSeason SeasonMaster { get; set; }
 
-      public UnitReport()
-      {
+      public UnitReport( IKeepTheTime timekeeper ) : base( timekeeper )
+	  {
          Name = "Unit Reports";
          LastRun = Utility.TflWs.GetLastRun(Name);
       }

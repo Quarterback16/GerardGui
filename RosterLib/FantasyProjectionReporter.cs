@@ -16,8 +16,8 @@ namespace RosterLib
 
       public IRatePlayers Scorer { get; set; }
 
-      public FantasyProjectionReporter(  IKeepTheTime timekeeper)
-      {
+      public FantasyProjectionReporter(  IKeepTheTime timekeeper) : base( timekeeper )
+		{
          Name = "Fantasy Point Projections";
          TimeKeeper = timekeeper;
          var dao = new DbfPlayerGameMetricsDao();

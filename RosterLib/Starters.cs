@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace RosterLib
@@ -19,8 +20,8 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public Starters( bool doCsv )
-      {
+      public Starters( IKeepTheTime timekeeper, bool doCsv ) : base( timekeeper )
+		{
          Name = "Starters";
          SetLastRunDate();
          DoCsv = doCsv;

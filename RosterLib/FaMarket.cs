@@ -1,3 +1,4 @@
+using RosterLib.Interfaces;
 using System;
 using System.Collections;
 using System.Data;
@@ -12,15 +13,10 @@ namespace RosterLib
 	{
 		private ArrayList _mTeamList;
 
-        public FaMarket()
-            : base()
+        public FaMarket(IKeepTheTime timekeeper)
+            : base(timekeeper)
         {
         } 
-
-		public FaMarket(string season)
-		{
-			Season = season;
-		} 
 
 		public override void RenderAsHtml()
 		{

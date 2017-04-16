@@ -12,7 +12,7 @@ namespace Butler.Models
       {
          Name = "Rookies";
          TimeKeeper = timeKeeper;
-         Report = new Rookies();
+         Report = new Rookies(timeKeeper);
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;
       }

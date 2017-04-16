@@ -12,7 +12,7 @@ namespace Butler.Models
 		public FreeAgentMarketJob(IKeepTheTime timeKeeper)
 		{
 			Name = "Free Agent Report";
-			Report = new FaMarket { Name = Name, Season = timeKeeper.Season };
+			Report = new FaMarket( timeKeeper );
 			TimeKeeper = timeKeeper;
          IsNflRelated = true;
          Logger = LogManager.GetCurrentClassLogger();

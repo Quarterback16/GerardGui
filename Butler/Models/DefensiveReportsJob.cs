@@ -10,7 +10,7 @@ namespace Butler.Models
       public DefensiveReportsJob( IKeepTheTime timekeeper )
       {
          Name = "Defensive Reports";
-         Report = new DefensiveScorer();
+         Report = new DefensiveScorer( timekeeper );
          TimeKeeper = timekeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

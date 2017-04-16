@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -13,8 +14,8 @@ namespace RosterLib
 
       public IRatePlayers Scorer { get; set; }
 
-      public FpProjections()
-      {
+      public FpProjections( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
          Name = "FP Projections";
          Fpr = new FantasyProjectionReport();
          Dao = new DbfPlayerGameMetricsDao();  //  for fetching the metrics (but they need generation)

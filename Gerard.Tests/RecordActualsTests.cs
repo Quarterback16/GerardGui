@@ -65,7 +65,7 @@ namespace Gerard.Tests
          var week = "01";
          var gamecode = "M";
          var game = new NFLGame( string.Format("{0}:{1}-{2}", season, week, gamecode) );
-         var sut = new RecordOfActualMetricsReport(season, week);
+         var sut = new RecordOfActualMetricsReport( new FakeTimeKeeper( season: season, week: week ) );
          var player = new NFLPlayer("KAEPCO01");
          player.TallyScores(season, Int32.Parse(week) );
          player.TallyStats(season, Int32.Parse(week) );

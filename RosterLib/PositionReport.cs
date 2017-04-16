@@ -22,7 +22,7 @@ namespace RosterLib
       public PositionReport( 
          IKeepTheTime timekeeper, 
          PositionReportOptions config
-          ) : base()
+          ) : base( timekeeper )
       {
 			Options = new List<PositionReportOptions>
 			{
@@ -34,7 +34,7 @@ namespace RosterLib
 
       public PositionReport(
          IKeepTheTime timekeeper
-          ) : base()
+          ) : base( timekeeper )
       {
          Options = new List<PositionReportOptions>();
          LoadAllTheOptions();

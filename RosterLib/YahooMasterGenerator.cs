@@ -10,13 +10,13 @@ namespace RosterLib
       public YahooMaster YahooMaster { get; set; }
 
       public bool FullSeason { get; set; }
-      public YahooMasterGenerator( bool fullSeason, IKeepTheTime timeKeeper )
-      {
+      public YahooMasterGenerator( bool fullSeason, IKeepTheTime timekeeper ) : base( timekeeper )
+		{
          Name = "Yahoo Master Generator";
          YahooMaster = new YahooMaster("Yahoo", "YahooOutput.xml");
          Logger = LogManager.GetCurrentClassLogger();
          FullSeason = fullSeason;
-         TimeKeeper = timeKeeper;
+         TimeKeeper = timekeeper;
       }
 
       public override void RenderFullAsHtml()

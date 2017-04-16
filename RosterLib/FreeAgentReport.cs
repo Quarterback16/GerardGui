@@ -1,3 +1,4 @@
+using RosterLib.Interfaces;
 using System;
 
 namespace RosterLib
@@ -7,6 +8,10 @@ namespace RosterLib
 	/// </summary>
     public class FreeAgentReport : RosterGridReport
 	{
+		public FreeAgentReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		{
+
+		}
 		public int TeamCount;
 
 		public void Render()

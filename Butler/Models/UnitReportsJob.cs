@@ -1,5 +1,6 @@
 ﻿using Butler.Interfaces;
 using RosterLib;
+using RosterLib.Interfaces;
 using System;
 
 namespace Butler.Models
@@ -10,10 +11,10 @@ namespace Butler.Models
 
 		public IHistorian Historian { get; set; }
 
-		public UnitReportsJob(IHistorian historian)
+		public UnitReportsJob( IKeepTheTime timekeeper, IHistorian historian)
 		{
 			Name = "Unit Reports";
-			Report = new UnitReport();
+			Report = new UnitReport( timekeeper );
 			Historian = historian;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

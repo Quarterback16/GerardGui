@@ -15,7 +15,7 @@ namespace RosterLib.TeamReports
 		public string PositionCategory { get; set; }
 		public string RootFolder { get; set; }
 
-		public TopDogReport( IKeepTheTime timekeeper ) : base()
+		public TopDogReport( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
 			Options = new List<TopDogReportOptions>();
 			LoadAllTheOptions();

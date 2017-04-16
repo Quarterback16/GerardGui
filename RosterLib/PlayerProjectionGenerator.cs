@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RosterLib.Interfaces;
+using System.Collections.Generic;
 
 namespace RosterLib
 {
@@ -11,8 +12,8 @@ namespace RosterLib
 
       public ICachePlayers PlayerCache { get; set; }
 
-      public PlayerProjectionGenerator( ICachePlayers playerCache )
-      {
+      public PlayerProjectionGenerator( IKeepTheTime timekeeper, ICachePlayers playerCache ) : base( timekeeper )
+		{
          PlayerCache = playerCache;
       }
 

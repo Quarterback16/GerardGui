@@ -110,10 +110,10 @@ namespace Butler
 				MyJobs.Add( new GeneratePlayerProjectionsJob( TimeKeeper ) );
 				MyJobs.Add( new GameProjectionReportsJob( TimeKeeper ) );
 				MyJobs.Add( new RookiesJob( TimeKeeper ) );
-				MyJobs.Add( new OutputProjectionsJob( Historian ) );  //  needs game projections
+				MyJobs.Add( new OutputProjectionsJob( TimeKeeper, Historian ) );  //  needs game projections
 				MyJobs.Add( new FantasyProjectionJob( TimeKeeper ) );
 				MyJobs.Add( new HotListsJob( TimeKeeper ) );
-				MyJobs.Add( new UnitReportsJob( Historian ) );
+				MyJobs.Add( new UnitReportsJob( TimeKeeper, Historian ) );
 				MyJobs.Add( new TeamCardsJob( TimeKeeper ) );
 				MyJobs.Add( new OldRosterGridJob( TimeKeeper ) );
 				MyJobs.Add( new DefensiveReportsJob( TimeKeeper ) );

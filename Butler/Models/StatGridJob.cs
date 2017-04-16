@@ -12,7 +12,7 @@ namespace Butler.Models
       {
          Name = "Stat Grids";
          Console.WriteLine("Constructing {0} ...", Name);
-         Report = new StatGrids();
+         Report = new StatGrids(timeKeeper);
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

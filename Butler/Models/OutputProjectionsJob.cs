@@ -1,5 +1,6 @@
 ﻿using Butler.Interfaces;
 using RosterLib;
+using RosterLib.Interfaces;
 
 namespace Butler.Models
 {
@@ -9,10 +10,10 @@ namespace Butler.Models
 
       public IHistorian Historian { get; set; }
 
-      public OutputProjectionsJob(IHistorian historian)
-      {
+      public OutputProjectionsJob( IKeepTheTime timekeeper, IHistorian historian) : base( timekeeper )
+		{
          Name = "Team Output Projections";
-         Report = new ScoreTally();
+         Report = new ScoreTally( timekeeper );
          Historian = historian;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

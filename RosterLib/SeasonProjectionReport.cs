@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 
 namespace RosterLib
 {
@@ -9,15 +10,10 @@ namespace RosterLib
 		public string MetricName { get; set; }
 		public string Week { get; set; }
 
-		public SeasonProjectionReport()
+		public SeasonProjectionReport( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
-			// push initialisation out of construtor
-		}
-
-		public SeasonProjectionReport( string season, string week )
-		{
-			Season = season;
-			Week = week;
+			Season = timekeeper.CurrentSeason( DateTime.Now );
+			Week = $"{timekeeper.CurrentWeek( DateTime.Now ):00}";
 		}
 
 		public override void RenderAsHtml()

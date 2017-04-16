@@ -1,6 +1,6 @@
 ﻿using RosterLib;
-using System;
 using RosterLib.Interfaces;
+using System;
 
 namespace Butler.Models
 {
@@ -8,40 +8,40 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
-      public PlayerReportsJob( IKeepTheTime timeKeeper )
+		public PlayerReportsJob( IKeepTheTime timeKeeper ) : base( timeKeeper )
 		{
 			Name = "Player Reports";
-         Report = new PlayerCareerReport( TimeKeeper.CurrentSeason( DateTime.Now ) );
-         TimeKeeper = timeKeeper;
-         Logger = NLog.LogManager.GetCurrentClassLogger();
-         IsNflRelated = true;
+			Report = new PlayerCareerReport( TimeKeeper );
+			TimeKeeper = timeKeeper;
+			Logger = NLog.LogManager.GetCurrentClassLogger();
+			IsNflRelated = true;
 		}
 
 		public override string DoJob()
 		{
-         return Report.DoReport();
+			return Report.DoReport();
 		}
 
 		//  new business logic as to when to do the job
-		public override bool IsTimeTodo(out string whyNot)
+		public override bool IsTimeTodo( out string whyNot )
 		{
 			whyNot = string.Empty;
-			if (OnHold()) whyNot = "Job is on hold";
-		   if (!string.IsNullOrEmpty( whyNot )) return ( string.IsNullOrEmpty( whyNot ) );
-		   if (TimeKeeper.IsItPreseason())
-		   {
-		      if (TimeKeeper.IsItPeakTime())
-		         whyNot = "Peak time - no noise please";
-		   }
-		   else
-		      whyNot = "Its not preseason";
+			if ( OnHold() ) whyNot = "Job is on hold";
+			if ( !string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
+			if ( TimeKeeper.IsItPreseason() )
+			{
+				if ( TimeKeeper.IsItPeakTime() )
+					whyNot = "Peak time - no noise please";
+			}
+			else
+				whyNot = "Its not preseason";
 
-		   if (string.IsNullOrEmpty( whyNot )) return ( string.IsNullOrEmpty( whyNot ) );
+			if ( string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
 
-		   var msg = string.Format( "Skipped {1}: {0}", whyNot, Name );
-		   Console.WriteLine( );
-		   Logger.Info( msg );
-		   return (string.IsNullOrEmpty(whyNot));
+			var msg = string.Format( "Skipped {1}: {0}", whyNot, Name );
+			Console.WriteLine();
+			Logger.Info( msg );
+			return ( string.IsNullOrEmpty( whyNot ) );
 		}
 	}
 }

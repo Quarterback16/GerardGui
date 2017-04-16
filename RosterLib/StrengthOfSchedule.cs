@@ -1,3 +1,4 @@
+using RosterLib.Interfaces;
 using System;
 using System.Collections;
 using System.Data;
@@ -21,16 +22,11 @@ namespace RosterLib
 		private const string KFieldLosses = "LOSSES";
 		private const string KFieldVariance = "VAR";
 
-		public StrengthOfSchedule()
-		{
-			//  default to look at the current season
-            Season = SeasonBoss.CurrentSeason();
-		}
 
-		public StrengthOfSchedule(string season)
+		public StrengthOfSchedule( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
 			//  Part 1 - Get the Teams for the season
-			Season = season;
+			Season = timekeeper.Season;
 		}
 
 		/// <summary>

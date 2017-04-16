@@ -1,12 +1,13 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 using System.Data;
 
 namespace RosterLib
 {
    public class RunReport : RosterGridReport
    {
-      public RunReport()
-      {
+      public RunReport(IKeepTheTime timekeeper) : base( timekeeper )
+		{
          Name = "Run Report";
       }
 

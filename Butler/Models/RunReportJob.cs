@@ -10,8 +10,8 @@ namespace Butler.Models
       public RunReportJob( IKeepTheTime timekeeper )
       {
          Name = "Run Report job";
-         Report = new RunReport();
-	      CheckLastRun = false;  //  dont restrict running to only when data updates
+         Report = new RunReport( timekeeper );
+	     CheckLastRun = false;  //  dont restrict running to only when data updates
          TimeKeeper = timekeeper;
          Report.Season = TimeKeeper.CurrentSeason( DateTime.Now );
          Logger = LogManager.GetCurrentClassLogger();

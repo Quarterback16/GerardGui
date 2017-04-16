@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using RosterLib.Helpers;
+using RosterLib.Interfaces;
 
 namespace RosterLib
 {
@@ -17,19 +18,19 @@ namespace RosterLib
 
       public bool ForceRefresh { get; set; }
 
-      public ScoreTally( string season, string scope, bool usingPredictions )
-      {
-         Year = season;
+      public ScoreTally( IKeepTheTime timekeeper, string scope, bool usingPredictions ) : base( timekeeper )
+	  {
+         Year = timekeeper.Season;
          ScopeInFocus = scope;
          UsingPredictions = usingPredictions;
          ForceRefresh = false;
       }
 
-      public ScoreTally()
-      {
+      public ScoreTally( IKeepTheTime timekeeper ) : base( timekeeper )
+	  {
          Name = "Team Output Projections";
          LastRun = Utility.TflWs.GetLastRun(Name);
-         Year = Utility.CurrentSeason();
+         Year = timekeeper.CurrentSeason();
          ScopeInFocus = "All Teams";
          UsingPredictions = true;
          ForceRefresh = false;

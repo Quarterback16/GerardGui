@@ -15,7 +15,7 @@ namespace Butler.Models
       {
          Name = "Game Projections";
          var week = $"{timeKeeper.CurrentWeek( DateTime.Now ):00}";
-         Report = new SeasonProjectionReport( timeKeeper.CurrentSeason( DateTime.Now ), week );
+         Report = new SeasonProjectionReport( timeKeeper );
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();
          IsNflRelated = true;

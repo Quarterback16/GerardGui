@@ -27,29 +27,16 @@ namespace RosterLib
 
 		public string TflFolder { get; set; }
 
-		public RosterGridReport()
-		{
-			Logger = LogManager.GetCurrentClassLogger();
-
-			//  default to look at the current season
-			Season = SeasonBoss.CurrentSeason();
-			MyRunStorer = new DbfRunStorer();
-			Stopwatch = new Stopwatch();
-			Stopwatch.Start();
-			TflFolder = Config.TflFolder();
-			SetLastRunDate();
-		}
-
 		public RosterGridReport( IKeepTheTime timekeeper )
 		{
 			Logger = LogManager.GetCurrentClassLogger();
 
 			//  default to look at the current season
-			Season = SeasonBoss.CurrentSeason();
 			MyRunStorer = new DbfRunStorer();
 			Stopwatch = new Stopwatch();
 			Stopwatch.Start();
 			TimeKeeper = timekeeper;
+			Season = TimeKeeper.CurrentSeason();
 			TflFolder = Config.TflFolder();
 			SetLastRunDate();
 		}

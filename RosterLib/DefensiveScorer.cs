@@ -1,7 +1,12 @@
-﻿namespace RosterLib
+﻿using RosterLib.Interfaces;
+
+namespace RosterLib
 {
    public class DefensiveScorer : RosterGridReport
    {
+		public DefensiveScorer( IKeepTheTime timekeeper ) : base(timekeeper)
+		{
+		}
 
       public override void RenderAsHtml()
       {

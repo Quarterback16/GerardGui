@@ -11,9 +11,8 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestReport()
       {
-         var sut = new GoallineReport();
-         sut.Season = "2014";
-         //sut.Week = "13";
+         var sut = new GoallineReport( new FakeTimeKeeper( season: "2014", week: "13" ) );
+
          sut.Render();
          Assert.IsTrue( File.Exists( sut.FileOut ) );
          Console.WriteLine( "{0} created.", sut.FileOut );

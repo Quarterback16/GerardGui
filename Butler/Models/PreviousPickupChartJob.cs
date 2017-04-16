@@ -24,8 +24,7 @@ namespace Butler.Models
 
          Week = Int32.Parse( TimeKeeper.PreviousWeek() );
 
-         Report = new PickupChart(
-            TimeKeeper.CurrentSeason( DateTime.Now ), Week );
+         Report = new PickupChart( TimeKeeper, Week );
       }
 
       public override string DoJob()
