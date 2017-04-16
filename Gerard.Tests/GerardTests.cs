@@ -122,13 +122,6 @@ namespace Gerard.Tests
          Assert.IsTrue(result.Equals(sut.LatestAddition));
       }
 
-      [TestMethod]
-      public void TestHistorian()
-      {
-         var sut = new Historian();
-         var theDate = sut.LastRun(new OldRosterGridReports());
-         Assert.AreEqual(new DateTime(2013, 11, 3).Date, theDate.Date);
-      }
 
       [TestMethod]
       public void TestDataIntegrityCheckerWeek2013_1()
