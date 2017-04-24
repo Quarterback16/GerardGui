@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
       {
-         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2016",week:"21") );
+         var sut = new PickupChartJob( new FakeTimeKeeper(season:"2017",week:"01") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -21,8 +21,7 @@ namespace Gerard.Tests
       public void TestTimetoDoPickupChartReport()
       {
          var sut = new PickupChartJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime: true ) );
-         string whyNot;
-         var result = sut.IsTimeTodo( out whyNot );
+         var result = sut.IsTimeTodo( out string whyNot );
          if ( !string.IsNullOrEmpty( whyNot ) )
             Console.WriteLine(whyNot);
          Assert.IsFalse( result );
@@ -34,8 +33,7 @@ namespace Gerard.Tests
          var sut = new PickupChartJob( 
             new TimeKeeper( 
                clock:new FakeClock(new DateTime(2017,2,26,3,0,0) )) );
-         string whyNot;
-         var result = sut.IsTimeTodo( out whyNot );
+         var result = sut.IsTimeTodo( out string whyNot );
          if ( !string.IsNullOrEmpty( whyNot ) )
             Console.WriteLine( whyNot );
          Assert.IsTrue( result );

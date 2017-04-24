@@ -1559,11 +1559,11 @@ namespace RosterLib
                break;
 
             case "KC":
-               if (opponentTeamCode.Equals("SD"))
+               if (opponentTeamCode.Equals("LC"))
                   isRival = true;
                break;
 
-            case "SD":
+            case "LC":
                if (opponentTeamCode.Equals("KC"))
                   isRival = true;
                else if (opponentTeamCode.Equals("OR"))

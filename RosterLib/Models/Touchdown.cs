@@ -18,17 +18,23 @@
          switch (Action)
          {
             case Constants.K_SCORE_TD_PASS:
-               s = string.Format("{3}: {2} yd Touchdown pass to {0} from {1} - {4} {5}", Scorer, Assisting, Distance, ForTeamCode, Action, Game.ResultOut( ForTeamCode, true ) );
+               s = $@"{ForTeamCode}: {Distance} yd Touchdown pass to {Scorer} from {Assisting} - {Action} {
+				   Game.ResultOut( ForTeamCode, abbreviate: true )
+				   }";
                break;
 
             case Constants.K_SCORE_TD_RUN:
                s = string.Format(" Touchdown run by {0}", Scorer);
-               s = string.Format("{3}: {2} yd Touchdown run by {0} - {4} {5}", Scorer, Assisting, Distance, ForTeamCode, Action, Game.ResultOut( ForTeamCode, true ) );
+               s = $@"{ForTeamCode}: {Distance} yd Touchdown run by {Scorer} - {Action} {
+				   Game.ResultOut( ForTeamCode, abbreviate: true )
+				   }";
                break;
 
             default:
                s = string.Format(" Touchdown by {0}", Scorer);
-               s = string.Format("{3}: {2} yd Touchdown by {0} - {4} {5}", Scorer, Assisting, Distance, ForTeamCode, Action, Game.ResultOut( ForTeamCode, true ) );
+               s = $@"{ForTeamCode}: {Distance} yd Touchdown by {Scorer} - {Action} {
+				   Game.ResultOut( ForTeamCode, abbreviate: true )
+				   }";
                break;
          }
          return s;

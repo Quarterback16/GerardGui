@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestStrengthOfScheduleJob()
       {
-         var sut = new StrengthOfScheduleJob( new FakeTimeKeeper() );
+         var sut = new StrengthOfScheduleJob( new FakeTimeKeeper(season:"2017") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

@@ -73,38 +73,46 @@ namespace RosterLib
 
       private void AddWideReceiverReport()
       {
-         var config = new PositionReportOptions();
-         config.Topic = "Wide Receivers";
-         config.PositionCategory = Constants.K_RECEIVER_CAT;
-         config.PosDelegate = IsWr;
-         Options.Add( config );
+			var config = new PositionReportOptions()
+			{
+				Topic = "Wide Receivers",
+				PositionCategory = Constants.K_RECEIVER_CAT,
+				PosDelegate = IsWr
+			};
+			Options.Add( config );
       }
 
       private void AddRunningBackReport()
       {
-         var config = new PositionReportOptions();
-         config.Topic = "Running Backs";
-         config.PositionCategory = Constants.K_RUNNINGBACK_CAT;
-         config.PosDelegate = IsRb;
-         Options.Add( config );
+			var config = new PositionReportOptions()
+			{
+				Topic = "Running Backs",
+				PositionCategory = Constants.K_RUNNINGBACK_CAT,
+				PosDelegate = IsRb
+			};
+			Options.Add( config );
       }
 
       private void AddQuarterbackReport()
       {
-         var config = new PositionReportOptions();
-         config.Topic = "Quarterbacks";
-         config.PositionCategory = Constants.K_QUARTERBACK_CAT;
-         config.PosDelegate = IsQb;
-         Options.Add( config );
+			var config = new PositionReportOptions()
+			{
+				Topic = "Quarterbacks",
+				PositionCategory = Constants.K_QUARTERBACK_CAT,
+				PosDelegate = IsQb
+			};
+			Options.Add( config );
       }
 
       private void AddKickerReport()
       {
-         var config = new PositionReportOptions();
-         config.Topic = "Kickers";
-         config.PositionCategory = Constants.K_KICKER_CAT;
-         config.PosDelegate = IsPk;
-         Options.Add( config );
+			var config = new PositionReportOptions()
+			{
+				Topic = "Kickers",
+				PositionCategory = Constants.K_KICKER_CAT,
+				PosDelegate = IsPk
+			};
+			Options.Add( config );
       }
 
       public bool IsTe( NFLPlayer p )
@@ -141,10 +149,8 @@ namespace RosterLib
             PositionCategory = item.PositionCategory;
             PositionDelegate = item.PosDelegate;
             PositionAbbr = item.PositionAbbr;
-            RootFolder = string.Format( "{0}{1}//Scores//",
-                        Utility.OutputDirectory(), Season, item.PositionAbbr );
-            FileOut = string.Format( "{0}{1}-Scores-{2}.htm", 
-               RootFolder, item.PositionAbbr, Week );
+            RootFolder = $"{Utility.OutputDirectory()}{Season}//Scores//";
+            FileOut = $"{RootFolder}{item.PositionAbbr}-Scores-{Week}.htm";
             RenderSingle();
          }
       }

@@ -22,7 +22,7 @@ namespace RosterLib
 
         public void Dump()
         {
-            RosterLib.Utility.Announce(string.Format("{0}:{1}-{2} {3} {4} has {5} {6}",
+            Utility.Announce(string.Format("{0}:{1}-{2} {3} {4} has {5} {6}",
                 Season, Week, GameNo, TeamId, PlayerId1, Name, Distance ) );
         }
 
@@ -30,7 +30,7 @@ namespace RosterLib
         {
             bool isValid = true;
 
-            string allTeams = "CH AF DC AC DL CP NG SF GB NO PE SL MV TB WR SS BR HT BB DB CI IC MD KC CL JJ NE OR PS TT NJ SD";
+            string allTeams = "CH AF DC AC DL CP NG SF GB NO PE LR MV TB WR SS BR HT BB DB CI IC MD KC CL JJ NE OR PS TT NJ LC";
             isValid = (allTeams.IndexOf(TeamId) > -1);
             Error = (isValid ? string.Empty : "Invalid Team");
 

@@ -11,7 +11,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoGameProjectionJob()  //  156 min 2015-08-27, 70 min 2015-12-09
       {
-         var sut = new GameProjectionsJob( new TimeKeeper(clock:null) );
+         var sut = new GameProjectionsJob( new FakeTimeKeeper( season: "2017", week: "00" ) );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
@@ -20,8 +20,7 @@ namespace Gerard.Tests
 		public void TestTimeToDoGameProjectionJob()  //    8 sec 2015-08-14 
 		{
 			var sut = new GameProjectionsJob( new FakeTimeKeeper( season: "2016", week: "18" ) );
-			string whyNot;
-			var outcome = sut.IsTimeTodo(out whyNot);
+			var outcome = sut.IsTimeTodo(out string whyNot);
 			Console.WriteLine(whyNot);
 			Assert.IsTrue(  outcome );
 		}
@@ -30,8 +29,7 @@ namespace Gerard.Tests
       public void TestTimeToDoGameProjectionJobPreSchedule()  //    
       {
          var sut = new GameProjectionsJob(new FakeTimeKeeper(season: "2016", week: "00"));
-         string whyNot;
-         var outcome = sut.IsTimeTodo(out whyNot);
+         var outcome = sut.IsTimeTodo(out string whyNot);
          Console.WriteLine(whyNot);
          Assert.IsFalse(outcome);
       }

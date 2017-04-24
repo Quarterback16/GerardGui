@@ -1,10 +1,9 @@
 ﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RosterLib;
 
 namespace Gerard.Tests
 {
-   [TestClass]
+	[TestClass]
    public class OldRosterGridTests
    {
       [TestMethod]

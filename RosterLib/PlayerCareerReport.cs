@@ -22,7 +22,7 @@ namespace RosterLib
 
 		public override string OutputFilename()
 		{
-			var fileName = string.Format( "{0}\\Players\\Errors.htm", Utility.OutputDirectory(), Season );
+			var fileName = $"{Utility.OutputDirectory()}\\Players\\Errors.htm";
 			return fileName;
 		}
 	}

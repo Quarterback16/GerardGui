@@ -132,8 +132,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetLineup-DataSet",
 										  season, week, teamCode );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM LINEUP where TEAMCODE='{0}' and WEEK='{1:0#}' and SEASON='{2}'",
@@ -152,8 +151,7 @@ namespace TFLLib
 			playerCode = FixSingleQuotes( playerCode );
 			var keyValue = string.Format( "{0}:{1}:{2}", "GetStarts-DataSet",
 			   season, playerCode );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				string commandStr = string.Format(
 				"SELECT DISTINCT * FROM LINEUP where PLAYERID='{0}' and SEASON='{1}' and START",
@@ -216,8 +214,8 @@ namespace TFLLib
 
 		public string GetRatingsFor( string teamCode, string season )
 		{
-			var keyValue = string.Format( "{0}:{1}", "GetRatingsFor-DataSet",
-								 teamCode, season );
+			var keyValue = string.Format( "{0}:{1}:{2}", 
+				"GetRatingsFor-DataSet", teamCode, season );
 			var commandStr = string.Format(
 			   "SELECT RATE FROM TEAM where SEASON='{0}' and TEAMID='{1}'",
 			   season, teamCode );
@@ -264,7 +262,7 @@ namespace TFLLib
 
 		public int GetTeamStat( string teamCode, string statName, string season )
 		{
-			var keyValue = string.Format( "{0}:{1}:{2}", "GetTeamStat-DataSet",
+			var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetTeamStat-DataSet",
 						teamCode, statName, season );
 
 			var stat = 0;
@@ -304,8 +302,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}", "GetTeams-DataSet",
 			   season, div );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = "SELECT * FROM TEAM where SEASON ='" + season + "'";
 
@@ -464,8 +461,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}",
 			   "GetTeamScoresFor-DataSet", teamCode, season, scoreType );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM SCORE where TEAM='{1}' and SCORE='{0}' and SEASON='{2}'",
@@ -550,8 +546,7 @@ namespace TFLLib
 
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}:{6}",
 				  "GetScoresForWeeks-DataSet", scoreType, playerId, season, fromWeek, toWeek, id );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM SCORE where PLAYERID{5}=\"{1}\" and SCORE='{0}' and WEEK>='{4:0#}'  and WEEK<='{2:0#}' and SEASON='{3}'",
@@ -620,8 +615,7 @@ namespace TFLLib
 			playerId = FixSingleQuotes( playerId );
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}", "PlayerStatsDs-DataSet",
 			   season, week, playerId );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format( string.IsNullOrEmpty( playerId )
 				? "SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}'"
@@ -638,8 +632,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "GetStat-DataSet",
 								  season, week, statCode, game );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT sum(QTY) as sum FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}'",
@@ -659,8 +652,7 @@ namespace TFLLib
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "GetStats-DataSet",
 			   statCode, teamCode, season, week, game );
 
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}' and TEAMID='{4}'",
@@ -678,9 +670,8 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "GetTotStats-DataSet",
 			   teamCode, statCode, season, week, game );
-			DataSet ds;
 			var nSumStat = 0.0M;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT sum(QTY) as sum FROM STAT where SEASON='{0}' and WEEK='{1}' and GAMENO='{2}' and STAT='{3}' and TEAMID='{4}'",
@@ -705,9 +696,8 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "TeamStats - DataSet",
 			   season, week, statCode, game, teamCode );
-			DataSet ds;
 			var stats = 0.0M;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
@@ -735,9 +725,8 @@ namespace TFLLib
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}", "PlayerStatsDs-DataSet",
 			   season, week, statCode, game, teamCode );
 
-			DataSet ds;
 			var thisGame = "";
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
@@ -766,8 +755,7 @@ namespace TFLLib
 			var thisGame = "";
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "PlayerStats-DataSet",
 			   season, week, playerId, statCode );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where SEASON='{0}' and WEEK='{1}' and PLAYERID='{2}' and STAT='{3}'",
@@ -796,8 +784,7 @@ namespace TFLLib
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}:{5}",
 				  "GetStatsForWeeks-DataSet",
 				  playerId, season, fromWeek, toWeek, statType );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK>='{3:0#}'  and WEEK<='{1:0#}' and SEASON='{2}' and STAT='{4}'",
@@ -816,8 +803,7 @@ namespace TFLLib
 			playerId = FixSingleQuotes( playerId );
 			var keyValue = string.Format( "{0}:{1}:{2:00}:{3}:{4}", "AnyStatsForGame-DataSet",
 			   season, week, playerId, gameCode );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM STAT where PLAYERID=\"{0}\" and WEEK='{2:0#}'  and SEASON='{1}' and GAMENO='{3}'",
@@ -855,10 +841,8 @@ namespace TFLLib
 			if ( surname.Contains( '\'' ) )
 				surname = surname.Replace( "'", "''" );
 
-			var keyValue = string.Format( "{0}:{1}", "GetPlayer-DataSet",
-			   firstName, surname );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			var keyValue = string.Format( "{0}:{1}:{2}", "GetPlayer-DataSet", firstName, surname );
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT * FROM PLAYER where SURNAME='{0}' and FIRSTNAME='{1}' order by DOB desc", surname, firstName );
@@ -873,8 +857,7 @@ namespace TFLLib
 		public DataSet GetReturners()
 		{
 			var keyValue = string.Format( "{0}", "GetReturners-DataSet" );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				const string commandStr = "SELECT * FROM PLAYER where CURRTEAM<>'??' and CURRTEAM<>'  ' " +
 									   "and ( POSDESC like '%KR%' or POSDESC like '%PR%' ) and ROLE <> ' '";
@@ -891,8 +874,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}", "GetCurrentScoring-DataSet",
 			   categoryIn );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				string commandStr = string.Format(
 				"SELECT CURSCORES, * FROM PLAYER where CATEGORY='{0}' ", categoryIn );
@@ -911,8 +893,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3:0000}", "GetScoring-DataSet",
 			   categoryIn, currentOnly, season );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				string commandStr = string.Format(
 				"SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn );
@@ -933,8 +914,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}", "GetFreeAgents-DataSet",
 			   categoryIn, currentOnly, season.ToString() );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format(
 				"SELECT (scores/({0}-rookieyr)) as 'Output', * FROM PLAYER where CATEGORY='{1}' ", season + 1, categoryIn );
@@ -955,8 +935,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}:{2}:{3}:{4}", "GetPlayer4-DataSet",
 										  teamCode, strCat, strRole, strPos );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				string commandStr;
 
@@ -1038,8 +1017,7 @@ namespace TFLLib
 			playerCode = FixSingleQuotes( playerCode );
 			var keyValue = string.Format( "{0}:{1}", "GetPlayerName-DataSet",
 			   playerCode );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr = string.Format( "SELECT * FROM PLAYER where PLAYERID =\"{0}\"", playerCode );
 
@@ -1326,8 +1304,7 @@ namespace TFLLib
 		{
 			var keyValue = string.Format( "{0}:{1}", "GetSeasonStartDate-DataSet",
 								 season );
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				var commandStr =
 				string.Format( "select * from SEASON where season='{0}'", season );
@@ -1410,8 +1387,7 @@ namespace TFLLib
 			{
 				var keyValue = string.Format( "{0}:{1}:{2}:{3}", "PlayedFor-DataSet",
 				   playerId, season, week );
-				DataSet ds;
-				if ( !cache.TryGet( keyValue, out ds ) )
+				if ( !cache.TryGet( keyValue, out DataSet ds ) )
 				{
 					var commandStr = string.Format(
 						"select TEAMID, FROM, TO from SERVE where PLAYERID=\"{0}\" order by 2 desc", playerId );
@@ -2528,8 +2504,7 @@ namespace TFLLib
 		   string caller = ""
 		   )
 		{
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				ds = GetNflDataSet( dsName, commandStr, caller );
 				cache.Set( keyValue, ds, timeSpan );
@@ -2542,8 +2517,7 @@ namespace TFLLib
 		private DataSet CacheCommand( string keyValue,
 			  string commandStr, string dsName, string caller = "" )
 		{
-			DataSet ds;
-			if ( !cache.TryGet( keyValue, out ds ) )
+			if ( !cache.TryGet( keyValue, out DataSet ds ) )
 			{
 				ds = GetNflDataSet( dsName, commandStr, caller );
 				cache.Set( keyValue, ds );

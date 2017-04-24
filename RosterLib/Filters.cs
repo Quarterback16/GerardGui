@@ -18,7 +18,7 @@
         public static string TeamFilter()
         {
 #if DEBUG
-            return "AC,AF,BR,BB,CH,CP,CI,CL,DC,DB,DL,GB,HT,IC,JJ,KC,MD,MV,PS,NE,NG,NJ,NO,OR,PE,SD,SF,SL,SS,TB,TT,WR";
+            return "AC,AF,BR,BB,CH,CP,CI,CL,DC,DB,DL,GB,HT,IC,JJ,KC,MD,MV,PS,NE,NG,NJ,NO,OR,PE,LC,SF,LR,SS,TB,TT,WR";
             //return "DC";
 #else      	
 			return "AC,AF,BR,BB,CH,CP,CI,CL,DC,DB,DL,GB,HT,IC,JJ,KC,MD,MV,PS,NE,NG,NJ,NO,OR,PE,SD,SF,SL,SS,TB,TT,WR";
