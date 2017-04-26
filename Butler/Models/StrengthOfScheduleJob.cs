@@ -2,6 +2,7 @@
 using RosterLib;
 using RosterLib.Helpers;
 using RosterLib.Interfaces;
+using System;
 
 namespace Butler.Models
 {
@@ -44,15 +45,15 @@ namespace Butler.Models
 					whyNot = "Not Preseason";
 			}
 #if !DEBUG
-		   if (string.IsNullOrEmpty( whyNot ))
-		   {
-            //  Is it already done?
-            var rpt = new StrengthOfSchedule();
-            var outFile = rpt.OutputFilename();
-            if ( System.IO.File.Exists( outFile ) )
-		         whyNot = string.Format( "{0} exists already", outFile );
-		   }
-		   Console.WriteLine( "Job:Reason for not doing>{0}", whyNot );
+			if ( string.IsNullOrEmpty( whyNot ) )
+			{
+				//  Is it already done?
+				var rpt = new StrengthOfSchedule( TimeKeeper );
+				var outFile = rpt.OutputFilename();
+				if ( System.IO.File.Exists( outFile ) )
+					whyNot = $"{outFile} exists already";
+			}
+			Console.WriteLine( "Job:Reason for not doing>{0}", whyNot );
 #endif
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );

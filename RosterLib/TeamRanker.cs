@@ -1,10 +1,10 @@
-﻿using System;
+﻿using NLog;
+using RosterLib.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using RosterLib.Interfaces;
-using NLog;
 
 namespace RosterLib
 {
@@ -14,54 +14,54 @@ namespace RosterLib
 
 		public string FileOut { get; set; }
 
-      public Logger Logger { get; set; }
+		public Logger Logger { get; set; }
 
-      public string Week { get; set; }
+		public string Week { get; set; }
 
-      public IKeepTheTime TimeKeeper { get; set; }
+		public IKeepTheTime TimeKeeper { get; set; }
 
 		public static DateTime LastDateRanked { get; set; }
 
 		public bool ForceReRank { get; set; }
 
-      public TeamRanker(IKeepTheTime timeKeeper)
+		public TeamRanker( IKeepTheTime timeKeeper )
 		{
-         TimeKeeper = timeKeeper;
+			TimeKeeper = timeKeeper;
 
 			RatingsHt = new Hashtable();
-         Week = TimeKeeper.PreviousWeek();
+			Week = TimeKeeper.PreviousWeek();
 
-			FileOut = string.Format("{0}\\{1}\\Metrics\\MetricTable-{2:0#}.htm",
+			FileOut = string.Format( "{0}\\{1}\\Metrics\\MetricTable-{2:0#}.htm",
 				Utility.OutputDirectory(), Utility.CurrentSeason(), Week );
 
-         Logger = LogManager.GetCurrentClassLogger();
-      }
+			Logger = LogManager.GetCurrentClassLogger();
+		}
 
 		public void RankTeams( DateTime when )
 		{
-			if ( ForceReRank)
-         {
-            Logger.Info( "  Ranking forced" );
-         }
-         else
+			if ( ForceReRank )
 			{
-				if (HaveAlreadyRated(when))
+				Logger.Info( "  Ranking forced" );
+			}
+			else
+			{
+				if ( HaveAlreadyRated( when ) )
 				{
-               Logger.Info( string.Format( "  Have already got Ratings for {0:d}", when ) );
-               LoadRatings(when);
+					Logger.Info( $"  Have already got Ratings for {when:d}" );
+					LoadRatings( when );
 					return;
 				}
-            else
-            {
-               Logger.Info( "  Generating ratings for {0:d}", when );
-            }
+				else
+				{
+					Logger.Info( "  Generating ratings for {0:d}", when );
+				}
 			}
 #if DEBUG
 			var stopwatch = new Stopwatch();
 			stopwatch.Start();
 #endif
 			//  what season are we in
-			var season = TimeKeeper.CurrentSeason(when);
+			var season = TimeKeeper.CurrentSeason( when );
 			//  Get the teams for that season
 			var teamList = new List<NflTeam>();
 			LoadTeams( teamList, season, when );
@@ -89,8 +89,8 @@ namespace RosterLib
 
 		public bool HaveAlreadyRated( DateTime when )
 		{
-         // get ratings
-         var theSunday = TimeKeeper.GetSundayFor( when );
+			// get ratings
+			var theSunday = TimeKeeper.GetSundayFor( when );
 			var ds = Utility.TflWs.GetUnitRatings( when );
 			return ds.Tables[ 0 ].Rows.Count > 0;
 		}
@@ -136,9 +136,9 @@ namespace RosterLib
 				var ratings = string.Format( "{0}{1}{2}{3}{4}{5}", po, ro, pp, pr, rd, pd );
 				var teamCode = dr[ "TEAM" ].ToString();
 
-            var theSunday = TimeKeeper.GetSundayFor( when );
-            //Logger.Info( "  Saving URATINGS for Sunday {0:d}", theSunday );
-            Utility.TflWs.SaveUnitRatings( ratings, theSunday, teamCode );
+				var theSunday = TimeKeeper.GetSundayFor( when );
+				//Logger.Info( "  Saving URATINGS for Sunday {0:d}", theSunday );
+				Utility.TflWs.SaveUnitRatings( ratings, theSunday, teamCode );
 			}
 		}
 
@@ -218,18 +218,23 @@ namespace RosterLib
 				case UnitRatings.UnitRating.Po:
 					ur.PassOffence = rating;
 					break;
+
 				case UnitRatings.UnitRating.Ro:
 					ur.RushOffence = rating;
 					break;
+
 				case UnitRatings.UnitRating.Pp:
 					ur.PassProtection = rating;
 					break;
+
 				case UnitRatings.UnitRating.Pr:
 					ur.PassRush = rating;
 					break;
+
 				case UnitRatings.UnitRating.Rd:
 					ur.RunDefence = rating;
 					break;
+
 				case UnitRatings.UnitRating.Pd:
 					ur.PassDefence = rating;
 					break;
@@ -283,19 +288,20 @@ namespace RosterLib
 			return metricTable;
 		}
 
-		private static decimal InterceptionRatio( int interceptions, int touchDownPassesAllowed )
+		public static decimal InterceptionRatio( int interceptions, int touchDownPassesAllowed )
 		{
 			if ( touchDownPassesAllowed.Equals( 0 ) ) return interceptions;
-			// ReSharper disable PossibleLossOfFraction
-			return interceptions / touchDownPassesAllowed;
-			// ReSharper restore PossibleLossOfFraction
+			var rawDecimal = (decimal) interceptions / touchDownPassesAllowed;
+			var formatted = rawDecimal.ToString( "0.##" );
+			return Decimal.Parse( formatted );
 		}
 
 		private void DumpMetricTable( DataTable dt, DateTime when )
 		{
 			var st =
 				new SimpleTableReport( string.Format( "Team Metrics at {0}", when.ToShortDateString() )
-					) { ColumnHeadings = true };
+					)
+				{ ColumnHeadings = true };
 			st.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
 			st.AddColumn( new ReportColumn( "YDp", "YDp", "{0}" ) );
 			st.AddColumn( new ReportColumn( "RYDp", "RYDp", "{0}" ) );

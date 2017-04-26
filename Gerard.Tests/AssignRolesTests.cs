@@ -21,8 +21,7 @@ namespace Gerard.Tests
       public void TestTimetoDoJob()
       {
 			var sut = new AssignRolesJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ) );
-         string whyNot;
-         Assert.IsFalse(sut.IsTimeTodo(out whyNot));
+         Assert.IsFalse(sut.IsTimeTodo(out string whyNot));
          Console.WriteLine(whyNot);
       }
 

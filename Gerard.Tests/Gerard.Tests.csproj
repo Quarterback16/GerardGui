@@ -134,6 +134,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PullMetricsFromPredictionTests.cs" />
     <Compile Include="RandomNumberGeneratorTests.cs" />
+    <Compile Include="RankingJobTests.cs" />
     <Compile Include="RecordActualsTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />
     <Compile Include="RunReportJobTests.cs" />

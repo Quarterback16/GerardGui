@@ -183,15 +183,24 @@ namespace RosterLib.RosterGridReports
 				else
 				{
 					var dualBacks = team.Team.RushUnit.Committee;
-					dualBacks = dualBacks.Substring( 0, dualBacks.Length - 3 );
-					if ( dualBacks.Length < 20 )
-						dualBacks = dualBacks + new string( ' ', 20 - dualBacks.Length );
-					if ( dualBacks.Length > 20 )
-						dualBacks = dualBacks.Substring( 0, 20 );
-
+					if ( !string.IsNullOrWhiteSpace( dualBacks.Trim() ) )
+					{
+						dualBacks = dualBacks.Substring( 0, dualBacks.Length - 3 );
+						if ( dualBacks.Length < 20 )
+							dualBacks = dualBacks + new string( ' ', 20 - dualBacks.Length );
+						if ( dualBacks.Length > 20 )
+							dualBacks = dualBacks.Substring( 0, 20 );
+					}
 					var p = team.Team.RushUnit.R1;
-					var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
-					var matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
+
+					var matchupLink = "";
+					if ( p != null )
+					{
+						var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
+						matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
+					}
+					else
+						matchupLink = "?" + new String(' ', 20);
 
 					bit = string.Format(
 					   "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{3}</a> {2}          ",

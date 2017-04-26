@@ -1,33 +1,32 @@
-﻿using System.Globalization;
-using RosterLib;
+﻿using RosterLib;
 using RosterLib.Interfaces;
 using System;
-
+using System.Globalization;
 
 namespace Gerard.Tests
 {
-   public class FakeTimeKeeper : IKeepTheTime
-   {
-      public string Season { get; set; }
+	public class FakeTimeKeeper : IKeepTheTime
+	{
+		public string Season { get; set; }
 
-      public string Week { get; set; }
+		public string Week { get; set; }
 
-      public bool _isItPreseason { get; set; }
+		public bool _isItPreseason { get; set; }
 
-      public bool _isPeakTime { get; set; }
+		public bool _isPeakTime { get; set; }
 
-      public bool _isPostSeason { get; set; }
+		public bool _isPostSeason { get; set; }
 
-	   public DateTime TheDateTime { get; set; }
+		public DateTime TheDateTime { get; set; }
 
-      public FakeTimeKeeper()
-      {
-         Season = "2016";
-         _isItPreseason = true;
-         _isPostSeason = true;
-         _isPeakTime = false;
-	      TheDateTime = DateTime.Now;
-      }
+		public FakeTimeKeeper()
+		{
+			Season = "2016";
+			_isItPreseason = true;
+			_isPostSeason = true;
+			_isPeakTime = false;
+			TheDateTime = DateTime.Now;
+		}
 
 		public FakeTimeKeeper( DateTime theDate )
 		{
@@ -35,125 +34,125 @@ namespace Gerard.Tests
 			_isItPreseason = true;
 			_isPeakTime = false;
 			TheDateTime = theDate;
-         Week = "00";
-      }
+			Week = "00";
+		}
 
-      public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
-      {
-         Season = "2016";
-         Week = isPreSeason ? "00" : "01";
+		public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
+		{
+			Season = "2016";
+			Week = isPreSeason ? "00" : "01";
 
-         _isItPreseason = isPreSeason;
-         _isPeakTime = isPeakTime;
+			_isItPreseason = isPreSeason;
+			_isPeakTime = isPeakTime;
 			TheDateTime = DateTime.Now;
-      }
+		}
 
-      public FakeTimeKeeper( string season )
-      {
-         Season = season;
-         Week = "00";
-      }
+		public FakeTimeKeeper( string season )
+		{
+			Season = season;
+			Week = "00";
+		}
 
-      public FakeTimeKeeper(string season, string week )
-      {
-         Season = season;
-         Week = week;
-      }
+		public FakeTimeKeeper( string season, string week )
+		{
+			Season = season;
+			Week = week;
+		}
 
-      public bool IsItWednesdayOrThursday( DateTime focusDate )
-      {
-         return false;
-      }
+		public bool IsItWednesdayOrThursday( DateTime focusDate )
+		{
+			return false;
+		}
 
-      public bool IsItWednesday(DateTime focusDate)
-      {
-         return false;
-      }
-      
-      public bool IsItOffSeason()
-      {
-         return true;
-      }
+		public bool IsItWednesday( DateTime focusDate )
+		{
+			return false;
+		}
 
-      public bool IsItPreseason()
-      {
-         return _isItPreseason;
-      }
+		public bool IsItOffSeason()
+		{
+			return true;
+		}
 
-      public bool IsItPostSeason()
-      {
-         return false;
-      }
+		public bool IsItPreseason()
+		{
+			return _isItPreseason;
+		}
 
-      public bool IsItRegularSeason()
-      {
-         return false;
-      }
+		public bool IsItPostSeason()
+		{
+			return false;
+		}
 
-      public bool IsItQuietTime()
-      {
-         return false;
-      }
+		public bool IsItRegularSeason()
+		{
+			return false;
+		}
 
-      public bool IsItPeakTime()
-      {
+		public bool IsItQuietTime()
+		{
+			return false;
+		}
+
+		public bool IsItPeakTime()
+		{
 			return _isPeakTime;
-      }
+		}
 
-      public DateTime GetDate()
-      {
+		public DateTime GetDate()
+		{
 			return TheDateTime;
-      }
+		}
 
-      public bool IsDateDaysOld(int daysOld, DateTime theDate)
-      {
-         return true;
-      }
+		public bool IsDateDaysOld( int daysOld, DateTime theDate )
+		{
+			return true;
+		}
 
-      public string CurrentSeason( DateTime focusDate )
-      {
-         return Season;
-      }
-
-	   public string CurrentSeason()
-	   {
+		public string CurrentSeason( DateTime focusDate )
+		{
 			return Season;
-	   }
+		}
 
-	   public string PreviousWeek()
-      {
-         if ( Week.Equals( "00" ) ) return "17";
-         var currentWeek = CurrentWeek(CurrentDateTime());
-         
-         var previousWeek = currentWeek - 1;
-         return string.Format("{0:0#}", previousWeek);
-      }
+		public string CurrentSeason()
+		{
+			return Season;
+		}
 
-      public string PreviousSeason(DateTime focusDate)
-      {
-         throw new NotImplementedException();
-      }
+		public string PreviousWeek()
+		{
+			if ( Week.Equals( "00" ) ) return "17";
+			var currentWeek = CurrentWeek( CurrentDateTime() );
 
-      public string PreviousSeason()
-      {
-         var ps = Int32.Parse(Season) - 1;
-         return ps.ToString( CultureInfo.InvariantCulture );
-      }
+			var previousWeek = currentWeek - 1;
+			return string.Format( "{0:0#}", previousWeek );
+		}
 
-      public int CurrentWeek( DateTime focusDate )
-      {
-         return Int32.Parse( Week );
-      }
+		public string PreviousSeason( DateTime focusDate )
+		{
+			throw new NotImplementedException();
+		}
 
-      public bool IsItFridaySaturdayOrSunday( DateTime focusDate )
-      {
-         return focusDate.DayOfWeek == DayOfWeek.Friday || focusDate.DayOfWeek == DayOfWeek.Saturday || focusDate.DayOfWeek == DayOfWeek.Sunday;
-      }
+		public string PreviousSeason()
+		{
+			var ps = Int32.Parse( Season ) - 1;
+			return ps.ToString( CultureInfo.InvariantCulture );
+		}
 
-	   public DateTime CurrentDateTime()
-	   {
-		   return TheDateTime;
-	   }
+		public int CurrentWeek( DateTime focusDate )
+		{
+			return Int32.Parse( Week );
+		}
+
+		public bool IsItFridaySaturdayOrSunday( DateTime focusDate )
+		{
+			return focusDate.DayOfWeek == DayOfWeek.Friday || focusDate.DayOfWeek == DayOfWeek.Saturday || focusDate.DayOfWeek == DayOfWeek.Sunday;
+		}
+
+		public DateTime CurrentDateTime()
+		{
+			return TheDateTime;
+		}
 
 		public DateTime GetSundayFor( DateTime when )
 		{
@@ -170,5 +169,5 @@ namespace Gerard.Tests
 			}
 			return theSunday;
 		}
-   }
+	}
 }
