@@ -157,8 +157,7 @@ namespace Butler
 
 				if ( Passes == 0 )
 					ReportProgress(
-					   string.Format( "{0} - {1} jobs defined -Starting...",
-									  Version, MyJobs.Count ), ButlerConstants.ReportInTextArea );
+						$"{Version} - {MyJobs.Count} jobs defined -Starting...", ButlerConstants.ReportInTextArea );
 
 				while ( true )
 				{

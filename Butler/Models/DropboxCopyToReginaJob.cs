@@ -22,10 +22,10 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-			var outcome = FileUtility.CopyDirectory( SourceDir, DestDir );
+			var outcome = FileUtility.CopyDirectory( SourceDir, DestDir, Logger );
 			if ( string.IsNullOrEmpty( outcome ) )
 			{
-				var finishMessage = string.Format( "Copied {0} to {1}", SourceDir, DestDir );
+				var finishMessage = $"Copied {SourceDir} to {DestDir}";
 				Logger.Info( "  {0}", finishMessage );
 				return finishMessage;
 			}

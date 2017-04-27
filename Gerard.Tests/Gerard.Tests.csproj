@@ -84,6 +84,7 @@
     <Compile Include="DefensiveReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
     <Compile Include="DropBoxCopyTflToVesuviusJobTests.cs" />
+    <Compile Include="DropboxCopyToReginaJobTests.cs" />
     <Compile Include="FakeClock.cs" />
     <Compile Include="FaMarketTests.cs" />
     <Compile Include="FantasyReportJobTests.cs" />

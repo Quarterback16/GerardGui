@@ -8,40 +8,50 @@ namespace RosterLib
 	{
 		public static DateTime DateOf( string fileName )
 		{
-			if (!File.Exists( fileName )) 
+			if ( !File.Exists( fileName ) )
 				return new DateTime( 1, 1, 1 );
 
 			var fileInfo = new FileInfo( fileName );
 			return fileInfo.LastWriteTime;
 		}
 
-		public static string CopyDirectory( string Src, string Dst )
+		public static string CopyDirectory( string Src, string Dst, NLog.Logger logger = null )
 		{
-         try
-         {
-            if ( Dst[ Dst.Length - 1 ] != Path.DirectorySeparatorChar )
-               Dst += Path.DirectorySeparatorChar;
-            if ( !Directory.Exists( Dst ) ) Directory.CreateDirectory( Dst );
-            string[] Files = Directory.GetFileSystemEntries( Src );
-            foreach ( var Element in Files )
-            {
-               // Sub directories
-               if (Directory.Exists(Element))
-                  CopyDirectory(Element, Dst + Path.GetFileName(Element));
-               // Files in directory
-               else
-               {
-                  //if (!File.Exists(Dst + Path.GetFileName(Element) )) 
-                     File.Copy(Element, Dst + Path.GetFileName(Element), true);
-               }
-            }
-            return string.Empty;
-         }
-         catch ( IOException ex )
-         {
-            return ex.Message;
-         }
+			try
+			{
+				if ( Dst[ Dst.Length - 1 ] != Path.DirectorySeparatorChar )
+					Dst += Path.DirectorySeparatorChar;
 
+				if ( !Directory.Exists( Dst ) )
+					Directory.CreateDirectory( Dst );
+
+				string[] SourceFiles = Directory.GetFileSystemEntries( Src );
+				foreach ( var SourceElement in SourceFiles )
+				{
+					if ( Directory.Exists( SourceElement ) )
+					{
+						var destDir = Dst + Path.GetFileName( SourceElement );
+						if ( !Directory.Exists( destDir ) )
+							Directory.CreateDirectory( destDir );
+
+						CopyDirectory( SourceElement, destDir, logger );
+					}
+					else
+					{
+						// Files in directory
+						File.Copy( SourceElement, Dst + Path.GetFileName( SourceElement ), true );
+						if ( logger != null )
+						{
+							logger.Trace( $"Copied file: {SourceElement}" );
+						}
+					}
+				}
+				return string.Empty;
+			}
+			catch ( IOException ex )
+			{
+				return ex.Message;
+			}
 		}
 
 		public static bool TryToDelete( string f )
@@ -61,26 +71,25 @@ namespace RosterLib
 			}
 		}
 
-		public static void DeleteAllFilesInDirectory(string dir)
+		public static void DeleteAllFilesInDirectory( string dir )
 		{
-			var downloadedMessageInfo = new DirectoryInfo(dir);
+			var downloadedMessageInfo = new DirectoryInfo( dir );
 
-			foreach (var file in downloadedMessageInfo.GetFiles())
+			foreach ( var file in downloadedMessageInfo.GetFiles() )
 			{
 				file.Delete();
 			}
-			foreach (var d in downloadedMessageInfo.GetDirectories())
+			foreach ( var d in downloadedMessageInfo.GetDirectories() )
 			{
-				d.Delete(true);
-			}			
+				d.Delete( true );
+			}
 		}
 
-		public static int CountFilesInDirectory(string dir)
+		public static int CountFilesInDirectory( string dir )
 		{
-			var downloadedMessageInfo = new DirectoryInfo(dir);
+			var downloadedMessageInfo = new DirectoryInfo( dir );
 			var files = downloadedMessageInfo.GetFiles();
 			return files.Count();
 		}
-
 	}
 }

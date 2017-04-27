@@ -29,11 +29,9 @@ namespace Gerard.Tests
 				SourceDir = "g:\\FileSync\\SyncProjects\\GerardGui\\Gerard.Tests\\bin\\Debug\\TestDropboxTfl",
 				DestDir = "g:\\FileSync\\SyncProjects\\GerardGui\\Gerard.Tests\\bin\\Debug\\TestVesuviusTfl"
 			};
-			string whyNot;
-			Assert.IsFalse(sut.IsTimeTodo(out whyNot));
+			Assert.IsFalse( sut.IsTimeTodo( out string whyNot ) );
 			Console.WriteLine(whyNot);
 		}
-
 
 	}
 }
