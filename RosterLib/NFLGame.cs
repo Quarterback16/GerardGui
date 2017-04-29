@@ -966,16 +966,24 @@ namespace RosterLib
 			if ( teamInFocus == HomeTeam )
 			{
 				if ( HomeScore > AwayScore )
+				{
 					theResult = abbreviate ? "W" : "Won ";
+					theResult = $"{theResult} v {AwayTeam} {HomeScore,2}-{AwayScore,2} ";
+				}
 				else if ( HomeScore < AwayScore )
+				{
 					theResult = abbreviate ? "L" : "Lost";
+					theResult = $"{theResult} v {AwayTeam} {HomeScore,2}-{AwayScore,2} ";
+				}
 				else if ( AwayScore > HomeScore )
+				{
 					theResult = abbreviate ? "W" : "Won";
+					theResult = $"{theResult} v {AwayTeam} {HomeScore,2}-{AwayScore,2} ";
+				}
 				else if ( AwayScore < HomeScore )
 				{
 					theResult = abbreviate ? "L" : "Lost";
-					theResult = string.Format( "{3} v {0} {1,2}-{2,2} ",
-					AwayTeam, HomeScore, AwayScore, theResult );
+					theResult = $"{theResult} v {AwayTeam} {HomeScore,2}-{AwayScore,2} ";
 				}
 				else if ( AwayScore == 0 && HomeScore == 0 )
 				{
@@ -992,20 +1000,28 @@ namespace RosterLib
 			else
 			{
 				if ( AwayScore > HomeScore )
+				{
 					theResult = abbreviate ? "W" : "Won ";
+					theResult = $"{theResult} @ {HomeTeam} {AwayScore,2}-{HomeScore,2} ";
+				}
 				else if ( AwayScore < HomeScore )
+				{
 					theResult = abbreviate ? "L" : "Lost";
+					theResult = $"{theResult} @ {HomeTeam} {AwayScore,2}-{HomeScore,2} ";
+				}
 				else if ( HomeScore > AwayScore )
+				{
 					theResult = abbreviate ? "W" : "Won";
+					theResult = $"{theResult} @ {HomeTeam} {AwayScore,2}-{HomeScore,2} ";
+				}
 				else if ( HomeScore < AwayScore )
 				{
 					theResult = abbreviate ? "L" : "Lost";
-					theResult = string.Format( "{3} @ {0} {1,2}-{2,2} ",
-					HomeTeam, AwayScore, HomeScore, theResult );
+					theResult = $"{theResult} @ {HomeTeam} {AwayScore,2}-{HomeScore,2} ";
 				}
 				else if ( AwayScore == 0 && HomeScore == 0 )
 				{
-					theResult = string.Format( "{1} @ {0}",	HomeTeam, AwayTeam );
+					theResult = string.Format( "{1} @ {0}", HomeTeam, AwayTeam );
 					if ( barIt )
 					{
 						theResult = $"   {AwayTeam} @ {HomeTeam}   ";
