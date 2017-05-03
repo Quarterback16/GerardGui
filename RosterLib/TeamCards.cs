@@ -31,7 +31,7 @@ namespace RosterLib
 				RosterReport.TeamCards();
 			}
 			if (DoPlayerReports)
-				RosterReport.PlayerReports();
+				RosterReport.PlayerReports(100);
 		}
 
 		public override string OutputFilename()

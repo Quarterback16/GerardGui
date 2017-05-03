@@ -7,9 +7,12 @@ namespace RosterLib
 	{
 		public NFLRosterReport RosterReport { get; set; }
 
-		public PlayerCareerReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		public int ReportsToDo { get; private set; }
+
+		public PlayerCareerReport( IKeepTheTime timekeeper, int numberOfReportsTodo = 0) : base( timekeeper )
 		{
 			Season = timekeeper.CurrentSeason( DateTime.Now );
+			ReportsToDo = numberOfReportsTodo;
 		}
 
 		public override void RenderAsHtml()
@@ -17,7 +20,7 @@ namespace RosterLib
 			Name = "Career Reports";
 			RosterReport = new NFLRosterReport( Season );
 			RosterReport.LoadAfc();
-			RosterReport.PlayerReports();
+			RosterReport.PlayerReports( ReportsToDo );
 		}
 
 		public override string OutputFilename()

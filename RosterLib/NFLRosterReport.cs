@@ -507,8 +507,9 @@ namespace RosterLib
 
 		#region Player Reports
 
-		public void PlayerReports()
+		public void PlayerReports( int reportsToDo )
 		{
+			var reportsDone = 0;
 			//  All the players
 			foreach ( NflConference c in _confList )
 				foreach ( NFLDivision d in c.DivList )
@@ -516,7 +517,11 @@ namespace RosterLib
 					{
 						t.LoadPlayerUnits();
 						foreach ( NFLPlayer p in t.PlayerList )
+						{
+							if ( reportsToDo > 0 && reportsDone >= reportsToDo ) break;
 							p.PlayerReport();
+							reportsDone++;
+						}
 					}
 		}
 

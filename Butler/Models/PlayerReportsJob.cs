@@ -1,4 +1,6 @@
-﻿using RosterLib;
+﻿using Helpers;
+using Helpers.Interfaces;
+using RosterLib;
 using RosterLib.Interfaces;
 using System;
 
@@ -8,10 +10,13 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
-		public PlayerReportsJob( IKeepTheTime timeKeeper ) : base( timeKeeper )
+		private const string K_PlayerReportsTodo = "PlayerReportsToDo";
+
+		public PlayerReportsJob( IKeepTheTime timeKeeper, IConfigReader configReader ) : base( timeKeeper )
 		{
+			var reportsToDo = configReader.GetSetting( K_PlayerReportsTodo );
 			Name = "Player Reports";
-			Report = new PlayerCareerReport( TimeKeeper );
+			Report = new PlayerCareerReport( TimeKeeper, Int32.Parse(reportsToDo) );
 			TimeKeeper = timeKeeper;
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;

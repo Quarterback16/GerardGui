@@ -140,7 +140,7 @@ namespace Butler
 				MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new FreeAgentMarketJob( TimeKeeper ) ); //  regular - pre season
 				MyJobs.Add( new StrengthOfScheduleJob( TimeKeeper ) ); //  once off - pre season
-				MyJobs.Add( new PlayerReportsJob( TimeKeeper ) );
+				MyJobs.Add( new PlayerReportsJob( TimeKeeper, configReader ) );
 				MyJobs.Add( new PositionReportJob( TimeKeeper ) );
 
 				#endregion Pre Season Jobs -- Long running so last in the job order
