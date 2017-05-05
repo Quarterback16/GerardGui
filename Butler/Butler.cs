@@ -33,6 +33,8 @@ namespace Butler
 
 		public bool Verbose { get; set; }
 
+		public bool AutoStart { get; set; }
+
 		public int Passes { get; private set; }
 
 		public BackgroundWorker MyWorker { get; private set; }

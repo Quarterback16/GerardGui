@@ -60,7 +60,7 @@
          this.button1.TabIndex = 1;
          this.button1.Text = "GO";
          this.button1.UseVisualStyleBackColor = true;
-         this.button1.Click += new System.EventHandler(this.button1_Click);
+         this.button1.Click += new System.EventHandler(this.Button1_Click);
          // 
          // label1
          // 
@@ -97,7 +97,7 @@
          // 
          this.backgroundWorker1.WorkerReportsProgress = true;
          this.backgroundWorker1.WorkerSupportsCancellation = true;
-         this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+         this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
          this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
          this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
          // 

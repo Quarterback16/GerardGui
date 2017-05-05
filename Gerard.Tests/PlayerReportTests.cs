@@ -1,59 +1,58 @@
-﻿using System;
-using Butler.Models;
+﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
+using System;
 
 namespace Gerard.Tests
 {
-   [TestClass]
-   public class PlayerReportTests
-   {
+	[TestClass]
+	public class PlayerReportTests
+	{
+		[TestMethod]
+		public void TestPlayerReportsJob()
+		{
+			var sut = new PlayerReportsJob( new TimeKeeper( null ), new FakeConfigReader() );
+			sut.DoJob();
+			var run = sut.Report.LastRun;
+			Console.WriteLine( "Last Run : {0}", run );
+			Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
+		}
 
-      [TestMethod]
-      public void TestPlayerReportsJob()
-      {
-         var sut = new PlayerReportsJob( new TimeKeeper(null) );
-         sut.DoJob();
-         var run = sut.Report.LastRun;
-         Console.WriteLine( "Last Run : {0}", run );
-         Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
-      }
+		[TestMethod]
+		public void TestTimetoDoPlayerReports()
+		{
+			var sut = new PlayerReportsJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ),
+				new FakeConfigReader() );
+			var isTime = sut.IsTimeTodo( out string whyNot );
+			Console.WriteLine( whyNot );
+			Assert.IsTrue( isTime );
+		}
 
-      [TestMethod]
-      public void TestTimetoDoPlayerReports()
-      {
-         var sut = new PlayerReportsJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime:false ) );
-         string whyNot;
-         var isTime = sut.IsTimeTodo( out whyNot );
-         Console.WriteLine( whyNot );
-         Assert.IsTrue( isTime );
-      }
+		[TestMethod]
+		public void TestEddieLacy()
+		{
+			var sut = new NFLPlayer( "CARRDE01" );
+			var outcome = sut.PlayerReport();
+			Console.WriteLine( "Report generated to {0}", outcome );
+			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+		}
 
-      [TestMethod]
-      public void TestEddieLacy()
-      {
-         var sut = new NFLPlayer("CARRDE01");
-         var outcome = sut.PlayerReport();
-         Console.WriteLine( "Report generated to {0}", outcome );
-         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
-      }
+		[TestMethod]
+		public void TestMattForte()
+		{
+			var sut = new NFLPlayer( "FORTMA01" );
+			var outcome = sut.PlayerReport( true );
+			Console.WriteLine( "Report generated to {0}", outcome );
+			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+		}
 
-      [TestMethod]
-      public void TestMattForte()
-      {
-         var sut = new NFLPlayer( "FORTMA01" );
-         var outcome = sut.PlayerReport( true );
-         Console.WriteLine( "Report generated to {0}", outcome );
-         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
-      }
-
-      [TestMethod]
-      public void TestTylerLocket()
-      {
-         var sut = new NFLPlayer( "LOCKTY01" );
-         var outcome = sut.PlayerReport( true );
-         Console.WriteLine( "Report generated to {0}", outcome );
-         Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
-      }
-   }
+		[TestMethod]
+		public void TestTylerLocket()
+		{
+			var sut = new NFLPlayer( "LOCKTY01" );
+			var outcome = sut.PlayerReport( true );
+			Console.WriteLine( "Report generated to {0}", outcome );
+			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+		}
+	}
 }
