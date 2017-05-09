@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Xml;
+using NLog;
 
 namespace RosterLib
 {
@@ -17,6 +18,7 @@ namespace RosterLib
 		private HtmlFile _html;
 		public ArrayList ProjectionList;
 		private readonly ArrayList _confList;
+		public Logger Logger { get; private set; }
 
 		#region Constructors
 
@@ -25,6 +27,7 @@ namespace RosterLib
 		/// </summary>
 		public NFLRosterReport( string season )
 		{
+			Logger = LogManager.GetCurrentClassLogger();
 			TimeTaken = "";
 			Season = season;
 			Utility.Announce( "NewRosterReport Constructor" );
@@ -512,17 +515,29 @@ namespace RosterLib
 			var reportsDone = 0;
 			//  All the players
 			foreach ( NflConference c in _confList )
+			{
 				foreach ( NFLDivision d in c.DivList )
+				{
 					foreach ( NflTeam t in d.TeamList )
 					{
 						t.LoadPlayerUnits();
 						foreach ( NFLPlayer p in t.PlayerList )
 						{
-							if ( reportsToDo > 0 && reportsDone >= reportsToDo ) break;
-							p.PlayerReport();
-							reportsDone++;
+							if ( !p.IsPlayerReport() )
+							{
+								if ( reportsToDo > 0 && reportsDone >= reportsToDo )
+								{
+									Logger.Info( $"Quota of {reportsToDo} met" );
+
+									return;
+								}
+								p.PlayerReport();
+								reportsDone++;
+							}
 						}
 					}
+				}
+			}
 		}
 
 		#endregion Player Reports
