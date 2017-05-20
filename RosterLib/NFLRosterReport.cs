@@ -513,6 +513,7 @@ namespace RosterLib
 		public void PlayerReports( int reportsToDo )
 		{
 			var reportsDone = 0;
+			var totalPlayers = 0;
 			//  All the players
 			foreach ( NflConference c in _confList )
 			{
@@ -521,9 +522,16 @@ namespace RosterLib
 					foreach ( NflTeam t in d.TeamList )
 					{
 						t.LoadPlayerUnits();
+						Logger.Info( $"   Team {t} has {t.PlayerList.Count} current players" );
+						totalPlayers += t.PlayerList.Count;
+						var reportsAvailable = 0;
 						foreach ( NFLPlayer p in t.PlayerList )
 						{
-							if ( !p.IsPlayerReport() )
+							if ( p.IsPlayerReport() )
+							{
+								reportsAvailable++;
+							}
+							else
 							{
 								if ( reportsToDo > 0 && reportsDone >= reportsToDo )
 								{
@@ -535,7 +543,9 @@ namespace RosterLib
 								reportsDone++;
 							}
 						}
+						Logger.Info( $"   Team {t} has {reportsAvailable} player reports" );
 					}
+					Logger.Info( $"   League has {totalPlayers} current players" );
 				}
 			}
 		}

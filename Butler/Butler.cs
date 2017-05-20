@@ -80,11 +80,6 @@ namespace Butler
 
 				MyJobs = new List<Job>();
 
-				MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
-					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
-					"d:\\shares\\public\\dropbox\\lists\\"
-					) );
-
 				MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
 				MyJobs.Add( new MediaJob() );  //  regular always
 				MyJobs.Add( new LogMailerJob( new MailMan2( configReader ), new LogFileDetector(), configReader ) );  //  once daily
@@ -156,6 +151,11 @@ namespace Butler
 				  "d:\\shares\\public\\dropbox\\gridstat\\tfl-out",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
 				  ) );
+
+				MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
+					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
+					"d:\\shares\\public\\dropbox\\lists\\"
+				) );
 
 				if ( Passes == 0 )
 					ReportProgress(
