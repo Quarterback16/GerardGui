@@ -1,40 +1,42 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Helpers;
+﻿using Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests
 {
-   [TestClass]
-   public class MailManTests
-   {
-      private MailMan2 sut;
+	[TestClass]
+	public class MailManTests
+	{
+		private MailMan2 sut;
 
-      [TestInitialize]
-      public void TestInitialize()
-      {
-         sut = SystemUnderTest();
-      }
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			sut = SystemUnderTest();
+		}
 
-      private static MailMan2 SystemUnderTest()
-      {
-         return new MailMan2( new ConfigReader() );
-      }
+		private static MailMan2 SystemUnderTest()
+		{
+			return new MailMan2( new ConfigReader() );
+		}
 
-      [TestMethod]
-      public void TestSendMail()
-      {
-         sut.SendMail( message:"Test", subject:"Test" );
-      }
+		[TestMethod]
+		public void TestSendMail()
+		{
+			sut.AddRecipients( "quarterback16@iinet.com.au" );
+			sut.SendMail( message: "Test", subject: "Test" );
+		}
 
-      [TestMethod]
-      public void TestSendMailWithAttachment()
-      {
-         sut.SendMail(message: "Test", subject: "Test", attachment: "l:\\RssScanner-2015-09-14.log");
-      }
+		[TestMethod]
+		public void TestSendMailWithAttachment()
+		{
+			sut.AddRecipients( "quarterback16@iinet.com.au" );
+			sut.SendMail( message: "Test", subject: "Test", attachment: "l:\\RssScanner-2017-05-16.log" );
+		}
 
-      [TestMethod]
-      public void TestPokeServer()
-      {
-         MailMan.PokeServer("192.168.1.113", 25);
-      }
-   }
+		[TestMethod]
+		public void TestPokeServer()
+		{
+			MailMan.PokeServer( "192.168.1.113", 25 );
+		}
+	}
 }
