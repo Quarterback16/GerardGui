@@ -11,6 +11,8 @@ namespace RosterLib
 	/// </summary>
 	public class NFLRosterReport
 	{
+		public Logger Logger { get; private set; }
+
 		public string FileOut = "";
 		public string Season { get; set; }
 		public NflConference Nfc;
@@ -18,7 +20,6 @@ namespace RosterLib
 		private HtmlFile _html;
 		public ArrayList ProjectionList;
 		private readonly ArrayList _confList;
-		public Logger Logger { get; private set; }
 
 		#region Constructors
 
@@ -114,10 +115,21 @@ namespace RosterLib
 			_html.Render();
 		}
 
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = NLog.LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
+#if DEBUG
+			Utility.Announce( message );
+#endif
+		}
+
 		public void SeasonProjection( string metricName, string season, string week, DateTime projectionDate )
 		{
 #if DEBUG
-			Utility.Announce(string.Format("SeasonProjection metric={0} ...", metricName));
+			Announce(string.Format("SeasonProjection metric={0} ...", metricName));
 #endif
 			FileOut = ProjectionFileName( metricName, season );
 
@@ -324,7 +336,10 @@ namespace RosterLib
 			else
 				predictor = new WizPredictor();
 			var s = HtmlLib.TableOpen( "border=1 cellpadding='0' cellspacing='0'" );
+#if !DEBUG
+			//  to save time testing
 			if ( Nfc != null ) s += Nfc.SeasonProjection( metric, predictor, projectionDate );
+#endif
 			if ( Afc != null ) s += Afc.SeasonProjection( metric, predictor, projectionDate );
 			return s;
 		}
@@ -344,7 +359,7 @@ namespace RosterLib
 			return htmlOut;
 		}
 
-		#region Roster Experience
+#region Roster Experience
 
 		/// <summary>
 		///   Looks at the EP xml to dump out a report
@@ -396,9 +411,9 @@ namespace RosterLib
 						}
 		}
 
-		#endregion Roster Experience
+#endregion Roster Experience
 
-		#region EP.XML
+#region EP.XML
 
 		private void CheckPreRequisites()
 		{
@@ -506,9 +521,9 @@ namespace RosterLib
 			writer.WriteEndElement();
 		}
 
-		#endregion EP.XML
+#endregion EP.XML
 
-		#region Player Reports
+#region Player Reports
 
 		public void PlayerReports( int reportsToDo )
 		{
@@ -550,9 +565,9 @@ namespace RosterLib
 			}
 		}
 
-		#endregion Player Reports
+#endregion Player Reports
 
-		#region CSV output
+#region CSV output
 
 		/// <summary>
 		///   Make a big report then write it as CSV
@@ -694,6 +709,6 @@ namespace RosterLib
 			str.RenderAsCsv( "Players" );
 		}
 
-		#endregion CSV output
+#endregion CSV output
 	}
 }

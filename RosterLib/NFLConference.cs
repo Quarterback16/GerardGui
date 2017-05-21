@@ -17,7 +17,7 @@ namespace RosterLib
 			DivList = new ArrayList();
 		}
 
-		public void AddDiv(string strDivName, string strDivCode )
+		public void AddDiv( string strDivName, string strDivCode )
 		{
 #if DEBUG
 			Utility.Announce( string.Format( "NFLConference.AddDiv: {0} Adding {1}", Conference, strDivName ) );
@@ -25,11 +25,11 @@ namespace RosterLib
 			var div = new NFLDivision( strDivName, Conference, strDivCode, Season, "" );
 			DivList.Add( div );
 		}
-		
-		public void QuickAddDiv(string strDivName, string strDivCode )
+
+		public void QuickAddDiv( string strDivName, string strDivCode )
 		{
 #if DEBUG
-         Utility.Announce(string.Format("NFLConference.QuickAddDiv: {0} Quick Adding {1}", Conference, strDivName));
+			Utility.Announce( string.Format( "NFLConference.QuickAddDiv: {0} Quick Adding {1}", Conference, strDivName ) );
 #endif
 			var div = new NFLDivision( strDivName, Conference, strDivCode, Season );
 			DivList.Add( div );
@@ -49,45 +49,50 @@ namespace RosterLib
 
 		public string DivisionList()
 		{
-		   var sb = new StringBuilder();
+			var sb = new StringBuilder();
 			foreach ( NFLDivision d in DivList )
 				sb.Append( d.DivDiv() );
 			return sb.ToString();
 		}
 
-      public void TeamCards()
-      {
-         //  for each division, render TeamCards
-         var myEnumerator = DivList.GetEnumerator();
-         while ( myEnumerator.MoveNext() )
-         {
-            var d = (NFLDivision) myEnumerator.Current;
-            d.TeamCards();				 
-         }
-      }
+		public void TeamCards()
+		{
+			//  for each division, render TeamCards
+			var myEnumerator = DivList.GetEnumerator();
+			while ( myEnumerator.MoveNext() )
+			{
+				var d = ( NFLDivision ) myEnumerator.Current;
+				d.TeamCards();
+			}
+		}
 
-      public string Kickers()
-      {
-         //  for each division, render Kicker projections
-         var s = String.Empty;
-         var myEnumerator = DivList.GetEnumerator();
-         while ( myEnumerator.MoveNext() )
-         {
-            var d = (NFLDivision) myEnumerator.Current;
-            s += d.Kickers();
-				FieldGoals += d.FieldGoals; 
-         }
-         return s;
-      }
+		public string Kickers()
+		{
+			//  for each division, render Kicker projections
+			var s = String.Empty;
+			var myEnumerator = DivList.GetEnumerator();
+			while ( myEnumerator.MoveNext() )
+			{
+				var d = ( NFLDivision ) myEnumerator.Current;
+				s += d.Kickers();
+				FieldGoals += d.FieldGoals;
+			}
+			return s;
+		}
 
-      public string SeasonProjection(string metricName, IPrognosticate predictor, DateTime projectionDate )
-      {
-         //  for each division, render projections
-         var sb = new StringBuilder();
-      	foreach ( NFLDivision d in DivList )
-      		sb.Append( d.SeasonProjection( metricName, predictor, projectionDate ) );
-      	return sb.ToString();
-      }
+		public string SeasonProjection( string metricName, IPrognosticate predictor, DateTime projectionDate )
+		{
+			//  for each division, render projections
+			var sb = new StringBuilder();
+			foreach ( NFLDivision d in DivList )
+			{
+#if DEBUG
+				if ( !d.Name.Equals( "West" ) ) continue;
+#endif
+				sb.Append( d.SeasonProjection( metricName, predictor, projectionDate ) );
+			}
+			return sb.ToString();
+		}
 
 		public int FieldGoals { get; set; }
 

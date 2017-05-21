@@ -35,5 +35,20 @@ namespace Gerard.Tests
 			Assert.IsFalse( string.IsNullOrEmpty( sp ) );
 		}
 
+		[TestMethod]
+		public void TestNflConferences()
+		{
+			var sut = new NflConference( "AFC", "2017");
+			sut.AddDiv( "West", "H" );
+			Assert.IsTrue( sut.DivList.Count == 1 );
+		}
+
+		[TestMethod]
+		public void TestNflDivision()
+		{
+			var sut = new NFLDivision( "West", "AFC", "H", "2017", "" );
+			Assert.IsTrue( sut.TeamList.Count == 4 );
+		}
+
 	}
 }

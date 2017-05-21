@@ -67,12 +67,14 @@ namespace RosterLib
 			LoadTeams( teamList, season, when );
 
 			var metricTable = LoadMetrix( teamList, when );
-			Rank( metricTable, "YDp DESC", UnitRatings.UnitRating.Po );
 			Rank( metricTable, "YDr DESC", UnitRatings.UnitRating.Ro );
+#if !DEBUG
+			Rank( metricTable, "YDp DESC", UnitRatings.UnitRating.Po );
 			Rank( metricTable, "SAKa ASC", UnitRatings.UnitRating.Pp );
 			Rank( metricTable, "SAK DESC", UnitRatings.UnitRating.Pr );
 			Rank( metricTable, "YDra ASC", UnitRatings.UnitRating.Rd );
 			Rank( metricTable, "IntRatio DESC", UnitRatings.UnitRating.Pd );
+#endif
 			LastDateRanked = when;
 			DumpRatingsHt( when );
 			UpdateMetricsWithRatings( metricTable );
@@ -251,11 +253,22 @@ namespace RosterLib
 			foreach ( DataRow dr in dt.Rows )
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();
+#if DEBUG
+				teamCode = "LR";
+#endif
+				Logger.Info( $"Tallying {teamCode}" );
 				TallyTeam( teamList, season, focusDate, teamCode );
+#if DEBUG
+				break;
+#endif
 			}
 		}
 
-		public void TallyTeam( ICollection<NflTeam> teamList, string season, DateTime focusDate, string teamCode )
+		public void TallyTeam( 
+			ICollection<NflTeam> teamList, 
+			string season, 
+			DateTime focusDate, 
+			string teamCode )
 		{
 			var team = new NflTeam( teamCode );  //  simple code constructor
 			if ( TimeKeeper.IsItRegularSeason() )
