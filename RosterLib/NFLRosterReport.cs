@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Xml;
 using NLog;
+using RosterLib.Interfaces;
 
 namespace RosterLib
 {
@@ -40,7 +41,7 @@ namespace RosterLib
 			_confList.Add( Afc );
 			LoadAfc();
 			ProjectionList = new ArrayList();
-			Utility.Announce( "NewRosterReport Constructor - Done" );
+			Announce( "NewRosterReport Constructor - Done" );
 		}
 
 		#endregion Constructors
@@ -525,7 +526,7 @@ namespace RosterLib
 
 #region Player Reports
 
-		public void PlayerReports( int reportsToDo )
+		public void PlayerReports( int reportsToDo, IKeepTheTime timekeeper )
 		{
 			var reportsDone = 0;
 			var totalPlayers = 0;
@@ -542,6 +543,11 @@ namespace RosterLib
 						var reportsAvailable = 0;
 						foreach ( NFLPlayer p in t.PlayerList )
 						{
+							if (p.RookieYear.Equals( timekeeper.Season ) )
+							{
+								Logger.Info( $"Skipping rookie {p}" );
+								continue;
+							}
 							if ( p.IsPlayerReport() )
 							{
 								reportsAvailable++;

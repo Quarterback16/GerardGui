@@ -70,9 +70,11 @@ namespace Butler.Models
 		{
 			var lastDate = new DateTime( 1, 1, 1 );
 			var filesFound = LogFileDetector.DetectLogFileIn( logitem.LogDir, logitem.Filespec, logitem.MailDate );
+			Logger.Info( $"Found {filesFound.Count} files" );
 			foreach ( var file in filesFound )
 			{
 				MailMan.AddRecipients( logitem.Recipients );
+				Logger.Info( $"There are {MailMan.RecipientCount()} recipients" );
 				var errorMsg = MailMan.SendMail( 
 					message: "Log file", 
 					subject: logitem.Subject, 

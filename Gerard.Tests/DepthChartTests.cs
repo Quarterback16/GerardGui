@@ -123,7 +123,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDepthChartFor49ers()
 		{
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), "SF" )
+			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), "GB" )
 			{
 				LeagueInFocus = "G1"
 			};
@@ -224,6 +224,14 @@ namespace Gerard.Tests
 		{
 			var sut = new NFLWeek( "2014", 1 );
 			Assert.IsFalse( sut.HasPassed() );
+		}
+
+		[TestMethod]
+		public void TestGBRunners()
+		{
+			var sut = new NflTeam( "GB" );
+			var res = sut.LoadRushUnit();
+			Assert.IsTrue( res.Count > 0 );
 		}
 	}
 }

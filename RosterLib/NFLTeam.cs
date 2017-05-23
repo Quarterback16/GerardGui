@@ -2055,15 +2055,15 @@ namespace RosterLib
 		private void DumpSpots()
 		{
 			if ( _spotList == null ) return;
-			Utility.Announce( String.Format( "{0} - has {1} spots filled ", Name, _spotList.Count ) );
+			Announce( String.Format( "{0} - has {1} spots filled ", Name, _spotList.Count ) );
 			foreach ( var t in _spotList )
 			{
 				var item = ( Spot ) t;
-				Utility.Announce(
+				Announce(
 				   String.Format( "{0,-3} - {1,-20} - Used={2} Def={3}", item.SpotName, item.Player.PlayerName, item.IsUsed,
 								 item.IsDef ) );
 			}
-			Utility.Announce( "------------------------------------------------------" );
+			Announce( "------------------------------------------------------" );
 		}
 
 		private static bool IsMatch( string lineupSlot, string starterPos, bool bSpotIsDef )
@@ -3671,7 +3671,7 @@ namespace RosterLib
 		public void LoadPlayerUnits()
 		{
 #if DEBUG
-			Utility.Announce( "NFlTeam.LoadLineupPlayers:Loading units for " + TeamCode );
+			Announce( "NFlTeam.LoadLineupPlayers:Loading units for " + TeamCode );
 			//DumpStarters();
 #endif
 			if ( Filters.DoPassingUnit() ) LoadPassingUnit( Filters.QbRoleFilter() );
@@ -4796,7 +4796,7 @@ namespace RosterLib
 		public List<string> LoadRushUnit()
 		{
 #if DEBUG
-			Announce( "NFLTeam.LoadRushUnit" );
+			Announce( $"NFLTeam.LoadRushUnit for {TeamCode}" );
 #endif
 			if ( RushUnit == null ) RushUnit = new RushUnit();
 			return RushUnit.Load( TeamCode );
@@ -5272,9 +5272,9 @@ namespace RosterLib
 		public void Announce( string message )
 		{
 			if ( Logger == null )
-				Logger = NLog.LogManager.GetCurrentClassLogger();
+				Logger = LogManager.GetCurrentClassLogger();
 
-			Logger.Trace( "   " + message );
+			Logger.Info( "   " + message );
 #if DEBUG
 			Utility.Announce( message );
 #endif

@@ -20,7 +20,7 @@ namespace RosterLib
 			Name = "Career Reports";
 			RosterReport = new NFLRosterReport( Season );
 			RosterReport.LoadAfc();
-			RosterReport.PlayerReports( ReportsToDo );
+			RosterReport.PlayerReports( ReportsToDo, TimeKeeper );
 		}
 
 		public override string OutputFilename()

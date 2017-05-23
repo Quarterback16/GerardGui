@@ -16,27 +16,27 @@ namespace RosterLib
 		public TeamCards( IKeepTheTime timekeeper, bool doPlayerReports ) : base( timekeeper )
 		{
 			Name = "Team Cards";
-		   DoPlayerReports = doPlayerReports;
-		   Leagues = new List<RosterGridLeague>
+			DoPlayerReports = doPlayerReports;
+			Leagues = new List<RosterGridLeague>
 		   {
-		      new RosterGridLeague {Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1"}
+			  new RosterGridLeague {Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1"}
 		   };
 		}
 
 		public override void RenderAsHtml()
 		{
-         RosterReport = new NFLRosterReport( Season ) { Season = Season };
-         foreach ( var league in Leagues)
+			RosterReport = new NFLRosterReport( Season ) { Season = Season };
+			foreach ( var league in Leagues )
 			{
 				RosterReport.TeamCards();
 			}
-			if (DoPlayerReports)
-				RosterReport.PlayerReports(100);
+			if ( DoPlayerReports )
+				RosterReport.PlayerReports( 100, TimeKeeper );
 		}
 
 		public override string OutputFilename()
 		{
-			var fileOut = string.Format("{0}{2}/TeamCards/TeamCard_{1}.htm", Utility.OutputDirectory(), "SF", Season);
+			var fileOut = string.Format( "{0}{2}/TeamCards/TeamCard_{1}.htm", Utility.OutputDirectory(), "SF", Season );
 			return fileOut;
 		}
 	}
