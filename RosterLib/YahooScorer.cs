@@ -49,7 +49,7 @@ namespace RosterLib
 
          if ( plyr.TeamCode == null )
          {
-            Console.WriteLine("{0} has a null teamcode", plyr);
+            Logger.Error("{0} has a null teamcode", plyr);
             return 0;
          }
          GameKey = Week.GameCodeFor( plyr.TeamCode );
@@ -67,31 +67,27 @@ namespace RosterLib
          //  4 pts for a Tdp
          var tdpPts = PointsFor( plyr, 4, Constants.K_SCORE_TD_PASS, id: "2" );
          plyr.Points += tdpPts;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for Tdp", plyr.PlayerName, tdpPts ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {tdpPts} points for Tdp" );
+
          //  2 pts for a PAT pass
          var ptsForPATpasses = PointsFor( plyr, 2, Constants.K_SCORE_PAT_PASS, id: "2" );
          plyr.Points += ptsForPATpasses;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for PAT passes", plyr.PlayerName, ptsForPATpasses ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForPATpasses} points for PAT passes" );
+
          //  1 pt / 25 YDp
          var ptsForYDp = PointsForStats( plyr: plyr, increment: 1, forStatType: Constants.K_STATCODE_PASSING_YARDS, divisor: 25.0M );
          plyr.Points += ptsForYDp;
-#if DEBUG
-         Utility.Announce( string.Format(
-				"{0} has {1} points for {2} YDp", plyr.PlayerName, ptsForYDp, plyr.ProjectedYDp ));
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForYDp} points for {plyr.ProjectedYDp} YDp");
+
          //  -2 pts for an Interception
          var ptsForInts = PointsForStats(
             plyr: plyr, increment: -1, forStatType: Constants.K_STATCODE_INTERCEPTIONS_THROWN, divisor: 1.0M );
          plyr.Points += ptsForInts;
-#if DEBUG
-         Utility.Announce( string.Format( "{0} has {1} points for Interceptions", plyr.PlayerName, ptsForInts ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForInts} points for Interceptions" );
 
          #endregion Passing
 
@@ -100,18 +96,11 @@ namespace RosterLib
          //  6 pts for a TD catch
          var ptsForTDcatches = PointsFor( plyr, 6, Constants.K_SCORE_TD_PASS, id: "1" );
          plyr.Points += ptsForTDcatches;
-#if DEBUG
-         if (plyr.PlayerCode.Equals("BRATCA01"))
-            Utility.Announce( string.Format(
-             "{0} has {1} points for TD catches", plyr.PlayerName, ptsForTDcatches ) );
-#endif
          //  2 points for a 2 point conversion
          var ptsForPATcatches = PointsFor( plyr, 2, Constants.K_SCORE_PAT_PASS, id: "1" );
          plyr.Points += ptsForPATcatches;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for PAT catches", plyr.PlayerName, ptsForPATcatches ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForPATcatches} points for PAT catches" );
 
          //  1 pt / 10 yds
          var ptsForYDs = PointsForStats(
@@ -121,10 +110,8 @@ namespace RosterLib
             divisor: 10.0M );
 
          plyr.Points += ptsForYDs;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for YDc", plyr.PlayerName, ptsForYDs ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForYDs} points for YDc" );
 
          #endregion Catching
 
@@ -133,26 +120,20 @@ namespace RosterLib
          //  6 points for TD run
          var ptsForTDruns = PointsFor( plyr, 6, Constants.K_SCORE_TD_RUN, id: "1" );
          plyr.Points += ptsForTDruns;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for TD runs", plyr.PlayerName, ptsForTDruns ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForTDruns} points for TD runs" );
 
          var ptsForPaTruns = PointsFor( plyr, 2, Constants.K_SCORE_PAT_RUN, id: "1" );
          plyr.Points += ptsForPaTruns;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for PAT runs", plyr.PlayerName, ptsForPaTruns ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForPaTruns} points for PAT runs" );
 
          //  1 pt / 10 yds
          var ptsForYDr = PointsForStats(
             plyr: plyr, increment: 1, forStatType: Constants.K_STATCODE_RUSHING_YARDS, divisor: 10.0M );
          plyr.Points += ptsForYDr;
-#if DEBUG
-         Utility.Announce( string.Format(
-            "{0} has {1} points for YDr", plyr.PlayerName, ptsForYDr ) );
-#endif
+
+         Announce( $"{plyr.PlayerName} has {ptsForYDr} points for YDr" );
 
          #endregion Running
 
@@ -164,24 +145,25 @@ namespace RosterLib
 
          #endregion Kicking
 
-         Logger.Trace( string.Format(
-            "{0} has {1} in week {2}:{3}",
-               plyr.PlayerName, plyr.Points, week.Season, week.Week ) );
+         Announce( $"{plyr.PlayerName} has {plyr.Points} in week {week.Season}:{week.Week}" );
 
-         // side effect - store metrics
+         // side effect BAD - store metrics removed 2017-05-27
 
-         if ( plyr.GameMetrics.ContainsKey( GameKey ) )
-            PgmDao.SaveActuals( plyr.GameMetrics[ GameKey ], plyr.Points  );
-         else
-         {
-#if DEBUG
-            Utility.Announce( string.Format( "{0} not found in player Game Metrics", GameKey ) );
-#endif               
-         }
+         //if ( plyr.GameMetrics.ContainsKey( GameKey ) )
+         //   PgmDao.SaveActuals( plyr.GameMetrics[ GameKey ], plyr.Points  );
+
          return plyr.Points;
       }
 
-      public string Name { get; set; }
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
+		}
+
+		public string Name { get; set; }
 
       public XmlCache Master
       {

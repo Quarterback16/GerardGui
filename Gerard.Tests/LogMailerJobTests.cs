@@ -14,7 +14,7 @@ namespace Gerard.Tests
          var configReader = new ConfigReader();
          IMailMan mailMan = new MailMan2(configReader);
          IDetectLogFiles logFileDetector = new LogFileDetector();
-         var sut = new LogMailerJob( mailMan, logFileDetector, configReader );
+         var sut = new LogMailerJob( mailMan, logFileDetector );
          sut.DoJob();
          Assert.IsTrue(sut.LogsMailed > 0);
       }

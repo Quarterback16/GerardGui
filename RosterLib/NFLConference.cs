@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using NLog;
 
 namespace RosterLib
 {
@@ -9,6 +10,8 @@ namespace RosterLib
 	/// </summary>
 	public class NflConference
 	{
+		public Logger Logger { get; set; }
+
 		public NflConference( string confIn, string seasonIn )
 		{
 			FieldGoals = 0;
@@ -19,18 +22,34 @@ namespace RosterLib
 
 		public void AddDiv( string strDivName, string strDivCode )
 		{
-#if DEBUG
-			Utility.Announce( string.Format( "NFLConference.AddDiv: {0} Adding {1}", Conference, strDivName ) );
-#endif
+
+			Announce( string.Format( "NFLConference.AddDiv: {0} Adding {1}", Conference, strDivName ) );
+
 			var div = new NFLDivision( strDivName, Conference, strDivCode, Season, "" );
 			DivList.Add( div );
 		}
 
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
+		}
+
+		public void TraceIt( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
+		}
+
 		public void QuickAddDiv( string strDivName, string strDivCode )
 		{
-#if DEBUG
-			Utility.Announce( string.Format( "NFLConference.QuickAddDiv: {0} Quick Adding {1}", Conference, strDivName ) );
-#endif
+
+			Announce( string.Format( "NFLConference.QuickAddDiv: {0} Quick Adding {1}", Conference, strDivName ) );
+
 			var div = new NFLDivision( strDivName, Conference, strDivCode, Season );
 			DivList.Add( div );
 		}

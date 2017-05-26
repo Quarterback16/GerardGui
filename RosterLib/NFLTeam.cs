@@ -1891,13 +1891,12 @@ namespace RosterLib
 			var posCountHt = new Hashtable();
 			var ds = Utility.TflWs.GetPlayer( TeamCode, "*", "S", "*" );
 			var dt = ds.Tables[ 0 ];
-			Utility.Announce( String.Format( "{0} - has {1} Starters ", Name, dt.Rows.Count ) );
+			TraceIt( String.Format( "{0} - has {1} Starters ", Name, dt.Rows.Count ) );
 			foreach ( DataRow dr in dt.Rows )
 			{
 				var cat = dr[ "CATEGORY" ].ToString();
-				Utility.Announce(
-				   String.Format( "{0} - {6,2} {1}{2} {5} {3} {4}", dr[ "PLAYERID" ], dr[ "FIRSTNAME" ], dr[ "SURNAME" ], dr[ "POSDESC" ],
-								 dr[ "STAR" ], cat, dr[ "JERSEY" ] ) );
+				TraceIt(
+				   $"{dr[ "PLAYERID" ]} - {dr[ "JERSEY" ],2} {dr[ "FIRSTNAME" ]}{dr[ "SURNAME" ]} {cat} {dr[ "POSDESC" ]} {dr[ "STAR" ]}" );
 				if ( posCountHt.ContainsKey( cat ) )
 					posCountHt[ cat ] = ( int ) posCountHt[ cat ] + 1;
 				else
@@ -1912,7 +1911,7 @@ namespace RosterLib
 			TestNumberOfStarters( posCountHt, Constants.K_DEFENSIVEBACK_CAT, 4 );
 			TestNumberOfStarters( posCountHt, Constants.K_OFFENSIVELINE_CAT, 5 );
 
-			Utility.Announce( "-------------------------------------------------------" );
+			TraceIt( "-------------------------------------------------------" );
 		}
 
 		public int DumpMissingRunningBacks()
@@ -1935,7 +1934,7 @@ namespace RosterLib
 					posCountHt[ cat ] = 1;
 			}
 			TestNumberOfStarters( posCountHt, Constants.K_RUNNINGBACK_CAT, 1 );
-			Utility.Announce( "-------------------------------------------------------" );
+			Announce( "-------------------------------------------------------" );
 			return posCountHt.ContainsKey( Constants.K_RUNNINGBACK_CAT ) ? ( int ) posCountHt[ Constants.K_RUNNINGBACK_CAT ] : 0;
 		}
 
@@ -1950,10 +1949,8 @@ namespace RosterLib
 				var posDesc = dr[ "POSDESC" ].ToString().Trim();
 				if ( cat.Equals( Constants.K_QUARTERBACK_CAT ) && posDesc.Equals( "QB" ) )
 				{
-					Utility.Announce(
-					   String.Format( "{7} - {0} - {6,2} {1}{2} {5} {3} {4}",
-					   dr[ "PLAYERID" ], dr[ "FIRSTNAME" ], dr[ "SURNAME" ], posDesc,
-									 dr[ "STAR" ], cat, dr[ "JERSEY" ], TeamCode ) );
+					Announce(
+					   $"{TeamCode} - {dr[ "PLAYERID" ]} - {dr[ "JERSEY" ],2} {dr[ "FIRSTNAME" ]}{dr[ "SURNAME" ]} {cat} {posDesc} {dr[ "STAR" ]}" );
 					if ( posCountHt.ContainsKey( cat ) )
 						posCountHt[ cat ] = ( int ) posCountHt[ cat ] + 1;
 					else
@@ -1961,7 +1958,7 @@ namespace RosterLib
 				}
 			}
 			TestNumberOfStarters( posCountHt, Constants.K_QUARTERBACK_CAT, 1 );
-			Utility.Announce( "-------------------------------------------------------" );
+			Announce( "-------------------------------------------------------" );
 			return posCountHt.ContainsKey( Constants.K_QUARTERBACK_CAT ) ? ( int ) posCountHt[ Constants.K_QUARTERBACK_CAT ] : 0;
 		}
 
@@ -2030,7 +2027,7 @@ namespace RosterLib
 				}
 			}
 			else
-				Utility.Announce( string.Format( "{1} - has no {0}", Utility.MainPos( cat ), TeamCode ) );
+				Announce( $"{TeamCode} - has no {Utility.MainPos( cat )}" );
 		}
 
 		private void TestNumberOfStarters( IDictionary posCountHt, string cat, int expectedLo, int expectedHi )
@@ -2039,31 +2036,29 @@ namespace RosterLib
 			{
 				var theCount = ( int ) posCountHt[ cat ];
 				if ( theCount < expectedLo )
-					Utility.Announce( string.Format( "{2} - Too few starting {0} ({1})",
-												   Utility.MainPos( cat ), theCount, TeamCode ) );
+					Announce( $"{TeamCode} - Too few starting {Utility.MainPos( cat )} ({theCount})" );
 				else
 				{
 					if ( theCount > expectedHi )
-						Utility.Announce( string.Format( "{2} - Too many starting {0} ({1})",
-													   Utility.MainPos( cat ), theCount, TeamCode ) );
+						Announce( $"{TeamCode} - Too many starting {Utility.MainPos( cat )} ({theCount})" );
 				}
 			}
 			else
-				Utility.Announce( string.Format( "{1} - has no {0}", Utility.MainPos( cat ), TeamCode ) );
+				Announce( $"{TeamCode} - has no {Utility.MainPos( cat )}" );
 		}
 
 		private void DumpSpots()
 		{
 			if ( _spotList == null ) return;
-			Announce( String.Format( "{0} - has {1} spots filled ", Name, _spotList.Count ) );
+			TraceIt( String.Format( "{0} - has {1} spots filled ", Name, _spotList.Count ) );
 			foreach ( var t in _spotList )
 			{
 				var item = ( Spot ) t;
-				Announce(
+				TraceIt(
 				   String.Format( "{0,-3} - {1,-20} - Used={2} Def={3}", item.SpotName, item.Player.PlayerName, item.IsUsed,
 								 item.IsDef ) );
 			}
-			Announce( "------------------------------------------------------" );
+			TraceIt( "------------------------------------------------------" );
 		}
 
 		private static bool IsMatch( string lineupSlot, string starterPos, bool bSpotIsDef )
@@ -3247,10 +3242,9 @@ namespace RosterLib
 					if ( dropPositions.IndexOf( strPlayerPos ) == -1 )
 						StarterList.Add( new NFLPlayer( strPlayerName, strPlayerCode, strPlayerRole,
 														strRookieYr, strPlayerPos, "", this ) );
-#if DEBUG
+
 					else
-						Console.WriteLine( strPlayerName + " filtered out" );
-#endif
+						TraceIt( strPlayerName + " filtered out" );
 				}
 			}
 			return;
@@ -3448,7 +3442,7 @@ namespace RosterLib
 
 		private string TeamDivContents()
 		{
-			//RosterLib.Utility.Announce("NFlTeam.TeamDivContents for " + TeamCode);
+			TraceIt( "NFlTeam.TeamDivContents for " + TeamCode);
 
 			string s = String.Empty;
 
@@ -3457,7 +3451,7 @@ namespace RosterLib
 			LoadPlayerUnits(); //  Dont want empty units - expensive as it takes a lot of time
 
 			s += UnitTypeDiv();
-			//RosterLib.Utility.Announce("NFlTeam.TeamDivContents finished for " + TeamCode);
+			TraceIt( $"NFlTeam.TeamDivContents finished for {TeamCode}" );
 
 			return s;
 		}
@@ -3644,7 +3638,7 @@ namespace RosterLib
 
 		public string UnitTypeDiv()
 		{
-			//RosterLib.Utility.Announce("NFlTeam.UnitTypeDiv for " + TeamCode);
+			TraceIt( "NFlTeam.UnitTypeDiv for " + TeamCode);
 
 			string s = String.Empty;
 
@@ -3652,7 +3646,7 @@ namespace RosterLib
 				Filters.DoKickingUnit() )
 			{
 				var o =
-				   new DivBlock( string.Format( "Offence  {0} Exp {1}", _ratings.Substring( 0, 3 ), OffExp() ), 3, "he3" );
+				   new DivBlock( $"Offence  {_ratings.Substring( 0, 3 )} Exp {OffExp()}", 3, "he3" );
 				o.AddContainer( OffUnits() );
 				s += o.Html() + "\n";
 			}
@@ -3663,17 +3657,17 @@ namespace RosterLib
 				d.AddContainer( DefUnits() );
 				s += d.Html() + "\n";
 			}
-			//RosterLib.Utility.Announce("NFlTeam.UnitTypeDiv finished for " + TeamCode);
+			TraceIt( "NFlTeam.UnitTypeDiv finished for " + TeamCode);
 
 			return s;
 		}
 
 		public void LoadPlayerUnits()
 		{
-#if DEBUG
-			Announce( "NFlTeam.LoadLineupPlayers:Loading units for " + TeamCode );
-			//DumpStarters();
-#endif
+
+			TraceIt( "NFlTeam.LoadLineupPlayers:Loading units for " + TeamCode );
+			DumpStarters();
+
 			if ( Filters.DoPassingUnit() ) LoadPassingUnit( Filters.QbRoleFilter() );
 			if ( Filters.DoRunningUnit() ) LoadRunningUnit( Filters.RbRoleFilter() );
 			if ( Filters.DoProtectionUnit() ) LoadProtectionUnit( Filters.OlRoleFilter() );
@@ -3681,10 +3675,10 @@ namespace RosterLib
 			if ( Filters.DoPassDefenceUnit() ) LoadPassDefenceUnit( Filters.DefRoleFilter() );
 			if ( Filters.DoRunDefenceUnit() ) LoadRunDefenceUnit( Filters.DefRoleFilter() );
 			if ( Filters.DoKickingUnit() ) LoadKickingUnit();
-#if DEBUG
+
 			DumpSpots();
-			//Utility.Announce("NFlTeam.LoadLineupPlayers:Finished loading units for " + TeamCode);
-#endif
+			TraceIt( "NFlTeam.LoadLineupPlayers:Finished loading units for " + TeamCode);
+
 		}
 
 		private int OffExp()
@@ -3692,7 +3686,7 @@ namespace RosterLib
 			var ep = 0;
 			if ( Filters.CalculateUnitExperience() )
 			{
-				Utility.Announce( "NFlTeam.OffExp: for " + TeamCode );
+				TraceIt( "NFlTeam.OffExp: for " + TeamCode );
 				if ( PassingUnit != null ) ep += UnitExperience( PassingUnit );
 				if ( RunningUnit != null ) ep += UnitExperience( RunningUnit );
 				if ( ProtectionUnit != null ) ep += UnitExperience( ProtectionUnit );
@@ -3706,7 +3700,7 @@ namespace RosterLib
 			var ep = 0;
 			if ( Filters.CalculateUnitExperience() )
 			{
-				Utility.Announce( "NFlTeam.DefExp: for " + TeamCode );
+				TraceIt( "NFlTeam.DefExp: for " + TeamCode );
 				if ( PassRushUnit != null ) ep += UnitExperience( PassRushUnit );
 				if ( RunDefenceUnit != null ) ep += UnitExperience( RunDefenceUnit );
 				if ( PassDefenceUnit != null ) ep += UnitExperience( PassDefenceUnit );
@@ -3714,9 +3708,9 @@ namespace RosterLib
 			return ep;
 		}
 
-		private static int UnitExperience( ArrayList unit )
+		private int UnitExperience( ArrayList unit )
 		{
-			Utility.Announce( "NFlTeam.UnitExperience:Calculating Unit Experience" );
+			TraceIt( "NFlTeam.UnitExperience:Calculating Unit Experience" );
 			var tot = 0;
 			if ( unit != null )
 				tot += ( from NFLPlayer p in unit where p != null select ( int ) p.ExperiencePoints ).Sum();
@@ -3739,11 +3733,10 @@ namespace RosterLib
 			}
 			if ( Filters.DoRunningUnit() )
 			{
-				//RosterLib.Utility.Announce(string.Format( "NFlTeam.OffUnits:Doing Running Unit for {0}", TeamCode ) );
+				TraceIt( string.Format( "NFlTeam.OffUnits:Doing Running Unit for {0}", TeamCode ) );
 				var ro =
 				   new DivBlock(
-					  string.Format( "Rushing UnitGrade: {0} Exp {1}", _ratings.Substring( 1, 1 ),
-									UnitExperience( RunningUnit ) ), 4, "he4h" );
+					  $"Rushing UnitGrade: {_ratings.Substring( 1, 1 )} Exp {UnitExperience( RunningUnit )}", 4, "he4h" );
 				ro.AddContainer( PlayerUnit( RunningUnit ) );
 				s += ro.Html() + "\n";
 			}
@@ -3822,9 +3815,9 @@ namespace RosterLib
 			return s;
 		}
 
-		private static string PlayerUnit( ArrayList unitList )
+		private string PlayerUnit( ArrayList unitList )
 		{
-			Utility.Announce( "NFlTeam.PlayerUnit" );
+			Announce( "NFlTeam.PlayerUnit" );
 
 			var s = String.Empty;
 
@@ -4729,9 +4722,9 @@ namespace RosterLib
 											   ratings.Substring( startPos + 1, 6 - startPos - 1 ) );
 					break;
 			}
-#if DEBUG
+
 			Announce( string.Format( "Adjusted Ratings for {2} changed from {0} to {1}", ratings, newRatings, TeamCode ) );
-#endif
+
 			return newRatings;
 		}
 
@@ -4741,9 +4734,8 @@ namespace RosterLib
 
 		private void LoadPassingUnit( string roleFilter )
 		{
-#if DEBUG
-			Announce( string.Format( "NFLTeam.LoadPassingUnit {0}", roleFilter ) );
-#endif
+			TraceIt( string.Format( "NFLTeam.LoadPassingUnit {0}", roleFilter ) );
+
 			if ( PassingUnit == null ) PassingUnit = new ArrayList();
 			PassingUnit.Clear();
 			if ( Filters.ShowQBs() ) AddPlayers( "1", "QB", roleFilter, PassingUnit );
@@ -4751,12 +4743,13 @@ namespace RosterLib
 			if ( Filters.ShowWRs() ) AddPlayers( "3", "FL", roleFilter, PassingUnit );
 			if ( Filters.ShowWRs() ) AddPlayers( "3", "SE", roleFilter, PassingUnit );
 			if ( Filters.ShowTEs() ) AddPlayers( "3", "TE", roleFilter, PassingUnit );
-			Announce( string.Format( "NFLTeam.LoadPassingUnit {0} - finished", roleFilter ) );
+
+			TraceIt( string.Format( "NFLTeam.LoadPassingUnit {0} - finished", roleFilter ) );
 		}
 
 		public void LoadQuarterbacks( string roleFilter )
 		{
-			//RosterLib.Utility.Announce( string.Format( "NFLTeam.LoadQuarterbacks {0}", roleFilter ) );
+			TraceIt( string.Format( "NFLTeam.LoadQuarterbacks {0}", roleFilter ) );
 			if ( PassingUnit == null ) PassingUnit = new ArrayList();
 			PassingUnit.Clear();
 			if ( Filters.ShowQBs() ) AddPlayers( "1", "QB", roleFilter, PassingUnit );
@@ -4774,17 +4767,15 @@ namespace RosterLib
 
 		private void LoadRunningUnit( string roleFilter )
 		{
-#if DEBUG
-			Announce( string.Format( "NFLTeam.LoadRunningUnit {0}", roleFilter ) );
-#endif
+			TraceIt( string.Format( "NFLTeam.LoadRunningUnit {0}", roleFilter ) );
+
 			if ( RunningUnit == null ) RunningUnit = new ArrayList();
 			RunningUnit.Clear();
 			if ( Filters.ShowRBs() ) AddPlayers( "2", "RB", roleFilter, RunningUnit );
 			if ( Filters.ShowHBs() ) AddPlayers( "2", "HB", roleFilter, RunningUnit );
 			if ( Filters.ShowFBs() ) AddPlayers( "2", "FB", roleFilter, RunningUnit );
-#if DEBUG
-			DumpUnit( RunningUnit, "Running backs" );
-#endif
+
+			//DumpUnit( RunningUnit, "Running backs" );
 		}
 
 		public List<string> LoadKickUnit()
@@ -4795,23 +4786,21 @@ namespace RosterLib
 
 		public List<string> LoadRushUnit()
 		{
-#if DEBUG
-			Announce( $"NFLTeam.LoadRushUnit for {TeamCode}" );
-#endif
+			TraceIt( $"NFLTeam.LoadRushUnit for {TeamCode}" );
+
 			if ( RushUnit == null ) RushUnit = new RushUnit();
 			return RushUnit.Load( TeamCode );
 		}
 
 		public List<string> LoadPassUnit()
 		{
-#if DEBUG
-			Announce( "NFLTeam.LoadPasshUnit" );
-#endif
+			TraceIt( "NFLTeam.LoadPasshUnit" );
+
 			if ( PassUnit == null ) PassUnit = new PassUnit();
 			return PassUnit.Load( TeamCode );
 		}
 
-#if DEBUG
+
 
 		private void DumpUnit( ArrayList unit, string unitName )
 		{
@@ -4820,7 +4809,7 @@ namespace RosterLib
 				Announce( string.Format( "  {0}", p.PlayerOut() ) );
 		}
 
-#endif
+
 
 		/// <summary>
 		/// Loads the protection unit.
@@ -4828,7 +4817,7 @@ namespace RosterLib
 		/// <param name="roleFilter">The role filter eg RosterGrid.OLRoleFilter().</param>
 		private void LoadProtectionUnit( string roleFilter )
 		{
-			//RosterLib.Utility.Announce(string.Format("NFLTeam.LoadProtectionUnit {0}", roleFilter));
+			TraceIt( $"NFLTeam.LoadProtectionUnit {roleFilter}");
 			if ( ProtectionUnit == null ) ProtectionUnit = new ArrayList();
 			ProtectionUnit.Clear();
 			AddPlayers( "7", "OL", roleFilter, ProtectionUnit );
@@ -4840,7 +4829,7 @@ namespace RosterLib
 
 		private void LoadKickingUnit()
 		{
-			//RosterLib.Utility.Announce("NFLTeam.LoadKickingUnit");
+			TraceIt( "NFLTeam.LoadKickingUnit");
 			if ( KickingUnit == null ) KickingUnit = new ArrayList();
 			KickingUnit.Clear();
 			AddPlayers( "4", "PK", "*", KickingUnit );
@@ -4849,7 +4838,7 @@ namespace RosterLib
 
 		private void LoadPassRushUnit( string roleFilter )
 		{
-			//RosterLib.Utility.Announce(string.Format("NFLTeam.LoadPassRushUnit {0}", roleFilter));
+			TraceIt( $"NFLTeam.LoadPassRushUnit {roleFilter}");
 			if ( PassRushUnit == null ) PassRushUnit = new ArrayList();
 			PassRushUnit.Clear();
 			AddPlayers( "5", "DE", roleFilter, PassRushUnit );
@@ -4863,7 +4852,7 @@ namespace RosterLib
 
 		private void LoadPassDefenceUnit( string roleFilter )
 		{
-			//RosterLib.Utility.Announce(string.Format("NFLTeam.LoadPassDefenceUnit {0}", roleFilter));
+			TraceIt( $"NFLTeam.LoadPassDefenceUnit {roleFilter}");
 			if ( PassDefenceUnit == null ) PassDefenceUnit = new ArrayList();
 			PassDefenceUnit.Clear();
 			AddPlayers( "6", "CB", roleFilter, PassDefenceUnit );
@@ -4878,7 +4867,7 @@ namespace RosterLib
 
 		private void LoadRunDefenceUnit( string roleFilter )
 		{
-			//RosterLib.Utility.Announce(string.Format("NFLTeam.LoadRunDefenceUnit {0}", roleFilter));
+			TraceIt( $"NFLTeam.LoadRunDefenceUnit {roleFilter}");
 			if ( RunDefenceUnit == null ) RunDefenceUnit = new ArrayList();
 			RunDefenceUnit.Clear();
 			AddPlayers( "5", "LDT", roleFilter, RunDefenceUnit );
@@ -4903,17 +4892,16 @@ namespace RosterLib
 
 		private void AddPlayers( string strCat, string strPos, string strRole, ArrayList unitList )
 		{
-#if DEBUG
-			//Utility.Announce( "NFLTeam.AddPlayers: Adding players in Cat " + strCat + " " + strPos );
-#endif
+			TraceIt( "NFLTeam.AddPlayers: Adding players in Cat " + strCat + " " + strPos );
+
 			if ( ( Config.HideBackups() ) && ( strRole == NFLPlayer.K_ROLE_BACKUP ) ) return;
 			if ( ( Config.HideReserves() ) && ( strRole == NFLPlayer.K_ROLE_RESERVE ) ) return;
 			if ( ( Config.HideInjuries() ) && ( strRole == NFLPlayer.K_ROLE_INJURED ) ) return;
 
 			AddPlayerData( strCat, strPos, strRole, unitList );
-#if DEBUG
-			//			Utility.Announce("NFLTeam.AddPlayers: Finished adding players in Cat " + strCat + " " + strPos);
-#endif
+
+			TraceIt( "NFLTeam.AddPlayers: Finished adding players in Cat " + strCat + " " + strPos);
+
 			return;
 		}
 
@@ -4925,10 +4913,10 @@ namespace RosterLib
 
 			var ds = Utility.TflWs.GetPlayer( TeamCode, strCat, roleFilter, strPos );
 			var dt = ds.Tables[ "player" ];
-#if DEBUG
-			Announce( string.Format( "NFLTeam.AddPlayerData: adding {0} players in Cat {1} role {2} ",
+
+			TraceIt( string.Format( "NFLTeam.AddPlayerData: adding {0} players in Cat {1} role {2} ",
 			   dt.Rows.Count, strCat, strPos ) );
-#endif
+
 			if ( dt.Rows.Count != 0 )
 				foreach ( DataRow dr in dt.Rows )
 					AddPlayer( dr, unitList );
@@ -4947,18 +4935,12 @@ namespace RosterLib
 			var strPlayerPos = dr[ "posdesc" ].ToString().Trim();
 			var strPlayerName = dr[ "firstname" ].ToString().Trim() + " " + dr[ "surname" ].ToString().Trim();
 
-#if DEBUG
-			Announce( string.Format( "   NFLTeam.AddPlayer:adding {0} {1}  ", strPlayerName, strPlayerPos ) );
-#endif
+			//Announce( string.Format( "   NFLTeam.AddPlayer:adding {0} {1}  ", strPlayerName, strPlayerPos ) );
 
 			if ( AlreadyHave( list, strPlayerCode ) ) return;
 
 			var nDrop = strPlayerPos.IndexOf( Filters.DropPositions() );
 			if ( nDrop > 0 ) return;
-
-#if DEBUG
-			Announce( string.Format( "   NFLTeam.AddPlayer:adding {0} {1}  ", strPlayerName, strPlayerPos ) );
-#endif
 
 			var player = Masters.Pm.GetPlayer( strPlayerCode ); //  first time will load
 			player.LoadOwner();
@@ -4985,12 +4967,12 @@ namespace RosterLib
 
 			if ( PlayerList == null ) PlayerList = new ArrayList();
 			PlayerList.Add( player );
-			//RosterLib.Utility.Announce( string.Format( "   NFLTeam.AddPlayer:adding {0} {1}  ", strPlayerName, strPlayerPos ) );
+			//Announce( string.Format( "   NFLTeam.AddPlayer:finished adding {0} {1}  ", strPlayerName, strPlayerPos ) );
 		}
 
-		#endregion Player loads
+#endregion Player loads
 
-		#region Player Experience
+#region Player Experience
 
 		/// <summary>
 		/// Distributes the experience points to each member of a particular unit.
@@ -5010,9 +4992,9 @@ namespace RosterLib
 				p.ExperiencePoints += expPoints;
 		}
 
-		#endregion Player Experience
+#endregion Player Experience
 
-		#region Power Ratings
+#region Power Ratings
 
 		public decimal GetPowerRating( string week )
 		{
@@ -5064,9 +5046,9 @@ namespace RosterLib
 			return teamsPowerRating += modifier;
 		}
 
-		#endregion Power Ratings
+#endregion Power Ratings
 
-		#region Spots
+#region Spots
 
 		private void FillSpot( NFLPlayer plyr )
 		{
@@ -5191,9 +5173,9 @@ namespace RosterLib
 			return isVacant;
 		}
 
-		#endregion Spots
+#endregion Spots
 
-		#region IComparable Members
+#region IComparable Members
 
 		public int CompareTo( object obj )
 		{
@@ -5203,9 +5185,9 @@ namespace RosterLib
 			return ( team._clip.CompareTo( _clip ) );
 		}
 
-		#endregion IComparable Members
+#endregion IComparable Members
 
-		#region HelperClass  Spot
+#region HelperClass  Spot
 
 		public class Spot
 		{
@@ -5240,13 +5222,14 @@ namespace RosterLib
 			}
 		}
 
-		#endregion HelperClass  Spot
+#endregion HelperClass  Spot
 
 		public void TallyStats()
 		{
 			foreach ( NFLGame game in GameList )
 			{
-				Announce( $"Tallying stats for {game}" );
+				TraceIt( $"Tallying stats for {game}" );
+
 				game.MetricsCalculated = false;  //  force the calcs
 				game.TallyMetrics( metric: string.Empty );
 				game.TallyStatsFor( this );
@@ -5275,9 +5258,14 @@ namespace RosterLib
 				Logger = LogManager.GetCurrentClassLogger();
 
 			Logger.Info( "   " + message );
-#if DEBUG
-			Utility.Announce( message );
-#endif
+		}
+
+		public void TraceIt( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Linq;
 using System.Text;
+using NLog;
 
 namespace RosterLib
 {
@@ -11,6 +12,8 @@ namespace RosterLib
 	/// </summary>
 	public class NFLDivision
 	{
+		public Logger Logger { get; set; }
+
 		/// <summary>
 		///   Loads a Conference with the teams
 		/// </summary>
@@ -21,9 +24,8 @@ namespace RosterLib
 		/// <param name="catIn"></param>
 		public NFLDivision( string nameIn, string confIn, string codeIn, string seasonIn, string catIn )
 		{
-#if DEBUG
-			Utility.Announce( string.Format( "NFLDivision Constructing Division {0} cat {1}", nameIn, catIn ) );
-#endif
+			Announce( string.Format( "NFLDivision Constructing Division {0} cat {1}", nameIn, catIn ) );
+
 			Name = nameIn;
 			Conference = confIn;
 			Code = codeIn;
@@ -34,11 +36,18 @@ namespace RosterLib
 			TeamList.Sort();  //  into what order? - Clip according to the CompareTo in NFLTeam
 		}
 
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Trace( "   " + message );
+		}
+
 		public NFLDivision( string nameIn, string confIn, string codeIn, string seasonIn )
 		{
-#if DEBUG
-			Utility.Announce( "Constructing Quick Division " + nameIn );
-#endif
+			Announce( "Constructing Quick Division " + nameIn );
+
 			Name = nameIn;
 			Conference = confIn;
 			Code = codeIn;
@@ -50,9 +59,9 @@ namespace RosterLib
 
 		private void LoadTeams()
 		{
-#if DEBUG
-			Utility.Announce( string.Format( "NFlDivision:LoadTeams: Load teams for {0} code {1}", Season, Code ) );
-#endif
+
+			Announce( $"NFlDivision:LoadTeams: Load teams for {Season} code {Code}" );
+
 			var strFilter = Filters.TeamFilter();
 
 			var ds = Utility.TflWs.GetTeams( Season, Code );
@@ -60,10 +69,9 @@ namespace RosterLib
 			foreach ( DataRow dr in dt.Rows )
 			{
 				var strTeamCode = dr[ "teamid" ].ToString();
-#if DEBUG
-				Utility.Announce( string.Format( "NFLDivision.LoadTeams: Loading {0} Clip= {1}",
-													dr[ "teamname" ], dr[ "clip" ] ) );
-#endif
+
+				Announce( $"NFLDivision.LoadTeams: Loading {dr[ "teamname" ]} Clip= {dr[ "clip" ]}" );
+
 				var nIndex = strFilter.IndexOf( strTeamCode );
 				if ( nIndex <= -1 ) continue;
 				var t = Masters.Tm.GetTeam( Season, strTeamCode );

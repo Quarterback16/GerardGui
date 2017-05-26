@@ -974,6 +974,7 @@ namespace TFLLib
 
 				commandStr += " order by CATEGORY";
 				ds = GetNflDataSet( "player", commandStr, "GetPlayer" );
+				Logger.Info( $"{commandStr} begets {ds.Tables[ 0 ].Rows.Count} players" );
 				cache.Set( keyValue, ds, new TimeSpan( 2, 0, 0 ) );
 			}
 			else

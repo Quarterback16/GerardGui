@@ -82,6 +82,7 @@
     <Compile Include="ConfigReaderTests.cs" />
     <Compile Include="DataLibrarianTests.cs" />
     <Compile Include="DefensiveReportsTests.cs" />
+    <Compile Include="DeletePlayerReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
     <Compile Include="DropBoxCopyTflToVesuviusJobTests.cs" />
     <Compile Include="DropboxCopyToReginaJobTests.cs" />

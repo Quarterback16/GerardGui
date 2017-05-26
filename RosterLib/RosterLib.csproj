@@ -302,6 +302,7 @@
     <Compile Include="RoleAssignmentReport.cs" />
     <Compile Include="Rookies.cs" />
     <Compile Include="RosterGridReport.cs" />
+    <Compile Include="RosterGridReports\DeletePlayerReportsReport.cs" />
     <Compile Include="RosterGridReports\IWinOrLose.cs" />
     <Compile Include="RosterGridReports\MetricsUpdateReport.cs" />
     <Compile Include="RosterGridReports\PickupChart.cs" />

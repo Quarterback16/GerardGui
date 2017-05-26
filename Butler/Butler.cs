@@ -82,7 +82,7 @@ namespace Butler
 
 				MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
 				MyJobs.Add( new MediaJob() );  //  regular always
-				MyJobs.Add( new LogMailerJob( new MailMan2( configReader ), new LogFileDetector(), configReader ) );  //  once daily
+				MyJobs.Add( new LogMailerJob( new MailMan2( configReader ), new LogFileDetector()) );  //  once daily
 				MyJobs.Add( new MediaMailerJob( new MailMan2( configReader ), new MediaLogDetector(), configReader ) );  //  once daily
 
 				#region Looking back on the games just played
@@ -135,6 +135,7 @@ namespace Butler
 
 				MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
 				MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
+				MyJobs.Add( new DeletePlayerReportsJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new FreeAgentMarketJob( TimeKeeper ) ); //  regular - pre season
 				MyJobs.Add( new StrengthOfScheduleJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new PlayerReportsJob( TimeKeeper, configReader ) );
@@ -172,20 +173,18 @@ namespace Butler
 						if ( job.IsTimeTodo( out whyNot ) )
 						{
 							ReportProgress(
-							   string.Format( "Doing job {0}", job.Name ), ButlerConstants.ReportInTextArea );
+								$"Doing job {job.Name}", ButlerConstants.ReportInTextArea );
 							var outcome = job.Execute();
 							ReportProgress( outcome, ButlerConstants.ReportInTextArea );
 						}
 						else
 							ReportProgress(
-							   string.Format( "Job skipped {0} - {1}", job.Name, whyNot ),
+								$"Job skipped {job.Name} - {whyNot}",
 							   ButlerConstants.ReportInTextArea );
 					}
 					Logger.Info( "=====================================================================================" );
 
-					ReportProgress( string.Format(
-					   "Pass Number {0} done - next pass ({1}) {2:HH:mm}",
-					   Passes, Pollinterval, DateTime.Now.AddMinutes( Pollinterval ) ) );
+					ReportProgress( $"Pass Number {Passes} done - next pass ({Pollinterval}) {DateTime.Now.AddMinutes( Pollinterval ):HH:mm}");
 					Thread.Sleep( Pollinterval * 60 * 1000 ); //  <pollInterval> hours
 
 					if ( !MyWorker.CancellationPending ) continue;

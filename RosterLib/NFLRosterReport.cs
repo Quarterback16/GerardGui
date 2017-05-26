@@ -4,6 +4,7 @@ using System.Data;
 using System.Xml;
 using NLog;
 using RosterLib.Interfaces;
+using System.Text;
 
 namespace RosterLib
 {
@@ -32,7 +33,7 @@ namespace RosterLib
 			Logger = LogManager.GetCurrentClassLogger();
 			TimeTaken = "";
 			Season = season;
-			Utility.Announce( "NewRosterReport Constructor" );
+			TraceIt( "NewRosterReport Constructor" );
 			_confList = new ArrayList();
 			Nfc = new NflConference( "NFC", season );
 			_confList.Add( Nfc );
@@ -41,37 +42,37 @@ namespace RosterLib
 			_confList.Add( Afc );
 			LoadAfc();
 			ProjectionList = new ArrayList();
-			Announce( "NewRosterReport Constructor - Done" );
+			TraceIt( "NewRosterReport Constructor - Done" );
 		}
 
 		#endregion Constructors
 
 		public void LoadNfc()
 		{
-#if DEBUG2
-			Utility.Announce("NewRosterReport:LoadNFC Loading NFC");
-#endif
+
+			TraceIt( "NewRosterReport:LoadNFC Loading NFC");
+
 			Nfc.AddDiv( "East", "A" );
+#if !DEBUG
 			Nfc.AddDiv( "North", "B" );
 			Nfc.AddDiv( "South", "C" );
 			Nfc.AddDiv( "West", "D" );
-#if DEBUG2
-			Utility.Announce("NewRosterReport:LoadNFC Loading NFC - finished");
 #endif
+
+			TraceIt( "NewRosterReport:LoadNFC Loading NFC - finished");
 		}
 
 		public void LoadAfc()
 		{
-#if DEBUG
-			Utility.Announce("NewRosterReport:LoadAFC Loading AFC");
-#endif
+			TraceIt( "NewRosterReport:LoadAFC Loading AFC");
+
 			Afc.AddDiv( "North", "F" );
+#if !DEBUG
 			Afc.AddDiv( "East", "E" );
 			Afc.AddDiv( "South", "G" );
 			Afc.AddDiv( "West", "H" );
-#if DEBUG
-			Utility.Announce("NewRosterReport:LoadAFC Loading AFC - finished");
 #endif
+			TraceIt( "NewRosterReport:LoadAFC Loading AFC - finished");
 		}
 
 		/// <summary>
@@ -79,7 +80,7 @@ namespace RosterLib
 		/// </summary>
 		public void QuickLoadConferences()
 		{
-			//			Utility.Announce("NewRosterReport:QuickLoadConferences Loading Divisions");
+			Announce("NewRosterReport:QuickLoadConferences Loading Divisions");
 
 			Nfc.QuickAddDiv( "East", "A" );
 			Nfc.QuickAddDiv( "North", "B" );
@@ -105,7 +106,7 @@ namespace RosterLib
 
 		public void KickerProjection()
 		{
-			Utility.Announce( "Kicker Projections" );
+			Announce( "Kicker Projections" );
 			FileOut = string.Format( "{0}Kickers\\Kickers_{1}.htm", Utility.OutputDirectory(), Utility.CurrentSeason() );
 
 			_html = new HtmlFile( FileOut,
@@ -119,19 +120,24 @@ namespace RosterLib
 		public void Announce( string message )
 		{
 			if ( Logger == null )
-				Logger = NLog.LogManager.GetCurrentClassLogger();
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( "   " + message );
+		}
+
+		public void TraceIt( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
 
 			Logger.Trace( "   " + message );
-#if DEBUG
-			Utility.Announce( message );
-#endif
 		}
 
 		public void SeasonProjection( string metricName, string season, string week, DateTime projectionDate )
 		{
-#if DEBUG
+
 			Announce(string.Format("SeasonProjection metric={0} ...", metricName));
-#endif
+
 			FileOut = ProjectionFileName( metricName, season );
 
 			_html = new HtmlFile( FileOut,
@@ -142,7 +148,7 @@ namespace RosterLib
 			_html.Render();
 			ProjectionList.Add( metricName );
 			Utility.CopySubFile( ProjectionFileName1( metricName, season ),
-			   ProjectionFileName2( metricName, season, week ) );
+			ProjectionFileName2( metricName, season, week ) );
 		}
 
 		public string ProjectionFileName( string metricName, string season )
@@ -167,7 +173,7 @@ namespace RosterLib
 
 		public void DumpProjections()
 		{
-			Utility.Announce( "Dumping Projections" );
+			Announce( "Dumping Projections" );
 
 			if ( ProjectionList == null ) return;
 
@@ -289,7 +295,7 @@ namespace RosterLib
 		public void TeamCards()
 		{
 			//  for each conference, spit out the team cards
-			Utility.Announce( "Team Cards..." );
+			Announce( "Team Cards..." );
 			if ( Nfc != null ) Nfc.TeamCards();
 			if ( Afc != null ) Afc.TeamCards();
 		}
@@ -529,6 +535,7 @@ namespace RosterLib
 		public void PlayerReports( int reportsToDo, IKeepTheTime timekeeper )
 		{
 			var reportsDone = 0;
+			var totalReports = 0;
 			var totalPlayers = 0;
 			//  All the players
 			foreach ( NflConference c in _confList )
@@ -538,14 +545,14 @@ namespace RosterLib
 					foreach ( NflTeam t in d.TeamList )
 					{
 						t.LoadPlayerUnits();
-						Logger.Info( $"   Team {t} has {t.PlayerList.Count} current players" );
+						Announce( $"   Team {t} has {t.PlayerList.Count} current players" );
 						totalPlayers += t.PlayerList.Count;
 						var reportsAvailable = 0;
 						foreach ( NFLPlayer p in t.PlayerList )
 						{
 							if (p.RookieYear.Equals( timekeeper.Season ) )
 							{
-								Logger.Info( $"Skipping rookie {p}" );
+								Logger.Trace( $"      Skipping rookie {p}" );
 								continue;
 							}
 							if ( p.IsPlayerReport() )
@@ -556,24 +563,56 @@ namespace RosterLib
 							{
 								if ( reportsToDo > 0 && reportsDone >= reportsToDo )
 								{
-									Logger.Info( $"Quota of {reportsToDo} met" );
+									Announce( $"Quota of {reportsToDo} met" );
 
 									return;
 								}
 								p.PlayerReport();
+								Announce( $"   Player report for {p} DONE" );
 								reportsDone++;
 							}
 						}
-						Logger.Info( $"   Team {t} has {reportsAvailable} player reports" );
+						Announce( $"   Team {t} has {reportsAvailable} player reports" );
+						totalReports += reportsAvailable; 
 					}
-					Logger.Info( $"   League has {totalPlayers} current players" );
 				}
 			}
+			Announce( $"   League has {totalPlayers} current players" );
+			Announce( $"   League has {totalReports} current player reports" );
 		}
 
-#endregion Player Reports
+		public void DeletePlayerReports( StringBuilder body )
+		{
+			var reportsDeleted = 0;
+			//  All the players
+			foreach ( NflConference c in _confList )
+			{
+				foreach ( NFLDivision d in c.DivList )
+				{
+					foreach ( NflTeam t in d.TeamList )
+					{
+						t.LoadPlayerUnits();
+						Announce( $"   Team {t} has {t.PlayerList.Count} current players" );
+						foreach ( NFLPlayer p in t.PlayerList )
+						{
+							if ( p.DeletePlayerReport() )
+							{
+								Announce( $"   {p.PlayerReportFileName()} deleted" );
+								reportsDeleted++;
+							}
+						}
+					}
+				}
+			}
+			var msg = $" {reportsDeleted} reports Deleted ";
+			body.AppendLine( msg );
 
-#region CSV output
+			Announce( msg );
+		}
+
+		#endregion Player Reports
+
+		#region CSV output
 
 		/// <summary>
 		///   Make a big report then write it as CSV

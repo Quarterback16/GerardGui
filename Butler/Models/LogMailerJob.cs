@@ -18,25 +18,14 @@ namespace Butler.Models
 
 		protected LogMaster LogMaster { get; set; }
 
-		public LogMailerJob( IMailMan mailMan, IDetectLogFiles logFileDetector, IConfigReader configReader )
+		public LogMailerJob( IMailMan mailMan, IDetectLogFiles logFileDetector )
 		{
 			Name = "Log Mailer";
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			MailMan = mailMan;
-			//InstructMailMan( configReader );
 			LogMaster = new LogMaster( ".\\xml\\mail-list.xml" );
 			LogFileDetector = logFileDetector;
 		}
-
-		//private void InstructMailMan( IConfigReader configReader )
-		//{
-		//   var recipients = configReader.GetSetting( K_RecipientsKey );
-		//   if ( string.IsNullOrEmpty( recipients ) )
-		//   {
-		//      throw new ApplicationException( "Recipients Key is empty" );
-		//   }
-		//   MailMan.AddRecipients( recipients );
-		//}
 
 		public override string DoJob()
 		{
@@ -48,10 +37,12 @@ namespace Butler.Models
 			foreach ( System.Collections.DictionaryEntry de in LogMaster.TheHt )
 				keys.Add( de.Key.ToString() );
 
+			//  for each log item in the XML
 			foreach ( string key in keys )
 			{
 				var logitem = ( LogItem ) LogMaster.TheHt[ key ];
 				lastDate = MailLogFiles( logitem );
+				//  mark as done
 				if ( lastDate != new DateTime( 1, 1, 1 ) )
 				{
 					logitem.MailDate = lastDate;
@@ -59,7 +50,7 @@ namespace Butler.Models
 				}
 			}
 
-			LogMaster.Dump2Xml();  //  write changes if any
+			LogMaster.Dump2Xml();
 
 			var finishedMessage = $"  {Name} job - done. {LogsMailed} logs mailed";
 			Logger.Info( finishedMessage );
@@ -75,14 +66,14 @@ namespace Butler.Models
 			{
 				MailMan.AddRecipients( logitem.Recipients );
 				Logger.Info( $"There are {MailMan.RecipientCount()} recipients" );
-				var errorMsg = MailMan.SendMail( 
-					message: "Log file", 
-					subject: logitem.Subject, 
+				var errorMsg = MailMan.SendMail(
+					message: "Log file",
+					subject: logitem.Subject,
 					attachment: file );
 				if ( string.IsNullOrEmpty( errorMsg ) )
 				{
-					lastDate = LogFileDetector.FileDate( 
-						logitem.LogDir, 
+					lastDate = LogFileDetector.FileDate(
+						logitem.LogDir,
 						LogFileDetector.FilePartFile( logitem.LogDir, file ) );
 					LogsMailed++;
 					Logger.Info( $"Emailed {file} ({logitem.Subject})" );
@@ -91,6 +82,7 @@ namespace Butler.Models
 				{
 					Logger.Error( $"Failed to email {file} - {errorMsg}" );
 				}
+				MailMan.ClearRecipients();
 			}
 			return lastDate;
 		}

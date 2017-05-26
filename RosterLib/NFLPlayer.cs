@@ -96,7 +96,7 @@ namespace RosterLib
 						 string strPlayerPos, string strPlayerCat, NflTeam teamIn )
 		{
 			LastSeason = "";
-			//RosterLib.Utility.Announce( "NFLPlayer: Instantiating new Player " + nameIn );
+			Announce( "NFLPlayer: Instantiating new Player " + nameIn );
 			PlayerName = nameIn;
 			PlayerCode = codeIn;
 			PlayerRole = roleIn;
@@ -613,45 +613,41 @@ namespace RosterLib
 		public void LoadPerformances( bool allGames, bool currSeasonOnly, string whichSeason )
 		{
 			if ( String.IsNullOrEmpty( PlayerName ) ) return;
-			Announce( string.Format( "NFLPlayer.LoadPerformances allGames={0}", allGames ) );
+			TraceIt( $"NFLPlayer.LoadPerformances allGames={allGames}" );
 			if ( GamesLoaded ) return;
-			Announce( string.Format( "NFLPlayer.LoadPerformances GamesLoaded {0}", GamesLoaded ) );
+			TraceIt( $"NFLPlayer.LoadPerformances GamesLoaded {GamesLoaded}" );
 			var nYearToGoTo = allGames ? Int32.Parse( RookieYear ) : Int32.Parse( whichSeason );
-			Announce( string.Format( "NFLPlayer.LoadPerformances Loading from {0} to {1}",
-												Utility.CurrentSeason(), nYearToGoTo ) );
+			TraceIt( $"NFLPlayer.LoadPerformances Loading from {Utility.CurrentSeason()} to {nYearToGoTo}" );
 
 			for ( var s = Int32.Parse( Utility.CurrentSeason() ); s >= nYearToGoTo; s-- )
 			{
-#if DEBUG
-				Announce( string.Format( "NFLPlayer.LoadPerformances doing Season {0}", s ) );
-#endif
+				TraceIt( string.Format( "NFLPlayer.LoadPerformances doing Season {0}", s ) );
+
 				for ( var w = Constants.K_WEEKS_IN_A_SEASON; w > 0; w-- )
 				{
 					// What team did he play for?
 					var teamCode = Utility.TflWs.PlayedFor( PlayerCode, s, w );
-#if DEBUG
-					Announce(
-					   string.Format( "NFLPlayer.LoadPerformances: Season:{0}  Week:{1}  Played for {2}",
-									 s, w, teamCode ) );
-#endif
-					if ( ( teamCode.Length <= 0 ) || ( teamCode.Equals( "??" ) ) ) continue;
+					if ( !string.IsNullOrEmpty( teamCode ) )
+					{
+						if ( ( teamCode.Length <= 0 ) || ( teamCode.Equals( "??" ) ) ) continue;
 
-					if ( PerformanceList == null ) PerformanceList = new ArrayList();
-					var perf = new NflPerformance( s, w, teamCode, this );
-					PerformanceList.Add( perf );
+						TraceIt(
+						   $"NFLPlayer.LoadPerformances: Season:{s}  Week:{w}  {PlayerName} Played for {teamCode}" );
+
+						if ( PerformanceList == null ) PerformanceList = new ArrayList();
+						var perf = new NflPerformance( s, w, teamCode, this );
+						PerformanceList.Add( perf );
+					}
 				}
 			}
 
 			var nGames = ( PerformanceList == null ) ? 0 : PerformanceList.Count;
-#if DEBUG
-			Announce( string.Format( "NFLPlayer.LoadPerformances  {0} had {1} games added from {2} to {3}",
-													 PlayerName, nGames, nYearToGoTo, Utility.CurrentSeason() ) );
-#endif
+
+			TraceIt( $"NFLPlayer.LoadPerformances  {PlayerName} had {nGames} games added from {nYearToGoTo} to {Utility.CurrentSeason()}" );
+
 			TallyPerformance( true, currSeasonOnly, whichSeason );
+
 			GamesLoaded = true; // dont want to do this multiple times
-#if DEBUG
-			Announce( "Games already loaded for " + PlayerName );
-#endif
 		}
 
 		#region Total Performance
@@ -659,17 +655,17 @@ namespace RosterLib
 		public void TallyPerformance( bool allGames, bool currSeasonOnly, string whichSeason )
 		{
 			if ( string.IsNullOrEmpty( PlayerName ) ) return;
-			//RosterLib.Utility.Announce(string.Format("NFLPlayer.TallyPerformance for {0}", PlayerName));
+			TraceIt( string.Format("NFLPlayer.TallyPerformance for {0}", PlayerName));
 			if ( PerformanceList == null ) return;
 			if ( TotStats == null ) TotStats = new PlayerStats();
 			var tally = true;
 			TotStats.Zeroise();
 			foreach ( NflPerformance p in PerformanceList )
 			{
-				//RosterLib.Utility.Announce( string.Format( "Doing {0}:{1}", p.Season, p.Week ) );
+				TraceIt( string.Format( "Doing {0}:{1}", p.Season, p.Week ) );
 				if ( currSeasonOnly ) tally = p.Season.ToString( CultureInfo.InvariantCulture ) == whichSeason;
 				if ( !tally ) continue;
-				//RosterLib.Utility.Announce(string.Format("   Tallying {0}:{1}", p.Season, p.Week));
+				TraceIt( string.Format("   Tallying {0}:{1}", p.Season, p.Week));
 
 				TotStats.Tdp += p.PerfStats.Tdp;
 				TotStats.Tdr += p.PerfStats.Tdr;
@@ -695,7 +691,7 @@ namespace RosterLib
 				TotStats.Ints += p.PerfStats.Ints;
 				TotStats.Sacks += p.PerfStats.Sacks;
 			}
-			//RosterLib.Utility.Announce(string.Format("NFLPlayer.TallyPerformance for {0} done", PlayerName));
+			TraceIt( string.Format("NFLPlayer.TallyPerformance for {0} done", PlayerName));
 		}
 
 		#endregion Total Performance
@@ -841,15 +837,12 @@ namespace RosterLib
 		{
 			const string l1 = Constants.K_LEAGUE_Gridstats_NFL1;
 			const string l2 = Constants.K_LEAGUE_Yahoo;
-			//const string l3 = Constants.K_LEAGUE_Rants_n_Raves;
-			//LoadOwner( l3 );
-			//var o3 = Owner;
+
 			LoadOwner( l2 );
 			var o2 = Owner;
 			LoadOwner( l1 );
 			var o1 = Owner;
-			//return string.Format( "{0}  {1}  {2}", o1, o2, o3 );
-			return string.Format( "{0}  {1}", o1, o2 );
+			return $"{o1}  {o2}";
 		}
 
 		#region Old Grid report
@@ -861,7 +854,7 @@ namespace RosterLib
 							  ? HtmlLib.Centre( HtmlLib.Font( "Verdana", PlayerName, "-1" ) )
 							  : HtmlLib.Font( "Verdana", PlayerName + " - " + Owner, "-1" );
 
-			nameOut = string.Format( "<a href='..\\..\\..\\players\\{1}.htm'>{0}</a>", nameOut, PlayerCode );
+			nameOut = $"<a href='..\\..\\..\\players\\{PlayerCode}.htm'>{nameOut}</a>";
 			if ( PlayerRole.Equals( "I" ) || PlayerRole.Equals( "H" ) || PlayerRole.Equals( "X" ) )
 			{
 				nameOut = HtmlLib.Strikeout( nameOut );
@@ -991,13 +984,18 @@ namespace RosterLib
 
 		public bool IsPlayerReport()
 		{
-			var reportFileName = string.Format( @"{1}\players\{0}.htm", PlayerCode, Utility.OutputDirectory() );
+			var reportFileName = PlayerReportFileName();
 			var exists = File.Exists( reportFileName );
 
 			if ( exists )
 				TraceIt( string.Format( "A player report for {0} already exists", PlayerName ) );
 
 			return exists;
+		}
+
+		public string PlayerReportFileName()
+		{
+			return $@"{Utility.OutputDirectory()}\players\{PlayerCode}.htm";
 		}
 
 		public void TraceIt( string message )
@@ -1014,9 +1012,18 @@ namespace RosterLib
 				Logger = LogManager.GetCurrentClassLogger();
 
 			Logger.Info( "   " + message );
-#if DEBUG
-			Utility.Announce( message );
-#endif
+		}
+
+		public bool DeletePlayerReport()
+		{
+			var deleted = false;
+			if (IsPlayerReport())
+			{
+				var fileToDelete = PlayerReportFileName();
+				File.Delete( fileToDelete );
+				deleted = true;
+			}
+			return deleted;
 		}
 
 		#endregion Player Reports
@@ -1042,14 +1049,14 @@ namespace RosterLib
 
 		public string PlayerRow( bool addAvg )
 		{
-			//RosterLib.Utility.Announce( "NFLPlayer.PlayerRow() " );
+			TraceIt( "NFLPlayer.PlayerRow() " );
 			var nameOut = PlayerName;
 			if ( PlayerRole == "S" ) nameOut = HtmlLib.Bold( nameOut );
 			if ( IsItalic() ) nameOut = HtmlLib.Italics( nameOut );
 			if ( Config.DoPlayerReports() )
 				if ( !IsPlayerReport() ) PlayerReport();
 
-			var s = string.Format( "{0}\n", HtmlLib.TableRowOpen( " BGCOLOR=" + SetColour( "PINK" ) ) );
+			var s = $"{HtmlLib.TableRowOpen( " BGCOLOR=" + SetColour( "PINK" ) )}\n";
 			if ( _teamLastYear == null )
 				_teamLastYear = Utility.TflWs.PlayedFor( PlayerCode, Int32.Parse( Utility.CurrentSeason() ) - 1, 17 );
 
@@ -1161,7 +1168,7 @@ namespace RosterLib
 
 			if ( !string.IsNullOrEmpty( PlayerName ) )
 			{
-				//RosterLib.Utility.Announce( string.Format( "{0} was born on {1}", PlayerName, dob ) );
+				TraceIt( string.Format( "{0} was born on {1}", PlayerName, dob ) );
 				if ( ( dob == "30/12/1899" ) || ( dob == null ) )
 					age = string.Format( "{0}?", NoOfSeasons() + 23 );
 				else
@@ -1180,12 +1187,11 @@ namespace RosterLib
 		public void CalculateEp( string season )
 		{
 			if ( EpDone )
-				Announce( string.Format( " EP for {0} calculated as {1}", PlayerName, ExperiencePoints ) );
+				Announce( $" EP for {PlayerName} calculated as {ExperiencePoints}" );
 			else
 			{
-#if DEBUG
-				Announce( string.Format( "Calculating EP for {0}", PlayerName ) );
-#endif
+				TraceIt( $"Calculating EP for {PlayerName}" );
+
 				if ( PerformanceList == null ) LoadPerformances( Config.AllGames, false, season );
 				ExperiencePoints = 0;
 				if ( PerformanceList != null )
@@ -1201,11 +1207,11 @@ namespace RosterLib
 							else
 								g.Game = theGame;
 							var ep = g.Game.ExperiencePoints( this, g.TeamCode );
-#if DEBUG
+
 							if ( ep > 0 )
-								Announce( string.Format( "  {2} got {0} EP for {1}",
+								TraceIt( string.Format( "  {2} got {0} EP for {1}",
 								   ep, g.Game.GameName(), PlayerNameShort ) );
-#endif
+
 							ExperiencePoints += ep;
 							//  add to the teams count too
 							CurrTeam.ExperiencePoints += ep;
@@ -1379,8 +1385,7 @@ namespace RosterLib
 
 		public string PlayerHeader()
 		{
-			return string.Format( "{0}{1}{2}\n", HtmlLib.TableOpen( "cellpadding='0' cellspacing='0'" ), PlayerRow( false ),
-								 HtmlLib.TableClose() );
+			return $"{HtmlLib.TableOpen( "cellpadding='0' cellspacing='0'" )}{PlayerRow( false )}{HtmlLib.TableClose()}\n";
 		}
 
 		public string PlayerDiv()
@@ -1467,7 +1472,7 @@ namespace RosterLib
 			return pos;
 		}
 
-		public decimal PointsForWeek( NFLWeek week, IRatePlayers rater )
+		public decimal PointsForWeek( NFLWeek week, IRatePlayers rater, bool savePoints = true )
 		{
 			return rater.RatePlayer( this, week );
 		}
@@ -1505,15 +1510,13 @@ namespace RosterLib
 
 		public string ProjectionLink( string season )
 		{
-			var url = string.Format( "<a href =\"..//..//PlayerProjections/{0}.htm\">{2}</a>",
-			   PlayerCode, season, PlayerName );
+			var url = $"<a href =\"..//..//PlayerProjections/{PlayerCode}.htm\">{PlayerName}</a>";
 			return url;
 		}
 
 		public string ProjectionLink( string season, int padding )
 		{
-			var url = string.Format( "<a href =\"..//..//PlayerProjections/{0}.htm\">{2}</a>",
-				PlayerCode, season, PlayerName.PadRight( padding ) );
+			var url = $"<a href =\"..//..//PlayerProjections/{PlayerCode}.htm\">{PlayerName.PadRight( padding )}</a>";
 			return url;
 		}
 
@@ -1557,14 +1560,12 @@ namespace RosterLib
 		{
 			if ( !string.IsNullOrEmpty( PlayerName ) )
 			{
-#if DEBUG
-				Announce( string.Format( "NFLPlayer.TallyProjections for {0}", PlayerName ) );
-#endif
+				TraceIt( $"NFLPlayer.TallyProjections for {PlayerName}" );
+
 				//TODO: implement
 			}
-#if DEBUG
-			Announce( string.Format( "NFLPlayer.TallyPerformance for {0} done", PlayerName ) );
-#endif
+
+			TraceIt( string.Format( "NFLPlayer.TallyPerformance for {0} done", PlayerName ) );
 		}
 
 		public void LoadProjections( PlayerGameMetrics pgm )

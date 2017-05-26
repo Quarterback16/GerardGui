@@ -1,5 +1,4 @@
-﻿using Helpers;
-using Helpers.Interfaces;
+﻿using Helpers.Interfaces;
 using RosterLib;
 using RosterLib.Interfaces;
 using System;
@@ -44,7 +43,7 @@ namespace Butler.Models
 
 			if ( string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
 
-			var msg = string.Format( "Skipped {1}: {0}", whyNot, Name );
+			var msg = $"Skipped {Name}: {whyNot}";
 			Console.WriteLine();
 			Logger.Info( msg );
 			return ( string.IsNullOrEmpty( whyNot ) );
