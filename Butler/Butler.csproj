@@ -122,6 +122,7 @@
     <Compile Include="Models\RankingsJob.cs" />
     <Compile Include="Models\RecordActualMetricsJob.cs" />
     <Compile Include="Models\ReportJob.cs" />
+    <Compile Include="Models\RetirePlayersJob.cs" />
     <Compile Include="Models\RookiesJob.cs" />
     <Compile Include="Models\RunReportJob.cs" />
     <Compile Include="Models\StartersJob.cs" />

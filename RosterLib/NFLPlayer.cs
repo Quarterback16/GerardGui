@@ -338,6 +338,52 @@ namespace RosterLib
 			return IsRetired ? "Retired" : "Active";
 		}
 
+		public bool IsProbablyRetired( int season )
+		{
+			bool isProbablyRetired = false;
+
+			// years since rookie yr > 4
+			if ( NoOfSeasons() < 5 ) return false;
+
+			int yearsAgo = 0;
+
+			if ( IsKicker() )
+			{
+				// year of last score (the dont rack up stats) 2+ years ago
+				var yearOfLastScore = Utility.TflWs.YearOfLastScore( PlayerCode );
+				if ( string.IsNullOrEmpty( yearOfLastScore ) ) return true;
+				yearsAgo = season - Int32.Parse( yearOfLastScore );
+				if ( yearsAgo > 2 )
+					isProbablyRetired = true;
+				return isProbablyRetired;
+			}
+			// year of last stat 2+ years ago
+			var yearOfLastStat = Utility.TflWs.YearOfLastStat( PlayerCode );
+			if ( string.IsNullOrEmpty( yearOfLastStat ) ) return true;
+			yearsAgo = season - Int32.Parse( yearOfLastStat );
+			if ( yearsAgo > 2 )
+				isProbablyRetired = true;
+
+			return isProbablyRetired;
+		}
+
+		public bool Retire()
+		{
+			if ( IsRetired )
+			{
+				// do nothing
+				return false;
+			}
+
+			//  Retire the player
+			Announce( $"Retiring {PlayerName}" );
+			Utility.TflWs.RetirePlayer( DateTime.Now.AddDays(-2), PlayerCode );
+			Utility.TflWs.SetCurrentTeam( PlayerCode, "??" );
+			IsRetired = true;
+
+			return true;
+		}
+
 		public string Unit()
 		{
 			var unitOut = "";
@@ -708,6 +754,7 @@ namespace RosterLib
 			var lastYr = IsRetired ? LastSeason : Utility.CurrentSeason();
 
 			if ( RookieYear == null ) return 0;
+			if ( string.IsNullOrEmpty( lastYr ) ) return 0;
 
 			try
 			{

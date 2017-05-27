@@ -139,6 +139,7 @@
     <Compile Include="RandomNumberGeneratorTests.cs" />
     <Compile Include="RankingJobTests.cs" />
     <Compile Include="RecordActualsTests.cs" />
+    <Compile Include="RetirePlayersTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />
     <Compile Include="RunReportJobTests.cs" />
     <Compile Include="RushUnitTests.cs" />

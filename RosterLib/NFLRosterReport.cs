@@ -612,6 +612,39 @@ namespace RosterLib
 
 		#endregion Player Reports
 
+		public void RetirePlayers( StringBuilder body )
+		{
+			var playersRetired = 0;
+			var theSeason = Int32.Parse( Season );
+			//  All the players
+			foreach ( NflConference c in _confList )
+			{
+				foreach ( NFLDivision d in c.DivList )
+				{
+					foreach ( NflTeam t in d.TeamList )
+					{
+						t.LoadPlayerUnits();
+						Announce( $"   Team {t} has {t.PlayerList.Count} current players" );
+						foreach ( NFLPlayer p in t.PlayerList )
+						{
+							if ( p.IsProbablyRetired( theSeason ) )
+							{
+								if ( p.Retire() )
+								{
+									playersRetired++;
+									body.AppendLine( $"{p.PlayerName} retired" );
+								}
+							}
+						}
+					}
+				}
+			}
+			var msg = $" {playersRetired} players Retired";
+			body.AppendLine( msg );
+
+			Announce( msg );
+		}
+
 		#region CSV output
 
 		/// <summary>

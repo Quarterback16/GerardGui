@@ -381,6 +381,26 @@ namespace TFLLib
 			return ds.Tables[ 0 ].Rows.Count;
 		}
 
+		public string YearOfLastScore( string playerId )
+		{
+			var yearOfLastScore = string.Empty;
+
+			var commandStr = string.Format(
+			   "SELECT * FROM SCORE where PLAYERID1 ='{0}' .or. PLAYERID2 ='{0}' ORDER BY SEASON DESC", 
+			   playerId );
+
+			var ds = GetNflDataSet( "score", commandStr, "YearOfLastScore" );
+			if ( ds != null )
+			{
+				if ( ds.Tables[ 0 ].Rows.Count > 0 )
+				{
+					yearOfLastScore = ds.Tables[ 0 ].Rows[ 0 ][ "SEASON" ].ToString();
+				}
+			}
+
+			return yearOfLastScore;
+		}
+
 		public DataTable ScoresDtByType( string season, string scoreType )
 		{
 			var commandStr = string.Format(
@@ -818,6 +838,26 @@ namespace TFLLib
 			return ( dt.Rows.Count > 0 );
 		}
 
+		public string YearOfLastStat( string playerId )
+		{
+			var yearOfLastStat = string.Empty;
+
+			var commandStr = string.Format(
+			   "SELECT * FROM STAT where PLAYERID ='{0}' ORDER BY SEASON DESC",
+			   playerId );
+
+			var ds = GetNflDataSet( "STAT", commandStr, "YearOfLastStat" );
+			if ( ds != null )
+			{
+				if ( ds.Tables[ 0 ].Rows.Count > 0 )
+				{
+					yearOfLastStat = ds.Tables[ 0 ].Rows[ 0 ][ "SEASON" ].ToString();
+				}
+			}
+
+			return yearOfLastStat;
+		}
+
 		#endregion STAT
 
 		#region PLAYER
@@ -974,7 +1014,7 @@ namespace TFLLib
 
 				commandStr += " order by CATEGORY";
 				ds = GetNflDataSet( "player", commandStr, "GetPlayer" );
-				Logger.Info( $"{commandStr} begets {ds.Tables[ 0 ].Rows.Count} players" );
+				Logger.Trace( $"{commandStr} begets {ds.Tables[ 0 ].Rows.Count} players" );
 				cache.Set( keyValue, ds, new TimeSpan( 2, 0, 0 ) );
 			}
 			else

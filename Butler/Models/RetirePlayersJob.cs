@@ -4,14 +4,14 @@ using RosterLib.RosterGridReports;
 
 namespace Butler.Models
 {
-	public class DeletePlayerReportsJob : Job
+	public class RetirePlayersJob : Job
 	{
 		public RosterGridReport Report { get; set; }
 
-		public DeletePlayerReportsJob( IKeepTheTime timeKeeper ) : base( timeKeeper )
+		public RetirePlayersJob( IKeepTheTime timeKeeper ) : base( timeKeeper )
 		{
-			Name = "Delete Player Reports";
-			Report = new DeletePlayerReportsReport( TimeKeeper );
+			Name = "Retire Players";
+			Report = new RetirePlayersReport( TimeKeeper );
 			TimeKeeper = timeKeeper;
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
@@ -29,7 +29,7 @@ namespace Butler.Models
 			if ( !string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
 
 			//  Is it already done?
-			var rpt = new DeletePlayerReportsReport( TimeKeeper );
+			var rpt = new RetirePlayersReport( TimeKeeper );
 			var outFile = rpt.OutputFilename();
 			if ( System.IO.File.Exists( outFile ) )
 				whyNot = $"{outFile} exists already";

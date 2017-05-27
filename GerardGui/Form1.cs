@@ -67,7 +67,7 @@ namespace GerardGui
 		private void BackgroundWorker1_DoWork( object sender, DoWorkEventArgs e )
 		{
 			var helperBW = sender as BackgroundWorker;
-			var rs = new Butler.Butler( Text, this.TimeKeeper )
+			var rs = new Butler.Butler( Text, TimeKeeper )
 			{
 				Pollinterval = Int32.Parse( ConfigurationManager.AppSettings[ "PollInterval" ] ),
 				Verbose = ConfigurationManager.AppSettings[ "Verbose" ] == "true"

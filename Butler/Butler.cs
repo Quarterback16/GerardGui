@@ -136,6 +136,7 @@ namespace Butler
 				MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
 				MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new DeletePlayerReportsJob( TimeKeeper ) ); //  once off - pre season
+				MyJobs.Add( new RetirePlayersJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new FreeAgentMarketJob( TimeKeeper ) ); //  regular - pre season
 				MyJobs.Add( new StrengthOfScheduleJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new PlayerReportsJob( TimeKeeper, configReader ) );

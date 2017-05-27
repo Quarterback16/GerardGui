@@ -307,6 +307,7 @@
     <Compile Include="RosterGridReports\MetricsUpdateReport.cs" />
     <Compile Include="RosterGridReports\PickupChart.cs" />
     <Compile Include="RosterGridReports\PlayoffTeamsReport.cs" />
+    <Compile Include="RosterGridReports\RetirePlayersReport.cs" />
     <Compile Include="RosterGridReports\TeamMetricsUpdateReport.cs" />
     <Compile Include="RunDefenceUnit.cs" />
     <Compile Include="RunOffenceUnit.cs" />
