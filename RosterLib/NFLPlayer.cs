@@ -96,7 +96,7 @@ namespace RosterLib
 						 string strPlayerPos, string strPlayerCat, NflTeam teamIn )
 		{
 			LastSeason = "";
-			Announce( "NFLPlayer: Instantiating new Player " + nameIn );
+			TraceIt( "NFLPlayer: Instantiating new Player " + nameIn );
 			PlayerName = nameIn;
 			PlayerCode = codeIn;
 			PlayerRole = roleIn;

@@ -52,12 +52,12 @@ namespace RosterLib
 
 			TraceIt( "NewRosterReport:LoadNFC Loading NFC");
 
-			Nfc.AddDiv( "East", "A" );
 #if !DEBUG
+			Nfc.AddDiv( "East", "A" );
 			Nfc.AddDiv( "North", "B" );
-			Nfc.AddDiv( "South", "C" );
 			Nfc.AddDiv( "West", "D" );
 #endif
+			Nfc.AddDiv( "South", "C" );
 
 			TraceIt( "NewRosterReport:LoadNFC Loading NFC - finished");
 		}
@@ -568,7 +568,6 @@ namespace RosterLib
 									return;
 								}
 								p.PlayerReport();
-								Announce( $"   Player report for {p} DONE" );
 								reportsDone++;
 							}
 						}

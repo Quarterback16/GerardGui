@@ -383,6 +383,8 @@ namespace TFLLib
 
 		public string YearOfLastScore( string playerId )
 		{
+			playerId = FixSingleQuotes( playerId );
+
 			var yearOfLastScore = string.Empty;
 
 			var commandStr = string.Format(
@@ -840,6 +842,8 @@ namespace TFLLib
 
 		public string YearOfLastStat( string playerId )
 		{
+			playerId = FixSingleQuotes( playerId );
+
 			var yearOfLastStat = string.Empty;
 
 			var commandStr = string.Format(

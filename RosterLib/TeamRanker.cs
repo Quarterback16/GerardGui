@@ -256,7 +256,7 @@ namespace RosterLib
 #if DEBUG
 				teamCode = "LR";
 #endif
-				Logger.Info( $"Tallying {teamCode}" );
+				Logger.Trace( $"      Tallying {teamCode}" );
 				TallyTeam( teamList, season, focusDate, teamCode );
 #if DEBUG
 				break;
