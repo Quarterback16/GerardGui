@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NLog;
 
 namespace RosterLib
 {
@@ -75,9 +76,9 @@ namespace RosterLib
 			NflTeam = new NflTeam( TeamCode );
 			NflTeam.LoadTeam();
 			PlayerCount = NflTeam.PlayerList.Count;
-#if DEBUG
-			Utility.Announce( string.Format( "   {0} Roster Count : {1}", TeamCode, PlayerCount ) );
-#endif
+
+			Announce( string.Format( "   {0} Roster Count : {1}", TeamCode, PlayerCount ) );
+
 			bodyOut.AppendLine( NflTeam.RatingsOut() + "    " + NflTeam.SeasonProjectionOut() );
 			bodyOut.AppendLine();
 			bodyOut.AppendLine( NflTeam.ScheduleHeaderOut() );
@@ -215,7 +216,7 @@ namespace RosterLib
 				if ( playerList.Count == 0 )
 				{
 					var errMsg = string.Format( "No one found for {0} - {1}", posDesc, TeamCode );
-					Utility.Announce( errMsg );
+					Announce( errMsg );
 					Errors.Add( errMsg );
 				}
 			}
@@ -224,8 +225,16 @@ namespace RosterLib
 			if ( ActiveCount( playerList ) <= 1 ) return;
 			var errMsg2 = string.Format( "Too many found for {0} - {1} - {2}",
 									   posDesc, GetPlayerKeys( playerList, posDesc ), TeamCode );
-			Utility.Announce( errMsg2 );
+			Announce( errMsg2 );
 			Errors.Add( errMsg2 );
+		}
+
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( "   " + message );
 		}
 
 		private static int ActiveCount( IEnumerable<NFLPlayer> playerList )

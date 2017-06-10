@@ -139,7 +139,7 @@ namespace RosterLib
 			if ( Logger == null )
 				Logger = LogManager.GetCurrentClassLogger();
 
-			Logger.Info( "   " + message );
+			Logger.Trace( "   " + message );
 		}
 
 		private void WriteScripts( StreamWriter sw )

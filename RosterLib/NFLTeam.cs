@@ -1903,13 +1903,24 @@ namespace RosterLib
 					posCountHt[ cat ] = 1;
 			}
 
-			TestNumberOfStarters( posCountHt, Constants.K_QUARTERBACK_CAT, 1 );
-			TestNumberOfStarters( posCountHt, Constants.K_RUNNINGBACK_CAT, 2 );
-			TestNumberOfStarters( posCountHt, Constants.K_RECEIVER_CAT, 3, 4 );  // 2 WR and 2 WR
-			TestNumberOfStarters( posCountHt, Constants.K_KICKER_CAT, 1 );
-			TestNumberOfStarters( posCountHt, Constants.K_LINEMAN_CAT, 7 );
-			TestNumberOfStarters( posCountHt, Constants.K_DEFENSIVEBACK_CAT, 4 );
-			TestNumberOfStarters( posCountHt, Constants.K_OFFENSIVELINE_CAT, 5 );
+			var QbOk = TestNumberOfStarters( posCountHt, Constants.K_QUARTERBACK_CAT, 1 );
+			var RbOk = TestNumberOfStarters( posCountHt, Constants.K_RUNNINGBACK_CAT, 2 );
+			var RecOk = TestNumberOfStarters( posCountHt, Constants.K_RECEIVER_CAT, 3, 4 );  // 2 WR and 2 WR
+			var PkOk = TestNumberOfStarters( posCountHt, Constants.K_KICKER_CAT, 1 );
+			var LbOk = TestNumberOfStarters( posCountHt, Constants.K_LINEMAN_CAT, 7 );
+			var DbOk = TestNumberOfStarters( posCountHt, Constants.K_DEFENSIVEBACK_CAT, 4 );
+			var OlOk = TestNumberOfStarters( posCountHt, Constants.K_OFFENSIVELINE_CAT, 5 );
+
+			foreach ( DataRow dr in dt.Rows )
+			{
+				var cat = dr[ "CATEGORY" ].ToString();
+				TraceIt(
+				   $"{dr[ "PLAYERID" ]} - {dr[ "JERSEY" ],2} {dr[ "FIRSTNAME" ]}{dr[ "SURNAME" ]} {cat} {dr[ "POSDESC" ]} {dr[ "STAR" ]}" );
+				if ( posCountHt.ContainsKey( cat ) )
+					posCountHt[ cat ] = ( int ) posCountHt[ cat ] + 1;
+				else
+					posCountHt[ cat ] = 1;
+			}
 
 			TraceIt( "-------------------------------------------------------" );
 		}
@@ -1924,7 +1935,7 @@ namespace RosterLib
 				var cat = dr[ "CATEGORY" ].ToString();
 				var posDesc = dr[ "POSDESC" ].ToString().Trim();
 				if ( !cat.Equals( Constants.K_RUNNINGBACK_CAT ) || posDesc.Equals( "FB" ) ) continue;
-				Utility.Announce(
+				Announce(
 				   String.Format( "{7} - {0} - {6,2} {1}{2} {5} {3} {4}",
 								 dr[ "PLAYERID" ], dr[ "FIRSTNAME" ], dr[ "SURNAME" ], posDesc,
 								 dr[ "STAR" ], cat, dr[ "JERSEY" ], TeamCode ) );
@@ -1973,7 +1984,7 @@ namespace RosterLib
 				var posDesc = dr[ "POSDESC" ].ToString().Trim();
 				if ( cat.Equals( Constants.K_KICKER_CAT ) )
 				{
-					Utility.Announce(
+					Announce(
 					   String.Format( "{7} - {0} - {6,2} {1}{2} {5} {3} {4}",
 					   dr[ "PLAYERID" ], dr[ "FIRSTNAME" ], dr[ "SURNAME" ], posDesc,
 									 dr[ "STAR" ], cat, dr[ "JERSEY" ], TeamCode ) );
@@ -1997,7 +2008,7 @@ namespace RosterLib
 			{
 				var cat = dr[ "CATEGORY" ].ToString();
 				var posDesc = dr[ "POSDESC" ].ToString().Trim();
-				Utility.Announce(
+				Announce(
 				   String.Format( "{7} - {0} - {6,2} {1}{2} {5} {3} {4}",
 				   dr[ "PLAYERID" ], dr[ "FIRSTNAME" ], dr[ "SURNAME" ], posDesc,
 								  dr[ "STAR" ], cat, dr[ "JERSEY" ], TeamCode ) );
@@ -2007,44 +2018,66 @@ namespace RosterLib
 					posCountHt[ cat ] = 1;
 			}
 			TestNumberOfStarters( posCountHt, Constants.K_RECEIVER_CAT, 1 );
-			Utility.Announce( "-------------------------------------------------------" );
+			Announce( "-------------------------------------------------------" );
 			return posCountHt.ContainsKey( Constants.K_RECEIVER_CAT ) ? ( int ) posCountHt[ Constants.K_RECEIVER_CAT ] : 0;
 		}
 
-		private void TestNumberOfStarters( IDictionary posCountHt, string cat, int expectedStarters )
+		private bool TestNumberOfStarters( IDictionary posCountHt, string cat, int expectedStarters )
 		{
+			var isOk = true;
 			if ( posCountHt[ cat ] != null )
 			{
 				var theCount = ( int ) posCountHt[ cat ];
 				if ( theCount < expectedStarters )
-					Utility.Announce( string.Format( "{2} - Too few starting {0} ({1})",
+				{
+					Announce( string.Format( "{2} - Too few starting {0} ({1})",
 												   Utility.MainPos( cat ), theCount, TeamCode ) );
+					isOk = false;
+				}
 				else
 				{
 					if ( theCount > expectedStarters )
-						Utility.Announce( string.Format( "{2} - Too many starting {0} ({1})",
+					{
+						Announce( string.Format( "{2} - Too many starting {0} ({1})",
 													   Utility.MainPos( cat ), theCount, TeamCode ) );
+						isOk = false;
+					}
 				}
 			}
 			else
+			{
 				Announce( $"{TeamCode} - has no {Utility.MainPos( cat )}" );
+				isOk = false;
+			}
+			return isOk;
 		}
 
-		private void TestNumberOfStarters( IDictionary posCountHt, string cat, int expectedLo, int expectedHi )
+		private bool TestNumberOfStarters( IDictionary posCountHt, string cat, int expectedLo, int expectedHi )
 		{
+			var isOk = true;
 			if ( posCountHt[ cat ] != null )
 			{
 				var theCount = ( int ) posCountHt[ cat ];
 				if ( theCount < expectedLo )
+				{
 					Announce( $"{TeamCode} - Too few starting {Utility.MainPos( cat )} ({theCount})" );
+					isOk = false;
+				}
 				else
 				{
 					if ( theCount > expectedHi )
+					{
 						Announce( $"{TeamCode} - Too many starting {Utility.MainPos( cat )} ({theCount})" );
+						isOk = false;
+					}
 				}
 			}
 			else
+			{
 				Announce( $"{TeamCode} - has no {Utility.MainPos( cat )}" );
+				isOk = false;
+			}
+			return isOk;
 		}
 
 		private void DumpSpots()
@@ -5257,7 +5290,7 @@ namespace RosterLib
 			if ( Logger == null )
 				Logger = LogManager.GetCurrentClassLogger();
 
-			Logger.Info( "   " + message );
+			Logger.Trace( "   " + message );
 		}
 
 		public void TraceIt( string message )
