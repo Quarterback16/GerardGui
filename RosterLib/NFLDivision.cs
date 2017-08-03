@@ -14,6 +14,19 @@ namespace RosterLib
 	{
 		public Logger Logger { get; set; }
 
+		public void DumpTeams()
+		{
+			if (TeamList != null)
+			{
+				Logger.Info( $"Division: {Name}" );
+				foreach ( var team in TeamList )
+				{
+					Console.WriteLine( team );
+					Logger.Info( $"  {team}" );
+				}
+			}
+		}
+
 		/// <summary>
 		///   Loads a Conference with the teams
 		/// </summary>
@@ -44,6 +57,14 @@ namespace RosterLib
 			Logger.Trace( "   " + message );
 		}
 
+		public void LogInfo( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( "   " + message );
+		}
+
 		public NFLDivision( string nameIn, string confIn, string codeIn, string seasonIn )
 		{
 			Announce( "Constructing Quick Division " + nameIn );
@@ -59,10 +80,7 @@ namespace RosterLib
 
 		private void LoadTeams()
 		{
-
 			Announce( $"NFlDivision:LoadTeams: Load teams for {Season} code {Code}" );
-
-			var strFilter = Filters.TeamFilter();
 
 			var ds = Utility.TflWs.GetTeams( Season, Code );
 			var dt = ds.Tables[ "team" ];
@@ -72,13 +90,12 @@ namespace RosterLib
 
 				Announce( $"NFLDivision.LoadTeams: Loading {dr[ "teamname" ]} Clip= {dr[ "clip" ]}" );
 
-				var nIndex = strFilter.IndexOf( strTeamCode );
-				if ( nIndex <= -1 ) continue;
 				var t = Masters.Tm.GetTeam( Season, strTeamCode );
 				t.CurrentClip = Decimal.Parse( dr[ "clip" ].ToString() );  //  clip is not in the XML
 																		   //t.LoadLineupPlayers();  // lazy load this
 				TeamList.Add( t );
 			}
+			DumpTeams();
 		}
 
 		public string NameOut()

@@ -55,9 +55,9 @@ namespace RosterLib
 #if !DEBUG
 			Nfc.AddDiv( "East", "A" );
 			Nfc.AddDiv( "North", "B" );
-			Nfc.AddDiv( "West", "D" );
-#endif
 			Nfc.AddDiv( "South", "C" );
+#endif
+			Nfc.AddDiv( "West", "D" );
 
 			TraceIt( "NewRosterReport:LoadNFC Loading NFC - finished");
 		}
@@ -66,12 +66,13 @@ namespace RosterLib
 		{
 			TraceIt( "NewRosterReport:LoadAFC Loading AFC");
 
-			Afc.AddDiv( "North", "F" );
 #if !DEBUG
 			Afc.AddDiv( "East", "E" );
+			Afc.AddDiv( "North", "F" );
 			Afc.AddDiv( "South", "G" );
-			Afc.AddDiv( "West", "H" );
 #endif
+			Afc.AddDiv( "West", "H" );
+
 			TraceIt( "NewRosterReport:LoadAFC Loading AFC - finished");
 		}
 
@@ -135,7 +136,6 @@ namespace RosterLib
 
 		public void SeasonProjection( string metricName, string season, string week, DateTime projectionDate )
 		{
-
 			Announce(string.Format("SeasonProjection metric={0} ...", metricName));
 
 			FileOut = ProjectionFileName( metricName, season );

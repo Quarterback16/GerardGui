@@ -18,8 +18,7 @@
          Lister.Collect( rpt.Category, rpt.Position, fantasyLeague, season );
          Lister.Folder = "Rookies";
 
-         var fileOut = Lister.Render( 
-            string.Format( "{1}-Rookies-{0}", rpt.Position, fantasyLeague ) );
+         var fileOut = Lister.Render( $"{fantasyLeague}-Rookies-{rpt.Position}" );
 
          Lister.Clear();
 

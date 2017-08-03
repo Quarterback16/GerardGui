@@ -1,5 +1,6 @@
 ﻿using RosterLib;
 using RosterLib.Interfaces;
+using Butler;
 using System;
 using System.ComponentModel;
 using System.Configuration;
@@ -27,17 +28,17 @@ namespace GerardGui
 			var computedDate = startDate.AddDays( diffDays );
 			Text = string.Format( "Gerard the Butler {0} g built {1}", versionInfo.ToString(), computedDate.ToLongDateString() );
 			PreFlightTests();
-			AutoStart = ConfigurationManager.AppSettings[ "AutoStart" ] == "true";
+			AutoStart = ConfigurationManager.AppSettings[ AppSettings.AutoStart ] == "true";
 			if (AutoStart)
 			{
-				// click button
 				Button1_Click(null, null);
 			}
 		}
 
 		private void PreFlightTests()
 		{
-			CheckSetting( "AutoStart" );
+			CheckSetting( AppSettings.PassQuota );
+			CheckSetting( AppSettings.AutoStart );
 			CheckSetting( "PeakStartHour" );
 			CheckSetting( "PeakFinishHour" );
 			CheckSetting( "TvFolder" );
@@ -69,10 +70,13 @@ namespace GerardGui
 			var helperBW = sender as BackgroundWorker;
 			var rs = new Butler.Butler( Text, TimeKeeper )
 			{
-				Pollinterval = Int32.Parse( ConfigurationManager.AppSettings[ "PollInterval" ] ),
-				Verbose = ConfigurationManager.AppSettings[ "Verbose" ] == "true"
+				Pollinterval = Int32.Parse( ConfigurationManager.AppSettings[ AppSettings.PollInterval ] ),
+				Verbose = ConfigurationManager.AppSettings[ AppSettings.Verbose ] == "true",
+				PassQuota = Int32.Parse( ConfigurationManager.AppSettings[ AppSettings.PassQuota ] )
 			};
 			rs.Go( helperBW, e );
+			if ( rs.Passes >= rs.PassQuota )
+				Application.Exit();
 		}
 
 		private void Button1_Click( object sender, EventArgs e )

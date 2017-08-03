@@ -12,7 +12,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestRookiesJob()
       {
-         var sut = new RookiesJob(new FakeTimeKeeper("2016"));
+         var sut = new RookiesJob(new FakeTimeKeeper("2017"));
          sut.Execute();
          var run = sut.Report.LastRun;
          Assert.IsTrue(run.Date.Equals(DateTime.Now.Date));

@@ -115,6 +115,7 @@
     <Compile Include="MediaJobTests.cs" />
     <Compile Include="MediaLogDetectorTests.cs" />
     <Compile Include="MediaMailerJobTests.cs" />
+    <Compile Include="NflDivisionTests.cs" />
     <Compile Include="NflScheduleTests.cs" />
     <Compile Include="OldRosterGridTests.cs" />
     <Compile Include="OutputProjectionsTests.cs" />

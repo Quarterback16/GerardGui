@@ -37,6 +37,8 @@ namespace Butler
 
 		public int Passes { get; private set; }
 
+		public int PassQuota { get; set; }
+
 		public BackgroundWorker MyWorker { get; private set; }
 
 		public int Pollinterval { get; set; }
@@ -81,7 +83,6 @@ namespace Butler
 				MyJobs = new List<Job>();
 
 				MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
-				MyJobs.Add( new MediaJob() );  //  regular always
 				MyJobs.Add( new LogMailerJob( new MailMan2( configReader ), new LogFileDetector()) );  //  once daily
 				MyJobs.Add( new MediaMailerJob( new MailMan2( configReader ), new MediaLogDetector(), configReader ) );  //  once daily
 
@@ -159,6 +160,8 @@ namespace Butler
 					"d:\\shares\\public\\dropbox\\lists\\"
 				) );
 
+				MyJobs.Add( new MediaJob() );  //  regular always lucky last
+
 				if ( Passes == 0 )
 					ReportProgress(
 						$"{Version} - {MyJobs.Count} jobs defined -Starting...", ButlerConstants.ReportInTextArea );
@@ -170,8 +173,7 @@ namespace Butler
 					Logger.Info( "-------------------------------------------------------------------------------------" );
 					foreach ( var job in MyJobs )
 					{
-						string whyNot;
-						if ( job.IsTimeTodo( out whyNot ) )
+						if ( job.IsTimeTodo( out string whyNot ) )
 						{
 							ReportProgress(
 								$"Doing job {job.Name}", ButlerConstants.ReportInTextArea );
@@ -186,6 +188,7 @@ namespace Butler
 					Logger.Info( "=====================================================================================" );
 
 					ReportProgress( $"Pass Number {Passes} done - next pass ({Pollinterval}) {DateTime.Now.AddMinutes( Pollinterval ):HH:mm}");
+					if ( Passes >= PassQuota ) break;
 					Thread.Sleep( Pollinterval * 60 * 1000 ); //  <pollInterval> hours
 
 					if ( !MyWorker.CancellationPending ) continue;

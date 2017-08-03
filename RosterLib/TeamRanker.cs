@@ -253,14 +253,9 @@ namespace RosterLib
 			foreach ( DataRow dr in dt.Rows )
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();
-#if DEBUG
-				teamCode = "LR";
-#endif
+
 				Logger.Trace( $"      Tallying {teamCode}" );
 				TallyTeam( teamList, season, focusDate, teamCode );
-#if DEBUG
-				break;
-#endif
 			}
 		}
 

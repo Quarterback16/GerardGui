@@ -54,9 +54,9 @@ namespace TFLLib
 				OleDbConnTycoon = new OleDbConnection( tflConnection );
 				OleDbConnControl = new OleDbConnection( ctlConnection );
 				NflConnectionString = nflConnection;
-#if DEBUG
-            Debug.WriteLine(message: string.Format("Data Librarian connected to {0}", nflConnection));
-#endif
+
+                Logger.Info(message: $"Data Librarian connected to {nflConnection}");
+
 				cache = new RedisCacheRepository();
 			}
 			catch ( Exception ex )
@@ -311,11 +311,14 @@ namespace TFLLib
 
 				commandStr += " order by CLIP desc";
 
-				ds = GetNflDataSet( "team", commandStr );
+				ds = GetNflDataSet( "team", commandStr, caller:"GetTeams", logit:false );
 				cache.Set( keyValue, ds );
 			}
 			else
+			{
 				CacheHit( keyValue );
+				Logger.Info( $"Cache hit {keyValue}" );
+			}
 			return ds;
 		}
 
@@ -2506,9 +2509,12 @@ namespace TFLLib
 			return null;
 		}
 
-		private DataSet GetNflDataSet( string tableName, string commandStr, string caller = "" )
+		private DataSet GetNflDataSet( string tableName, string commandStr, string caller = "", bool logit = false )
 		{
-			IoTrace( commandStr, caller );
+			if ( logit )
+			{
+				IoInfo( commandStr, caller );
+			}
 			var da = new OleDbDataAdapter( commandStr, OleDbConn );
 			var ds = new DataSet();
 			da.Fill( ds, tableName );
@@ -2529,6 +2535,12 @@ namespace TFLLib
 			ioCount++;
 			Logger.Trace( string.Format( "   ({0}) >>>{1}  {2}",
 			   ioCount, ioCommand, caller ) );
+		}
+
+		public void IoInfo( string ioCommand, string caller = "" )
+		{
+			if ( Logger == null ) Logger = LogManager.GetCurrentClassLogger();
+			Logger.Info( $"   ({ioCommand}) >>>{caller}" );
 		}
 
 		private static int hitCount = 0;

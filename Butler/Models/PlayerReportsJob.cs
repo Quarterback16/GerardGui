@@ -19,7 +19,7 @@ namespace Butler.Models
 			TimeKeeper = timeKeeper;
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
-			Logger.Info( $"Doing {reportsToDo} reports" );
+			Logger.Trace( $"Doing {reportsToDo} reports" );
 		}
 
 		public override string DoJob()

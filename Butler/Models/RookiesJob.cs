@@ -10,7 +10,7 @@ namespace Butler.Models
       public RookiesJob(IKeepTheTime timeKeeper)
          : base()
       {
-         Name = "Rookies";
+         Name = nameof( Rookies );
          TimeKeeper = timeKeeper;
          Report = new Rookies(timeKeeper);
          Logger = NLog.LogManager.GetCurrentClassLogger();
