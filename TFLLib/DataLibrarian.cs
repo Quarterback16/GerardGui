@@ -317,7 +317,7 @@ namespace TFLLib
 			else
 			{
 				CacheHit( keyValue );
-				Logger.Info( $"Cache hit {keyValue}" );
+				Logger.Trace( $"Cache hit {keyValue}" );
 			}
 			return ds;
 		}
@@ -1366,6 +1366,8 @@ namespace TFLLib
 			DataTable dt = ds.Tables[ "SEASON" ];
 			if ( dt.Rows.Count > 0 )
 				return DateTime.Parse( dt.Rows[ 0 ][ "SUNDAY1" ].ToString() );
+			else
+				Logger.Error( $"Season record missing for {season}" );
 			return new DateTime( 1, 1, 1 );
 		}
 
@@ -2107,6 +2109,9 @@ namespace TFLLib
 
 		#region URATINGS
 
+		//  Unit ratings table has all the ratings that have been generated (assumes they are correct)
+		//  The ratings values are those going into the contest identified by the NFL sunday of the week
+
 		public DataSet GetUnitRatings( DateTime when )
 		{
 			var keyValue = string.Format( "{0}:{1}", "GetUnitRatings-DataSet",
@@ -2122,8 +2127,7 @@ namespace TFLLib
 
 		public string GetUnitRatings( DateTime when, string teamCode )
 		{
-			var keyValue = string.Format( "{0}:{1}:{2}", "GetUnitRatings2-DataSet",
-				when.Date.ToLongDateString(), teamCode );
+			var keyValue = $"{"GetUnitRatings2-DataSet"}:{when.Date.ToLongDateString()}:{teamCode}";
 
 			var commandStr =
 			   string.Format( "select * from URATINGS where TEAMCODE = '{1}' AND SUNDAY={{{0:MM/dd/yyyy}}}", when, teamCode );
@@ -2138,10 +2142,13 @@ namespace TFLLib
 
 		public void SaveUnitRatings( string ratings, DateTime when, string teamCode )
 		{
-			var formatStr = "INSERT INTO URATINGS (SUNDAY, TEAMCODE, RATINGS)";
-			formatStr += "VALUES( {{{0:MM/dd/yyyy}}},'{1}','{2}' )";
-			var commandStr = string.Format( formatStr, when, teamCode, ratings );
-			ExecuteNflCommand( commandStr );
+			if ( when != new DateTime( 1, 1, 1 ) )
+			{
+				var formatStr = "INSERT INTO URATINGS (SUNDAY, TEAMCODE, RATINGS)";
+				formatStr += "VALUES( {{{0:MM/dd/yyyy}}},'{1}','{2}' )";
+				var commandStr = string.Format( formatStr, when, teamCode, ratings );
+				ExecuteNflCommand( commandStr );
+			}
 		}
 
 		#endregion URATINGS

@@ -139,7 +139,7 @@ namespace RosterLib
 				var teamCode = dr[ "TEAM" ].ToString();
 
 				var theSunday = TimeKeeper.GetSundayFor( when );
-				//Logger.Info( "  Saving URATINGS for Sunday {0:d}", theSunday );
+				Logger.Trace( "  Saving URATINGS for Sunday {0:d}", theSunday );
 				Utility.TflWs.SaveUnitRatings( ratings, theSunday, teamCode );
 			}
 		}

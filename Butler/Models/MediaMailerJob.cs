@@ -74,7 +74,7 @@ namespace Butler.Models
 
          LogMaster.Dump2Xml();  //  write changes if any
 
-         var finishedMessage = string.Format("  {0} job - done. {1} logs mailed", Name, LogsMailed);
+         var finishedMessage = $"  {Name} job - done. {LogsMailed} logs mailed";
          Logger.Info(finishedMessage);
          return finishedMessage;
       }

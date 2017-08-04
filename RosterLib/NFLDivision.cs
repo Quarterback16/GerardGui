@@ -18,11 +18,11 @@ namespace RosterLib
 		{
 			if (TeamList != null)
 			{
-				Logger.Info( $"Division: {Name}" );
+				Logger.Trace( $"Division: {Name}" );
 				foreach ( var team in TeamList )
 				{
 					Console.WriteLine( team );
-					Logger.Info( $"  {team}" );
+					Logger.Trace( $"  {team}" );
 				}
 			}
 		}

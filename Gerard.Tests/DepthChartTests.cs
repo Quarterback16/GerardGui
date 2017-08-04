@@ -132,6 +132,15 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
+		public void TestRatingRetrieval()
+		{
+			var sut = new UnitRatingsService2();
+
+			var results = sut.GetUnitRatingsFor("SF",new DateTime( 2017, 8, 4 ));
+			Assert.AreEqual( expected: "DDDDDD", actual: results );
+		}
+
+		[TestMethod]
 		public void TestDepthChartResultOutputSf()
 		{
 			var sut = new NFLGame( "2017:01-M" );
