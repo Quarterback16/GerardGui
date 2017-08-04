@@ -2,9 +2,9 @@
 using Butler.Interfaces;
 using NLog;
 using RosterLib;
+using RosterLib.Interfaces;
 using System;
 using System.Diagnostics;
-using RosterLib.Interfaces;
 
 namespace Butler.Models
 {
@@ -14,9 +14,9 @@ namespace Butler.Models
 
 		public Logger Logger { get; set; }
 
-        public bool IsNflRelated { get; set; }
+		public bool IsNflRelated { get; set; }
 
-        public IKeepTheTime TimeKeeper { get; set; }
+		public IKeepTheTime TimeKeeper { get; set; }
 
 		public Stopwatch Stopwatch { get; set; }
 
@@ -25,118 +25,113 @@ namespace Butler.Models
 		public Job()
 		{
 			MyHoldList = new HoldList();
-			MyHoldList.LoadFromXml(".//xml//hold-jobs.xml");
-         TimeKeeper = new TimeKeeper(null);
-         Logger = NLog.LogManager.GetCurrentClassLogger();
+			MyHoldList.LoadFromXml( ".//xml//hold-jobs.xml" );
+			TimeKeeper = new TimeKeeper( null );
+			Logger = NLog.LogManager.GetCurrentClassLogger();
 		}
 
-      public Job( IKeepTheTime timekeeper)
-      {
-         MyHoldList = new HoldList();
-         MyHoldList.LoadFromXml( ".//xml//hold-jobs.xml" );
-         TimeKeeper = timekeeper;
-      }
+		public Job( IKeepTheTime timekeeper )
+		{
+			MyHoldList = new HoldList();
+			MyHoldList.LoadFromXml( ".//xml//hold-jobs.xml" );
+			TimeKeeper = timekeeper;
+		}
 
-		public virtual bool IsTimeTodo(out string whyNot)
+		public virtual bool IsTimeTodo( out string whyNot )
 		{
 			whyNot = string.Empty;
-         if (OnHold()) whyNot = "Job is on hold";
+			if ( OnHold() ) whyNot = "Job is on hold";
 
-		   if (!string.IsNullOrEmpty( whyNot )) return string.IsNullOrEmpty( whyNot );
+			if ( !string.IsNullOrEmpty( whyNot ) ) return string.IsNullOrEmpty( whyNot );
 
-		   if (!IsNflRelated) return string.IsNullOrEmpty( whyNot );
-
-         //  some jobs like pickup charts u still want to run in the post season 
-         //  ( daily Fantasy leagues) : push this decion down to the individual jobs
-		   //if (TimeKeeper.IsItPostSeason())
-		   //   whyNot = "Its the Post Season";
+			if ( !IsNflRelated ) return string.IsNullOrEmpty( whyNot );
 
 #if DEBUG
          Console.WriteLine( "Base:Reason for not doing>{0}", whyNot );
 #endif
 
-         if ( !string.IsNullOrEmpty( whyNot ) )
-            Logger.Info( $"  Not time because : {whyNot}");
+			if ( !string.IsNullOrEmpty( whyNot ) )
+				Logger.Info( $"  Not time because : {whyNot}" );
 
-		   return string.IsNullOrEmpty(whyNot);
+			return string.IsNullOrEmpty( whyNot );
 		}
 
 		public string Execute()
 		{
-         SetupJob();
+			SetupJob();
 			// Implement the work stuff ur self with an override,
-         // but we want "standard" setups and teardowns
-         var result = DoJob();
+			// but we want "standard" setups and teardowns
+			var result = DoJob();
 
-         TeardownJob();
+			TeardownJob();
 
 			return result;
 		}
 
 		public virtual string DoJob()
-      {
-         //  the meat in the sandwich
-         return string.Empty;
-      }
+		{
+			//  the meat in the sandwich
+			return string.Empty;
+		}
 
 		public void StartRun()
 		{
-			if (Stopwatch == null )
+			if ( Stopwatch == null )
 				Stopwatch = new Stopwatch();
 			Stopwatch.Start();
 		}
 
-      private  void SetupJob()
-      {
-         Logger.Info("Doing {0} job..............................................", Name);
+		private void SetupJob()
+		{
+			Logger.Info( "Doing {0} job..............................................", Name );
 
-         if (Stopwatch == null)
-            Stopwatch = new Stopwatch();
-         Stopwatch.Start();
-      }
+			if ( Stopwatch == null )
+				Stopwatch = new Stopwatch();
+			Stopwatch.Start();
+		}
 
 		/// <summary>
 		///   Records the run
 		/// </summary>
 		public void StopRun()
 		{
-			var ts = Utility.StopTheWatch(Stopwatch, string.Format("Finished Job: {0}", Name));
+			var ts = Utility.StopTheWatch( Stopwatch, string.Format( "Finished Job: {0}", Name ) );
 			var runStorer = new DbfRunStorer();
-			runStorer.StoreRun(Name, ts, nameof( Job ) );
-         LogElapsedTime(ts);
+			runStorer.StoreRun( Name, ts, nameof( Job ) );
+			LogElapsedTime( ts );
 		}
 
-      public void TeardownJob()
-      {
-         var ts = Utility.StopTheWatch(Stopwatch, string.Format("Finished Job: {0}", Name));
-         LogElapsedTime(ts);
-      }
+		public void TeardownJob()
+		{
+			var ts = Utility.StopTheWatch( Stopwatch, string.Format( "Finished Job: {0}", Name ) );
+			LogElapsedTime( ts );
+		}
 
-      public void LogElapsedTime(TimeSpan ts )
-      {
-         var elapsed = ts.ToString(@"hh\:mm\:ss");
-         Logger.Info(string.Format("  Job: {0} took {1}", Name, elapsed));
-      }
+		public void LogElapsedTime( TimeSpan ts )
+		{
+			var elapsed = ts.ToString( @"hh\:mm\:ss" );
+			Logger.Info( string.Format( "  Job: {0} took {1}", Name, elapsed ) );
+		}
 
 		public DateTime LastDone()
 		{
-         var lastDone = new DateTime(1,1,1);
-         try
-         {
-            lastDone = Utility.TflWs.GetLastRun(Name);
-         }
-         catch (Exception ex )
-         {
-            Logger.Error("Could not get last run for " + Name + "  " + ex.Message );
-         }
+			var lastDone = new DateTime( 1, 1, 1 );
+			try
+			{
+				lastDone = Utility.TflWs.GetLastRun( Name );
+			}
+			catch ( Exception ex )
+			{
+				Logger.Error( "Could not get last run for " + Name + "  " + ex.Message );
+			}
 
-		   return lastDone;
+			return lastDone;
 		}
 
-	   public bool OnHold()
+		public bool OnHold()
 		{
-	      var onHold = MyHoldList.Contains(Name);
-	      return onHold;
+			var onHold = MyHoldList.Contains( Name );
+			return onHold;
 		}
 	}
 }
