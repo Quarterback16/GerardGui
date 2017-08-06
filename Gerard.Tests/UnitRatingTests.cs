@@ -8,6 +8,17 @@ namespace Gerard.Tests
 	public class UnitRatingTests
 	{
 		[TestMethod]
+		public void TestRatingsForStartOfSeason2017()
+		{
+			var timekeeper = new TimeKeeper(clock:null);
+			var rr = new UnitRatingsService();
+			var nextSunday = timekeeper.GetSundayFor( new DateTime( 2017, 8, 4 ) );
+			Assert.AreEqual( expected: new DateTime( 2017, 09, 10 ), actual: nextSunday );
+			var result = rr.HaveAlreadyRated( nextSunday );
+			Assert.IsTrue( result );
+		}
+
+		[TestMethod]
 		public void TestRatingsRetrieval()
 		{
 			var team = new NflTeam( "SF" );

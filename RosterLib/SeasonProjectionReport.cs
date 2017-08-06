@@ -28,9 +28,7 @@ namespace RosterLib
 		public override string OutputFilename()
 		{
 			var fileName =
-				string.Format( "{0}{2}\\Projections\\Proj-{1}-{2}.htm",
-									Utility.OutputDirectory(), MetricName,
-									Season );
+				$"{Utility.OutputDirectory()}{Season}\\Projections\\Proj-{MetricName}-{Season}.htm";
 			return fileName;
 		}
 	}

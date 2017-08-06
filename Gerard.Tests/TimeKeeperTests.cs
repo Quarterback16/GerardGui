@@ -78,6 +78,14 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
+		public void TestStartOfSeason2017()
+		{
+			var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 08, 04 ) ) );
+			var nextSunday = sut.GetSundayFor( new DateTime( 2017, 8, 4 ) );
+			Assert.AreEqual( expected: new DateTime( 2017, 9, 10 ), actual: nextSunday );
+		}
+
+		[TestMethod]
 		public void TestPreseason()
 		{
 			var sut = new TimeKeeper( new FakeClock( new DateTime( 2015, 03, 16, 12, 0, 0 ) ) );  // set clock to March
@@ -107,16 +115,18 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPostSeason()
 		{
-			var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 01, 04, 12, 0, 0 ) ) );  // set clock to January
+			var sut = new TimeKeeper( new FakeClock( 
+				new DateTime( 2017, 01, 04, 12, 0, 0 ) ) );  // set clock to 4th January 2017
 			Assert.IsFalse( sut.IsItPreseason() );
-			Assert.IsTrue( sut.IsItRegularSeason() );
-			Assert.IsFalse( sut.IsItPostSeason() );
+			Assert.IsFalse( sut.IsItRegularSeason() );
+			Assert.IsTrue( sut.IsItPostSeason() );
 		}
 
 		[TestMethod]
 		public void TestIsItPostSeasonInFebruary()
 		{
-			var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 02, 14, 12, 0, 0 ) ) );  // set clock to January
+			var sut = new TimeKeeper( new FakeClock( 
+				new DateTime( 2017, 02, 14, 12, 0, 0 ) ) );  // set clock to 14 February, 2017
 			Assert.IsTrue( sut.IsItPostSeason() );
 		}
 

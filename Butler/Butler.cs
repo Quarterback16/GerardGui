@@ -146,6 +146,8 @@ namespace Butler
 
 				#endregion Pre Season Jobs -- Long running so last in the job order
 
+				#region  Dropbox copying
+
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
 				  "d:\\shares\\public\\dropbox\\gridstat\\{0}",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
@@ -160,6 +162,8 @@ namespace Butler
 					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
 					"d:\\shares\\public\\dropbox\\lists\\"
 				) );
+
+				#endregion
 
 				MyJobs.Add( new MediaJob() );  //  regular always lucky last
 

@@ -43,7 +43,7 @@ namespace RosterLib
 			{
 				TeamCode = team.TeamCode;
 				Execute();
-#if DEBUG2
+#if DEBUG
             break;
 #endif
 			}
