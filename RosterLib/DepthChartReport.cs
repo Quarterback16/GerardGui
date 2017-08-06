@@ -178,7 +178,7 @@ namespace RosterLib
 			return playersOut;
 		}
 
-		private List<NFLPlayer> GetPlayers( string posDesc )
+		public List<NFLPlayer> GetPlayers( string posDesc )
 		{
 			var desiredRole = "S";
 			if ( posDesc == "R2" || posDesc == "Q2" || posDesc == "T2" )
@@ -189,6 +189,11 @@ namespace RosterLib
 			if ( posDesc == "SUS" ) desiredRole = "X";
 			if ( posDesc == "HO" ) desiredRole = "H";
 			var playerList = new List<NFLPlayer>();
+			if ( NflTeam == null )
+			{
+				NflTeam = new NflTeam( TeamCode );
+				NflTeam.LoadTeam();
+			}
 			foreach ( var p in NflTeam.PlayerList )
 			{
 				var player = ( NFLPlayer ) p;
@@ -246,9 +251,10 @@ namespace RosterLib
 		{
 			if ( posDesc == "SH" ) return true;
 			if ( posDesc == "3D" ) return true;
-			if ( posDesc == "W1" ) return true;
-			if ( posDesc == "W2" ) return true;
-			if ( posDesc == "W3" ) return true;
+			// backups can be given these monikers otherwise I would have to remove them manually
+			//if ( posDesc == "W1" ) return true;
+			//if ( posDesc == "W2" ) return true;
+			//if ( posDesc == "W3" ) return true;
 			if ( posDesc == "PR" ) return true;
 			if ( posDesc == "KR" ) return true;
 			if ( desiredRole == "I" ) return true;

@@ -74,9 +74,9 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDepthChartExecution()
 		{
-			const string teamCode = "NE";
+			const string teamCode = "TT";
 			var t = new NflTeam( teamCode );
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2015" ), teamCode );
+			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), teamCode );
 			sut.Execute();
 			var isError = false;
 			if ( sut.HasIntegrityError() )
@@ -241,6 +241,14 @@ namespace Gerard.Tests
 			var sut = new NflTeam( "GB" );
 			var res = sut.LoadRushUnit();
 			Assert.IsTrue( res.Count > 0 );
+		}
+
+		[TestMethod]
+		public void TestGetPlayers()
+		{
+			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), "TT" );
+			var res = sut.GetPlayers("W2");
+			Assert.IsTrue( res.Count == 1 );
 		}
 	}
 }
