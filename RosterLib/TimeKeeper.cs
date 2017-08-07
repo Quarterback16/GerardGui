@@ -183,6 +183,22 @@ namespace RosterLib
          return ps.ToString(CultureInfo.InvariantCulture);
       }
 
+		public int DumpSeasonSundays()
+		{
+			int numberOfSundays = 0;
+			DateTime sunday = new DateTime( 1, 1, 1 );
+			for ( int i = 1; i < Constants.K_WEEKS_IN_A_SEASON + 1; i++ )
+			{
+				numberOfSundays++;
+				if ( numberOfSundays == 1 )
+					sunday = Utility.TflWs.GetSeasonStartDate( CurrentSeason() );
+				else
+					sunday = sunday.Date.AddDays( 7 );
+				Console.WriteLine( $"{numberOfSundays} : {sunday:d}");
+			}
+			return numberOfSundays;
+		}
+
 		public DateTime GetSundayFor( DateTime when )
 		{
 			var theSeason = Utility.SeasonFor( when );

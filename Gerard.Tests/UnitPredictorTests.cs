@@ -16,7 +16,7 @@ namespace Gerard.Tests
 				AuditTrail = true,
 				WriteProjection = true,
 				StorePrediction = false,
-				RatingsService = new UnitRatingsService()
+				RatingsService = new UnitRatingsService(new FakeTimeKeeper() )
 			};
 			var game = new NFLGame( "2015:08-M" );  //  GB @ DB
 			var result = predictor.PredictGame( game, new FakePredictionStorer(), new DateTime(2015,10,28) );

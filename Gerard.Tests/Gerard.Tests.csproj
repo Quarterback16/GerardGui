@@ -139,6 +139,7 @@
     <Compile Include="PullMetricsFromPredictionTests.cs" />
     <Compile Include="RandomNumberGeneratorTests.cs" />
     <Compile Include="RankingJobTests.cs" />
+    <Compile Include="ReasonablenessCheckerTests.cs" />
     <Compile Include="RecordActualsTests.cs" />
     <Compile Include="RetirePlayersTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />

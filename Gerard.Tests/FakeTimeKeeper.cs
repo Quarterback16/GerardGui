@@ -51,12 +51,14 @@ namespace Gerard.Tests
 		{
 			Season = season;
 			Week = "00";
+			TheDateTime = DateTime.Now;
 		}
 
 		public FakeTimeKeeper( string season, string week )
 		{
 			Season = season;
 			Week = week;
+			TheDateTime = DateTime.Now;
 		}
 
 		public bool IsItWednesdayOrThursday( DateTime focusDate )

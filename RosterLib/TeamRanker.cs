@@ -27,13 +27,11 @@ namespace RosterLib
 		public TeamRanker( IKeepTheTime timeKeeper )
 		{
 			TimeKeeper = timeKeeper;
-
 			RatingsHt = new Hashtable();
 			Week = TimeKeeper.PreviousWeek();
-
-			FileOut = string.Format( "{0}\\{1}\\Metrics\\MetricTable-{2:0#}.htm",
-				Utility.OutputDirectory(), Utility.CurrentSeason(), Week );
-
+			FileOut = $@"{Utility.OutputDirectory()}\\{
+				TimeKeeper.CurrentSeason()
+				}\\Metrics\\MetricTable-{Week:0#}.htm";
 			Logger = LogManager.GetCurrentClassLogger();
 		}
 
@@ -68,7 +66,7 @@ namespace RosterLib
 
 			var metricTable = LoadMetrix( teamList, when );
 			Rank( metricTable, "YDr DESC", UnitRatings.UnitRating.Ro );
-#if !DEBUG
+#if !DEBUG2
 			Rank( metricTable, "YDp DESC", UnitRatings.UnitRating.Po );
 			Rank( metricTable, "SAKa ASC", UnitRatings.UnitRating.Pp );
 			Rank( metricTable, "SAK DESC", UnitRatings.UnitRating.Pr );
@@ -79,11 +77,8 @@ namespace RosterLib
 			DumpRatingsHt( when );
 			UpdateMetricsWithRatings( metricTable );
 			DumpMetricTable( metricTable, when );
-
 			WriteRatings( metricTable, when );
-
 			UpdateRatings( metricTable, season );
-
 #if DEBUG
 			Utility.StopTheWatch( stopwatch, string.Format( "Ranking teams : {0:d}", when ) );
 #endif
@@ -254,8 +249,12 @@ namespace RosterLib
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();
 
-				Logger.Trace( $"      Tallying {teamCode}" );
-				TallyTeam( teamList, season, focusDate, teamCode );
+				Logger.Info( $"      Tallying {teamCode}" );
+				//TallyTeam( teamList, season, focusDate, teamCode );
+				TallyTeam( teamList, season, focusDate, "DB" );
+#if DEBUG
+				break;
+#endif
 			}
 		}
 

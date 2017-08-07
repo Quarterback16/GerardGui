@@ -29,7 +29,7 @@ namespace Gerard.Tests
 				AuditTrail = false,
 				WriteProjection = true,
 				StorePrediction = true,
-				RatingsService = new UnitRatingsService()
+				RatingsService = new UnitRatingsService(new FakeTimeKeeper() )
 			};
 			var sp = t.SeasonProjection( predictor, "Spread", new DateTime(2017,1,1));
 			Assert.IsFalse( string.IsNullOrEmpty( sp ) );

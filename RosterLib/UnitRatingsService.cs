@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RosterLib.Interfaces;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -16,8 +17,11 @@ namespace RosterLib
 
 		private bool thisSeasonOnly { get; set; }
 
-		public UnitRatingsService()
+		public IKeepTheTime TimeKeeper { get; set; }
+
+		public UnitRatingsService( IKeepTheTime timekeeper)
 		{
+			TimeKeeper = timekeeper;
 			RatingsHt = new Hashtable();
 			LastDateRanked = new DateTime(1,1,1);
 			if ( Utility.CurrentNFLWeek().WeekNo > 4 )
@@ -47,7 +51,6 @@ namespace RosterLib
 			return strRatings;
 		}
 
-
 		//    Does NextWeek equate to Current Week
 		public bool IsCurrent( NflTeam team, DateTime when )
 		{
@@ -55,7 +58,6 @@ namespace RosterLib
 			var currentWeek = Utility.CurrentNFLWeek();
 			return currentWeek.Season.Equals( nextGame.Season ) && currentWeek.WeekNo.Equals( nextGame.WeekNo );
 		}
-
 
 		private UnitRatings RatingsFor( string teamCode )
 		{
@@ -128,8 +130,9 @@ namespace RosterLib
 			LastDateRanked = when;
 		}
 
-		private static void WriteRatings( DataTable dt, DateTime when )
+		private void WriteRatings( DataTable dt, DateTime when )
 		{
+			var theSunday = TimeKeeper.GetSundayFor( when );
 			foreach ( DataRow dr in dt.Rows )
 			{
 				var po = dr[ "RYDp" ].ToString();
@@ -140,7 +143,7 @@ namespace RosterLib
 				var pd = dr[ "RIntRatio" ].ToString();
 				var ratings = string.Format( "{0}{1}{2}{3}{4}{5}", po, ro, pp, pr, rd, pd );
 				var teamCode = dr[ "TEAM" ].ToString();
-				Utility.TflWs.SaveUnitRatings( ratings, when, teamCode );
+				Utility.TflWs.SaveUnitRatings( ratings, theSunday, teamCode );
 			}
 		}
 
@@ -261,7 +264,6 @@ namespace RosterLib
 				return "C";
 			return rank < 30 ? "D" : "E";
 		}
-
 		private static DataTable LoadMetrix(IEnumerable<NflTeam> teamList, DateTime when )
 		{
 			var metricTable = BuildTable();
@@ -331,7 +333,6 @@ namespace RosterLib
 				TallyTeam( teamList, season, focusDate, teamCode );
 			}
 		}
-
 		public void TallyTeam( ICollection<NflTeam> teamList, string season, DateTime focusDate, string teamCode )
 		{
 			var team = new NflTeam( teamCode );  //  simple code constructor
@@ -342,7 +343,6 @@ namespace RosterLib
 			team.TallyStats();
 			teamList.Add( team );
 		}
-
 		private static DataTable BuildTable()
 		{
 			var dt = new DataTable();

@@ -21,12 +21,12 @@ namespace Butler.Implementations
 
       public DateTime RegularSeasonEnds(string season)
       {
-         return WeekEnds( season, "17" );
+         return WeekEnds( season, Constants.K_WEEKS_IN_REGULAR_SEASON.ToString() );
       }
 
       public DateTime SeasonEnds(string season)
       {
-         return WeekEnds(season, "21");
+         return WeekEnds(season, Constants.K_WEEKS_IN_A_SEASON.ToString() );
       }
 
       public DateTime WeekStarts(string season, string week )
@@ -70,15 +70,15 @@ namespace Butler.Implementations
 
          if ( dr == null )
          {
-            var noWeek = "00";
-            var theSeason = theDate.Year.ToString();
-            return string.Format("{0}:{1}", theSeason, noWeek);
+			const string noWeek = "00";
+			var theSeason = theDate.Year.ToString();
+            return $"{theSeason}:{noWeek}";
          }
          else
          {
             var season = dr["SEASON"].ToString();
             var week = dr["WEEK"].ToString();
-            return string.Format("{0}:{1}", season, week);
+            return $"{season}:{week}";
          }
       }
    }

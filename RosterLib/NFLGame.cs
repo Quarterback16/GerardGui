@@ -77,6 +77,9 @@ namespace RosterLib
 
 		public IYahooStatService YahooStatsService { get; set; }
 
+		private IReason Checker { get; set; }
+
+
 		public enum Stat
 		{
 			Sack = 0
@@ -116,126 +119,12 @@ namespace RosterLib
 			Result = new NFLResult( homeCodeIn, homeScoreIn, awayCodeIn, awayScoreIn );
 		}
 
-		internal string DumpPgmsAsHtml( string header, string teamCodeInFocus )
-		{
-			var sb = new StringBuilder();
-			sb.Append( HtmlLib.H3( header ) );
-			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
-			sb.Append( HtmlLib.TableRowOpen() );
-			sb.Append( HtmlLib.TableData( DumpOffenceHtml( teamCodeInFocus ) ) );
-			sb.Append( HtmlLib.TableData( DumpDefenceHtml( teamCodeInFocus ) ) );
-			sb.Append( HtmlLib.TableRowClose() );
-			sb.Append( HtmlLib.TableClose() );
-			return sb.ToString();
-		}
-
-		internal string DumpFantasyPlayersAsHtml( string header, string teamCodeInFocus )
-		{
-			var sb = new StringBuilder();
-			sb.Append( HtmlLib.H3( header ) );
-			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
-			sb.Append( HtmlLib.TableRowOpen() );
-			sb.Append( HtmlLib.TableData( DumpFantasyHtml( teamCodeInFocus ) ) );
-			sb.Append( HtmlLib.TableRowClose() );
-			sb.Append( HtmlLib.TableClose() );
-			return sb.ToString();
-		}
-
-		private string DumpFantasyHtml( string teamCodeInFocus )
-		{
-			if ( YahooStatsService == null ) YahooStatsService = new YahooStatService();
-			var sb = new StringBuilder();
-			sb.Append( HtmlLib.TableOpen() );
-			foreach ( var plyr in FantasyPlayers )
-			{
-				if ( plyr.CurrTeam == null ) continue;
-				if ( plyr.CurrTeam.TeamCode == null ) continue;
-				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
-				{
-					var pts = YahooStatsService.GetStat( plyr.PlayerCode, Season, Week );
-					sb.Append( HtmlLib.TableRowOpen() );
-					sb.Append( HtmlLib.TableDataOpen() );
-					sb.Append(
-					   $"{plyr.PlayerName}" );
-					sb.Append( HtmlLib.TableDataClose() );
-					sb.Append( HtmlLib.TableDataOpen() );
-					sb.Append(
-					   $"{pts}" );
-					sb.Append( HtmlLib.TableDataClose() );
-					sb.Append( HtmlLib.TableRowClose() );
-				}
-			}
-			sb.Append( HtmlLib.TableClose() );
-			return sb.ToString();
-		}
-
-		private string DumpOffenceHtml( string teamCodeInFocus )
-		{
-			var pgmCount = 0;
-			var sb = new StringBuilder();
-			sb.Append( HtmlLib.TableOpen() );
-			foreach ( var pgm in Pgms )
-			{
-				pgmCount++;
-				if ( pgmCount == 1 )
-					sb.Append( pgm.PgmHeaderVerticalRow() );
-
-				var plyr = new NFLPlayer( pgm.PlayerId );
-				pgm.ProjectedFantasyPoints = pgm.CalculateProjectedFantasyPoints( plyr );
-				pgm.FantasyPoints = pgm.CalculateActualFantasyPoints( plyr );
-				if ( plyr.CurrTeam.TeamCode == null ) continue;
-				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
-					if ( plyr.IsOffence() )
-					{
-						sb.Append(
-							$"{pgm.FormatProjectionsAsTableRow( plyr )}" );
-						sb.Append(
-							$"{pgm.FormatActualsAsTableRow( plyr )}" );
-					}
-			}
-			sb.Append( HtmlLib.TableClose() );
-			return sb.ToString();
-		}
-
-		private string DumpDefenceHtml( string teamCodeInFocus )
-		{
-			var sb = new StringBuilder();
-			sb.Append( HtmlLib.TableOpen() );
-			foreach ( var pgm in Pgms )
-			{
-				var plyr = new NFLPlayer( pgm.PlayerId );
-				if ( plyr.CurrTeam.TeamCode == null ) continue;
-				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
-					if ( plyr.IsDefence() )
-						sb.Append(
-						   $"{pgm.FormatAsTableRow( plyr.PlayerName, plyr.RoleOut(), 0 )}" );
-			}
-			sb.Append( HtmlLib.TableClose() );
-			return sb.ToString();
-		}
-
 		public NFLGame( string season, string weekIn )
 		{
 			Season = season;
 			Week = weekIn;
 			YahooList = new List<YahooOutput>();
 			GridStatsList = new List<GridStatsOutput>();
-		}
-
-		public decimal DefensiveFantasyPtsFor( string teamCode )
-		{
-			if ( !Played() ) return 0.0M;
-
-			NflTeam team;
-			if ( IsAway( teamCode ) )
-				team = AwayNflTeam;
-			else
-				team = HomeNflTeam;
-
-			if ( GameWeek == null ) GameWeek = new NFLWeek( Season, Week );
-			var calculator = new DefensiveScoringCalculator( GameWeek, offset: 0 );
-			calculator.Calculate( team: team, game: this );
-			return team.FantasyPoints;
 		}
 
 		/// <summary>
@@ -402,6 +291,105 @@ namespace RosterLib
 
 		#endregion Constructors
 
+
+		internal string DumpPgmsAsHtml( string header, string teamCodeInFocus )
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.H3( header ) );
+			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+			sb.Append( HtmlLib.TableRowOpen() );
+			sb.Append( HtmlLib.TableData( DumpOffenceHtml( teamCodeInFocus ) ) );
+			sb.Append( HtmlLib.TableData( DumpDefenceHtml( teamCodeInFocus ) ) );
+			sb.Append( HtmlLib.TableRowClose() );
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
+
+		internal string DumpFantasyPlayersAsHtml( string header, string teamCodeInFocus )
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.H3( header ) );
+			sb.Append( HtmlLib.TableOpen( "border='0'" ) );
+			sb.Append( HtmlLib.TableRowOpen() );
+			sb.Append( HtmlLib.TableData( DumpFantasyHtml( teamCodeInFocus ) ) );
+			sb.Append( HtmlLib.TableRowClose() );
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
+
+		private string DumpFantasyHtml( string teamCodeInFocus )
+		{
+			if ( YahooStatsService == null ) YahooStatsService = new YahooStatService();
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen() );
+			foreach ( var plyr in FantasyPlayers )
+			{
+				if ( plyr.CurrTeam == null ) continue;
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+				{
+					var pts = YahooStatsService.GetStat( plyr.PlayerCode, Season, Week );
+					sb.Append( HtmlLib.TableRowOpen() );
+					sb.Append( HtmlLib.TableDataOpen() );
+					sb.Append(
+					   $"{plyr.PlayerName}" );
+					sb.Append( HtmlLib.TableDataClose() );
+					sb.Append( HtmlLib.TableDataOpen() );
+					sb.Append(
+					   $"{pts}" );
+					sb.Append( HtmlLib.TableDataClose() );
+					sb.Append( HtmlLib.TableRowClose() );
+				}
+			}
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
+
+		private string DumpOffenceHtml( string teamCodeInFocus )
+		{
+			var pgmCount = 0;
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen() );
+			foreach ( var pgm in Pgms )
+			{
+				pgmCount++;
+				if ( pgmCount == 1 )
+					sb.Append( pgm.PgmHeaderVerticalRow() );
+
+				var plyr = new NFLPlayer( pgm.PlayerId );
+				pgm.ProjectedFantasyPoints = pgm.CalculateProjectedFantasyPoints( plyr );
+				pgm.FantasyPoints = pgm.CalculateActualFantasyPoints( plyr );
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+					if ( plyr.IsOffence() )
+					{
+						sb.Append(
+							$"{pgm.FormatProjectionsAsTableRow( plyr )}" );
+						sb.Append(
+							$"{pgm.FormatActualsAsTableRow( plyr )}" );
+					}
+			}
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
+
+		private string DumpDefenceHtml( string teamCodeInFocus )
+		{
+			var sb = new StringBuilder();
+			sb.Append( HtmlLib.TableOpen() );
+			foreach ( var pgm in Pgms )
+			{
+				var plyr = new NFLPlayer( pgm.PlayerId );
+				if ( plyr.CurrTeam.TeamCode == null ) continue;
+				if ( plyr.CurrTeam.TeamCode.Equals( teamCodeInFocus ) )
+					if ( plyr.IsDefence() )
+						sb.Append(
+						   $"{pgm.FormatAsTableRow( plyr.PlayerName, plyr.RoleOut(), 0 )}" );
+			}
+			sb.Append( HtmlLib.TableClose() );
+			return sb.ToString();
+		}
+
 		/// <summary>
 		/// Tallies the metrics for the game if it has been played.
 		/// Need to know # of Tdp, Tdr, SAK
@@ -428,8 +416,9 @@ namespace RosterLib
 					AwayTDd = ( int ) Utility.TflWs.TeamScores( Constants.K_SCORE_FUMBLE_RETURN, Season, Week, GameCode, AwayTeam );
 					AwayTDd += ( int ) Utility.TflWs.TeamScores( Constants.K_SCORE_INTERCEPT_RETURN, Season, Week, GameCode, AwayTeam );
 
-					HomeSaKa = Utility.TflWs.TeamStats( "Q", Season, Week, GameCode, AwayTeam );
-					AwaySaKa = Utility.TflWs.TeamStats( "Q", Season, Week, GameCode, HomeTeam );
+					HomeSaKa = GetTeamStats( Constants.K_STATCODE_SACK, Season, Week, GameCode, AwayTeam );
+					AwaySaKa = GetTeamStats( Constants.K_STATCODE_SACK, Season, Week, GameCode, HomeTeam );
+
 					HomeInt = ( int ) Utility.TflWs.TeamStats( "M", Season, Week, GameCode, AwayTeam );
 					AwayInt = ( int ) Utility.TflWs.TeamStats( "M", Season, Week, GameCode, HomeTeam );
 					HomePasses = ( int ) Utility.TflWs.TeamStats( "A", Season, Week, GameCode, HomeTeam );
@@ -462,6 +451,21 @@ namespace RosterLib
 						break;
 				}
 			}
+		}
+
+		public decimal GetTeamStats( string statCode, string season, string week, string gameCode, string teamCode )
+		{
+			var stats = Utility.TflWs.TeamStats( statCode, season, week, gameCode, teamCode );
+			ReasonablenessCheck( teamCode, season, week, statCode, stats );  //  for a single game
+			return stats;
+		}
+
+		private void ReasonablenessCheck( 
+			string teamCode, string season, string week, string statCode, decimal stats )
+		{
+			if ( Checker == null ) Checker = new ReasonablenessChecker();
+			if ( Checker.IsNotReasonable( statCode, stats ) )
+				LogInfo( $"!! {season}:{week} {teamCode} value of {stats} for {statCode} is out of range" );
 		}
 
 		/// <summary>
@@ -1521,6 +1525,22 @@ namespace RosterLib
 			return teamCode == teamInFocus ? HtmlLib.Bold( teamCode ) : teamCode;
 		}
 
+		public decimal DefensiveFantasyPtsFor( string teamCode )
+		{
+			if ( !Played() ) return 0.0M;
+
+			NflTeam team;
+			if ( IsAway( teamCode ) )
+				team = AwayNflTeam;
+			else
+				team = HomeNflTeam;
+
+			if ( GameWeek == null ) GameWeek = new NFLWeek( Season, Week );
+			var calculator = new DefensiveScoringCalculator( GameWeek, offset: 0 );
+			calculator.Calculate( team: team, game: this );
+			return team.FantasyPoints;
+		}
+
 		private string WeekOut()
 		{
 			return Int32.Parse( Week ) > 17 ? "PO" : Week;
@@ -2422,9 +2442,17 @@ namespace RosterLib
 		private void Announce( string msg )
 		{
 			if ( Logger == null )
-				Logger = NLog.LogManager.GetCurrentClassLogger();
+				Logger = LogManager.GetCurrentClassLogger();
 
 			Logger.Trace( msg );
+		}
+
+		private void LogInfo( string msg )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( msg );
 		}
 
 		public decimal OpponentPowerRating( string teamCode, string week )

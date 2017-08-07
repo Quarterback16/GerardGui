@@ -58,7 +58,7 @@ namespace RosterLib
 				//SimplePredictor predictor = new SimplePredictor();
 				var predictor = new UnitPredictor
 				                	{
-				                		RatingsService = new UnitRatingsService(), 
+				                		RatingsService = new UnitRatingsService(new TimeKeeper(null)), 
 											WriteProjection = writeProjection
 				                	};
 				//WizPredictor predictor = new WizPredictor();

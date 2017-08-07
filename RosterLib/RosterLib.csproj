@@ -177,6 +177,7 @@
     <Compile Include="Interfaces\IGetGamebooks.cs" />
     <Compile Include="Interfaces\IKeepTheTime.cs" />
     <Compile Include="Interfaces\IRankTeams.cs" />
+    <Compile Include="Interfaces\IReason.cs" />
     <Compile Include="Interfaces\ISeasonScheduler.cs" />
     <Compile Include="Interfaces\IYahooStatService.cs" />
     <Compile Include="IPgmMaster.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="PullMetricsFromPrediction.cs" />
     <Compile Include="PuntReturn.cs" />
     <Compile Include="RandomNumber.cs" />
+    <Compile Include="ReasonablenessChecker.cs" />
     <Compile Include="RecordOfActualMetricsReport.cs" />
     <Compile Include="RenderStatsToHTML.cs" />
     <Compile Include="RenderStatsToWeekly.cs" />

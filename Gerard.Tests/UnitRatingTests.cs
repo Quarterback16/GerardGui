@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		public void TestRatingsForStartOfSeason2017()
 		{
 			var timekeeper = new TimeKeeper(clock:null);
-			var rr = new UnitRatingsService();
+			var rr = new UnitRatingsService(timekeeper);
 			var nextSunday = timekeeper.GetSundayFor( new DateTime( 2017, 8, 4 ) );
 			Assert.AreEqual( expected: new DateTime( 2017, 09, 10 ), actual: nextSunday );
 			var result = rr.HaveAlreadyRated( nextSunday );
@@ -22,7 +22,7 @@ namespace Gerard.Tests
 		public void TestRatingsRetrieval()
 		{
 			var team = new NflTeam( "SF" );
-			var rr = new UnitRatingsService();
+			var rr = new UnitRatingsService( new FakeTimeKeeper() );
 			var currRatings = rr.GetUnitRatingsFor( team, new DateTime( 2014, 9, 7 ) );  //  first Sunday of the 2014 season
 			const string expectedValue = "EACCBD";
 			Assert.IsTrue( currRatings.Equals( expectedValue ),
@@ -42,7 +42,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestUnitRatingsRetrieval()
 		{
-			var sut = new UnitRatingsService();
+			var sut = new UnitRatingsService( new FakeTimeKeeper() );
 			var bActual = sut.HaveAlreadyRated( new DateTime( 2015, 11, 1 ) );
 			Assert.IsTrue( bActual );
 		}
@@ -94,7 +94,7 @@ namespace Gerard.Tests
 		public void TestNewRatingsRetrievalDB()
 		{
 			var team = new NflTeam( "DB" );
-			var sut = new UnitRatingsService();
+			var sut = new UnitRatingsService( new FakeTimeKeeper() );
 			var currRatings = sut.GetUnitRatingsFor( team, new DateTime( 2015, 11, 1 ) );  //  Date must be a Sunday
 			const string expectedValue = "CECBAA";
 			Assert.IsTrue( currRatings.Equals( expectedValue ),

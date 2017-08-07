@@ -14,7 +14,6 @@ namespace RosterLib
 	public class NFLRosterReport
 	{
 		public Logger Logger { get; private set; }
-
 		public string FileOut = "";
 		public string Season { get; set; }
 		public NflConference Nfc;
@@ -338,7 +337,7 @@ namespace RosterLib
 					AuditTrail = false,
 					WriteProjection = true,
 					StorePrediction = true,
-					RatingsService = new UnitRatingsService()
+					RatingsService = new UnitRatingsService(new TimeKeeper(null) )
 				};
 			else
 				predictor = new WizPredictor();

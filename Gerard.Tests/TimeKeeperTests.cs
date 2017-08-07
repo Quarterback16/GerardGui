@@ -154,5 +154,13 @@ namespace Gerard.Tests
 			Console.WriteLine( "Last week is {0}:{1}", sut.CurrentSeason(), sut.PreviousWeek() );
 			Assert.IsTrue( sut.PreviousWeek().Equals( "10" ) );
 		}
+
+		[TestMethod]
+		public void TestSundayDump()
+		{
+			var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 08, 06, 0, 0, 0 ) ) );
+			var result = sut.DumpSeasonSundays();
+			Assert.IsTrue( result.Equals( 21 ) );
+		}
 	}
 }

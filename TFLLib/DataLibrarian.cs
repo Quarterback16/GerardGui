@@ -658,8 +658,8 @@ namespace TFLLib
 			var keyValue = $"{"TeamStats - DataSet"}:{season}:{week}:{statCode}:{game}:{teamCode}";
 			var stats = 0.0M;
 			var commandStr = string.Format(
-			"SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
-			season, game, teamCode, week, statCode );
+				"SELECT * FROM STAT where SEASON='{0}' and WEEK='{3}' and GAMENO='{1}' and TEAMID='{2}' and STAT='{4}'",
+				season, game, teamCode, week, statCode );
 
 			var ds = CacheCommand( keyValue, commandStr, dsName: "stat", caller: "TeamStats" );
 			if ( ds.Tables[ 0 ].Rows.Count > 0 )
@@ -669,6 +669,10 @@ namespace TFLLib
 						   select dr[ "QTY" ].ToString()
 							 into thisGame
 						   select Decimal.Parse( thisGame ) ).Sum();
+			}
+			if ( statCode.Equals("Q") && teamCode == "KC")
+			{
+				IoInfo( $"DB {season}:{week} game {game}; Sacks allowed {stats}");
 			}
 			return stats;
 		}
@@ -1979,9 +1983,21 @@ namespace TFLLib
 		{
 			if ( when != new DateTime( 1, 1, 1 ) )
 			{
-				var formatStr = "INSERT INTO URATINGS (SUNDAY, TEAMCODE, RATINGS)";
-				formatStr += "VALUES( {{{0:MM/dd/yyyy}}},'{1}','{2}' )";
-				var commandStr = string.Format( formatStr, when, teamCode, ratings );
+				var oldRatings = GetUnitRatings( when, teamCode );
+				string commandStr = string.Empty;
+				if ( oldRatings == "??????" )
+				{
+					var formatStr = "INSERT INTO URATINGS (SUNDAY, TEAMCODE, RATINGS)";
+					formatStr += "VALUES( {{{0:MM/dd/yyyy}}},'{1}','{2}' )";
+					commandStr = string.Format( formatStr, when, teamCode, ratings );
+				}
+				else
+				{
+					var formatStr = "UPDATE URATINGS SET RATINGS = '{0}' ";
+					formatStr += "WHERE TEAMCODE = '{1}' AND SUNDAY = {{{2:MM/dd/yyyy}}}";
+					commandStr = string.Format( formatStr, ratings, teamCode, when );
+				}
+				IoInfo( commandStr );
 				ExecuteNflCommand( commandStr );
 			}
 		}

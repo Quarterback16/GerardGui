@@ -12,7 +12,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestRankingJob()
 		{
-			var sut = new RankingsJob( new FakeTimeKeeper( new DateTime( 2017, 5, 20 ) ) );
+			var sut = new RankingsJob( new FakeTimeKeeper( new DateTime( 2017, 8, 3) ) );
 			sut.DoJob();
 			var fileOut = sut.TeamRanker.FileOut;
 			Assert.IsTrue( File.Exists( fileOut ), $"Cannot find {fileOut}" );
