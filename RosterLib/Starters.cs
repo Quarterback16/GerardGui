@@ -34,7 +34,10 @@ namespace RosterLib
          Configs.Add(new StarterConfig { Category = Constants.K_RECEIVER_CAT, Position = "TE" });
          Configs.Add(new StarterConfig { Category = Constants.K_KICKER_CAT, Position = "K" });
 #endif
-         Leagues = new List<RosterGridLeague> {new RosterGridLeague {Id = Constants.K_LEAGUE_Yahoo, Name = "Yahoo"}};
+         Leagues = new List<RosterGridLeague> {
+			 new RosterGridLeague {
+				 Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "GS1"
+			 } };
       }
 
       public override void RenderAsHtml()
