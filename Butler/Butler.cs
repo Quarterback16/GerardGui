@@ -7,6 +7,7 @@ using RosterLib.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Threading;
 
 namespace Butler
@@ -59,7 +60,8 @@ namespace Butler
 
 			Historian = new Historian();
 			Logger = LogManager.GetCurrentClassLogger();
-			Logger.Info( "ver:{0}", Version );
+			Logger.Info( "-------------------------------------------------------------------------------------" );
+			Logger.Info( $"  ver:{Version} Working Directory:{ Directory.GetCurrentDirectory()}");
 		}
 
 		public void ReportProgress( string message )
@@ -173,8 +175,10 @@ namespace Butler
 
 				while ( true )
 				{
-					Passes++;
+					var et = new ElapsedTimer();
+					et.Start( DateTime.Now );
 
+					Passes++;
 					Logger.Info( "-------------------------------------------------------------------------------------" );
 					foreach ( var job in MyJobs )
 					{
@@ -190,6 +194,9 @@ namespace Butler
 								$"Job skipped {job.Name} - {whyNot}",
 							   ButlerConstants.ReportInTextArea );
 					}
+					et.Stop( DateTime.Now );
+					Logger.Info( "-------------------------------------------------------------------------------------" );
+					Logger.Info( $"Butler ran for {et.TimeOut()}" );
 					Logger.Info( "=====================================================================================" );
 
 					ReportProgress( $"Pass Number {Passes} done - next pass ({Pollinterval}) {DateTime.Now.AddMinutes( Pollinterval ):HH:mm}");

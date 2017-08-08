@@ -67,6 +67,11 @@ namespace RosterLib
 		public NFLPlayer AwayRb1 { get; set; }
 		public NFLPlayer HomeRb1 { get; set; }
 
+		public bool IsRegularSeasonGame()
+		{
+			return GameType().Equals("regular");
+		}
+
 		public NFLResult BookieTip { get; set; }
 
 		public List<NFLPlayer> FantasyPlayers { get; set; }
@@ -395,7 +400,7 @@ namespace RosterLib
 		/// Need to know # of Tdp, Tdr, SAK
 		/// Heavy 10 IO
 		/// </summary>
-		public void TallyMetrics( string metric )
+		public void TallyMetrics( string metric, IBreakdown breakdowns = null)
 		{
 			if ( metric == String.Empty )
 			{
@@ -416,8 +421,10 @@ namespace RosterLib
 					AwayTDd = ( int ) Utility.TflWs.TeamScores( Constants.K_SCORE_FUMBLE_RETURN, Season, Week, GameCode, AwayTeam );
 					AwayTDd += ( int ) Utility.TflWs.TeamScores( Constants.K_SCORE_INTERCEPT_RETURN, Season, Week, GameCode, AwayTeam );
 
-					HomeSaKa = GetTeamStats( Constants.K_STATCODE_SACK, Season, Week, GameCode, AwayTeam );
-					AwaySaKa = GetTeamStats( Constants.K_STATCODE_SACK, Season, Week, GameCode, HomeTeam );
+					HomeSaKa = GetTeamStats( Constants.K_STATCODE_SACK, 
+						Season, Week, GameCode, AwayTeam, breakdowns );
+					AwaySaKa = GetTeamStats( Constants.K_STATCODE_SACK, 
+						Season, Week, GameCode, HomeTeam, breakdowns );
 
 					HomeInt = ( int ) Utility.TflWs.TeamStats( "M", Season, Week, GameCode, AwayTeam );
 					AwayInt = ( int ) Utility.TflWs.TeamStats( "M", Season, Week, GameCode, HomeTeam );
@@ -453,9 +460,17 @@ namespace RosterLib
 			}
 		}
 
-		public decimal GetTeamStats( string statCode, string season, string week, string gameCode, string teamCode )
+		public decimal GetTeamStats( 
+			string statCode, 
+			string season, 
+			string week, 
+			string gameCode, 
+			string teamCode,
+			IBreakdown breakdowns = null)
 		{
 			var stats = Utility.TflWs.TeamStats( statCode, season, week, gameCode, teamCode );
+			if ( breakdowns != null )
+				breakdowns.AddLine( $"{teamCode}-{statCode}", $"{week} {statCode} {stats}");
 			ReasonablenessCheck( teamCode, season, week, statCode, stats );  //  for a single game
 			return stats;
 		}

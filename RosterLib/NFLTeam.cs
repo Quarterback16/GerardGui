@@ -3535,7 +3535,7 @@ namespace RosterLib
 		public void LoadGames( string sTeam, string sSeason )
 		{
 #if DEBUG
-			Utility.Announce( string.Format( "  loading season {0} games only for {1}", sSeason, sTeam ) );
+			Utility.Announce( $"  loading season {sSeason} games only for {sTeam}" );
 #endif
 			if ( GameList == null ) GameList = new ArrayList();
 			GameList.Clear();
@@ -3543,7 +3543,7 @@ namespace RosterLib
 			var dt = ds.Tables[ "sched" ];
 			foreach ( DataRow dr in dt.Rows )
 			{
-				var gameCode = string.Format( "{0}:{1}-{2}", sSeason, dr[ "WEEK" ], dr[ "GAMENO" ] );
+				var gameCode = $"{sSeason}:{dr[ "WEEK" ]}-{dr[ "GAMENO" ]}";
 				var g = Masters.Gm.GetGame( gameCode );
 				if ( g == null )
 				{
@@ -3577,8 +3577,7 @@ namespace RosterLib
 			if ( sTeam == "LR" && sSeason == "2017" )
 				sTeam = "SL";  // code change!!
 #if DEBUG
-			Announce( string.Format( "NFLTeam.LoadPreviousRegularSeasonGames:-loading last {0} games for {1}",
-			Constants.K_GAMES_IN_REGULAR_SEASON, sTeam ) );
+			Announce( $"NFLTeam.LoadPreviousRegularSeasonGames:-loading last {Constants.K_GAMES_IN_REGULAR_SEASON} games for {sTeam}" );
 #endif
 			if ( GameList == null ) GameList = new ArrayList();
 			GameList.Clear();
@@ -5257,14 +5256,14 @@ namespace RosterLib
 
 #endregion HelperClass  Spot
 
-		public void TallyStats()
+		public void TallyStats(IBreakdown breakdowns)
 		{
 			foreach ( NFLGame game in GameList )
 			{
 				TraceIt( $"Tallying stats for {game}" );
 
 				game.MetricsCalculated = false;  //  force the calcs
-				game.TallyMetrics( metric: string.Empty );
+				game.TallyMetrics( metric: string.Empty, breakdowns: breakdowns );
 				game.TallyStatsFor( this );
 			}
 		}

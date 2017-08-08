@@ -30,7 +30,7 @@ namespace Butler.Models
 			var gameList = new ArrayList();
 
 			//  do any unplayed games
-			Logger.Debug( "   Doing whole season" );
+			Logger.Info( "   Doing whole season" );
 			var s = new NflSeason( TimeKeeper.Season, loadGames: true, loadDivisions: false ); //  long time to load
 			foreach ( var game in s.GameList )
 				if ( !game.Played() )
@@ -46,7 +46,7 @@ namespace Butler.Models
 
 			StopRun();
 
-			var finishedMessage = string.Format( "Generated projections for {0} games", nGames );
+			var finishedMessage = $"Generated projections for {nGames} games";
 			Logger.Info( "  {0}", finishedMessage );
 			return finishedMessage;
 		}

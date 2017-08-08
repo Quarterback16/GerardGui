@@ -25,10 +25,8 @@ namespace RosterLib
       {
          Name = "Points Allowed Report";
          Heading = $"{Name} Week {Season}:{Week}";
-         RootFolder = string.Format( "{0}{1}//Scores//",
-                     Utility.OutputDirectory(), Season );
+         RootFolder = $"{Utility.OutputDirectory()}{Season}//Scores//";
          FileOut = string.Format( "{0}Points-Allowed-{1}.htm", RootFolder, Week );
-
          RenderSingle();
       }
 

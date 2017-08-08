@@ -1436,12 +1436,20 @@ namespace TFLLib
 
 		public DataSet GetSeason( string sTeam, string sSeason )
 		{
-			var keyValue = string.Format( "{0}:{1}:{2}", "GetSeason-DataSet",
-			   sTeam, sSeason );
+			var keyValue = $"{"GetSeason-DataSet"}:{sTeam}:{sSeason}";
+			var commandStr = $"SELECT * FROM SCHED where SEASON='{sSeason}' and (HOMETEAM='{sTeam}' or AWAYTEAM='{sTeam}') ORDER BY WEEK";
+			var ds = CacheCommand( keyValue, commandStr, "sched", "GetSeason" );
+			return ds;
+		}
 
-			var commandStr = string.Format(
-			   "SELECT * FROM SCHED where SEASON='{0}' and (HOMETEAM='{1}' or AWAYTEAM='{1}') ORDER BY WEEK",
-			   sSeason, sTeam );
+		public DataSet GetRegularSeason( string sTeam, string sSeason )
+		{
+			var keyValue = $"{"GetRegularSeason-DataSet"}:{sTeam}:{sSeason}";
+			var commandStr = "SELECT * FROM SCHED";
+			commandStr += $" where SEASON = '{sSeason}'";
+			commandStr += $" and (HOMETEAM='{sTeam}' or AWAYTEAM='{sTeam}')";
+			commandStr += $" and WEEK < '18'";
+			commandStr += " ORDER BY WEEK";
 			var ds = CacheCommand( keyValue, commandStr, "sched", "GetSeason" );
 			return ds;
 		}

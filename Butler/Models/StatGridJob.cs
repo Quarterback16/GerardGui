@@ -11,7 +11,7 @@ namespace Butler.Models
       public StatGridJob(IKeepTheTime timeKeeper)
       {
          Name = "Stat Grids";
-         Console.WriteLine("Constructing {0} ...", Name);
+         Console.WriteLine( $"Constructing {Name} ..." );
          Report = new StatGrids(timeKeeper);
          TimeKeeper = timeKeeper;
          Logger = NLog.LogManager.GetCurrentClassLogger();

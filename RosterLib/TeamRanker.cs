@@ -10,6 +10,9 @@ namespace RosterLib
 {
 	public class TeamRanker : IRankTeams
 	{
+		public string GameScope { get; set; }
+		public IBreakdown Breakdowns { get; set; }
+
 		public Hashtable RatingsHt { get; set; }
 
 		public string FileOut { get; set; }
@@ -24,6 +27,7 @@ namespace RosterLib
 
 		public bool ForceReRank { get; set; }
 
+		#region Constructors
 		public TeamRanker( IKeepTheTime timeKeeper )
 		{
 			TimeKeeper = timeKeeper;
@@ -33,7 +37,9 @@ namespace RosterLib
 				TimeKeeper.CurrentSeason()
 				}\\Metrics\\MetricTable-{Week:0#}.htm";
 			Logger = LogManager.GetCurrentClassLogger();
+			Breakdowns = new PreStyleBreakdown();
 		}
+		#endregion
 
 		public void RankTeams( DateTime when )
 		{
@@ -250,8 +256,7 @@ namespace RosterLib
 				var teamCode = dr[ "TEAMID" ].ToString();
 
 				Logger.Info( $"      Tallying {teamCode}" );
-				//TallyTeam( teamList, season, focusDate, teamCode );
-				TallyTeam( teamList, season, focusDate, "DB" );
+				TallyTeam( teamList, season, focusDate, teamCode );
 #if DEBUG
 				break;
 #endif
@@ -266,11 +271,35 @@ namespace RosterLib
 		{
 			var team = new NflTeam( teamCode );  //  simple code constructor
 			if ( TimeKeeper.IsItRegularSeason() )
+			{
 				team.LoadGames( team.TeamCode, season );
+				GameScope = GameScopeFromGameList(team.GameList);
+			}
 			else
+			{
+				GameScope = $"Regular season Games {Int32.Parse(season)-1}";
 				team.LoadPreviousRegularSeasonGames( team.TeamCode, season, focusDate );
-			team.TallyStats();
+			}
+			team.TallyStats(Breakdowns);
 			teamList.Add( team );
+			var breakdownKey = $"{team.TeamCode}-Q";
+			var breakdownFile = $@"{Utility.OutputDirectory()}\\{
+							TimeKeeper.CurrentSeason()
+							}\\Metrics\\breakdowns\\{breakdownKey}.htm";
+			Breakdowns.Dump( breakdownKey, breakdownFile );
+		}
+
+		private string GameScopeFromGameList(ArrayList games)
+		{
+			string from = "";
+			string to = "";
+			for ( int i = 0; i < games.Count; i++ )
+			{
+				var g = ( NFLGame ) games[ i ];
+				if ( string.IsNullOrEmpty( from ) ) from = g.GameDate.ToShortDateString();
+				to = g.GameDate.ToShortDateString();
+			}
+			return $"Games From: {from} to {to}";
 		}
 
 		private DataTable LoadMetrix( IEnumerable<NflTeam> teamList, DateTime when )
@@ -306,8 +335,7 @@ namespace RosterLib
 		private void DumpMetricTable( DataTable dt, DateTime when )
 		{
 			var st =
-				new SimpleTableReport( string.Format( "Team Metrics at {0}", when.ToShortDateString() )
-					)
+				new SimpleTableReport( $"Team Metrics at {when.ToShortDateString()} {GameScope}" )
 				{ ColumnHeadings = true };
 			st.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
 			st.AddColumn( new ReportColumn( "YDp", "YDp", "{0}" ) );

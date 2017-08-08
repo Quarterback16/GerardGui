@@ -33,8 +33,11 @@ namespace RosterLib
 
 		public void Load()
 		{
-			_ft = new FrequencyTable( string.Format("{2} output week {0} to {1}", 
-				wRange.startWeek.WeekKey("-"), wRange.endWeek.WeekKey("-"), PlayerType ) );
+			_ft = new FrequencyTable( $@"{PlayerType} output week {
+				wRange.startWeek.WeekKey( "-" )
+				} to {
+				wRange.endWeek.WeekKey( "-" )
+				}" );
 
 			if (string.IsNullOrEmpty(SinglePlayer))
 			{
@@ -50,8 +53,9 @@ namespace RosterLib
 						if (player.IsStarter())
 						{
 							playerList.Add(player);
-							Utility.Announce(string.Format("  Adding {0,-15} to the list of {1}",
-								player.PlayerNameShort, PlayerType));
+							Utility.Announce($@"  Adding {
+								player.PlayerNameShort,-15
+								} to the list of {PlayerType}");
 						}
 					}
 				}
@@ -64,7 +68,7 @@ namespace RosterLib
 				Utility.Announce(string.Format("  Adding {0,-15} to the list of {1}",
 						player.PlayerNameShort, PlayerType));
 			}
-			Utility.Announce(string.Format("    Examining {0:#0} players", playerList.Count));
+			Utility.Announce($"    Examining {playerList.Count:#0} players");
 
 			//  do the counting, so get all the performances for 
 			foreach (NFLPlayer p in playerList)

@@ -340,7 +340,7 @@ namespace RosterLib
 				team.LoadGames( team.TeamCode, season );
 			else
 				team.LoadPreviousRegularSeasonGames( team.TeamCode, season, focusDate );
-			team.TallyStats();
+			team.TallyStats(breakdowns:null);
 			teamList.Add( team );
 		}
 		private static DataTable BuildTable()

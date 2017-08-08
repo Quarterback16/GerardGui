@@ -92,6 +92,7 @@
     <Compile Include="FantasyReportJobTests.cs" />
     <Compile Include="FantasyReportTests.cs" />
     <Compile Include="FileUtilityTests.cs" />
+    <Compile Include="FrequencyTableTests.cs" />
     <Compile Include="GameProjectionReportsJobTests.cs" />
     <Compile Include="GameProjectionsReportTests.cs" />
     <Compile Include="GameProjectionTests.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="SpreadPredictionGeneratorTests.cs" />
     <Compile Include="StarterJobTests.cs" />
     <Compile Include="StatGridTests.cs" />
+    <Compile Include="StatMasterTests.cs" />
     <Compile Include="StrengthOfScheduleTests.cs" />
     <Compile Include="SuggestedLineupTests.cs" />
     <Compile Include="TeamCardTests.cs" />

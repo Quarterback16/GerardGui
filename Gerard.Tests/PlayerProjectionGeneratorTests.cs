@@ -27,7 +27,8 @@ namespace Gerard.Tests
 		public void TestProjectionOneGame()
 		{
 			var g = new NFLGame("2015:01-C");
-			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2015", week: "01" ), null);
+			var sut = new PlayerProjectionGenerator( 
+				new FakeTimeKeeper( season: "2015", week: "01" ), playerCache: null);
 			sut.Execute(g);
 			Assert.IsNotNull(sut);
 		}
@@ -114,7 +115,11 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestVulture()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2013:04-I" ) {PlayerGameMetrics = new List<PlayerGameMetrics>()}};
+			var msg = new PlayerGameProjectionMessage {
+				Game = new NFLGame( "2013:04-I" ) {
+					PlayerGameMetrics = new List<PlayerGameMetrics>()
+				}
+			};
 			var sut = new GetGamePrediction( msg );
 			Assert.IsNotNull( msg.Prediction );
 			Utility.Announce( msg.Prediction.PredictedScore() );

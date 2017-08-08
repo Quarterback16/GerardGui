@@ -44,7 +44,7 @@ namespace RosterLib
 
       public void Render()
       {
-         var str = new SimpleTableReport( string.Format( "Stat Grid {0}-{1}", Season.Year, StatInFocus ) )
+         var str = new SimpleTableReport( $"Stat Grid {Season.Year}-{StatInFocus}" )
                      {ReportHeader = StatInFocus};
          StyleHelper.AddStyle( str );
          str.ColumnHeadings = true;
@@ -78,8 +78,9 @@ namespace RosterLib
 
       public string FileName()
       {
-         var fileName = string.Format("{0}{1}//stats//StatGrid-{2}.htm",
-            Utility.OutputDirectory(), Season.Year, StatInFocus);
+         var fileName = $@"{Utility.OutputDirectory()}{
+			 Season.Year
+			 }//stats//StatGrid-{StatInFocus}.htm";
          return fileName;
       }
 

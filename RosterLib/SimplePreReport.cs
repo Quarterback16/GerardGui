@@ -21,8 +21,9 @@ namespace RosterLib
          else
             ReportHeader = string.Format( "{0}", ReportType );
 
-			var reportHeader = string.Format( "{0} as of {1}", ReportHeader,
-            DateTime.Now.ToString( "ddd dd MMM yy HH:MM tt" ) );
+			var reportHeader = $@"{ReportHeader} as of {
+				DateTime.Now.ToString( "ddd dd MMM yy HH:MM tt" )
+				}";
 			var h = new HtmlFile( FileOut, reportHeader );
 			var html = string.Format( "<h3>{0}</h3>", reportHeader );
 			html += string.Format( "<pre>{0}</pre>", Body );

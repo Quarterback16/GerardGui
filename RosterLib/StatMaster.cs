@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using RosterLib.Models;
+using System.IO;
 using System.Linq;
 using System.Xml;
-using RosterLib.Models;
 
 namespace RosterLib
 {
@@ -14,7 +14,7 @@ namespace RosterLib
 		/// </summary>
 		public StatMaster( string name, string fileName ) : base( name )
 		{
-			Filename = string.Format( "{0}XML\\{1}", Utility.OutputDirectory(), fileName ); 
+			Filename = string.Format( "{0}XML\\{1}", Utility.OutputDirectory(), fileName );
 			LoadCache();
 			IsDirty = false;  //  we r starting from the xml
 		}
@@ -37,36 +37,35 @@ namespace RosterLib
 
 		private void AddXmlStat( XmlNode node )
 		{
-         PutStat( new NflStat( node ) );
+			PutStat( new NflStat( node ) );
 		}
 
 		public NflStat GetStat( string season, string week, string teamCode, string statType )
 		{
-
 			var stat = new NflStat
-			           	{
-			           		Season = season,
-								TeamCode = teamCode,
-								Week = week,
-								StatType = statType,
-								Quantity = 0.0M
-			           	};
+			{
+				Season = season,
+				TeamCode = teamCode,
+				Week = week,
+				StatType = statType,
+				Quantity = 0.0M
+			};
 
 #if DEBUG
-//			Utility.Announce( string.Format( "StatMaster:Getting Stat {0}", stat.FormatKey() ) );
+			Utility.Announce( $"StatMaster:Getting Stat {stat.FormatKey()}" );
 #endif
 
 			var key = stat.FormatKey();
 			if ( TheHt.ContainsKey( key ) )
 			{
-				stat = (NflStat) TheHt[ key ];
+				stat = ( NflStat ) TheHt[ key ];
 				CacheHits++;
 			}
 			else
 			{
 				//  new it up
 #if DEBUG
-//				Utility.Announce( string.Format( "StatMaster:Instantiating Stat {0}", stat.FormatKey() ) );
+				Utility.Announce( $"StatMaster:Instantiating Stat {stat.FormatKey()}" );
 #endif
 				PutStat( stat );
 				IsDirty = true;
@@ -88,11 +87,11 @@ namespace RosterLib
 			TheHt.Add( stat.FormatKey(), stat );
 		}
 
-		#region  Persistence
+		#region Persistence
 
 		public void Dump2Xml()
 		{
-			if (( TheHt.Count <= 0 ) || !IsDirty) return;
+			if ( ( TheHt.Count <= 0 ) || !IsDirty ) return;
 
 			Utility.EnsureDirectory( Filename );  //  will create the dir if its not there
 
@@ -105,7 +104,7 @@ namespace RosterLib
 			var myEnumerator = TheHt.GetEnumerator();
 			while ( myEnumerator.MoveNext() )
 			{
-				var t = (NflStat) myEnumerator.Value;
+				var t = ( NflStat ) myEnumerator.Value;
 				WriteStatNode( writer, t );
 			}
 			writer.WriteEndElement();
@@ -126,13 +125,12 @@ namespace RosterLib
 			writer.WriteEndElement();
 		}
 
-		#endregion
-
+		#endregion Persistence
 
 		public void Calculate( string season, string week )
 		{
 			var theWeek = new NFLWeek( season, week );
-         if (!theWeek.HasPassed()) return;
+			if ( !theWeek.HasPassed() ) return;
 
 			theWeek.LoadGameList();
 			foreach ( var nflStat in theWeek.GameList().Cast<NFLGame>()
@@ -148,6 +146,4 @@ namespace RosterLib
 				Calculate( theSeason.Year, week.Week );
 		}
 	}
-
-
 }

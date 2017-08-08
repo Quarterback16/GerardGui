@@ -106,7 +106,7 @@ namespace RosterLib
 
       private void LoadDivisionList(string yearIn)
       {
-         Logger.Trace( string.Format( "LoadDivisionList: Loading {0} division List...", yearIn ) );
+         Logger.Trace( $"LoadDivisionList: Loading {yearIn} division List..." );
          var nfc = new NflConference("NFC", yearIn);
          ConferenceList.Add(nfc);
          LoadNfc(nfc);
@@ -183,7 +183,7 @@ namespace RosterLib
 
       private void LoadTeamList(string yearIn)
       {
-         Logger = NLog.LogManager.GetCurrentClassLogger();
+         Logger = LogManager.GetCurrentClassLogger();
 
          Logger.Trace( string.Format("LoadTeamList: Loading {0} team List", yearIn));
 
