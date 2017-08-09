@@ -27,15 +27,13 @@ namespace Butler.Models
 			base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
-#if !DEBUG
-				//  Chck that you have already done it for today (happens in Dev a lot)
+				//  Check that you have already done it for today (happens in Dev a lot)
 				var theDate = FileUtility.DateOf( Report.OutputFilename() );
 				if ( !TimeKeeper.IsItPreseason() )
 					whyNot = "Its not Pre Season";
 
 				if ( TimeKeeper.IsItPeakTime() )
 					whyNot = "Peak time - no noise please";
-#endif
 			}
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
