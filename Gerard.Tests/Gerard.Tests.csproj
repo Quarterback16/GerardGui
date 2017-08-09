@@ -177,6 +177,7 @@
     <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
     <Compile Include="YahooProjectionScorerTests.cs" />
+    <Compile Include="YahooScorerTests.cs" />
     <Compile Include="YahooStatServiceTests.cs" />
     <Compile Include="YahooXmlTests.cs" />
   </ItemGroup>

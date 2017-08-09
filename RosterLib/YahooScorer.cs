@@ -27,7 +27,7 @@ namespace RosterLib
 		{
 			Name = "Yahoo Scorer";
 			Week = week;
-			PgmDao = new DbfPlayerGameMetricsDao();
+			PgmDao = new DbfPlayerGameMetricsDao();  //   should be injected
 			YahooStatService = new YahooStatService();
 			Logger = LogManager.GetCurrentClassLogger();
 		}
