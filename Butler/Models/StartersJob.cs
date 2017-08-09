@@ -9,9 +9,9 @@ namespace Butler.Models
 
 		public StartersJob( IKeepTheTime timeKeeper ) : base()
 		{
-			Name = "Starters";
+			Name = nameof( Starters );
 			TimeKeeper = timeKeeper;
-			Report = new Starters( TimeKeeper, doCsv: false );
+			Report = new Starters( TimeKeeper, doCsv: TimeKeeper.IsItPreseason() );
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 		}
