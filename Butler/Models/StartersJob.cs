@@ -11,7 +11,7 @@ namespace Butler.Models
 		{
 			Name = nameof( Starters );
 			TimeKeeper = timeKeeper;
-			Report = new Starters( TimeKeeper, doCsv: TimeKeeper.IsItPreseason() );
+			Report = new Starters( TimeKeeper );
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 		}

@@ -219,7 +219,7 @@ namespace RosterLib
          var ds = Utility.TflWs.GetPlayers(CatCode, Position);
          var dt = ds.Tables[0];
 #if DEBUG
-         Utility.Announce(string.Format("{0} candidate players", dt.Rows.Count));
+         Utility.Announce($"{dt.Rows.Count} candidate players");
 #endif
          foreach (DataRow dr in dt.Rows)
          {
@@ -261,9 +261,8 @@ namespace RosterLib
          }
          if ( WeeksToGoBack == 0 ) WeeksToGoBack = Constants.K_WEEKS_IN_A_SEASON; // default
 #if DEBUG
-         Utility.Announce(string.Format("PlayerLister.init {0} {1} players added to the list", PlayerList.Count,
-                                                  Position));
-         Utility.Announce(string.Format("Teams missing {1} are {0}", tc.TeamsLeft(), Position));
+         Utility.Announce($"PlayerLister.init {PlayerList.Count} {Position} players added to the list");
+         Utility.Announce($"Teams missing {Position} are {tc.TeamsLeft()}");
 #endif
       }
 

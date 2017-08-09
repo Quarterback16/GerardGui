@@ -8,8 +8,6 @@ namespace RosterLib
    {
       public bool PlayoffsOnly { get; set; }
 
-      public bool DoCsv { get; set; }
-
       public bool WriteProjectionReports { get; set; }
 
       public string LeagueCode { get; set; }
@@ -20,11 +18,10 @@ namespace RosterLib
 
       public List<RosterGridLeague> Leagues { get; set; }
 
-      public Starters( IKeepTheTime timekeeper, bool doCsv ) : base( timekeeper )
+      public Starters( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
          Name = "Starters";
          SetLastRunDate();
-         DoCsv = doCsv;
          Lister = new PlayerLister();
          Configs = new List<StarterConfig>();
          Configs.Add(new StarterConfig { Category = Constants.K_QUARTERBACK_CAT, Position = "QB" });
@@ -69,7 +66,6 @@ namespace RosterLib
 
          var gs = new GS4Scorer(theWeek);
 
-         Lister.RenderToCsv = DoCsv;
          Lister.SetScorer(gs);
          Lister.StartersOnly = true;
          Lister.Clear();
