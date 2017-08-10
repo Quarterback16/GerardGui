@@ -7,7 +7,7 @@ namespace Gerard.Tests
 	[TestClass]
 	public class PlayerCsvTests
 	{
-		[Ignore]  // fails speed test
+		//[Ignore]  // fails speed test
 		[TestMethod]
 		public void TestDoPlayerCsvJob()  // 75 mins  2016-08-08
 		{

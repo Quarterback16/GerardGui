@@ -670,10 +670,6 @@ namespace TFLLib
 							 into thisGame
 						   select Decimal.Parse( thisGame ) ).Sum();
 			}
-			if ( statCode.Equals("Q") && teamCode == "KC")
-			{
-				IoInfo( $"DB {season}:{week} game {game}; Sacks allowed {stats}");
-			}
 			return stats;
 		}
 
@@ -2005,7 +2001,7 @@ namespace TFLLib
 					formatStr += "WHERE TEAMCODE = '{1}' AND SUNDAY = {{{2:MM/dd/yyyy}}}";
 					commandStr = string.Format( formatStr, ratings, teamCode, when );
 				}
-				IoInfo( commandStr );
+				//IoInfo( commandStr );
 				ExecuteNflCommand( commandStr );
 			}
 		}

@@ -81,6 +81,7 @@
     <Compile Include="CollectorTests.cs" />
     <Compile Include="ConfigReaderTests.cs" />
     <Compile Include="DataLibrarianTests.cs" />
+    <Compile Include="DbfPlayerGameMetricsDaoTests.cs" />
     <Compile Include="DefensiveReportsTests.cs" />
     <Compile Include="DeletePlayerReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="MediaLogDetectorTests.cs" />
     <Compile Include="MediaMailerJobTests.cs" />
     <Compile Include="NflDivisionTests.cs" />
+    <Compile Include="NFLPlayerTests.cs" />
     <Compile Include="NflScheduleTests.cs" />
     <Compile Include="OldRosterGridTests.cs" />
     <Compile Include="OutputProjectionsTests.cs" />

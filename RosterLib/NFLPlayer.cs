@@ -487,10 +487,10 @@ namespace RosterLib
 			return myOpponentRating;
 		}
 
-		internal decimal HealthRating()
+		public decimal HealthRating()
 		{
 			//  Health rating is a percentage  Injuries / Seasons
-
+			//  foored at 0.1
 			var injuryRating = int.Parse( Injury );
 			if ( injuryRating == 0 )
 				return 1.0M;
@@ -498,6 +498,7 @@ namespace RosterLib
 			decimal seasons = ( decimal ) NoOfSeasons();
 			decimal hr = injuryRating / seasons;
 			hr = ( 1.0M - hr );
+			if ( hr == 0.0M ) hr = 0.1M;
 			var healthRating = string.Format( "{0:#.00}", hr );
 			var hrShort = Decimal.Parse( healthRating );
 			return hrShort;

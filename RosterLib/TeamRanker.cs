@@ -45,19 +45,19 @@ namespace RosterLib
 		{
 			if ( ForceReRank )
 			{
-				Logger.Info( "  Ranking forced" );
+				Logger.Trace( "  Ranking forced" );
 			}
 			else
 			{
 				if ( HaveAlreadyRated( when ) )
 				{
-					Logger.Info( $"  Have already got Ratings for {when:d}" );
+					Logger.Trace( $"  Have already got Ratings for {when:d}" );
 					LoadRatings( when );
 					return;
 				}
 				else
 				{
-					Logger.Info( "  Generating ratings for {0:d}", when );
+					Logger.Trace( "  Generating ratings for {0:d}", when );
 				}
 			}
 #if DEBUG
@@ -255,7 +255,7 @@ namespace RosterLib
 			{
 				var teamCode = dr[ "TEAMID" ].ToString();
 
-				Logger.Info( $"      Tallying {teamCode}" );
+				Logger.Trace( $"      Tallying {teamCode}" );
 				TallyTeam( teamList, season, focusDate, teamCode );
 #if DEBUG
 				break;

@@ -2222,7 +2222,7 @@ namespace RosterLib
 		public void TallyStatsFor( NflTeam team )
 		{
 #if DEBUG
-			Utility.Announce( "Tallying Stats for " + team.NameOut() );
+			Announce( "Tallying Stats for " + team.NameOut() );
 #endif
 			var gameYDr = YDr( team.TeamCode );
 			var gameYDp = YDp( team.TeamCode );
