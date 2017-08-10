@@ -41,7 +41,6 @@ namespace RosterLib
 			Runners = new List<NFLPlayer>();
 			Starters = new List<NFLPlayer>();
 			nR2 = 0;
-			IsAceBack = true;
 		}
 
 		#endregion
@@ -136,8 +135,7 @@ namespace RosterLib
 
 			foreach ( var p in Runners )
 			{
-				Announce( string.Format( "Plyr {0} role:{1} pos:{2}",
-				   p.PlayerName, p.PlayerRole, p.PlayerPos ) );
+				Announce( $"Plyr {p.PlayerName} role:{p.PlayerRole} pos:{p.PlayerPos}" );
 
 				if ( !p.IsStarter() || p.IsFullback() ) continue;
 
@@ -150,11 +148,15 @@ namespace RosterLib
 				Committee += p.PlayerNameShort + " + ";
 				Starters.Add( p );
 
-				Announce( string.Format( "Setting Ace to {0}", p.PlayerName ) );
+				Announce( $"Setting Ace to {p.PlayerName}" );
 			}
 
 			Announce( string.Format( "{0} starters", nStarters ) );
-			if ( nStarters == 1 ) return;
+			if ( nStarters == 1 )
+			{
+				IsAceBack = true;
+				return;
+			}
 			AceBack = null;
 			IsAceBack = false;
 		}
@@ -181,7 +183,7 @@ namespace RosterLib
 			if ( ( AceBack == null ) && ( R1 == null ) && ( R2 == null ) )
 				return true;
 
-			if ( nR2 > 1 )   //  zero is okay
+			if ( nR2 > 1 )   //  zero is okay (committee), only want 1 backup
 			{
 				var msg = string.Format( "{1} is Too many R2 for {0}", TeamCode, nR2 );
 
@@ -384,6 +386,11 @@ namespace RosterLib
 		public bool TandemBack( NFLPlayer p )
 		{
 			return Starters.Count == 2 && Starters.Contains( p );
+		}
+
+		public bool IsLoaded()
+		{
+			return Runners != null && Runners.Count > 0;
 		}
 	}
 }

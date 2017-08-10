@@ -88,6 +88,7 @@
     <Compile Include="DropboxCopyToReginaJobTests.cs" />
     <Compile Include="FakeClock.cs" />
     <Compile Include="FakeConfigReader.cs" />
+    <Compile Include="FakeLoadRunners.cs" />
     <Compile Include="FakeNFlGame.cs" />
     <Compile Include="FakeNFLPlayer.cs" />
     <Compile Include="FakeNflTeam.cs" />

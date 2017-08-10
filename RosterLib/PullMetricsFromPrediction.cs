@@ -19,7 +19,7 @@ namespace RosterLib
 		{
 			if ( input.Game == null ) return;
 
-			Logger.Trace( string.Format( "Processing {0}:{1}", input.Game.GameCodeOut(), input.Game.GameName() ) );
+			Logger.Trace( $"Processing {input.Game.GameCodeOut()}:{input.Game.GameName()}" );
 			DoRushingUnit( input, input.Game.HomeNflTeam.TeamCode, isHome: true );
 			DoRushingUnit( input, input.Game.AwayNflTeam.TeamCode, isHome: false );
 			DoPassingUnit( input, input.Game.HomeNflTeam.TeamCode, isHome: true );
@@ -251,8 +251,17 @@ namespace RosterLib
 		private static void DoRushingUnit(
 			PlayerGameProjectionMessage input, string teamCode, bool isHome )
 		{
-			var ru = new RushUnit();
-			ru.Load( teamCode );
+			RushUnit ru;
+			if ( isHome )
+				ru = input.Game.HomeNflTeam.RunUnit;
+			else
+				ru = input.Game.AwayNflTeam.RunUnit;
+
+			if ( ru == null )
+				ru = new RushUnit();
+
+			if( !ru.IsLoaded() )
+				ru.Load( teamCode );
 
 			if ( ru.IsAceBack )
 			{
