@@ -8,35 +8,68 @@ namespace Gerard.Tests
 	public class RushUnitTests
 	{
 		[TestMethod]
-		public void TestFakeDataHasAnAceBack()
+		public void TestFakeData_BB_HasAnAceBack()
 		{
 			var team = new FakeNflTeam()
 			{
 				RunUnit = new FakeRushUnit()
 			};
-			var results = team.RunUnit.Load("");
+			var results = team.RunUnit.Load("BB");
 			Assert.IsTrue( team.RunUnit.IsAceBack );
 		}
 
 		[TestMethod]
-		public void TestFakeDataHasTwoRunners()
+		public void TestFakeData_NE_HasTwoRunners()
 		{
 			var team = new FakeNflTeam()
 			{
 				RunUnit = new FakeRushUnit()
 			};
-			var results = team.RunUnit.Load( "" );
+			var results = team.RunUnit.Load( "NE" );
 			Assert.IsTrue( team.RunUnit.Runners.Count == 2 );
 		}
 
 		[TestMethod]
-		public void TestFakeDataHasNoIntegrityErrors()
+		public void TestFakeData_NE_HasNoIntegrityErrors()
 		{
 			var team = new FakeNflTeam()
 			{
 				RunUnit = new FakeRushUnit()
 			};
-			var results = team.RunUnit.Load( "" );
+			var results = team.RunUnit.Load( "NE" );
+			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void TestFakeData_AF_HasNoIntegrityErrors()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "AF" );
+			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void TestFakeData_BB_HasNoIntegrityErrors()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "BB" );
+			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void TestFakeData_BR_HasNoIntegrityErrors()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "BR" );
 			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
 		}
 

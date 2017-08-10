@@ -16,7 +16,7 @@ namespace Gerard.Tests
 			var g = new FakeNFLGame();
 			msg = new PlayerGameProjectionMessage()
 			{
-				Player = new FakeNFLPlayer( "", "", "Unkown soldier" ),
+				Player = new FakeNFLPlayer( "??01", "", "", "Unkown soldier" ),
 				Game = g,
 				Prediction = g.GetPrediction( "unit" )
 			};
@@ -40,10 +40,24 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFakeDataProducesAProjectionsRBs()
+		public void TestFakeDataHasValidHomeRunUnit()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count == 2 );
+			Assert.IsFalse( msg.Game.HomeNflTeam.RunUnit.HasIntegrityError());
+		}
+
+		[TestMethod]
+		public void TestFakeDataHasValidAwayRunUnit()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			Assert.IsFalse( msg.Game.AwayNflTeam.RunUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void TestFakeDataProducesFourProjections()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count == 4);
 		}
 
 		[TestMethod]
@@ -58,7 +72,8 @@ namespace Gerard.Tests
 		public void TestFakeDataHomeAceProjectsToGetFirstTDr()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			var projTDr = msg.Game.PlayerGameMetrics[ 0 ].ProjTDr;
+			var pgm = msg.GetPgmFor( "JS01" );
+			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 1, actual: projTDr );
 		}
 
@@ -66,7 +81,8 @@ namespace Gerard.Tests
 		public void TestFakeDataHomeBackupProjectsToHave20PercentOftheRushingYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			var projYDr = msg.Game.PlayerGameMetrics[ 1 ].ProjYDr;
+			var pgm = msg.GetPgmFor( "BB01" );
+			var projYDr = pgm.ProjYDr;
 			Assert.AreEqual( expected: 22, actual: projYDr );
 		}
 
@@ -74,9 +90,38 @@ namespace Gerard.Tests
 		public void TestFakeDataHomeBackupProjectsToSecondTD()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			var projTDr = msg.Game.PlayerGameMetrics[ 1 ].ProjTDr;
+			var pgm = msg.GetPgmFor( "BB01" );
+			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 1, actual: projTDr );
 		}
+
+		[TestMethod]
+		public void TestAwayAceProjectionAffectedByInjury()
+		{
+			var expected = (int) ( 82.0M * 0.7M ) ;
+			var injChance = ( ( 3 * 10.0M ) / 100.0M );
+			var effectiveness = 1 - injChance;
+			expected = ( int ) ( expected * effectiveness );
+
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "VV01" );
+			var projYDr = pgm.ProjYDr;
+			Assert.AreEqual( expected: expected, actual: projYDr );
+		}
+
+		[TestMethod]
+		public void TestFirstAndOnlyAwayTDRGoesToTheVulture()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var vpgm = msg.GetPgmFor( "VU01" );
+			var projVulturedTDr = vpgm.ProjTDr;
+			Assert.AreEqual( expected: 0, actual: projVulturedTDr );
+
+			var pgm = msg.GetPgmFor( "BB01" );
+			var projTDr = pgm.ProjTDr;
+			Assert.AreEqual( expected: 0, actual: projTDr );
+		}
+
 
 		[Ignore]  //  its a slow integration test
 		[TestMethod]

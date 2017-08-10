@@ -55,5 +55,19 @@ namespace RosterLib
       {
          return Game.GameName();
       }
+
+		public PlayerGameMetrics GetPgmFor( string playerId )
+		{
+			var pgm = new PlayerGameMetrics();
+			foreach ( var m in Game.PlayerGameMetrics )
+			{
+				if ( m.PlayerId.Equals( playerId ) )
+				{
+					pgm = m;
+					break;
+				}
+			}
+			return pgm;
+		}
    }
 }

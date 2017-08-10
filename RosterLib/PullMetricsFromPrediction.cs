@@ -263,15 +263,21 @@ namespace RosterLib
 			if( !ru.IsLoaded() )
 				ru.Load( teamCode );
 
+			//var runningStyle = DetermineStyle();  //  Ace, Committe, Standard 1-2 punch
+			//AllocateTDs();
+			//AllocateYDr();
+
 			if ( ru.IsAceBack )
 			{
 				//  R1
 				var percentageOfAction = 0.7M;
 				if ( ru.R2 == null ) percentageOfAction = 0.9M;
-				var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
+				var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) 
+					? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
 				//  Injury penalty
 				projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
-				var projTDrAce = R1TdsFrom( ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
+				var projTDrAce = R1TdsFrom( ( isHome ) 
+					? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
 				var isVulture = AllowForVulturing( ru.AceBack.PlayerCode, ref projTDrAce, ru );
 				AddPlayerGameMetric( input, ru.AceBack.PlayerCode, projYDr, projTDrAce );
 				//  R2 optional

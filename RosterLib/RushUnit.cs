@@ -185,7 +185,7 @@ namespace RosterLib
 
 			if ( nR2 > 1 )   //  zero is okay (committee), only want 1 backup
 			{
-				var msg = string.Format( "{1} is Too many R2 for {0}", TeamCode, nR2 );
+				var msg = $"  >>> {nR2} is Too many R2 for {TeamCode}";
 
 				Announce( msg );
 
