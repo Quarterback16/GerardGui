@@ -392,5 +392,20 @@ namespace RosterLib
 		{
 			return Runners != null && Runners.Count > 0;
 		}
+
+		public RunApproach DetermineApproach()
+		{
+			if ( nR1 > 1 )
+				return RunApproach.Committee;
+
+			return RunApproach.Ace;
+		}
+	}
+
+	public enum RunApproach
+	{
+		Ace,
+		Standard,
+		Committee
 	}
 }

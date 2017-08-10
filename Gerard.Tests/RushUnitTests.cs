@@ -73,6 +73,18 @@ namespace Gerard.Tests
 			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
 		}
 
+		[TestMethod]
+		public void TestFakeData_BR_ApproachIs_Committee()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "BR" );
+			Assert.AreEqual( expected: RunApproach.Committee, 
+				actual: team.RunUnit.DetermineApproach() );
+		}
+
 
 		[TestMethod]
 		public void TestLoad()
