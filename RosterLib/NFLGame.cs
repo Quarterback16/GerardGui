@@ -2547,7 +2547,7 @@ namespace RosterLib
 			BookieTip = new NFLResult( HomeTeam, HomeScore, AwayTeam, AwayScore );
 		}
 
-		public NFLResult GetPrediction( string predMethod )
+		public virtual NFLResult GetPrediction( string predMethod )
 		{
 			if ( PredictionGetter == null )
 				PredictionGetter = new DbfPredictionQueryMaster();

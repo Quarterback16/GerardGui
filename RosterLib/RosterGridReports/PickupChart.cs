@@ -172,17 +172,17 @@ namespace RosterLib.RosterGridReports
 				// get the next opponent by using the QB
 				var nextOppTeam = team.Team.PassUnit.Q1.NextOpponentTeam( team.Game );
 
-				if ( team.Team.RushUnit == null )
+				if ( team.Team.RunUnit == null )
 					team.Team.LoadRushUnit();
 				else
 					Logger.Trace( "   >>> Rush unit loaded {0} rushers; Ace back {1}",
-					   team.Team.RushUnit.Runners.Count(), team.Team.RushUnit.AceBack );
+					   team.Team.RunUnit.Runners.Count(), team.Team.RunUnit.AceBack );
 
-				if ( team.Team.RushUnit.AceBack != null )
-					bit = PlayerPiece( team.Team.RushUnit.AceBack, team.Game, c );
+				if ( team.Team.RunUnit.AceBack != null )
+					bit = PlayerPiece( team.Team.RunUnit.AceBack, team.Game, c );
 				else
 				{
-					var dualBacks = team.Team.RushUnit.Committee;
+					var dualBacks = team.Team.RunUnit.Committee;
 					if ( !string.IsNullOrWhiteSpace( dualBacks.Trim() ) )
 					{
 						dualBacks = dualBacks.Substring( 0, dualBacks.Length - 3 );
@@ -191,7 +191,7 @@ namespace RosterLib.RosterGridReports
 						if ( dualBacks.Length > 20 )
 							dualBacks = dualBacks.Substring( 0, 20 );
 					}
-					var p = team.Team.RushUnit.R1;
+					var p = team.Team.RunUnit.R1;
 
 					var matchupLink = "";
 					if ( p != null )

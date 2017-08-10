@@ -119,7 +119,7 @@ namespace RosterLib
 
 			NflTeam.LoadRushUnit();
 			bodyOut.AppendLine( string.Format( "Rush Unit : ({0})", NflTeam.RoRating() ) );
-			lines = NflTeam.RushUnit.DumpUnit();
+			lines = NflTeam.RunUnit.DumpUnit();
 			foreach ( var line in lines )
 				bodyOut.AppendLine( line );
 

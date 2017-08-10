@@ -75,11 +75,11 @@ namespace RosterLib
             teamLines.Add( "------------------------------------------------------------" );
             t.LoadRushUnit();
             teamLines.Add( "Runningbacks" + Environment.NewLine );
-            teamLines.AddRange( t.RushUnit.LoadCarries( Season, week ) );
+            teamLines.AddRange( t.RunUnit.LoadCarries( Season, week ) );
             teamLines.Add( Environment.NewLine );
 
-            if (t.RushUnit.IsAceBack && t.RushUnit.AceBack.TotStats.Touches > 10)
-               AddAceLine( t.RushUnit.AceBack, aceRepository );
+            if (t.RunUnit.IsAceBack && t.RunUnit.AceBack.TotStats.Touches > 10)
+               AddAceLine( t.RunUnit.AceBack, aceRepository );
 
             t.LoadPassUnit();
             teamLines.Add( "Quarterbacks" + Environment.NewLine );

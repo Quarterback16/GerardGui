@@ -176,6 +176,7 @@
     <Compile Include="Interfaces\IClock.cs" />
     <Compile Include="Interfaces\IGetGamebooks.cs" />
     <Compile Include="Interfaces\IKeepTheTime.cs" />
+    <Compile Include="Interfaces\ILoadRunners.cs" />
     <Compile Include="Interfaces\IRankTeams.cs" />
     <Compile Include="Interfaces\IReason.cs" />
     <Compile Include="Interfaces\ISeasonScheduler.cs" />
@@ -215,6 +216,7 @@
     <Compile Include="LineupSlate.cs" />
     <Compile Include="LineupSlot.cs" />
     <Compile Include="LoadPlayerGameMetric.cs" />
+    <Compile Include="LoadRunners.cs" />
     <Compile Include="Masters.cs" />
     <Compile Include="MatchupReport.cs" />
     <Compile Include="MetricsBase.cs" />

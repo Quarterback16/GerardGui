@@ -46,7 +46,7 @@ namespace Gerard.Tests
       {
          var sut = new NflTeam(  "BB" );
          sut.LoadRushUnit();
-         Assert.IsTrue( string.IsNullOrEmpty( sut.RushUnit.AceBack.PlayerCode ) );
+         Assert.IsTrue( string.IsNullOrEmpty( sut.RunUnit.AceBack.PlayerCode ) );
       }
 
       [TestMethod]
@@ -65,7 +65,7 @@ namespace Gerard.Tests
          foreach (var t in s.TeamList)
          {
             t.LoadRushUnit();
-            t.RushUnit.LoadCarries(season, week);
+            t.RunUnit.LoadCarries(season, week);
             t.LoadPassUnit();
             t.PassUnit.AnalyseQuarterbacks(season, week);
             t.PassUnit.AnalyseWideouts(season, week);
@@ -104,12 +104,12 @@ namespace Gerard.Tests
       {
          var sut = new NflTeam("SD");
          sut.LoadRushUnit();
-         Assert.IsTrue(sut.RushUnit.Runners.Count > 0);			
-         Assert.IsTrue(sut.RushUnit.Runners.Count < 10, string.Format("{0} runners", sut.RushUnit.Runners.Count));
-         Utility.Announce(string.Format("Loaded {0} runners", sut.RushUnit.Runners.Count));
+         Assert.IsTrue(sut.RunUnit.Runners.Count > 0);			
+         Assert.IsTrue(sut.RunUnit.Runners.Count < 10, string.Format("{0} runners", sut.RunUnit.Runners.Count));
+         Utility.Announce(string.Format("Loaded {0} runners", sut.RunUnit.Runners.Count));
          //Assert.IsFalse(sut.RushUnit.HasIntegrityError());
          //sut.RushUnit.DumpUnit();
-         sut.RushUnit.LoadCarries("2013", "12");
+         sut.RunUnit.LoadCarries("2013", "12");
       }
 
       [TestMethod]
@@ -124,7 +124,7 @@ namespace Gerard.Tests
       {
          var sut = new NflTeam("AF");
          sut.LoadRushUnit();
-         var sh = sut.RushUnit.GetShortYardageBack("2013", "12", "AF");
+         var sh = sut.RunUnit.GetShortYardageBack("2013", "12", "AF");
          Assert.AreEqual("JACKST02",sh);
       }
       

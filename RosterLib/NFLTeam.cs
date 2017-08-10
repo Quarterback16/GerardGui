@@ -62,7 +62,7 @@ namespace RosterLib
 
 		public KickUnit KickUnit { get; set; }
 
-		public RushUnit RushUnit { get; set; }
+		public RushUnit RunUnit { get; set; }
 
 		public PassUnit PassUnit { get; set; }
 
@@ -173,6 +173,11 @@ namespace RosterLib
 		private ArrayList _spotList;
 
 		#region Constructors
+
+		public NflTeam()
+		{
+			//  dummy constructor for testing only
+		}
 
 		/// <summary>
 		///    Constructor for the NFL Team object.
@@ -4820,8 +4825,8 @@ namespace RosterLib
 		{
 			TraceIt( $"NFLTeam.LoadRushUnit for {TeamCode}" );
 
-			if ( RushUnit == null ) RushUnit = new RushUnit();
-			return RushUnit.Load( TeamCode );
+			if ( RunUnit == null ) RunUnit = new RushUnit();
+			return RunUnit.Load( TeamCode );
 		}
 
 		public List<string> LoadPassUnit()

@@ -18,8 +18,9 @@ namespace RosterLib
             nMetrics++;
          }
 #if DEBUG
-         Utility.Announce( string.Format( "Metrics saved {0} for {1} to {2}", 
-            nMetrics, input.Game, Utility.TflWs.NflConnectionString ) );
+         Utility.Announce( $@"Metrics saved {
+			 nMetrics
+			 } for {input.Game} to {Utility.TflWs.NflConnectionString}" );
 #endif
       }
 

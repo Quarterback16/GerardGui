@@ -23,8 +23,7 @@ namespace Butler.Models
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();
          StopRun();
-         var completionMsg = string.Format( "Rendered {0} to {1}", 
-            Report.Name, Report.OutputFilename() );
+         var completionMsg = $"Rendered {Report.Name} to {Report.OutputFilename()}";
          Logger.Info( "  {0}",completionMsg );
          return completionMsg;
       }

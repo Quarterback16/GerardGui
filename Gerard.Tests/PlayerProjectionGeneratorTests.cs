@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Gerard.Tests
 {
@@ -11,12 +11,12 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestWeeklyProjection()
 		{
-			var w = new NFLWeek( "2014", "06" ); 
-			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2014", week: "06" ), null);
+			var w = new NFLWeek( "2014", "06" );
+			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2014", week: "06" ), null );
 			var nGames = 0;
 			for ( var i = 0; i < w.GameList().Count; i++ )
 			{
-				var game = (NFLGame) w.GameList()[ i ];
+				var game = ( NFLGame ) w.GameList()[ i ];
 				sut.Execute( game );
 				nGames++;
 			}
@@ -26,18 +26,18 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestProjectionOneGame()
 		{
-			var g = new NFLGame("2015:01-C");
-			var sut = new PlayerProjectionGenerator( 
-				new FakeTimeKeeper( season: "2015", week: "01" ), playerCache: null);
-			sut.Execute(g);
-			Assert.IsNotNull(sut);
+			var g = new NFLGame( "2015:01-C" );
+			var sut = new PlayerProjectionGenerator(
+				new FakeTimeKeeper( season: "2015", week: "01" ), playerCache: null );
+			sut.Execute( g );
+			Assert.IsNotNull( sut );
 		}
 
 		[TestMethod]
 		public void TestGettingGamePrediction()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2014:01-A" )};
-		   var sut = new GetGamePrediction( msg );
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2014:01-A" ) };
+			var sut = new GetGamePrediction( msg );
 			Assert.IsNotNull( msg.Prediction );
 			Utility.Announce( msg.Prediction.PredictedScore() );
 		}
@@ -45,16 +45,16 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPullMetrics()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2016:01-N" )};
-			var sut = new GetGamePrediction(msg);
-			var sut2 = new PullMetricsFromPrediction(msg);
-			Assert.IsNotNull(sut2);
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2016:01-N" ) };
+			var sut = new GetGamePrediction( msg );
+			var sut2 = new PullMetricsFromPrediction( msg );
+			Assert.IsNotNull( sut2 );
 		}
 
 		[TestMethod]
 		public void TestAllocationToAce()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2013:01-B" )};
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2013:01-B" ) };
 			var sut = new GetGamePrediction( msg );
 			Assert.IsNotNull( msg.Prediction );
 			Utility.Announce( msg.Prediction.PredictedScore() );
@@ -66,7 +66,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestASavingMetrics()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2013:01-B" )};
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2013:01-B" ) };
 			var sut = new GetGamePrediction( msg );
 			var sut2 = new PullMetricsFromPrediction( msg );
 			var sut3 = new SavePlayerGameMetrics( msg );
@@ -80,13 +80,13 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestAllocation()
 		{
-			var msg = new PlayerGameProjectionMessage {Game = new NFLGame( "2013:01-B" )};
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2013:01-B" ) };
 			var sut = new GetGamePrediction( msg );
 			Assert.IsNotNull( msg.Prediction );
 			Utility.Announce( msg.Prediction.PredictedScore() );
 			var sut2 = new PullMetricsFromPrediction( msg );
 			Assert.IsNotNull( msg.Game.PlayerGameMetrics );
-			var sut3 = new SavePlayerGameMetrics(msg);
+			var sut3 = new SavePlayerGameMetrics( msg );
 		}
 
 		[TestMethod]
@@ -100,8 +100,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGetMetricsWorks()
 		{
-			var ds = Utility.TflWs.GetPlayerGameMetrics("LYNCMA01", "2014:01-A");
-			Assert.IsTrue(ds.Tables[0].Rows.Count > 0);
+			var ds = Utility.TflWs.GetPlayerGameMetrics( "LYNCMA01", "2014:01-A" );
+			Assert.IsTrue( ds.Tables[ 0 ].Rows.Count > 0 );
 		}
 
 		[TestMethod]
@@ -115,8 +115,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestVulture()
 		{
-			var msg = new PlayerGameProjectionMessage {
-				Game = new NFLGame( "2013:04-I" ) {
+			var msg = new PlayerGameProjectionMessage
+			{
+				Game = new NFLGame( "2013:04-I" )
+				{
 					PlayerGameMetrics = new List<PlayerGameMetrics>()
 				}
 			};
@@ -127,6 +129,5 @@ namespace Gerard.Tests
 			Assert.IsNotNull( msg.Game.PlayerGameMetrics );
 			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 0 );
 		}
-
 	}
 }

@@ -1322,8 +1322,8 @@ namespace RosterLib
 		{
 			var isAce = false;
 			if ( CurrTeam == null ) CurrTeam = new NflTeam( TeamCode );
-			if ( CurrTeam.RushUnit == null ) CurrTeam.LoadRushUnit();
-			if ( CurrTeam.RushUnit.AceBack == this )
+			if ( CurrTeam.RunUnit == null ) CurrTeam.LoadRushUnit();
+			if ( CurrTeam.RunUnit.AceBack == this )
 				isAce = true;
 			return isAce;
 		}
@@ -1336,8 +1336,8 @@ namespace RosterLib
 		{
 			var isTandemBack = false;
 			if ( CurrTeam == null ) CurrTeam = new NflTeam( TeamCode );
-			if ( CurrTeam.RushUnit == null ) CurrTeam.LoadRushUnit();
-			if ( CurrTeam.RushUnit.TandemBack( this ) )
+			if ( CurrTeam.RunUnit == null ) CurrTeam.LoadRushUnit();
+			if ( CurrTeam.RunUnit.TandemBack( this ) )
 				isTandemBack = true;
 			return isTandemBack;
 		}
@@ -1582,6 +1582,12 @@ namespace RosterLib
 		public bool IsShortYardageBack()
 		{
 			var npoint = PlayerPos.IndexOf( "SH", StringComparison.Ordinal );
+			return ( npoint > -1 );
+		}
+
+		public bool IsThirdDownBack()
+		{
+			var npoint = PlayerPos.IndexOf( "3D", StringComparison.Ordinal );
 			return ( npoint > -1 );
 		}
 

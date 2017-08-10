@@ -44,11 +44,11 @@ namespace Gerard.Tests
 					Utility.Announce( string.Format( "   Need to fix Depth Chart {0}", t.Name ) );
 				}
 				t.LoadRushUnit();
-				if ( t.RushUnit.HasIntegrityError() )
+				if ( t.RunUnit.HasIntegrityError() )
 				{
 					isError = true;
-					t.RushUnit.DumpUnit();
-					t.RushUnit.DumpErrors();
+					t.RunUnit.DumpUnit();
+					t.RunUnit.DumpErrors();
 					Utility.Announce( string.Format( "   Need to fix  Rushing Unit {0}", t.Name ) );
 				}
 				t.LoadPassUnit();
@@ -86,10 +86,10 @@ namespace Gerard.Tests
 				Utility.Announce( string.Format( "   Need to fix Depth Chart {0}", t.Name ) );
 			}
 			t.LoadRushUnit();
-			if ( t.RushUnit.HasIntegrityError() )
+			if ( t.RunUnit.HasIntegrityError() )
 			{
 				isError = true;
-				t.RushUnit.DumpUnit();
+				t.RunUnit.DumpUnit();
 				Utility.Announce( string.Format( "   Need to fix  Rushing Unit {0}", t.Name ) );
 			}
 			t.LoadPassUnit();
