@@ -16,7 +16,7 @@ namespace Gerard.Tests
 			var g = new FakeNFLGame();
 			msg = new PlayerGameProjectionMessage()
 			{
-				Player = new FakeNFLPlayer( "??01", "", "", "Unkown soldier" ),
+				Player = new FakeNFLPlayer( "??01", "", "", "Unknown soldier" ),
 				Game = g,
 				Prediction = g.GetPrediction( "unit" )
 			};
@@ -25,7 +25,7 @@ namespace Gerard.Tests
 		#endregion
 
 		[TestMethod]
-		public void TestPullMetricsFromPredictionProcess()
+		public void PullMetricsFromPredictionProcess()
 		{
 			//  Processing happens in the constructor, bit smelly
 			var sut = new PullMetricsFromPrediction( msg );
@@ -33,11 +33,13 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFakeDataHasAPrediction()
+		public void FakeDataHasAPrediction()
 		{
 			Assert.IsNotNull( msg.Prediction );
 			Assert.IsTrue( msg.Prediction.HomeScore + msg.Prediction.AwayScore > 0 );
 		}
+
+		#region Running Backs
 
 		[TestMethod]
 		public void FakeDataHasValidHomeRunUnit()
@@ -143,6 +145,78 @@ namespace Gerard.Tests
 			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 0, actual: projTDr );
 		}
+
+		#endregion
+
+		#region  Passing
+
+		[TestMethod]
+		public void FakeDataHasValidHomePassUnit()
+		{
+			Assert.IsFalse( msg.Game.HomeNflTeam.PassUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void FakeDataHasValidAwayPassUnit()
+		{
+			Assert.IsFalse( msg.Game.AwayNflTeam.PassUnit.HasIntegrityError() );
+		}
+
+		[TestMethod]
+		public void FakeHomeQBGetsAllThePassingYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "QB01" );
+			var projYDp = pgm.ProjYDp;
+			Assert.AreEqual( expected: 430, actual: projYDp );
+		}
+
+		[TestMethod]
+		public void FakeHomeQBGetsAllThePassingTDs()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "QB01" );
+			var projTDp = pgm.ProjTDp;
+			Assert.AreEqual( expected: 3, actual: projTDp );
+		}
+
+		[TestMethod]
+		public void FakeHomeW1Gets40PerCentOfYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "WR01" );
+			var projYDc = pgm.ProjYDc;
+			Assert.AreEqual( expected: 172, actual: projYDc );
+		}
+
+		[TestMethod]
+		public void FakeHomeW2Gets25PerCentOfYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "WR02" );
+			var projYDc = pgm.ProjYDc;
+			Assert.AreEqual( expected: 107, actual: projYDc );
+		}
+
+		[TestMethod]
+		public void FakeHomeW3Gets10PerCentOfYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "WR03" );
+			var projYDc = pgm.ProjYDc;
+			Assert.AreEqual( expected: 43, actual: projYDc );
+		}
+
+		[TestMethod]
+		public void FakeHomeTEGets20PerCentOfYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "TE01" );
+			var projYDc = pgm.ProjYDc;
+			Assert.AreEqual( expected: 86, actual: projYDc );
+		}
+
+		#endregion
 
 
 		[Ignore]  //  its a slow integration test

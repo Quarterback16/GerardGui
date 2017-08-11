@@ -7,17 +7,28 @@ namespace Gerard.Tests
  	{
 		public FakeNFLGame()
 		{
-			//  fictional AF @ NE
+			//  fictional game AF @ NE
+
 			Season = "2016";
 			Week = "01";
 			AwayNflTeam = new FakeNflTeam();
 			var ru = new FakeRushUnit();
 			ru.Load( "AF" );
 			AwayNflTeam.RunUnit = ru;
+
+			var puAway = new FakePassUnit();
+			puAway.Load( "AF" );
+			AwayNflTeam.PassUnit = puAway;
+
 			HomeNflTeam = new FakeNflTeam();
 			var homeru = new FakeRushUnit();
 			homeru.Load( "NE" );
 			HomeNflTeam.RunUnit = homeru;
+
+			var puHome = new FakePassUnit();
+			puHome.Load( "NE" );
+			HomeNflTeam.PassUnit = puHome;
+
 			PlayerGameMetrics = new List<PlayerGameMetrics>();
 		}
 
@@ -29,6 +40,7 @@ namespace Gerard.Tests
 				AwayTeam = "AF",
 				HomeScore = 38,
 				AwayScore = 34,
+
 				HomeTDp = 3,
 				HomeYDp = 430,
 				HomeTDr = 2,
@@ -36,8 +48,9 @@ namespace Gerard.Tests
 				HomeTDd = 0,
 				HomeTDs = 0,
 				HomeYDr = 112,
+
 				AwayTDp = 3,
-				AwayYDp = 430,
+				AwayYDp = 330,
 				AwayTDr = 2,
 				AwayFg = 3,
 				AwayTDd = 0,

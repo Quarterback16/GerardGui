@@ -37,8 +37,10 @@ namespace RosterLib
 			Logger.Trace( $"Processing {input.Game.GameCodeOut()}:{input.Game.GameName()}" );
 			DoRushingUnit( input, input.Game.HomeNflTeam.TeamCode, isHome: true );
 			DoRushingUnit( input, input.Game.AwayNflTeam.TeamCode, isHome: false );
+
 			DoPassingUnit( input, input.Game.HomeNflTeam.TeamCode, isHome: true );
 			DoPassingUnit( input, input.Game.AwayNflTeam.TeamCode, isHome: false );
+
 			DoKickingUnit( input, input.Game.HomeNflTeam.TeamCode, isHome: true );
 			DoKickingUnit( input, input.Game.AwayNflTeam.TeamCode, isHome: false );
 			if ( input.Game.PlayerGameMetrics.Count < 12 )
@@ -87,8 +89,14 @@ namespace RosterLib
 
 		private void DoPassingUnit( PlayerGameProjectionMessage input, string teamCode, bool isHome )
 		{
-			var unit = new PassUnit();
-			unit.Load( teamCode );
+			PassUnit unit;
+			if ( isHome )
+				unit = input.Game.HomeNflTeam.PassUnit;
+			else
+				unit = input.Game.AwayNflTeam.PassUnit;
+
+			if ( unit == null ) unit = new PassUnit();
+			if ( !unit.IsLoaded() ) unit.Load( teamCode );
 
 			// give it to the QB
 			if ( unit.Q1 != null )
@@ -97,7 +105,7 @@ namespace RosterLib
 				var projTDp = ( isHome ) ? input.Prediction.HomeTDp : input.Prediction.AwayTDp;
 				AddPassinglayerGameMetric( input, unit.Q1.PlayerCode, projYDp, projTDp );
 			}
-			// Receivers
+			// Receivers  W1 40%, W2 25%, W3 10%, TE 20% (todo 3D 5%)
 			int projYDc, projTDc;
 			if ( unit.W1 != null )
 			{
@@ -122,7 +130,7 @@ namespace RosterLib
 			}
 			if ( unit.TE != null )
 			{
-				projYDc = ( int ) ( .25 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+				projYDc = ( int ) ( .20 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
 				projTDc = TETdsFrom( ( isHome ) ? input.Prediction.HomeTDp : input.Prediction.AwayTDp );
 				projYDc = AllowForInjuryRisk( unit.TE, projYDc );
 				AddCatchingPlayerGameMetric( input, unit.TE.PlayerCode, projYDc, projTDc );
@@ -287,56 +295,8 @@ namespace RosterLib
 			var projYDr = ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr;
 			AllocateYDr( ru, projYDr, pgms );
 
-			//AllocateYdc();
+			//TODO: AllocateYdc();
 
-			//if ( ru.IsAceBack )
-			//{
-			//	//  R1
-			//	var percentageOfAction = 0.7M;
-			//	if ( ru.R2 == null ) percentageOfAction = 0.9M;
-			//	var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) 
-			//		? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-			//	//  Injury penalty
-			//	projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
-			//	var projTDrAce = R1TdsFrom( ( isHome ) 
-			//		? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
-			//	var isVulture = AllowForVulturing( ru.AceBack.PlayerCode, ref projTDrAce, ru );
-			//	AddPlayerGameMetric( input, ru.AceBack.PlayerCode, projYDr, projTDrAce );
-			//	//  R2 optional
-			//	if ( ru.R2 != null )
-			//	{
-			//		projYDr = ( int ) ( .2 * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-			//		projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
-			//		var projTDr = R2TdsFrom( ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
-			//		if ( isVulture )
-			//			projTDr = AllowForR2BeingTheVulture( projTDr, ru.R2.PlayerCode, ru );
-			//		AddPlayerGameMetric( input, ru.R2.PlayerCode, projYDr, projTDr );
-			//	}
-			//}
-			//else
-			//{
-			//	//  Comittee
-			//	const decimal percentageOfAction = 0.5M;
-			//	foreach ( var runner in ru.Starters )
-			//	{
-			//		var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-			//		projYDr = AllowForInjuryRisk( runner, projYDr );
-			//		var projTDr = 0M;
-			//		var tds = 0;
-			//		if ( isHome )
-			//		{
-			//			tds = R1TdsFrom( input.Prediction.HomeTDr );
-			//			projTDr = decimal.Divide( ( decimal ) tds, 2M );
-			//		}
-			//		else
-			//		{
-			//			tds = R1TdsFrom( input.Prediction.AwayTDr );
-			//			projTDr = decimal.Divide( ( decimal ) tds, 2M );
-			//		}
-
-			//		AddPlayerGameMetric( input, runner.PlayerCode, projYDr, projTDr );
-			//	}
-			//}
 		}
 
 

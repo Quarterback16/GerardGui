@@ -65,22 +65,6 @@ namespace RosterLib
 			return DumpUnit();
 		}
 
-		private void LoadPlayers( string teamCode )
-		{
-			var ds = Utility.TflWs.GetTeamPlayers( teamCode, Constants.K_RUNNINGBACK_CAT );
-			var dt = ds.Tables[ "player" ];
-			if ( dt.Rows.Count != 0 )
-			{
-				foreach ( DataRow dr in dt.Rows )
-				{
-					if ( dr[ "POSDESC" ].ToString().Trim().Contains( "FB" ) ) continue;
-
-					var newPlayer = new NFLPlayer( dr[ "PLAYERID" ].ToString() );
-					Add( newPlayer );
-				}
-			}
-		}
-
 		protected void SetSpecialRoles()
 		{
 			SetThirdDownBack();
