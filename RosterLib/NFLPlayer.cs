@@ -1943,5 +1943,17 @@ namespace RosterLib
 			CurrentGameMetrics.FantasyPoints = Points;
 			CurrentGameMetrics.UpdateAcuals( dao );
 		}
+
+		public decimal HealthFactor()
+		{
+			var effectiveness = 1.0M;
+			Int32.TryParse( Injuries(), out int nInjury );
+			if ( nInjury > 0 )
+			{
+				var injChance = ( ( nInjury * 10.0M ) / 100.0M );
+				effectiveness = 1 - injChance;
+			}
+			return effectiveness;
+		}
 	}
 }

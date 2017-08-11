@@ -38,7 +38,7 @@ namespace Gerard.Tests
 				HomeYDr = 112,
 				AwayTDp = 3,
 				AwayYDp = 430,
-				AwayTDr = 1,
+				AwayTDr = 2,
 				AwayFg = 3,
 				AwayTDd = 0,
 				AwayTDs = 0,

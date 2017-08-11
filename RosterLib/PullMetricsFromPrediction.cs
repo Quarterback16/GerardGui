@@ -1,17 +1,32 @@
 ﻿using NLog;
+using RosterLib.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace RosterLib
 {
-	// filter
 	public class PullMetricsFromPrediction
 	{
 		public Logger Logger { get; set; }
 
+		private IDictionary<RunApproach, IAllocateTDrStrategy> tdrAllocationStrategies;
+		private IDictionary<RunApproach, IAllocateYDrStrategy> ydrAllocationStrategies;
+
 		public PullMetricsFromPrediction( PlayerGameProjectionMessage input )
 		{
 			Logger = LogManager.GetCurrentClassLogger();
+			tdrAllocationStrategies = new Dictionary<RunApproach, IAllocateTDrStrategy>
+			{
+				{ RunApproach.Ace, new AceAllocateTDrStrategy() },
+				{ RunApproach.Standard, new StandardAllocateTDrStrategy() },
+				{ RunApproach.Committee, new CommitteeAllocateTDrStrategy() }
+			};
+			ydrAllocationStrategies = new Dictionary<RunApproach, IAllocateYDrStrategy>
+			{
+				{ RunApproach.Ace, new AceAllocateYDrStrategy() },
+				{ RunApproach.Standard, new StandardAllocateYDrStrategy() },
+				{ RunApproach.Committee, new CommitteeAllocateYDrStrategy() }
+			};
 			Process( input );
 		}
 
@@ -248,7 +263,7 @@ namespace RosterLib
 
 		#region Rushing
 
-		private static void DoRushingUnit(
+		private void DoRushingUnit(
 			PlayerGameProjectionMessage input, string teamCode, bool isHome )
 		{
 			RushUnit ru;
@@ -263,149 +278,107 @@ namespace RosterLib
 			if( !ru.IsLoaded() )
 				ru.Load( teamCode );
 
-			//var runningStyle = DetermineStyle();  //  Ace, Committe, Standard 1-2 punch
-			//AllocateTDs();
-			//AllocateYDr();
+			var pgms = new PlayerGameMetricsCollection( input.Game.PlayerGameMetrics );
+			var projTDr = ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr;
+			projTDr = AllowForVultures( ru, projTDr, pgms );
+			AllocateTDr( ru, projTDr, pgms);
+			input.Game.PlayerGameMetrics = pgms.Pgms;
 
-			if ( ru.IsAceBack )
-			{
-				//  R1
-				var percentageOfAction = 0.7M;
-				if ( ru.R2 == null ) percentageOfAction = 0.9M;
-				var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) 
-					? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-				//  Injury penalty
-				projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
-				var projTDrAce = R1TdsFrom( ( isHome ) 
-					? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
-				var isVulture = AllowForVulturing( ru.AceBack.PlayerCode, ref projTDrAce, ru );
-				AddPlayerGameMetric( input, ru.AceBack.PlayerCode, projYDr, projTDrAce );
-				//  R2 optional
-				if ( ru.R2 != null )
-				{
-					projYDr = ( int ) ( .2 * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-					projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
-					var projTDr = R2TdsFrom( ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
-					if ( isVulture )
-						projTDr = AllowForR2BeingTheVulture( projTDr, ru.R2.PlayerCode, ru );
-					AddPlayerGameMetric( input, ru.R2.PlayerCode, projYDr, projTDr );
-				}
-			}
-			else
-			{
-				//  Comittee
-				const decimal percentageOfAction = 0.5M;
-				foreach ( var runner in ru.Starters )
-				{
-					var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
-					projYDr = AllowForInjuryRisk( runner, projYDr );
-					var projTDr = 0M;
-					var tds = 0;
-					if ( isHome )
-					{
-						tds = R1TdsFrom( input.Prediction.HomeTDr );
-						projTDr = decimal.Divide( ( decimal ) tds, 2M );
-					}
-					else
-					{
-						tds = R1TdsFrom( input.Prediction.AwayTDr );
-						projTDr = decimal.Divide( ( decimal ) tds, 2M );
-					}
+			var projYDr = ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr;
+			AllocateYDr( ru, projYDr, pgms );
 
-					AddPlayerGameMetric( input, runner.PlayerCode, projYDr, projTDr );
-				}
-			}
+			//AllocateYdc();
+
+			//if ( ru.IsAceBack )
+			//{
+			//	//  R1
+			//	var percentageOfAction = 0.7M;
+			//	if ( ru.R2 == null ) percentageOfAction = 0.9M;
+			//	var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) 
+			//		? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
+			//	//  Injury penalty
+			//	projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
+			//	var projTDrAce = R1TdsFrom( ( isHome ) 
+			//		? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
+			//	var isVulture = AllowForVulturing( ru.AceBack.PlayerCode, ref projTDrAce, ru );
+			//	AddPlayerGameMetric( input, ru.AceBack.PlayerCode, projYDr, projTDrAce );
+			//	//  R2 optional
+			//	if ( ru.R2 != null )
+			//	{
+			//		projYDr = ( int ) ( .2 * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
+			//		projYDr = AllowForInjuryRisk( ru.AceBack, projYDr );
+			//		var projTDr = R2TdsFrom( ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr );
+			//		if ( isVulture )
+			//			projTDr = AllowForR2BeingTheVulture( projTDr, ru.R2.PlayerCode, ru );
+			//		AddPlayerGameMetric( input, ru.R2.PlayerCode, projYDr, projTDr );
+			//	}
+			//}
+			//else
+			//{
+			//	//  Comittee
+			//	const decimal percentageOfAction = 0.5M;
+			//	foreach ( var runner in ru.Starters )
+			//	{
+			//		var projYDr = ( int ) ( percentageOfAction * ( ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr ) );
+			//		projYDr = AllowForInjuryRisk( runner, projYDr );
+			//		var projTDr = 0M;
+			//		var tds = 0;
+			//		if ( isHome )
+			//		{
+			//			tds = R1TdsFrom( input.Prediction.HomeTDr );
+			//			projTDr = decimal.Divide( ( decimal ) tds, 2M );
+			//		}
+			//		else
+			//		{
+			//			tds = R1TdsFrom( input.Prediction.AwayTDr );
+			//			projTDr = decimal.Divide( ( decimal ) tds, 2M );
+			//		}
+
+			//		AddPlayerGameMetric( input, runner.PlayerCode, projYDr, projTDr );
+			//	}
+			//}
 		}
 
-		private static int AllowForR2BeingTheVulture( int projTDr, string r2Id, RushUnit ru )
+
+		#region Goalline Vultures
+
+		private int AllowForVultures( RushUnit ru, int projTDr, PlayerGameMetricsCollection pgms )
 		{
-			if ( r2Id == ru.GoalLineBack.PlayerCode )
-				projTDr++;
-			return projTDr;
-		}
-
-		private static bool AllowForVulturing( string runnerId, ref int projTDr, RushUnit ru )
-		{
-			var isVulture = false;
-
-			if ( projTDr > 0 )
+			var nTDr = projTDr;
+			if ( ru.GoalLineBack != null )
 			{
-				if ( ru.GoalLineBack != null )
-				{
-					if ( ru.GoalLineBack.PlayerCode != runnerId )
-					{
-						//  Vulture
-						projTDr--;
-						isVulture = true;
-					}
-				}
+				var pgm = pgms.GetPgmFor( ru.GoalLineBack.PlayerCode );
+				var vulturedTDs = VulturedTdsFrom( nTDr );
+				pgm.ProjTDr += vulturedTDs;
+				pgms.Update( pgm );
+				nTDr -= vulturedTDs;
 			}
-			return isVulture;
+			return nTDr;
 		}
 
-		private static int R1TdsFrom( int totalTdr )
+		private int VulturedTdsFrom( int nTDr )
 		{
-			var tdrs = 0;
-			switch ( totalTdr )
-			{
-				case 1:
-					tdrs = 1;
-					break;
-
-				case 2:
-					tdrs = 1;
-					break;
-
-				case 3:
-					tdrs = 2;
-					break;
-
-				case 4:
-					tdrs = 3;
-					break;
-
-				case 5:
-					tdrs = 3;
-					break;
-
-				case 6:
-					tdrs = 3;
-					break;
-			}
-			return tdrs;
+			if ( nTDr > 4 ) return 2;
+			if ( nTDr > 1 ) return 1;
+			return 0;
 		}
 
-		private static int R2TdsFrom( int totalTdr )
+		#endregion
+
+		private void AllocateTDr( 
+			RushUnit ru, int projTDr, PlayerGameMetricsCollection pgms )
 		{
-			var tdrs = 0;
-			switch ( totalTdr )
-			{
-				case 1:
-					tdrs = 0;
-					break;
-
-				case 2:
-					tdrs = 1;
-					break;
-
-				case 3:
-					tdrs = 1;
-					break;
-
-				case 4:
-					tdrs = 1;
-					break;
-
-				case 5:
-					tdrs = 2;
-					break;
-
-				case 6:
-					tdrs = 2;
-					break;
-			}
-			return tdrs;
+			var approach = ru.DetermineApproach();
+			tdrAllocationStrategies[ approach ].Allocate( ru, projTDr, pgms );
 		}
+
+		private void AllocateYDr( 
+			RushUnit ru, int projYDr, PlayerGameMetricsCollection pgms )
+		{
+			var approach = ru.DetermineApproach();
+			ydrAllocationStrategies[ approach ].Allocate( ru, projYDr, pgms );
+		}
+
 
 		#endregion Rushing
 

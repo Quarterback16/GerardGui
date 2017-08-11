@@ -40,28 +40,36 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFakeDataHasValidHomeRunUnit()
+		public void FakeDataHasValidHomeRunUnit()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			Assert.IsFalse( msg.Game.HomeNflTeam.RunUnit.HasIntegrityError());
 		}
 
 		[TestMethod]
-		public void TestFakeDataHasValidAwayRunUnit()
+		public void FakeDataHasValidAwayRunUnit()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			Assert.IsFalse( msg.Game.AwayNflTeam.RunUnit.HasIntegrityError() );
 		}
 
 		[TestMethod]
-		public void TestFakeDataProducesFourProjections()
+		public void TestFakeDataProducesFiveProjections()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count == 4);
+			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count == 5);
 		}
 
 		[TestMethod]
 		public void TestFakeDataHomeRB1ProjectsToHave70PercentOftheRushingYards()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var projYDr = msg.Game.PlayerGameMetrics[ 0 ].ProjYDr;
+			Assert.AreEqual( expected: 78, actual: projYDr );
+		}
+
+		[TestMethod]
+		public void TestFakeDataHAwayRB1ProjectsToHave70PercentOftheRushingYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var projYDr = msg.Game.PlayerGameMetrics[ 0 ].ProjYDr;
@@ -90,7 +98,7 @@ namespace Gerard.Tests
 		public void TestFakeDataHomeBackupProjectsToSecondTD()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			var pgm = msg.GetPgmFor( "BB01" );
+			var pgm = msg.GetPgmFor( "BB01" );  // backup, home team (TDr2) split
 			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 1, actual: projTDr );
 		}
@@ -110,14 +118,28 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFirstAndOnlyAwayTDRGoesToTheVulture()
+		public void TestSecondAwayTDRGoesToTheVulture()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var vpgm = msg.GetPgmFor( "VU01" );
 			var projVulturedTDr = vpgm.ProjTDr;
-			Assert.AreEqual( expected: 0, actual: projVulturedTDr );
+			Assert.AreEqual( expected: 1, actual: projVulturedTDr );
+		}
 
-			var pgm = msg.GetPgmFor( "BB01" );
+		[TestMethod]
+		public void TestFirstAwayTDRGoesToTheStarter()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "VV01" );
+			var projTDr = pgm.ProjTDr;
+			Assert.AreEqual( expected: 1, actual: projTDr );
+		}
+
+		[TestMethod]
+		public void TestAwayBackupGetsZero()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "BB02" );
 			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 0, actual: projTDr );
 		}

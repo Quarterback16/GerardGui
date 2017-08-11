@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AceAllocateTDrStrategy.cs" />
     <Compile Include="AddActualYahooKickingPoints.cs" />
     <Compile Include="AddActualYahooPassingPoints.cs" />
     <Compile Include="AddActualYahooReceivingPoints.cs" />
@@ -82,6 +83,9 @@
     <Compile Include="AddYahooPassingPoints.cs" />
     <Compile Include="AddYahooReceivingPoints.cs" />
     <Compile Include="AddYahooRushingPoints.cs" />
+    <Compile Include="AllocationStrategies\AceAllocateYDrStrategy.cs" />
+    <Compile Include="AllocationStrategies\CommitteAllocateYDrStrategy.cs" />
+    <Compile Include="AllocationStrategies\StandardAllocateYDrStrategy.cs" />
     <Compile Include="BadNumberScheme.cs" />
     <Compile Include="BalanceReport.cs" />
     <Compile Include="BarChart.cs" />
@@ -94,6 +98,7 @@
     <Compile Include="CategoryFactory.cs" />
     <Compile Include="ClearGameMetrics.cs" />
     <Compile Include="ClockWatcher.cs" />
+    <Compile Include="CommitteeAllocateTDrStrategy.cs" />
     <Compile Include="Completions.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="ConfigMaster.cs" />
@@ -173,6 +178,8 @@
     <Compile Include="InterceptionsMade.cs" />
     <Compile Include="InterceptReturn.cs" />
     <Compile Include="Interfaces\IAceRepository.cs" />
+    <Compile Include="Interfaces\IAllocateTDrStrategy.cs" />
+    <Compile Include="Interfaces\IAllocateYDrStrategy.cs" />
     <Compile Include="Interfaces\IClock.cs" />
     <Compile Include="Interfaces\IGetGamebooks.cs" />
     <Compile Include="Interfaces\IKeepTheTime.cs" />
@@ -274,6 +281,7 @@
     <Compile Include="PlayerCareerReport.cs" />
     <Compile Include="PlayerCsv.cs" />
     <Compile Include="PlayerGameMetrics.cs" />
+    <Compile Include="PlayerGameMetricsCollection.cs" />
     <Compile Include="PlayerLister.cs" />
     <Compile Include="PlayerMaster.cs" />
     <Compile Include="PlayerOutput.cs" />
@@ -340,6 +348,7 @@
     <Compile Include="SimpleTDrPredictor.cs" />
     <Compile Include="SimpleYDcPredictor.cs" />
     <Compile Include="SimpleYDrPredictor.cs" />
+    <Compile Include="StandardAllocateTDrStrategy.cs" />
     <Compile Include="StarScorer.cs" />
     <Compile Include="Starters.cs" />
     <Compile Include="StatFactory.cs" />
