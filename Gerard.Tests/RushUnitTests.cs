@@ -85,6 +85,30 @@ namespace Gerard.Tests
 				actual: team.RunUnit.DetermineApproach() );
 		}
 
+		[TestMethod]
+		public void TestFakeData_BB_ApproachIs_Ace()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "BB" );
+			Assert.AreEqual( expected: RunApproach.Ace,
+				actual: team.RunUnit.DetermineApproach() );
+		}
+
+		[TestMethod]
+		public void TestFakeData_NE_ApproachIs_Standard()
+		{
+			var team = new FakeNflTeam()
+			{
+				RunUnit = new FakeRushUnit()
+			};
+			var results = team.RunUnit.Load( "NE" );
+			Assert.AreEqual( expected: RunApproach.Standard,
+				actual: team.RunUnit.DetermineApproach() );
+		}
+
 
 		[TestMethod]
 		public void TestLoad()

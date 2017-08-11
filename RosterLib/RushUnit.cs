@@ -398,12 +398,19 @@ namespace RosterLib
 			if ( nR1 > 1 )
 				return RunApproach.Committee;
 
-			return RunApproach.Ace;
+			if ( nR1 == 1 && nR2 == 1 )
+				return RunApproach.Standard;
+
+			if ( nR1 == 1 && nR2 == 0 )
+				return RunApproach.Ace;
+
+			return RunApproach.Unknown;
 		}
 	}
 
 	public enum RunApproach
 	{
+		Unknown,
 		Ace,
 		Standard,
 		Committee
