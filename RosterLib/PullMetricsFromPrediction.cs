@@ -295,17 +295,14 @@ namespace RosterLib
 			var projYDr = ( isHome ) ? input.Prediction.HomeYDr : input.Prediction.AwayYDr;
 			AllocateYDr( ru, projYDr, pgms );
 
-			//TODO: AllocateYdc();
-			//if ( ru.ThirdDownBack != null )
-			//{
-			//	var projYDc = ( int ) ( .10 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
-			//	projYDc = AllowForInjuryRisk( ru.ThirdDownBack, projYDc );
-			//TODO:  need to update the collection rather than add
-			//	AddCatchingPlayerGameMetric( input, ru.ThirdDownBack.PlayerCode, projYDc, 0 );
-			//}
-
+			if ( ru.ThirdDownBack != null )
+			{
+				var projYDc = ( int ) ( .5 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+				var pgm = pgms.GetPgmFor( ru.ThirdDownBack.PlayerCode );
+				pgm.ProjYDc += projYDc;
+				pgms.Update( pgm );
+			}
 		}
-
 
 		#region Goalline Vultures
 

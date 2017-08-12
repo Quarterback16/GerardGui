@@ -15,7 +15,7 @@ namespace Gerard.Tests
 				var playerList = new List<NFLPlayer>
 				{
 					new FakeNFLPlayer( "JS01", "S", "RB", "Jonny the Starter" ),
-					new FakeNFLPlayer( "BB01", "B", "RB", "Buddy the Backup" )
+					new FakeNFLPlayer( "BB01", "B", "RB,3D", "Buddy the Backup" )
 				};
 				return playerList;
 			}

@@ -56,10 +56,10 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFakeDataProducesFiveProjections()
+		public void TestFakeDataProducesManyProjections()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count == 5);
+			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 5);
 		}
 
 		[TestMethod]
@@ -97,12 +97,21 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestFakeDataHomeBackupProjectsToSecondTD()
+		public void FakeDataHomeBackupProjectsToSecondTD()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "BB01" );  // backup, home team (TDr2) split
 			var projTDr = pgm.ProjTDr;
 			Assert.AreEqual( expected: 1, actual: projTDr );
+		}
+
+		[TestMethod]
+		public void FakeDataHomeBackupProjectsToGetSomeYDc()
+		{
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "BB01" );  // backup, home team (TDr2) split
+			var projYDc = pgm.ProjYDc;
+			Assert.AreEqual( expected: 215, actual: projYDc );
 		}
 
 		[TestMethod]
