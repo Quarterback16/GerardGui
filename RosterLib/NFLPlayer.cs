@@ -41,6 +41,7 @@ namespace RosterLib
 		public string DBirth { get; set; }
 		public string College { get; set; }
 		public DateTime StartDate { get; set; }
+		public int Rating { get; set; }
 
 		public string PlayerName;
 		public string PlayerNameShort;
@@ -600,6 +601,7 @@ namespace RosterLib
 			var d = Convert.ToDateTime( dr[ "DOB" ].ToString() );
 			DBirth = d.ToShortDateString();
 			Scores = Int32.Parse( dr[ "Scores" ].ToString() );
+			Rating = Int32.Parse( dr[ "CURRATING" ].ToString() );
 			CurrScores = Int32.Parse( dr[ "curscores" ].ToString() );
 			CurrTeam = new NflTeam( dr[ "CURRTEAM" ].ToString() );
 			if ( RookieYear == Utility.CurrentSeason() ) PlayerName += "*";

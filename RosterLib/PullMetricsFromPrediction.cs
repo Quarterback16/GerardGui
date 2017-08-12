@@ -296,6 +296,13 @@ namespace RosterLib
 			AllocateYDr( ru, projYDr, pgms );
 
 			//TODO: AllocateYdc();
+			//if ( ru.ThirdDownBack != null )
+			//{
+			//	var projYDc = ( int ) ( .10 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+			//	projYDc = AllowForInjuryRisk( ru.ThirdDownBack, projYDc );
+			//TODO:  need to update the collection rather than add
+			//	AddCatchingPlayerGameMetric( input, ru.ThirdDownBack.PlayerCode, projYDc, 0 );
+			//}
 
 		}
 
