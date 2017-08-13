@@ -6,17 +6,17 @@ namespace RosterLib
 	{
 		public void Allocate( RushUnit ru, int nYDr, PlayerGameMetricsCollection pgms )
 		{
+			var nStarters = 0;
 			//  45% 45%
-			var projYDr = ( int ) ( 0.45M * nYDr );
-			var pgm = pgms.GetPgmFor( ru.R1.PlayerCode );
-			pgm.ProjYDr += ( int ) ( projYDr * ru.R1.HealthFactor() );
-			pgms.Update( pgm );
-
-			var projYDr2 = ( int ) ( 0.45M * nYDr );
-			var pgm2 = pgms.GetPgmFor( ru.R2.PlayerCode );
-			pgm2.ProjYDr += projYDr2;
-			pgms.Update( pgm2 );
-
+			foreach ( var starter in ru.Starters )
+			{
+				var projYDr = ( int ) ( 0.45M * nYDr );
+				var pgm = pgms.GetPgmFor( ru.R1.PlayerCode );
+				pgm.ProjYDr += ( int ) ( projYDr * ru.R1.HealthFactor() );
+				pgms.Update( pgm );
+				nStarters++;
+				if ( nStarters > 2 ) break;
+			}
 		}
 	}
 }
