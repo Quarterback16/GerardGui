@@ -8,6 +8,18 @@ namespace Gerard.Tests
 	public class RushUnitTests
 	{
 		[TestMethod]
+		public void Test_GB_Has_A_Starter()
+		{
+			var team = new NflTeam( "GB" )
+			{
+				RunUnit = new RushUnit()
+			};
+			var results = team.RunUnit.Load( "GB" );
+			Console.WriteLine($"Run approach is {team.RunUnit.DetermineApproach()}");
+			Assert.IsTrue( team.RunUnit.Starters.Count > 0 );
+		}
+
+		[TestMethod]
 		public void TestFakeData_BB_HasAnAceBack()
 		{
 			var team = new FakeNflTeam()

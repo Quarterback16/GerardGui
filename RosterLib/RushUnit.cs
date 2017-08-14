@@ -210,6 +210,7 @@ namespace RosterLib
 				unit += runr + Environment.NewLine;
 			}
 			output.Add( unit + Environment.NewLine );
+			output.Add( $"Run approach is {DetermineApproach()}" + Environment.NewLine );
 			return output;
 		}
 
