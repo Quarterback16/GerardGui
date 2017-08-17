@@ -72,9 +72,9 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestDepthChartExecution()
+		public void TestDepthChartExecutionParticularTeam()
 		{
-			const string teamCode = "NE";
+			const string teamCode = "GB";
 			var t = new NflTeam( teamCode );
 			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), teamCode );
 			sut.Execute();

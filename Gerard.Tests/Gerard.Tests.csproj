@@ -94,6 +94,7 @@
     <Compile Include="FakeNFLPlayer.cs" />
     <Compile Include="FakeNflTeam.cs" />
     <Compile Include="FakeRushUnit.cs" />
+    <Compile Include="Fakes\FakeJob.cs" />
     <Compile Include="Fakes\FakeLoadPassUnit.cs" />
     <Compile Include="Fakes\FakePassUnit.cs" />
     <Compile Include="FaMarketTests.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="HtmlFileTests.cs" />
     <Compile Include="IsRetiredTest.cs" />
     <Compile Include="IterSortTests.cs" />
+    <Compile Include="JobLogTests.cs" />
     <Compile Include="LineupTests.cs" />
     <Compile Include="LoadRunnersTests.cs" />
     <Compile Include="LogCleanupTests.cs" />

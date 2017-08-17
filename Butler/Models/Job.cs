@@ -22,12 +22,14 @@ namespace Butler.Models
 
 		public IHoldList MyHoldList { get; set; }
 
+		public TimeSpan ElapsedTimeSpan { get; set; }
+
 		public Job()
 		{
 			MyHoldList = new HoldList();
 			MyHoldList.LoadFromXml( ".//xml//hold-jobs.xml" );
 			TimeKeeper = new TimeKeeper( null );
-			Logger = NLog.LogManager.GetCurrentClassLogger();
+			Logger = LogManager.GetCurrentClassLogger();
 		}
 
 		public Job( IKeepTheTime timekeeper )
@@ -95,22 +97,22 @@ namespace Butler.Models
 		/// </summary>
 		public void StopRun()
 		{
-			var ts = Utility.StopTheWatch( Stopwatch, string.Format( "Finished Job: {0}", Name ) );
+			ElapsedTimeSpan = Utility.StopTheWatch( Stopwatch, $"Finished Job: {Name}");
 			var runStorer = new DbfRunStorer();
-			runStorer.StoreRun( Name, ts, nameof( Job ) );
-			LogElapsedTime( ts );
+			runStorer.StoreRun( Name, ElapsedTimeSpan, nameof( Job ) );
+			LogElapsedTime( ElapsedTimeSpan );
 		}
 
 		public void TeardownJob()
 		{
-			var ts = Utility.StopTheWatch( Stopwatch, string.Format( "Finished Job: {0}", Name ) );
-			LogElapsedTime( ts );
+			ElapsedTimeSpan = Utility.StopTheWatch( Stopwatch, $"Finished Job: {Name}");
+			LogElapsedTime( ElapsedTimeSpan );
 		}
 
 		public void LogElapsedTime( TimeSpan ts )
 		{
 			var elapsed = ts.ToString( @"hh\:mm\:ss" );
-			Logger.Info( string.Format( "  Job: {0} took {1}", Name, elapsed ) );
+			Logger.Info( $"  Job: {Name} took {elapsed}");
 		}
 
 		public DateTime LastDone()
@@ -128,7 +130,7 @@ namespace Butler.Models
 			return lastDone;
 		}
 
-		public bool OnHold()
+		public virtual bool OnHold()
 		{
 			var onHold = MyHoldList.Contains( Name );
 			return onHold;

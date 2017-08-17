@@ -77,7 +77,7 @@ namespace RosterLib
 			NflTeam.LoadTeam();
 			PlayerCount = NflTeam.PlayerList.Count;
 
-			Announce( string.Format( "   {0} Roster Count : {1}", TeamCode, PlayerCount ) );
+			TraceIt( $"   {TeamCode} Roster Count : {PlayerCount}" );
 
 			bodyOut.AppendLine( NflTeam.RatingsOut() + "    " + NflTeam.SeasonProjectionOut() );
 			bodyOut.AppendLine();
@@ -235,6 +235,14 @@ namespace RosterLib
 		}
 
 		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( "   " + message );
+		}
+
+		public void TraceIt( string message )
 		{
 			if ( Logger == null )
 				Logger = LogManager.GetCurrentClassLogger();
