@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace RosterLib
+﻿namespace RosterLib
 {
-   public class YahooProjectedPointsMessage
+	public class YahooProjectedPointsMessage
 	{
 		public NFLPlayer Player { get; set; }
 		public NFLGame Game { get; set; }
@@ -42,7 +40,7 @@ namespace RosterLib
       internal bool TestPlayer()
       {
          if ( Player == null ) return false;
-         return Player.PlayerCode.Equals("XXXXXX01");
+         return Player.PlayerCode.Equals("FOURLE01");
       }
    }
 }

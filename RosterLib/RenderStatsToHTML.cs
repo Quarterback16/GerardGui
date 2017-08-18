@@ -73,7 +73,7 @@ namespace RosterLib
 			r.RenderAsHtml( FileOut, true );
 
 			if ( RenderToCsv )
-				r.RenderAsCsv( "Starters-" + sHead );
+				r.RenderAsCsv( "Starters-" + sHead, Logger );
 			return FileOut;
 		}
 
@@ -107,6 +107,7 @@ namespace RosterLib
 
 			cols.Add( "Points", typeof( Decimal ) );
 			cols.Add( "Rating", typeof( Decimal ) );
+			cols.Add( "ADP", typeof( Int32 ) );
 
 			if ( Season == null ) Season = Utility.CurrentSeason();
 
@@ -159,6 +160,7 @@ namespace RosterLib
 
 				dr[ "Points" ] = totPoints;
 				dr[ "Rating" ] = p.Rating;
+				dr[ "ADP" ] = p.Adp;
 				dt.Rows.Add( dr );
 			}
 			ds.Tables.Add( dt );
@@ -213,6 +215,7 @@ namespace RosterLib
 			}
 			r.AddColumn( new ReportColumn( "Points", "POINTS", "{0,5}" ) );
 			r.AddColumn( new ReportColumn( "Rating", "RATING", "{0,5}" ) );
+			r.AddColumn( new ReportColumn( "ADP", "ADP", "{0,5}" ) );
 
 			var dt = ds.Tables[ 0 ];
 			dt.DefaultView.Sort = LongStats
@@ -223,7 +226,7 @@ namespace RosterLib
 			r.RenderAsHtml( FileOut, true );
 
 			if ( RenderToCsv )
-				r.RenderAsCsv( "Starters-" + sHead );
+				r.RenderAsCsv( "Starters-" + sHead, Logger );
 			return FileOut;
 		}
 
@@ -266,6 +269,7 @@ namespace RosterLib
 
 			cols.Add( "Points", typeof( Decimal ) );
 			cols.Add( "Rating", typeof( Int32 ) );
+			cols.Add( "Adp", typeof( Int32 ) );
 
 			if ( Season == null ) Season = Utility.CurrentSeason();
 
@@ -334,6 +338,7 @@ namespace RosterLib
 
 					dr[ "Points" ] = totPoints;
 					dr[ "Rating" ] = p.Rating;
+					dr[ "Adp" ] = p.Adp;
 					dt.Rows.Add( dr );
 					//Logger.Info( $"{p.PlayerName:-20} {totPoints:0.0}" );
 				}

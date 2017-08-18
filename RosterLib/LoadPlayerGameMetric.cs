@@ -12,7 +12,7 @@ namespace RosterLib
 
       public LoadPlayerGameMetric()
       {
-         Logger = NLog.LogManager.GetCurrentClassLogger();
+         Logger = LogManager.GetCurrentClassLogger();
       }
 
       public LoadPlayerGameMetric( YahooProjectedPointsMessage input )

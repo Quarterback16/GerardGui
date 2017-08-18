@@ -6,6 +6,7 @@
 //  Original author: Steve Colonna
 ///////////////////////////////////////////////////////////
 
+using NLog;
 using System;
 using System.Collections;
 using System.Data;
@@ -545,7 +546,7 @@ namespace RosterLib
 
       #region  CSV Rendition
 
-      public void RenderAsCsv(string fileName)
+      public void RenderAsCsv(string fileName, Logger logger)
       {
          var fileOut = string.Format("{0}\\{2}\\Starters\\csv\\{1}.csv", 
             Utility.OutputDirectory(), fileName, Utility.CurrentSeason());
@@ -557,7 +558,7 @@ namespace RosterLib
             foreach (DataRow dr in _body.Rows)
                sw.WriteLine(CsvLine(dr));
          }
-         Utility.Announce( string.Format( "{0} rendered", fileOut ) );
+         logger.Info( $"{fileOut} rendered" );
       }
 
 

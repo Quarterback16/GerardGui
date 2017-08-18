@@ -227,7 +227,6 @@ namespace Gerard.Tests
 
 		#endregion
 
-
 		[Ignore]  //  its a slow integration test
 		[TestMethod]
 		public void TestJayCutler()
@@ -240,9 +239,24 @@ namespace Gerard.Tests
 				Prediction = g.GetPrediction( "unit" )
 			};
 			var cut = new PullMetricsFromPrediction( msg );
-			Assert.IsNotNull( msg.Game.PlayerGameMetrics.Count > 12 );
+			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 12 );
 			msg.Dao = new DbfPlayerGameMetricsDao();
 			var saveStep = new SavePlayerGameMetrics( msg );
+		}
+
+		[TestMethod]
+		public void TestSaveStoresTheGameKey()
+		{
+			var g = new NFLGame( "2017:01-F" );
+			var msg = new PlayerGameProjectionMessage()
+			{
+				Player = new NFLPlayer( "FOURLE01" ),
+				Game = g,
+				Prediction = g.GetPrediction( "unit" ),
+				PlayerGameMetrics = new PlayerGameMetrics()
+			};
+			var cut = new PullMetricsFromPrediction( msg );
+			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 12 );
 		}
 	}
 }

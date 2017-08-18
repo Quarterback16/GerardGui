@@ -782,7 +782,7 @@ namespace RosterLib
 						}
 					}
 			str.LoadBody( dt );
-			str.RenderAsCsv( "Players" );
+			str.RenderAsCsv( "Players", Logger );
 		}
 
 #endregion CSV output

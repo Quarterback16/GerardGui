@@ -6,8 +6,14 @@ namespace RosterLib
 	{
 		public List<PlayerGameMetrics> Pgms { get; private set; }
 
-		public PlayerGameMetricsCollection( List<PlayerGameMetrics> pgms )
+		public string GameKey { get; set; }
+
+		public PlayerGameMetricsCollection( NFLGame game )
 		{
+			GameKey = game.GameKey();
+			var pgms = game.PlayerGameMetrics;
+			if ( pgms == null )
+				pgms = new List<PlayerGameMetrics>();
 			Pgms = pgms;
 		}
 
@@ -30,7 +36,10 @@ namespace RosterLib
 		{
 			var index = Pgms.FindIndex( i => i.PlayerId == pgm.PlayerId );
 			if ( index == -1 )
+			{
+				pgm.GameKey = GameKey;
 				Pgms.Add( pgm );
+			}
 			else
 				Pgms[ index ] = pgm;
 		}
@@ -39,5 +48,6 @@ namespace RosterLib
 		{
 			return Pgms.Count;
 		}
+
 	}
 }

@@ -97,7 +97,7 @@ namespace RosterLib
                      pgm.ProjFG, pgm.FG, pgm.ProjPat, pgm.Pat
                );
 #if DEBUG
-            Utility.Announce(string.Format("Command is {0} on {1}", commandStr, Utility.TflWs.NflConnectionString));
+            Utility.Announce($"Command is {commandStr} on {Utility.TflWs.NflConnectionString}");
 #endif
          }
       }

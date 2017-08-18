@@ -286,7 +286,7 @@ namespace RosterLib
 			if( !ru.IsLoaded() )
 				ru.Load( teamCode );
 
-			var pgms = new PlayerGameMetricsCollection( input.Game.PlayerGameMetrics );
+			var pgms = new PlayerGameMetricsCollection( input.Game );
 			var projTDr = ( isHome ) ? input.Prediction.HomeTDr : input.Prediction.AwayTDr;
 			projTDr = AllowForVultures( ru, projTDr, pgms );
 			AllocateTDr( ru, projTDr, pgms);
