@@ -59,7 +59,7 @@ namespace TFLLib
 			}
 			catch ( Exception ex )
 			{
-				Logger.ErrorException( string.Format( "Connection failed: {0}>>{1}", nflConnection, ex.Message ), ex );
+				Logger.ErrorException( $"Connection failed: {nflConnection}>>{ex.Message}", ex );
 				throw;
 			}
 		}

@@ -35,7 +35,7 @@ namespace Butler.Models
          if ( string.IsNullOrEmpty( whyNot ) )
          {
             if ( TimeKeeper.IsItPeakTime() )
-               whyNot = string.Format( "{0:t} is peak time", DateTime.Now.TimeOfDay );
+               whyNot = $"{DateTime.Now.TimeOfDay:t} is peak time";
          }
          if ( !string.IsNullOrEmpty( whyNot ) )
             Logger.Info( "Skipped {1}: {0}", whyNot, Name );

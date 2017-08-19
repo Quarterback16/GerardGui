@@ -297,7 +297,7 @@ namespace RosterLib
 
 			if ( ru.ThirdDownBack != null )
 			{
-				var projYDc = ( int ) ( .5 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+				var projYDc = ( int ) ( .05 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
 				var pgm = pgms.GetPgmFor( ru.ThirdDownBack.PlayerCode );
 				pgm.ProjYDc += projYDc;
 				pgms.Update( pgm );

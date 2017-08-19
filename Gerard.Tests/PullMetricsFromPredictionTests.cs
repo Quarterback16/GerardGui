@@ -227,21 +227,19 @@ namespace Gerard.Tests
 
 		#endregion
 
-		[Ignore]  //  its a slow integration test
+		//[Ignore]  //  its a slow integration test
 		[TestMethod]
-		public void TestJayCutler()
+		public void TestPlayerProjection()
 		{
-			var g = new NFLGame( "2016:01-I" );
+			var g = new NFLGame( "2017:01-L" );
 			var msg = new PlayerGameProjectionMessage()
 			{
-				Player = new NFLPlayer( "CUTLJA01" ),
+				Player = new NFLPlayer( "MONTTY02" ),
 				Game = g,
 				Prediction = g.GetPrediction( "unit" )
 			};
 			var cut = new PullMetricsFromPrediction( msg );
 			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 12 );
-			msg.Dao = new DbfPlayerGameMetricsDao();
-			var saveStep = new SavePlayerGameMetrics( msg );
 		}
 
 		[TestMethod]
