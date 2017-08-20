@@ -7,5 +7,10 @@ namespace Gerard.Tests
 		public FakeNflTeam()
 		{
 		}
+
+		public FakeNflTeam(string teamCode)
+		{
+			TeamCode = teamCode;
+		}
 	}
 }

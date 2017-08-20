@@ -106,7 +106,7 @@ namespace RosterLib
 			}
 
 			cols.Add( "Points", typeof( Decimal ) );
-			cols.Add( "Rating", typeof( Decimal ) );
+			cols.Add( "PFP", typeof( Decimal ) );
 			cols.Add( "ADP", typeof( Int32 ) );
 
 			if ( Season == null ) Season = Utility.CurrentSeason();
@@ -159,7 +159,7 @@ namespace RosterLib
 				}
 
 				dr[ "Points" ] = totPoints;
-				dr[ "Rating" ] = p.Rating;
+				dr[ "PFP" ] = p.Rating;
 				dr[ "ADP" ] = p.Adp;
 				dt.Rows.Add( dr );
 			}
@@ -185,7 +185,7 @@ namespace RosterLib
 			if ( !string.IsNullOrEmpty( SubHeader ) ) r.SubHeader = SubHeader;
 			///////////////////////////////////////////////////////////////
 			var ds = LoadProjectedData( playerList, scorer, weekMaster ); //  <-- projection action here
-																		  ///////////////////////////////////////////////////////////////
+			///////////////////////////////////////////////////////////////
 			r.AddColumn( new ReportColumn( "Name", "NAME", "{0,-15}" ) );
 			r.AddColumn( new ReportColumn( "Pos", "POS", "{0,9}" ) );
 			r.AddColumn( new ReportColumn( "Role", "ROLE", "{0,9}" ) );
@@ -214,7 +214,7 @@ namespace RosterLib
 				r.AddColumn( new ReportColumn( "Fg", "Fg", "{0,5}" ) );
 			}
 			r.AddColumn( new ReportColumn( "Points", "POINTS", "{0,5}" ) );
-			r.AddColumn( new ReportColumn( "Rating", "RATING", "{0,5}" ) );
+			r.AddColumn( new ReportColumn( "PFP", "PFP", "{0,5}" ) );
 			r.AddColumn( new ReportColumn( "ADP", "ADP", "{0,5}" ) );
 
 			var dt = ds.Tables[ 0 ];
@@ -268,7 +268,7 @@ namespace RosterLib
 			}
 
 			cols.Add( "Points", typeof( Decimal ) );
-			cols.Add( "Rating", typeof( Int32 ) );
+			cols.Add( "PFP", typeof( Int32 ) );
 			cols.Add( "Adp", typeof( Int32 ) );
 
 			if ( Season == null ) Season = Utility.CurrentSeason();
@@ -337,7 +337,7 @@ namespace RosterLib
 					}
 
 					dr[ "Points" ] = totPoints;
-					dr[ "Rating" ] = p.Rating;
+					dr[ "PFP" ] = p.Rating;
 					dr[ "Adp" ] = p.Adp;
 					dt.Rows.Add( dr );
 					//Logger.Info( $"{p.PlayerName:-20} {totPoints:0.0}" );

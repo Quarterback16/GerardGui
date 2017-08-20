@@ -11,8 +11,8 @@ namespace RosterLib
 			foreach ( var starter in ru.Starters )
 			{
 				var projYDr = ( int ) ( 0.45M * nYDr );
-				var pgm = pgms.GetPgmFor( ru.R1.PlayerCode );
-				pgm.ProjYDr += ( int ) ( projYDr * ru.R1.HealthFactor() );
+				var pgm = pgms.GetPgmFor( starter.PlayerCode );
+				pgm.ProjYDr += ( int ) ( projYDr * starter.HealthFactor() );
 				pgms.Update( pgm );
 				nStarters++;
 				if ( nStarters > 2 ) break;

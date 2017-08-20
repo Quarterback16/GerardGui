@@ -96,6 +96,7 @@
     <Compile Include="FakeRushUnit.cs" />
     <Compile Include="Fakes\FakeJob.cs" />
     <Compile Include="Fakes\FakeLoadPassUnit.cs" />
+    <Compile Include="Fakes\FakeNFLGame2.cs" />
     <Compile Include="Fakes\FakePassUnit.cs" />
     <Compile Include="FaMarketTests.cs" />
     <Compile Include="FantasyReportJobTests.cs" />

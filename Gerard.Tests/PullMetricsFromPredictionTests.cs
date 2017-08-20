@@ -42,6 +42,22 @@ namespace Gerard.Tests
 		#region Running Backs
 
 		[TestMethod]
+		public void Committebacks_ShareTheLoad()
+		{
+			var g = new FakeNFLGame2();
+			msg = new PlayerGameProjectionMessage()
+			{
+				Player = new FakeNFLPlayer( "??01", "", "", "Unknown soldier" ),
+				Game = g,
+				Prediction = g.GetPrediction( "unit" )
+			};
+			var sut = new PullMetricsFromPrediction( msg );
+			var pgm = msg.GetPgmFor( "CM02" );
+			var projYDr = pgm.ProjYDr;
+			Assert.AreEqual( expected: 50, actual: projYDr );
+		}
+
+		[TestMethod]
 		public void FakeDataHasValidHomeRunUnit()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
@@ -109,9 +125,9 @@ namespace Gerard.Tests
 		public void FakeDataHomeBackupProjectsToGetSomeYDc()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
-			var pgm = msg.GetPgmFor( "BB01" );  // backup, home team (TDr2) split
+			var pgm = msg.GetPgmFor( "BB01" );  
 			var projYDc = pgm.ProjYDc;
-			Assert.AreEqual( expected: 215, actual: projYDc );
+			Assert.AreEqual( expected: 21, actual: projYDc );
 		}
 
 		[TestMethod]
@@ -231,10 +247,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPlayerProjection()
 		{
-			var g = new NFLGame( "2017:01-L" );
+			var g = new NFLGame( "2017:01-O" );
 			var msg = new PlayerGameProjectionMessage()
 			{
-				Player = new NFLPlayer( "MONTTY02" ),
+				Player = new NFLPlayer( "COOKDA01" ),
 				Game = g,
 				Prediction = g.GetPrediction( "unit" )
 			};
