@@ -109,7 +109,7 @@ namespace RosterLib
 			int projYDc, projTDc;
 			if ( unit.W1 != null )
 			{
-				projYDc = ( int ) ( .4 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+				projYDc = ( int ) ( .35 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
 				projTDc = W1TdsFrom( ( isHome ) ? input.Prediction.HomeTDp : input.Prediction.AwayTDp );
 				projYDc = AllowForInjuryRisk( unit.W1, projYDc );
 				AddCatchingPlayerGameMetric( input, unit.W1.PlayerCode, projYDc, projTDc );
@@ -123,7 +123,7 @@ namespace RosterLib
 			}
 			if ( unit.W3 != null )
 			{
-				projYDc = ( int ) ( .1 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
+				projYDc = ( int ) ( .15 * ( ( isHome ) ? input.Prediction.HomeYDp : input.Prediction.AwayYDp ) );
 				projTDc = 0;
 				projYDc = AllowForInjuryRisk( unit.W3, projYDc );
 				AddCatchingPlayerGameMetric( input, unit.W3.PlayerCode, projYDc, projTDc );

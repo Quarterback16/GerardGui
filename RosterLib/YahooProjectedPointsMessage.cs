@@ -40,7 +40,7 @@
       internal bool TestPlayer()
       {
          if ( Player == null ) return false;
-         return Player.PlayerCode.Equals("FOURLE01");
+         return Player.PlayerCode.Equals("XXXXXX01");
       }
    }
 }

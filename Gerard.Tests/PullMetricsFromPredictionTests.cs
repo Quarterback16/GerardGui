@@ -188,7 +188,7 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void FakeHomeQBGetsAllThePassingYards()
+		public void QBGetsAllThePassingYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "QB01" );
@@ -197,7 +197,7 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void FakeHomeQBGetsAllThePassingTDs()
+		public void QBGetsAllThePassingTDs()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "QB01" );
@@ -206,16 +206,16 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void FakeHomeW1Gets40PerCentOfYards()
+		public void W1Gets35PerCentOfYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "WR01" );
 			var projYDc = pgm.ProjYDc;
-			Assert.AreEqual( expected: 172, actual: projYDc );
+			Assert.AreEqual( expected: 150, actual: projYDc );
 		}
 
 		[TestMethod]
-		public void FakeHomeW2Gets25PerCentOfYards()
+		public void W2Gets25PerCentOfYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "WR02" );
@@ -224,16 +224,16 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void FakeHomeW3Gets10PerCentOfYards()
+		public void W3Gets15PerCentOfYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "WR03" );
 			var projYDc = pgm.ProjYDc;
-			Assert.AreEqual( expected: 43, actual: projYDc );
+			Assert.AreEqual( expected: 64, actual: projYDc );
 		}
 
 		[TestMethod]
-		public void FakeHomeTEGets20PerCentOfYards()
+		public void TEGets20PerCentOfYards()
 		{
 			var sut = new PullMetricsFromPrediction( msg );
 			var pgm = msg.GetPgmFor( "TE01" );
