@@ -222,5 +222,23 @@ namespace Gerard.Tests
 			var result = sut.PlayerPiece( p, g, c );
 			Console.WriteLine( "Piece is {0}", result );
 		}
+
+		[TestMethod]
+		public void TestRunnerBit()
+		{
+			var sut = new PickupChart( new FakeTimeKeeper( season: "2017" ), week: 1 );
+			var g = new NFLGame( "2017:01-H" );
+			var team = new Winner
+			{
+				Team = g.Team( "AF" ),
+				Margin = Math.Abs( g.Spread ),
+				Home = g.IsHome( "CH" ),
+				Game = g
+			};
+			team.Team.LoadPassUnit();
+			team.Team.PassUnit.SetReceiverRoles();
+			team.Team.LoadRushUnit();
+			var bit = sut.GetRunnerBit( team, new YahooCalculator() );
+		}
 	}
 }

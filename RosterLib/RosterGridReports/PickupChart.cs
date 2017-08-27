@@ -164,7 +164,7 @@ namespace RosterLib.RosterGridReports
 			return string.Format( "{0,-36}", bit );
 		}
 
-		private string GetRunnerBit( IWinOrLose team, YahooCalculator c )
+		public string GetRunnerBit( IWinOrLose team, YahooCalculator c )
 		{
 			var bit = NoneBit( team );
 			if ( team.Team.PassUnit.Q1 != null )
@@ -183,6 +183,12 @@ namespace RosterLib.RosterGridReports
 				else
 				{
 					var dualBacks = team.Team.RunUnit.Committee;
+					var combinedPts = 0.0M;
+					foreach ( NFLPlayer runner in team.Team.RunUnit.Starters )
+					{
+						c.Calculate( runner, team.Game );
+						combinedPts += runner.Points;
+					}
 					if ( !string.IsNullOrWhiteSpace( dualBacks.Trim() ) )
 					{
 						dualBacks = dualBacks.Substring( 0, dualBacks.Length - 3 );
@@ -203,11 +209,12 @@ namespace RosterLib.RosterGridReports
 						matchupLink = "?" + new String(' ', 20);
 
 					bit = string.Format(
-					   "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{3}</a> {2}          ",
+					   "&nbsp;<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{3}</a> {2}  {4,2:#0}      ",
 					   team.Team.TeamCode,
 					   Week - 1,
 					   matchupLink,
-					   dualBacks
+					   dualBacks,
+					   (int) combinedPts
 					   );
 					Logger.Trace( "   >>> No Ace back for {0}", team.Team.Name );
 				}
@@ -223,7 +230,6 @@ namespace RosterLib.RosterGridReports
 		public string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
 		{
 			var nextOppTeam = p.NextOpponentTeam( g );
-			//var defensiveRating = nextOppTeam.DefensiveUnit(p.PlayerCat);
 			var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
 			var matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
 			var owners = p.LoadAllOwners();
