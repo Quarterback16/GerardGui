@@ -126,13 +126,14 @@ namespace RosterLib
 		private string SubHeading()
 		{
 			var header = Legend();
-			var div = HtmlLib.DivOpen( "id=\"main\"" ) + GameData() + EndDiv() + HtmlLib.DivClose();
-			return string.Format( "{0}{1}\n", header, div );
+			var div = HtmlLib.DivOpen( "id=\"main\"" ) 
+				+ GameData() + EndDiv() + HtmlLib.DivClose();
+			return $"{header}{div}\n";
 		}
 
 		private string Legend()
 		{
-			return string.Format( "\n<h3>{0}</h3>\n", Game.GameName() );
+			return string.Format( "\n<h3>{0}</h3>\n", Game.GameName(linkToDepthChart:true) );
 		}
 
 		private static string EndDiv()

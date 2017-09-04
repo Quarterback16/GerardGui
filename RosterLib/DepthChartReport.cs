@@ -38,16 +38,19 @@ namespace RosterLib
 		{
 			LeagueInFocus = Constants.K_LEAGUE_Yahoo;
 
+			var totalPlayers = 0;
 			var season = new NflSeason( Season, teamsOnly: true );
 			foreach ( var team in season.TeamList )
 			{
 				TeamCode = team.TeamCode;
 				Execute();
+				totalPlayers += PlayerCount;
 #if DEBUG
             break;
 #endif
 			}
 			DumpErrors();
+			TraceIt( $"   {TeamCode} Player Count : {totalPlayers}" );
 		}
 
 		public void Execute()

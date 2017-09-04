@@ -882,9 +882,16 @@ namespace RosterLib
 			return row;
 		}
 
-		public string GameName()
+		public string GameName( bool linkToDepthChart = false)
 		{
-			return string.Format( "{0}:{1} {2} @ {3}", Season, Week, AwayTeam, HomeTeam );
+			if (linkToDepthChart)
+				return $"{Season}:{Week} {DepthChartLink(AwayTeam)} @ {DepthChartLink(HomeTeam)}";
+			return $"{Season}:{Week} {AwayTeam} @ {HomeTeam}";
+		}
+
+		public string DepthChartLink( string teamCode )
+		{
+			return $"<a href='..\\..\\..\\DepthCharts\\{teamCode}.htm'>{teamCode}</a>";
 		}
 
 		public override string ToString()

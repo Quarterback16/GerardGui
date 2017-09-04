@@ -50,12 +50,13 @@ namespace Butler.Models
 			whyNot = string.Empty;
 			base.IsTimeTodo( out whyNot );
 
-			if ( string.IsNullOrEmpty( whyNot ) )
-			{
-				var dow = ( int ) TimeKeeper.CurrentDateTime().Day;
-				if ( dow % 2 != 0 )
-					whyNot = "Only runs on even numbered days";
-			}
+			//  Job is rigged to send all missed logs anyway so this just results in 2 a day
+			//if ( string.IsNullOrEmpty( whyNot ) )
+			//{
+			//	var dow = ( int ) TimeKeeper.CurrentDateTime().Day;
+			//	if ( dow % 2 != 0 )
+			//		whyNot = "Only runs on even numbered days";
+			//}
 
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
