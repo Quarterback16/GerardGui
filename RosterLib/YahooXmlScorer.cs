@@ -19,8 +19,9 @@ namespace RosterLib
       }
 
       public NFLWeek Week { get; set; }
+		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-      public YahooXmlScorer( NFLWeek week )
+		public YahooXmlScorer( NFLWeek week )
       {
          Name = "Yahoo XML Scorer";
          Week = week;

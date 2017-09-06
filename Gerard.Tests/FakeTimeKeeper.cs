@@ -83,12 +83,14 @@ namespace Gerard.Tests
 
 		public bool IsItPostSeason()
 		{
-			return false;
+			var nWeek = Int32.Parse( Week );
+			return nWeek > 17;
 		}
 
 		public bool IsItRegularSeason()
 		{
-			return false;
+			var nWeek = Int32.Parse( Week );
+			return nWeek > 0 && nWeek < 18;
 		}
 
 		public bool IsItQuietTime()

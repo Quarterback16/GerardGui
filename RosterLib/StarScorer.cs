@@ -19,6 +19,7 @@ namespace RosterLib
 		public bool ScoresOnly { get; set; }
 
 		public string Season { get; set; }
+		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
 		{

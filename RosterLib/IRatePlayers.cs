@@ -16,5 +16,6 @@ namespace RosterLib
 		string Name { get; set; }
 
 		XmlCache Master { get; set; }
+		bool AnnounceIt { get; set; }
 	}
 }

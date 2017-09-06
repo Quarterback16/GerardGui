@@ -18,11 +18,18 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestTimetoDoGameSummaries()
+		public void TestTimetoDoGameSummariesIsAfterWeek1()
 		{
-			var sut = new GameSummariesJob( new TimeKeeper( clock: null ) );
-			string whyNot;
-			Assert.IsFalse( sut.IsTimeTodo( out whyNot ) );
+			var sut = new GameSummariesJob( new FakeTimeKeeper( "2017", "02" ) );
+			Assert.IsTrue( sut.IsTimeTodo( out string whyNot ) );
+			Console.WriteLine( whyNot );
+		}
+
+		[TestMethod]
+		public void TestTimetoDoGameSummariesNotBeforeWeek2()
+		{
+			var sut = new GameSummariesJob( new FakeTimeKeeper( "2017", "01" ) );
+			Assert.IsFalse( sut.IsTimeTodo( out string whyNot ) );
 			Console.WriteLine( whyNot );
 		}
 	}

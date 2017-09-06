@@ -59,6 +59,7 @@ namespace RosterLib
 		}
 
 		public NFLWeek Week { get; set; }
+		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		#endregion
 

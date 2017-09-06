@@ -66,9 +66,6 @@ namespace RosterLib
          return Environment.MachineName;
       }
 
-      //public static readonly ILog Log = LogManager.GetLogger(
-      //    MethodBase.GetCurrentMethod().DeclaringType);
-
       public static string RatingPts(string ratings)
       {
          int i;

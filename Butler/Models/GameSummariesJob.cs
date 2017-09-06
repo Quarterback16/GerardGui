@@ -1,6 +1,7 @@
 ﻿using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
+using System;
 
 namespace Butler.Models
 {
@@ -36,11 +37,20 @@ namespace Butler.Models
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				if ( !TimeKeeper.IsItRegularSeason() )
-					whyNot = "Its not the regular season yet";
+				{
+					whyNot = "The Season hasnt started yet";
+				}
+
+				if ( string.IsNullOrEmpty( whyNot ) )
+				{
+					if ( TimeKeeper.CurrentWeek( DateTime.Now ) < 2 )
+						whyNot = "Wait till the first week is over";
+				}
 			}
 
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
+
 			return ( string.IsNullOrEmpty( whyNot ) );
 		}
 	}

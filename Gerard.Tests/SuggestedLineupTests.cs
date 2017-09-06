@@ -21,8 +21,9 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestSuggestedPerfectChallengeLineupForWeek1()
       {
-         var r2 = new SuggestedLineup( Constants.K_LEAGUE_PerfectChallenge,
-                                       Constants.KOwnerSteveColonna, "CC",
+         var r2 = new SuggestedLineup( Constants.K_LEAGUE_Yahoo,
+                                       Constants.KOwnerSteveColonna, 
+									   "CC",
 									   new FakeTimeKeeper( season: "2017", week: "01" ) )
 		 {
 			 IncludeSpread = true,
@@ -30,18 +31,29 @@ namespace Gerard.Tests
 			 IncludeFreeAgents = true
 		 };
          r2.Render();
-         Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
+         Assert.IsTrue( 
+			 File.Exists( r2.FileName() ), 
+			 $"Cannot find {r2.FileName()}" );
       }
 
       [TestMethod]
       public void TestSuggestedPerfectChallengeLineupForWeek1Of2011()
       {
-         var r2 = new SuggestedLineup( Constants.K_LEAGUE_PerfectChallenge,
-                                       Constants.KOwnerSteveColonna, "CC",
-									   new FakeTimeKeeper( season: "2011", week: "01" ) )
-		 { IncludeSpread = true, IncludeRatingModifier = true, IncludeFreeAgents = true };
+         var r2 = new SuggestedLineup( 
+			 Constants.K_LEAGUE_PerfectChallenge,
+             Constants.KOwnerSteveColonna, 
+			 "CC",
+			 new FakeTimeKeeper( season: "2011", week: "01" ) )
+		 {
+			 IncludeSpread = true,
+			 IncludeRatingModifier = true,
+			 IncludeFreeAgents = true
+		 };
          r2.Render();
-         Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
+         Assert.IsTrue( 
+			 File.Exists( r2.FileName() ), 
+			 string.Format( "Cannot find {0}", 
+			 r2.FileName() ) );
       }
 
       [TestMethod]
@@ -50,7 +62,10 @@ namespace Gerard.Tests
          var r2 = new SuggestedLineup( Constants.K_LEAGUE_Gridstats_NFL1,
                                        Constants.KOwnerSteveColonna, "CC",
 									   new FakeTimeKeeper( season: "2011", week: "01" ) )
-		 { IncludeSpread = false, IncludeRatingModifier = false };
+		 {
+			 IncludeSpread = false,
+			 IncludeRatingModifier = false
+		 };
          r2.Render();
          Assert.IsTrue( File.Exists( r2.FileName() ), string.Format( "Cannot find {0}", r2.FileName() ) );
       }

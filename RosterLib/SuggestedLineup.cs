@@ -1,4 +1,5 @@
-﻿using RosterLib.Interfaces;
+﻿using NLog;
+using RosterLib.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +37,6 @@ namespace RosterLib
 		///   options to set after instantiation
 		/// </summary>
 		public bool IncludeFreeAgents { get; set; }
-
 		public bool IncludeSpread { get; set; }
 		public bool IncludeRatingModifier { get; set; }
 
@@ -91,9 +91,15 @@ namespace RosterLib
 		public SuggestedLineup( string leagueId, string ownerCode, string teamCode, 
 			IKeepTheTime timekeeper ) : base( timekeeper )
 		{
-#if DEBUG2
-         Utility.Announce(string.Format("Suggesting a lineup for {0} in league {1} team {2} - {3}:{4}",
-                                        ownerCode, leagueId, teamCode, season, week));
+#if DEBUG
+         Announce($@"Suggesting a lineup for {
+			 ownerCode
+			 } in league {
+			 leagueId
+			 } team {
+			 teamCode
+			 } - {
+			 timekeeper.Season}:{timekeeper.Week}");
 #endif
 			LeagueId = leagueId;
 			League = new FantasyLeague( leagueId );
@@ -107,7 +113,9 @@ namespace RosterLib
 				Scorer = new EspnScorer( NflWeek );
 			else
 				Scorer = new GS4Scorer( NflWeek );
-
+#if DEBUG
+			Scorer.AnnounceIt = true;
+#endif
 			_usedPlayers = new List<NFLPlayer>();
 			RankMaster = new Hashtable();
 			IncludeFreeAgents = false;
@@ -118,8 +126,7 @@ namespace RosterLib
 			foreach ( var rpt in Configs )
 			{
 #if DEBUG
-				Utility.Announce( string.Format( "Suggesting a lineup for {0} in league {1} team {2} - {3}:{4}",
-											   rpt.OwnerCode, rpt.League, rpt.TeamCode, rpt.Season, rpt.Week ) );
+				Announce($"Suggesting a lineup for {rpt.OwnerCode} in league {rpt.League} team {rpt.TeamCode} - {rpt.Season}:{rpt.Week}" );
 #endif
 				LeagueId = rpt.League;
 				League = new FantasyLeague( rpt.League );
@@ -147,7 +154,7 @@ namespace RosterLib
 
 		public void Render()
 		{
-			var str = new SimpleTableReport( string.Format( "Suggested Lineup {0}:{1:#0} {2}", Season, Week, LeagueId ) );
+			var str = new SimpleTableReport( $"Suggested Lineup {Season}:{Week:#0} {LeagueId}" );
 			str.AddDenisStyle();
 			str.ColumnHeadings = true;
 			str.DoRowNumbers = false;
@@ -171,8 +178,7 @@ namespace RosterLib
 
 		public string FileName()
 		{
-			return string.Format( "{0}{1}//Lineups//{3}//Suggested-{4}-{2:0#}.htm",
-			   Utility.OutputDirectory(), Season, Week, LeagueId, OwnerCode );
+			return $"{Utility.OutputDirectory()}{Season}//Lineups//{LeagueId}//Suggested-{OwnerCode}-{Week:0#}.htm";
 		}
 
 		private DataTable BuildTable()
@@ -194,10 +200,13 @@ namespace RosterLib
 			// starters
 			foreach ( var s in League.LineupSlots )
 			{
-				Utility.Announce( string.Format( "  Picking a player for slot {0} - {1}, rank {2}",
-														 s.SlotNumber, s.SlotCode, s.Rank ) );
+				Announce(
+					$"  Picking a player for slot {s.SlotNumber} - {s.SlotCode}, rank {s.Rank}" );
 				PickPlayer( s );
 				AddPlayerLineWithPlayer( dt, false, s.PlayerSelected, s.SlotNumber );
+#if DEBUG
+				break;
+#endif
 			}
 			//  blank line
 			var blank = dt.NewRow();
@@ -220,21 +229,22 @@ namespace RosterLib
 			if ( ( LeagueId.Equals( Constants.K_LEAGUE_Yahoo ) || LeagueId.Equals( Constants.K_LEAGUE_PerfectChallenge ) )
 			   && IncludeFreeAgents )
 			{
-#if !DEBUG2
 				var blank2 = dt.NewRow();
 				dt.Rows.Add( blank2 );
 				AddFreeAgents( dt, "1" );
 
+#if !DEBUG
 				var blank3 = dt.NewRow();
 				dt.Rows.Add( blank3 );
 				AddFreeAgents( dt, "2" );
 				var blank4 = dt.NewRow();
 				dt.Rows.Add( blank4 );
 				AddFreeAgents( dt, "3" );
-#endif
+
 				var blank5 = dt.NewRow();
 				dt.Rows.Add( blank5 );
 				AddFreeAgents( dt, "4" );
+#endif
 			}
 			return dt;
 		}
@@ -290,9 +300,7 @@ namespace RosterLib
 				dr[ "POS" ] = p.PlayerPos;
 
 				dr[ "PTS" ] = RankPoints( p, game, opponent );
-				dr[ "GAME" ] = string.Format( "{0} {1} {2}",
-										   game.GameDay(), game.Hour, game.OpponentOut( p.CurrTeam.TeamCode ) );
-				//				dr["SPREAD"] = PlayerSpread(game.GetSpread(), game.IsHome(p.CurrTeam.TeamCode));
+				dr[ "GAME" ] = $"{game.GameDay()} {game.Hour} {game.OpponentOut( p.CurrTeam.TeamCode )}";
 				dr[ "SPREAD" ] = game.GetSpread();
 				dr[ "TOTAL" ] = game.Total;
 
@@ -406,12 +414,13 @@ namespace RosterLib
 					AddPlayer( dr[ playerCode ].ToString().Trim(), slot.SlotType, freeAgent: false );
 				}
 #if DEBUG
-				Utility.Announce( string.Format( "{0} players on the roster for {1}", _playerList.Count, OwnerCode ) );
+				Announce($"{_playerList.Count} players on the roster for {OwnerCode}" );
 #endif
 				rosterCount = _playerList.Count;
 			}
 
-			if ( ( LeagueId.Equals( Constants.K_LEAGUE_Yahoo ) || LeagueId.Equals( Constants.K_LEAGUE_PerfectChallenge ) )
+			if ( ( LeagueId.Equals( Constants.K_LEAGUE_Yahoo ) 
+				|| LeagueId.Equals( Constants.K_LEAGUE_PerfectChallenge ) )
 			   && IncludeFreeAgents )
 			{
 				//  append to the roster all free agents starters available
@@ -426,14 +435,17 @@ namespace RosterLib
 				var ds = Utility.TflWs.GetOffensivePlayers( cats );
 				foreach ( var row in ds.Tables[ 0 ].Rows.Cast<DataRow>()
 				   .Where( row => !HaveAlreadyGotOne( row[ "PLAYERID" ].ToString().Trim() ) ) )
-					AddPlayer( row[ "PLAYERID" ].ToString().Trim(), slot.SlotType, freeAgent: true );
+					AddPlayer( 
+						row[ "PLAYERID" ].ToString().Trim(), 
+						slot.SlotType, 
+						freeAgent: true );
 #if DEBUG
-				Utility.Announce( string.Format( "{0} players added as free agents", _playerList.Count - rosterCount ) );
+				Announce($"{_playerList.Count - rosterCount} players added as free agents" );
 #endif
 			}
 
 #if DEBUG
-			Utility.Announce( string.Format( "{0} players to choose from for {1}", _playerList.Count, slot.SlotCode ) );
+			Announce($"{_playerList.Count} players to choose from for {slot.SlotCode}" );
 #endif
 			// pick the best player from the list
 			slot.PlayerSelected = ChooseBestPlayer( slot );
@@ -448,7 +460,7 @@ namespace RosterLib
 		private NFLPlayer ChoosePlayerForSlot( int rank )
 		{
 #if DEBUG
-			Utility.Announce( "    Choosing from:" );
+			Announce("    Choosing from:" );
 #endif
 			//  start with dummy player
 			var selectedPlayer = new NFLPlayer( "-", "**", "?", "*", "-", "*", null );
@@ -459,6 +471,12 @@ namespace RosterLib
 				var opponent = plyr.CurrTeam.OpponentFor( Season, Week );
 				if ( opponent != null )
 				{
+					Announce( $@"{
+						plyr.PlayerNameShort
+						} >> {
+						game.ResultOut( plyr.CurrTeam.TeamCode, true )
+						}" );
+
 					//  work out projected points
 					plyr.Points = RankPoints( plyr, game, opponent );
 
@@ -487,11 +505,11 @@ namespace RosterLib
 				selectedPlayer = availablePlayers[ selectionIndex ];
 
 			foreach ( var p in availablePlayers )
-				Utility.Announce( string.Format( "      {0,-16} who has {1,4:#0.#} points",
+				Announce(string.Format( "      {0,-16} who has {1,4:#0.#} points",
 												 p.PlayerNameShort, p.Points ) );
-			Utility.Announce( string.Format( "   {0} has been selected with {1:#0.#} points",
+			Announce(string.Format( "   {0} has been selected with {1:#0.#} points",
 													 selectedPlayer.PlayerNameShort, selectedPlayer.Points ) );
-			Utility.Announce( "   ------------------------------------------------" );
+			Announce("   ------------------------------------------------" );
 
 			return selectedPlayer;
 		}
@@ -580,7 +598,7 @@ namespace RosterLib
 
 #if DEBUG
 			//  verbose audit trail of the calculations
-			//Utility.Announce( string.Format(
+			//Announce(string.Format(
 			//   "{0,-16} has {1,4:#0.#} r pts- spr {2,4:#0.#} avgFP last 3 {3,4:##.#} rating mod {4,4:#0.#} {5}",
 			//   player.PlayerNameShort, points, spreadModifier, avgPoints, ratingModifier, oppRating ) );
 #endif
@@ -602,7 +620,7 @@ namespace RosterLib
 			nTotal += Scorer.RatePlayer( p, threeWeeksAgo );
 
 #if DEBUG
-			//			Utility.Announce( string.Format( "Total points last three games {0}", nTotal ) );
+			//			Announce(string.Format( "Total points last three games {0}", nTotal ) );
 #endif
 			return nTotal / 3;
 		}
@@ -631,7 +649,10 @@ namespace RosterLib
 			return modifier;
 		}
 
-		private void AddPlayer( string playerId, IEnumerable<string> slotTypes, [Optional] bool freeAgent )
+		private void AddPlayer( 
+			string playerId, 
+			IEnumerable<string> slotTypes, 
+			[Optional] bool freeAgent )
 		{
 			if ( playerId.Trim().Length <= 0 ) return;
 
@@ -656,10 +677,16 @@ namespace RosterLib
 
 		private bool IsAvailable( NFLPlayer p )
 		{
+#if DEBUG
+			return true;
+#else
 			return p.Owner.Equals( "**" ) || p.Owner.Equals( TeamCode );
+#endif
 		}
 
-		private bool IsEligible( NFLPlayer p, IEnumerable<string> slotTypes )
+		private bool IsEligible( 
+			NFLPlayer p, 
+			IEnumerable<string> slotTypes )
 		{
 			var isEligible = false;
 
@@ -673,7 +700,8 @@ namespace RosterLib
 				{
 					if ( slottype.Equals( "2" ) )
 					{
-						if ( p.PlayerCat.Equals( "2" ) && ( p.PlayerPos.Contains( "RB" ) || p.PlayerPos.Contains( "HB" ) ) )
+						if ( p.PlayerCat.Equals( "2" ) 
+							&& ( p.PlayerPos.Contains( "RB" ) || p.PlayerPos.Contains( "HB" ) ) )
 						{
 							isEligible = true;
 							break;
@@ -704,6 +732,14 @@ namespace RosterLib
 				}
 			}
 			return isEligible;
+		}
+
+		public void Announce( string message )
+		{
+			if ( Logger == null )
+				Logger = LogManager.GetCurrentClassLogger();
+
+			Logger.Info( "   " + message );
 		}
 	}
 

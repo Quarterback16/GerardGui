@@ -6,17 +6,7 @@ namespace Gerard.Tests
 	[TestClass]
 	public class NflDivisionTests
 	{
-		private NFLDivision _sut;
 
-		[TestInitialize]
-		public void TestInitialize()
-		{
-		}
-
-		[TestCleanup]
-		public void TearDown()
-		{
-		}
 
 		[TestMethod]
 		public void TestQuickConstructor()

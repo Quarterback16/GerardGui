@@ -64,7 +64,8 @@ namespace RosterLib
          if (ScheduleAvailable)
          {
             var now = SystemClock.Now;
-            return now >= SeasonStarts && now <= RegularSeasonEnds;
+			//  add a day for Aus time
+            return now >= SeasonStarts.AddDays(1) && now <= RegularSeasonEnds;
          }
          var month = SystemClock.GetMonth();
          return month >= 9 && month <= 12;

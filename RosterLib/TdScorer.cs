@@ -176,6 +176,8 @@ namespace RosterLib
 			set { m_ScoresOnly = value; }
 		}
 
+		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 		private void PointsLine( string scoreType, string name, int pts )
 		{
 			RosterLib.Utility.Announce( string.Format( "    {2,3} for {0,-15}- {1,2} points", name, pts, scoreType ) );

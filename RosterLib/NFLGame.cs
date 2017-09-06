@@ -2422,6 +2422,7 @@ namespace RosterLib
 		public void LoadHomeLineup()
 		{
 			//TODO Lineups may be missing people
+			//if ( HomeTeam == null || Season == null || WeekNo == 0 ) return;
 			HomeLineup = new Lineup( Utility.TflWs.GetLineup( HomeTeam, Season, WeekNo ) );
 			HomeQb1 = DetermineHomePlayerAt( "QB" );  //  first one you find!!
 			HomeQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameKey(), HomeQb1.PlayerCode );

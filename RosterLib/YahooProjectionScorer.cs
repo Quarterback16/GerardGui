@@ -1,4 +1,5 @@
-﻿using Helpers;
+﻿using System;
+using Helpers;
 
 namespace RosterLib
 {
@@ -11,6 +12,7 @@ namespace RosterLib
 		public bool ScoresOnly { get; set; }
 		public string Name { get; set; }
 		public XmlCache Master { get; set; }
+		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
 		{
