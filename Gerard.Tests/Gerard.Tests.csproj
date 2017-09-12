@@ -131,6 +131,7 @@
     <Compile Include="NflDivisionTests.cs" />
     <Compile Include="NFLPlayerTests.cs" />
     <Compile Include="NflScheduleTests.cs" />
+    <Compile Include="NflSeasonTests.cs" />
     <Compile Include="OldRosterGridTests.cs" />
     <Compile Include="OutputProjectionsTests.cs" />
     <Compile Include="PassUnitTests.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="TeamCardTests.cs" />
     <Compile Include="TeamRankerTests.cs" />
     <Compile Include="PositionReportTests.cs" />
-    <Compile Include="TestGamebookGetter.cs" />
+    <Compile Include="GamebookGetterTests.cs" />
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />
     <Compile Include="TimeKeeperTests.cs" />

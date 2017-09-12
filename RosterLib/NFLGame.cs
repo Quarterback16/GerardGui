@@ -2425,18 +2425,24 @@ namespace RosterLib
 			//if ( HomeTeam == null || Season == null || WeekNo == 0 ) return;
 			HomeLineup = new Lineup( Utility.TflWs.GetLineup( HomeTeam, Season, WeekNo ) );
 			HomeQb1 = DetermineHomePlayerAt( "QB" );  //  first one you find!!
-			HomeQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameKey(), HomeQb1.PlayerCode );
-			HomeRb1 = DetermineHomePlayerAt( "RB" );  //TODO:  get this from stats  first one
-			HomeRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameKey(), HomeRb1.PlayerCode );
+			if ( HomeQb1 != null )
+			{
+				HomeQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameKey(), HomeQb1.PlayerCode );
+				HomeRb1 = DetermineHomePlayerAt( "RB" );  //TODO:  get this from stats  first one
+				HomeRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameKey(), HomeRb1.PlayerCode );
+			}
 		}
 
 		public void LoadAwayLineup()
 		{
 			AwayLineup = new Lineup( Utility.TflWs.GetLineup( AwayTeam, Season, WeekNo ) );
 			AwayQb1 = DetermineAwayPlayerAt( "QB" );
-			AwayQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameCode, AwayQb1.PlayerCode );
-			AwayRb1 = DetermineAwayPlayerAt( "RB" );
-			AwayRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameCode, AwayRb1.PlayerCode );
+			if ( AwayQb1 != null )
+			{
+				AwayQb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameCode, AwayQb1.PlayerCode );
+				AwayRb1 = DetermineAwayPlayerAt( "RB" );
+				AwayRb1.CurrentGameMetrics = PgmDao.GetPlayerWeek( GameCode, AwayRb1.PlayerCode );
+			}
 		}
 
 		private NFLPlayer DetermineAwayPlayerAt( string pos )

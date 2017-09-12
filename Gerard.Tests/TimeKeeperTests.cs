@@ -14,6 +14,7 @@ namespace Gerard.Tests
 			Console.WriteLine( $"Season : {sut.Season} Week {sut.Week}" );
 			Console.WriteLine( $"Schedule Available :{sut.ScheduleAvailable}" );
 			Console.WriteLine( $"IsItPreseason      :{sut.IsItPreseason()}" );
+			Console.WriteLine( $"IsItPostSeason     :{sut.IsItPostSeason()}" );
 			Console.WriteLine( $"IsItQuietTime      :{sut.IsItQuietTime()}" );
 			Console.WriteLine( $"IsItPeakTime       :{sut.IsItPeakTime()}" );
 			Console.WriteLine( $"IsItWednesday      :{sut.IsItWednesday(DateTime.Now)}" );

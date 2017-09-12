@@ -53,7 +53,7 @@ namespace RosterLib
          if ( ScheduleAvailable )
          {
             var now = SystemClock.Now;
-            return now < SeasonStarts;
+            return now < SeasonStarts.AddDays(1);
          }
          var month = SystemClock.GetMonth();
          return month >= 3 && month < 9;

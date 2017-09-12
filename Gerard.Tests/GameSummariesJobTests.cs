@@ -12,7 +12,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoGameSummariesJob()
 		{
-			var sut = new GameSummariesJob( new FakeTimeKeeper( "2016", "18" ) );
+			var sut = new GameSummariesJob( new FakeTimeKeeper( "2017", "01" ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}

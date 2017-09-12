@@ -150,17 +150,23 @@ namespace RosterLib
 		private void AddRB1Row( DataTable dt )
 		{
 			var dr = dt.NewRow();
-			dr[ "COL01" ] = Game.AwayRb1.PlayerName;
-			dr[ "COL02" ] = Output( Game.AwayRb1.CurrentGameMetrics.YDp, "YDp" );
-			dr[ "COL03" ] = Output( Game.AwayRb1.CurrentGameMetrics.TDp, "TDp" );
-			dr[ "COL04" ] = Output( Game.AwayRb1.CurrentGameMetrics.YDr, "YDr" );
-			dr[ "COL05" ] = Output( Game.AwayRb1.CurrentGameMetrics.TDr, "TDr" );
+			if ( Game.AwayRb1 != null )
+			{
+				dr[ "COL01" ] = Game.AwayRb1.PlayerName;
+				dr[ "COL02" ] = Output( Game.AwayRb1.CurrentGameMetrics.YDp, "YDp" );
+				dr[ "COL03" ] = Output( Game.AwayRb1.CurrentGameMetrics.TDp, "TDp" );
+				dr[ "COL04" ] = Output( Game.AwayRb1.CurrentGameMetrics.YDr, "YDr" );
+				dr[ "COL05" ] = Output( Game.AwayRb1.CurrentGameMetrics.TDr, "TDr" );
+			}
 			dr[ "COL06" ] = "RB";
-			dr[ "COL07" ] = Game.HomeRb1.PlayerName;
-			dr[ "COL08" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDp, "YDp" );
-			dr[ "COL09" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDp, "TDp" );
-			dr[ "COL10" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDr, "YDr" );
-			dr[ "COL11" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDr, "TDr" );
+			if ( Game.HomeRb1 != null )
+			{
+				dr[ "COL07" ] = Game.HomeRb1.PlayerName;
+				dr[ "COL08" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDp, "YDp" );
+				dr[ "COL09" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDp, "TDp" );
+				dr[ "COL10" ] = Output( Game.HomeRb1.CurrentGameMetrics.YDr, "YDr" );
+				dr[ "COL11" ] = Output( Game.HomeRb1.CurrentGameMetrics.TDr, "TDr" );
+			}
 			dt.Rows.Add( dr );
 		}
 
@@ -175,17 +181,23 @@ namespace RosterLib
 		private void AddQB1Row( DataTable dt )
 		{
 			var dr = dt.NewRow();
-			dr[ "COL01" ] = Game.AwayQb1.PlayerName;
-			dr[ "COL02" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDp, "YDp" );
-			dr[ "COL03" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDp, "TDp" );
-			dr[ "COL04" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDr, "YDr" );
-			dr[ "COL05" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDr, "TDr" );
+			if ( Game.AwayQb1 != null )
+			{
+				dr[ "COL01" ] = Game.AwayQb1.PlayerName;
+				dr[ "COL02" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDp, "YDp" );
+				dr[ "COL03" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDp, "TDp" );
+				dr[ "COL04" ] = Output( Game.AwayQb1.CurrentGameMetrics.YDr, "YDr" );
+				dr[ "COL05" ] = Output( Game.AwayQb1.CurrentGameMetrics.TDr, "TDr" );
+			}
 			dr[ "COL06" ] = "QB";
-			dr[ "COL07" ] = Game.HomeQb1.PlayerName;
-			dr[ "COL08" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDp, "YDp" );
-			dr[ "COL09" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDp, "TDp" );
-			dr[ "COL10" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDr, "YDr" );
-			dr[ "COL11" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDr, "TDr" );
+			if ( Game.HomeQb1 != null )
+			{
+				dr[ "COL07" ] = Game.HomeQb1.PlayerName;
+				dr[ "COL08" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDp, "YDp" );
+				dr[ "COL09" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDp, "TDp" );
+				dr[ "COL10" ] = Output( Game.HomeQb1.CurrentGameMetrics.YDr, "YDr" );
+				dr[ "COL11" ] = Output( Game.HomeQb1.CurrentGameMetrics.TDr, "TDr" );
+			}
 			dt.Rows.Add( dr );
 		}
 

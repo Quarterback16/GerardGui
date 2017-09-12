@@ -45,7 +45,7 @@ namespace RosterLib
 				TeamCode = team.TeamCode;
 				Execute();
 				totalPlayers += PlayerCount;
-#if DEBUG
+#if DEBUG2
             break;
 #endif
 			}

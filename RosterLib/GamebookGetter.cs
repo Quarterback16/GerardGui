@@ -1,12 +1,12 @@
-﻿using RosterLib.Interfaces;
+﻿using Helpers;
+using RosterLib.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Helpers;
 
 namespace RosterLib
 {
-   public class GamebookGetter : IGetGamebooks
+	public class GamebookGetter : IGetGamebooks
 	{
 		public readonly IDownloader Downloader;
 
@@ -34,8 +34,8 @@ namespace RosterLib
 			{
 				//Console.WriteLine("{0}: {1}", key, gameDict[key]);
 				var g = gameDict[ key ];
-            if (g.Id=="0")
-				   g.Id = seed.ToString();
+				if ( g.Id == "0" )
+					g.Id = seed.ToString();
 				var url = g.GamebookUrl();
 				Console.WriteLine( url );
 				var uri = new Uri( url );
