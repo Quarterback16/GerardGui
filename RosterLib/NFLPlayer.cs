@@ -1302,6 +1302,11 @@ namespace RosterLib
 			return ( PlayerCat == Constants.K_RECEIVER_CAT ) && Contains( "TE", PlayerPos );
 		}
 
+		public bool IsQb()
+		{
+			return ( PlayerCat == Constants.K_QUARTERBACK_CAT ) && Contains( "QB", PlayerPos );
+		}
+
 		public bool IsRb()
 		{
 			return ( PlayerCat == Constants.K_RUNNINGBACK_CAT );

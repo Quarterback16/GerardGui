@@ -146,5 +146,13 @@ namespace Gerard.Tests
 			Assert.IsTrue( count1 == count2 );
 			Assert.IsFalse( team.RunUnit.HasIntegrityError() );
 		}
+
+		[TestMethod]
+		public void DC_RunUnit_UsesStandard()
+		{
+			var team = new NflTeam( "DC" );
+			var ru = team.LoadRushUnit();
+			Assert.AreEqual( RunApproach.Standard, team.RunUnit.DetermineApproach() );
+		}
 	}
 }

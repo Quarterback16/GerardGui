@@ -94,7 +94,7 @@ namespace RosterLib
 			Week = weekIn;
 			_sched = Utility.TflWs.GetGames(Int32.Parse(seasonIn), Int32.Parse(weekIn));
 #if DEBUG
-			Utility.Announce(string.Format("NFLWeek.Init {0} has {1} games", weekIn, _sched.Tables[0].Rows.Count ) );
+			Utility.Announce($"NFLWeek.Init {weekIn} has {_sched.Tables[ 0 ].Rows.Count} games" );
 #endif
 		}
 

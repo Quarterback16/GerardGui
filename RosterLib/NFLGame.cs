@@ -2319,7 +2319,7 @@ namespace RosterLib
 			var theWeek = new NFLWeek( Season, WeekNo );
 
 			var scorer = new YahooScorer( theWeek );
-			//  Lineup could be missing some people
+			//  Lineup could be missing some people, manually entered games will have NO LINEUP
 			var playerList = LoadLineupPlayers( nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam );
 			foreach ( var nflPlayer in playerList )
 			{

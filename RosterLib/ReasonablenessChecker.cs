@@ -28,7 +28,7 @@ namespace RosterLib
 			//  Initally hard code the rules
 			AddRule( Constants.K_CHECK_TOTAL_SACKS, 8, 80);
 			// team sacks in a game
-			AddRule( Constants.K_STATCODE_SACK, 0, 9 );
+			AddRule( Constants.K_STATCODE_SACK, 0, 11 );
 		}
 
 		private void AddRule(string ruleOn, decimal loVal, decimal hiVal)

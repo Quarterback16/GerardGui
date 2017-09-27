@@ -389,7 +389,10 @@ namespace RosterLib
 			if ( nR1 == 1 && nR2 == 0 )
 				return RunApproach.Ace;
 
-			Logger.Info( $"Unknown approach for {TeamCode}" );
+			//if ( nR1 == 1 && nR2 > 1 )
+			//	return RunApproach.RoleBased;
+
+			Logger.Trace( $"Unknown approach for {TeamCode}" );
 			return RunApproach.Standard;
 		}
 	}

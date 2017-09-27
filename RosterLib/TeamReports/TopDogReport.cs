@@ -31,7 +31,6 @@ namespace RosterLib.TeamReports
 			AddKickerReport();
 		}
 
-
 		private void AddTightEndReport()
 		{
 			var config = new TopDogReportOptions()
@@ -305,7 +304,7 @@ namespace RosterLib.TeamReports
 			return link;
 		}
 
-		private NFLPlayer TopDog( NflTeam team, string theWeek, DataSet gameDs )
+		public NFLPlayer TopDog( NflTeam team, string theWeek, DataSet gameDs )
 		{
 			var game = new NFLGame( gameDs.Tables[ 0 ].Rows[ 0 ] );
 			var week = new NFLWeek( Season, theWeek );
@@ -324,6 +323,13 @@ namespace RosterLib.TeamReports
 				if ( PositionAbbr == "TE" )
 				{
 					if ( ! p.IsTe() )
+					{
+						continue;
+					}
+				}
+				if ( PositionAbbr == "QB" )
+				{
+					if ( !p.IsQb() )
 					{
 						continue;
 					}

@@ -36,7 +36,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestSingleTeam()
       {
-         var sut = new RoleAssignmentReport( "CP", new TimeKeeper(null) );
+         var sut = new RoleAssignmentReport( "DC", new TimeKeeper(null) );
          sut.RenderAsHtml();
          Assert.IsTrue( sut.RunTime > new TimeSpan( 0,0,0 ) );
       }
