@@ -104,6 +104,7 @@
     <Compile Include="Models\GameProjectionReportsJob.cs" />
     <Compile Include="Models\GameSummariesJob.cs" />
     <Compile Include="Models\GeneratePlayerProjectionsJob.cs" />
+    <Compile Include="Models\GoalLineReportJob.cs" />
     <Compile Include="Models\HotListsJob.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\LogCleanupJob.cs" />

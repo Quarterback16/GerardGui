@@ -74,7 +74,7 @@ namespace RosterLib
 		{
 			RenderAsHtml(); //  the old method that does the work
 			Finish();
-			var finishedMessage = string.Format( "Rendered {0} to {1}", Name, OutputFilename() );
+			var finishedMessage = $"Rendered {Name} to {OutputFilename()}";
 			Logger.Info( "  {0}", finishedMessage );
 			return finishedMessage;
 		}

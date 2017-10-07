@@ -6,33 +6,49 @@ using System.Data;
 
 namespace RosterLib
 {
-   public class GoallineReport : RosterGridReport, IHtmlReport
+	public class GoallineReport : RosterGridReport, IHtmlReport
 	{
 		public GoallineReport( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
-
+			Name = "Goalline Report";
+			Season = timekeeper.Season;
+			Week = timekeeper.Week;
 		}
+
 		public Dictionary<string, NflTeam> TeamList { get; set; }
 
 		public string Week { get; set; }
+
+		public override void RenderAsHtml()
+		{
+			Render();
+		}
 
 		public void Render()
 		{
 			LoadTeams();  //  By each Team
 
 			var heading = Week == null ? "GL Scores Season " + Season : "Scores : Week " + Week;
-			var str = new SimpleTableReport( heading );
-			str.ColumnHeadings = true;
-			str.DoRowNumbers = true;
+			var str = new SimpleTableReport( heading )
+			{
+				ColumnHeadings = true,
+				DoRowNumbers = true
+			};
 			str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
 			str.AddColumn( new ReportColumn( "Total", "TOTAL", "{0}" ) );
 			AddWeeklyColumns( str );
 
 			str.LoadBody( BuildAndLoadDataTable() );
 
-			FileOut = Week == null ? string.Format( "{0}{1}//Scores//GLScores.htm", Utility.OutputDirectory(), Season )
-				: string.Format( "{0}{1}//Scores//GLScores-{2}.htm", Utility.OutputDirectory(), Season, Week );
+			FileOut = Week == null ?
+				$"{Utility.OutputDirectory()}{Season}//Scores//GLScores.htm"
+				: $"{Utility.OutputDirectory()}{Season}//Scores//GLScores-{Week}.htm";
 			str.RenderAsHtml( FileOut, persist: true );
+		}
+
+		public override string OutputFilename()
+		{
+			return FileOut;
 		}
 
 		private static void AddWeeklyColumns( SimpleTableReport str )
@@ -45,47 +61,47 @@ namespace RosterLib
 		}
 
 		private DataTable BuildAndLoadDataTable()
-      {
-         DataTable dt = BuildDataTable();
+		{
+			DataTable dt = BuildDataTable();
 
-         var scores = Week == null ?
-            Utility.TflWs.ScoresDs( Season )
-            : Utility.TflWs.ScoresDs( Season, Week );
+			var scores = Week == null ?
+			   Utility.TflWs.ScoresDs( Season )
+			   : Utility.TflWs.ScoresDs( Season, Week );
 
-         LoadDataTable( dt, scores );
+			LoadDataTable( dt, scores );
 
-         dt.DefaultView.Sort = "TOTAL DESC";
-         return dt;
-      }
+			dt.DefaultView.Sort = "TOTAL DESC";
+			return dt;
+		}
 
-      private void LoadDataTable( DataTable dt, DataSet scores )
-      {
-         var scoresTable = scores.Tables[ 0 ];
+		private void LoadDataTable( DataTable dt, DataSet scores )
+		{
+			var scoresTable = scores.Tables[ 0 ];
 
-         foreach ( DataRow dr in scoresTable.Rows )
-            IncrementTeamwith( dr );
+			foreach ( DataRow dr in scoresTable.Rows )
+				IncrementTeamwith( dr );
 
-         foreach ( KeyValuePair<string, NflTeam> team in TeamList )
-         {
-            DataRow dr = dt.NewRow();
-            dr[ "TEAM" ] = team.Value.Name;
-            dr[ "TOTAL" ] = team.Value.TotTDs;
-            AddWeeklyScorers( dr, team );
-            dt.Rows.Add( dr );
-         }
-      }
+			foreach ( KeyValuePair<string, NflTeam> team in TeamList )
+			{
+				DataRow dr = dt.NewRow();
+				dr[ "TEAM" ] = team.Value.Name;
+				dr[ "TOTAL" ] = team.Value.TotTDs;
+				AddWeeklyScorers( dr, team );
+				dt.Rows.Add( dr );
+			}
+		}
 
-      private DataTable BuildDataTable()
-      {
-         var dt = new DataTable();
-         var cols = dt.Columns;
-         cols.Add( "TEAM", typeof( String ) );
-         cols.Add( "TOTAL", typeof( Int32 ) );
-         AddWeeklyReportCols( cols );
-         return dt;
-      }
+		private DataTable BuildDataTable()
+		{
+			var dt = new DataTable();
+			var cols = dt.Columns;
+			cols.Add( "TEAM", typeof( String ) );
+			cols.Add( "TOTAL", typeof( Int32 ) );
+			AddWeeklyReportCols( cols );
+			return dt;
+		}
 
-      private void AddWeeklyReportCols( DataColumnCollection cols )
+		private void AddWeeklyReportCols( DataColumnCollection cols )
 		{
 			for ( int i = 1; i < 18; i++ )
 			{

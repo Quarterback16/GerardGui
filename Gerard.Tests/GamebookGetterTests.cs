@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGetGamebooksForCurrentWeek()
 		{
-			const string weekToDownload = "03";
+			const string weekToDownload = "05";
 
 			var week = new NFLWeek( "2017", weekToDownload );
 			var sut = new GamebookGetter( new Downloader(

@@ -102,6 +102,7 @@ namespace Butler
 				MyJobs.Add( new UpdateTeamActualsJob( TimeKeeper ) );
 				MyJobs.Add( new TopDogReportJob( TimeKeeper ) );
 				MyJobs.Add( new GameSummariesJob( TimeKeeper ) );
+				MyJobs.Add( new GoalLineReportJob( TimeKeeper ) );
 
 				#endregion Looking back on the games just played
 

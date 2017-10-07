@@ -818,12 +818,12 @@ namespace RosterLib
 			//  C  B  E  -  A  A  B
 			if ( string.IsNullOrEmpty( _ratings ) || _ratings.Length < 6 ) return "??????";
 			return string.Format( "{0} {1} {2} - {3} {4} {5}",
-			   PoRating(),
-			   RoRating(),
-			   PpRating(),
-			   PrRating(),
-			   RdRating(),
-			   PdRating()
+			   POUnitLink( PoRating() ),
+			   ROUnitLink(RoRating()),
+			   PPUnitLink(PpRating()),
+			   PRUnitLink(PrRating()),
+			   RDUnitLink(RdRating()),
+			   PDUnitLink( PdRating() )
 			   );
 		}
 
@@ -1185,6 +1185,30 @@ namespace RosterLib
 		private string RDUnitLink( string rdRating )
 		{
 			return string.Format( "<a href='..\\Units\\RunDef\\RD-{0}.htm'>{1}</a>", TeamCode, rdRating );
+		}
+
+		private string PRUnitLink( string rating )
+		{
+			return string.Format( "<a href='..\\Units\\PassRush\\PR-{0}.htm'>{1}</a>",
+				TeamCode, rating );
+		}
+
+		private string PPUnitLink( string rating )
+		{
+			return string.Format( "<a href='..\\Units\\Prot\\PP-{0}.htm'>{1}</a>", 
+				TeamCode, rating );
+		}
+
+		private string POUnitLink( string rating )
+		{
+			return string.Format( "<a href='..\\Units\\PassOff\\PO-{0}.htm'>{1}</a>",
+				TeamCode, rating );
+		}
+
+		private string ROUnitLink( string rating )
+		{
+			return string.Format( "<a href='..\\Units\\RunOff\\RO-{0}.htm'>{1}</a>",
+				TeamCode, rating );
 		}
 
 		public string PoRating()
@@ -2572,6 +2596,7 @@ namespace RosterLib
 			s += HtmlLib.TableData( "" ); // 3
 			s += HtmlLib.TableData( "" ); //  4. star
 			s += HtmlLib.TableData( "" ); // 5
+			s += HtmlLib.TableData( "" ); // 6
 			s += HtmlLib.TableDataAttr( AverageIntOut( _totYdp, nGames ), "ALIGN='RIGHT'" ); //  6
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotTDp, nGames ), "ALIGN='RIGHT'" ); //  7
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotInterceptions, nGames ), "ALIGN='RIGHT'" ); //  8
@@ -2631,6 +2656,7 @@ namespace RosterLib
 			s += HtmlLib.TableData( "" ); // 3
 			s += HtmlLib.TableData( "" ); //  4. star
 			s += HtmlLib.TableData( "" ); // 5
+			s += HtmlLib.TableData( "" ); // 6
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotYdr, nGames ), "ALIGN='RIGHT'" ); //  6
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotTDr, nGames ), "ALIGN='RIGHT'" ); //  7
 			s += HtmlLib.TableData( "" ); // 5
@@ -2686,6 +2712,8 @@ namespace RosterLib
 			s += HtmlLib.TableData( "" ); // 3
 			s += HtmlLib.TableData( "" ); //  4. star
 			s += HtmlLib.TableData( "" ); // 5
+			s += HtmlLib.TableData( "" ); // 6
+			s += HtmlLib.TableData( "" ); // 7
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotYdrAllowed, nGames ), "ALIGN='RIGHT'" ); //  6
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotTDrAllowed, nGames ), "ALIGN='RIGHT'" ); //  7
 			s += HtmlLib.TableData( "" ); // 8
@@ -2747,6 +2775,8 @@ namespace RosterLib
 			s += HtmlLib.TableData( "" ); // 3
 			s += HtmlLib.TableData( "" ); //  4. star
 			s += HtmlLib.TableData( "" ); // 5
+			s += HtmlLib.TableData( "" ); // 6
+			s += HtmlLib.TableData( "" ); // 7
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotYDpAllowed, nGames ), "ALIGN='RIGHT'" ); //  6
 			s += HtmlLib.TableDataAttr( AverageIntOut( TotTDpAllowed, nGames ), "ALIGN='RIGHT'" ); //  7
 			s += HtmlLib.TableDataAttr( AverageDecOut( totSacks, nGames ), "ALIGN='RIGHT'" ); //  9
@@ -2798,6 +2828,8 @@ namespace RosterLib
 			s += HtmlLib.TableData( "" );
 			s += HtmlLib.TableData( "" ); //  star
 			s += HtmlLib.TableData( "" );
+			s += HtmlLib.TableData( "" ); 
+			s += HtmlLib.TableData( "" ); 
 			s += HtmlLib.TableDataAttr( TotSacks.ToString(), "ALIGN='RIGHT'" );
 			s += HtmlLib.TableData( "" );
 			s += HtmlLib.TableRowClose();

@@ -109,6 +109,7 @@
     <Compile Include="GameSummariesJobTests.cs" />
     <Compile Include="GameSummaryTests.cs" />
     <Compile Include="GeneratePlayerProjectionsTests.cs" />
+    <Compile Include="GoalLineReportJobTests.cs" />
     <Compile Include="GoallineReportTests.cs" />
     <Compile Include="GoogleChartTests.cs" />
     <Compile Include="HotListTests.cs" />
