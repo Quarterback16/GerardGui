@@ -34,8 +34,8 @@ namespace RosterLib.RosterGridReports
 			foreach ( NFLGame g in gameList )
 			{
 				body.AppendLine( g.GameName() + "  " + g.ScoreOut() );
-				g.LoadAllFantasyAwayPlayers();
-				g.LoadAllFantasyHomePlayers();
+				g.LoadAllFantasyAwayPlayers( null, string.Empty );
+				g.LoadAllFantasyHomePlayers( null, string.Empty );
 				ProcessPlayerList( g.HomePlayers, body );
 				ProcessPlayerList( g.AwayPlayers, body );
 #if DEBUG2

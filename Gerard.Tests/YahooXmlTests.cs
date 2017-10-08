@@ -33,10 +33,10 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestGenerateYahooXml()
+		public void TestGenerateYahooXmlForOneWeek()
 		{
 			var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
-			m.Calculate( season: "2016", week: "10" );
+			m.Calculate( season: "2017", week: "01" );
 			m.Dump2Xml();
 		}
 
@@ -45,7 +45,7 @@ namespace Gerard.Tests
 		{
 			var LineupDs = Utility.TflWs.GetLineup( "NO", "2015", 8 );
 			var lineup = new Lineup( LineupDs );
-			Utility.Announce( string.Format( "NFLGame.LoadLineupPlayers {0} players in lineup", lineup.PlayerList.Count ) );
+			Utility.Announce( $"NFLGame.LoadLineupPlayers {lineup.PlayerList.Count} players in lineup" );
 			lineup.DumpLineup();
 			Assert.IsTrue( lineup.PlayerList.Count > 0 );
 		}
@@ -87,7 +87,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestOneWeek()
 		{
-			var sut = new NFLGame( "2017:01-F" );
+			var sut = new NFLGame( "2017:01-L" );
 			sut.GenerateYahooOutput();
 			Assert.IsTrue( sut.YahooList.Count > 0 );
 		}

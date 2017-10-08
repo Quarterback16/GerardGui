@@ -309,9 +309,9 @@ namespace RosterLib
 
          List<NFLPlayer> playerList = new List<NFLPlayer>();
          if ( game.IsAway( team.TeamCode ) )
-            playerList = game.LoadAllFantasyAwayPlayers( PositionCategory );
+            playerList = game.LoadAllFantasyAwayPlayers( null, PositionCategory );
          else
-            playerList = game.LoadAllFantasyHomePlayers( PositionCategory );
+            playerList = game.LoadAllFantasyHomePlayers( null, PositionCategory );
 
          var pts = 0.0M;
          var week = new NFLWeek( Season, theWeek );

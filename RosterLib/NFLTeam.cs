@@ -3572,7 +3572,7 @@ namespace RosterLib
 		public void LoadGames( string sTeam, string sSeason )
 		{
 #if DEBUG
-			Utility.Announce( $"  loading season {sSeason} games only for {sTeam}" );
+			//Utility.Announce( $"  loading season {sSeason} games only for {sTeam}" );
 #endif
 			if ( GameList == null ) GameList = new ArrayList();
 			GameList.Clear();

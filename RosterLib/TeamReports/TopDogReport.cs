@@ -311,9 +311,9 @@ namespace RosterLib.TeamReports
 			var scorer = new YahooXmlScorer( week );
 			List<NFLPlayer> playerList = new List<NFLPlayer>();
 			if ( game.IsAway( team.TeamCode ) )
-				playerList = game.LoadAllFantasyAwayPlayers( PositionCategory );
+				playerList = game.LoadAllFantasyAwayPlayers( null, PositionCategory );
 			else
-				playerList = game.LoadAllFantasyHomePlayers( PositionCategory );
+				playerList = game.LoadAllFantasyHomePlayers( null, PositionCategory );
 			NFLPlayer topDog = new NFLPlayer()
 			{
 				Points = 0

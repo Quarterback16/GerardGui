@@ -59,7 +59,7 @@ namespace RosterLib
 		public string WeekKey([Optional] string separator)
 		{
 			if (separator == null) separator = ":";
-			return string.Format("{0}{2}{1:00}", Season, WeekNo, separator);
+			return $"{Season}{separator}{WeekNo:00}";
 		}
 
 		public override string ToString()
@@ -94,7 +94,7 @@ namespace RosterLib
 			Week = weekIn;
 			_sched = Utility.TflWs.GetGames(Int32.Parse(seasonIn), Int32.Parse(weekIn));
 #if DEBUG
-			Utility.Announce($"NFLWeek.Init {weekIn} has {_sched.Tables[ 0 ].Rows.Count} games" );
+			//Utility.Announce($"NFLWeek.Init {weekIn} has {_sched.Tables[ 0 ].Rows.Count} games" );
 #endif
 		}
 
@@ -104,8 +104,7 @@ namespace RosterLib
 			Season = seasonIn.ToString();
 			_sched = LoadSchedule(seasonIn, weekIn);
 #if DEBUG
-			Utility.Announce(string.Format("NFLWeek:Constructor Week {0}:{2} has {1} games", weekIn,
-																  _sched.Tables[0].Rows.Count, Season));
+			//Utility.Announce($"NFLWeek:Constructor Week {weekIn}:{Season} has {_sched.Tables[ 0 ].Rows.Count} games");
 #endif
 			Week = weekIn.ToString();
 		}
@@ -119,8 +118,7 @@ namespace RosterLib
 				TflWs = Utility.TflWs;
 				_sched = LoadSchedule(seasonIn, weekIn);
 #if DEBUG
-				Utility.Announce( string.Format( "NFLWeek:Constructor Week {0}:{2} has {1} games", 
-					weekIn, _sched.Tables[ 0 ].Rows.Count, Season ) );
+				//Utility.Announce( $"NFLWeek:Constructor Week {weekIn}:{Season} has {_sched.Tables[ 0 ].Rows.Count} games" );
 #endif
 			}
 		}
@@ -228,7 +226,7 @@ namespace RosterLib
 				var dt = _sched.Tables[0];
 				foreach (DataRow dr in dt.Rows)
 				{
-					var gameCode = string.Format("{0}:{1}-{2}", Season, dr["WEEK"], dr["GAMENO"]);
+					var gameCode = $"{Season}:{dr[ "WEEK" ]}-{dr[ "GAMENO" ]}";
 					Announce(string.Format("LoadGameList: getting Game:{0}", gameCode ));
 
 					var g = new NFLGame(dr);

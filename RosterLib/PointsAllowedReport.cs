@@ -5,368 +5,428 @@ using System.Data;
 
 namespace RosterLib
 {
-   public class PointsAllowedReport : TeamReport
-   {
-      public string Week { get; set; }
-      public string RootFolder { get; set; }
-      public IBreakdown TeamBreakdowns { get; set; }
+	public class PointsAllowedReport : TeamReport
+	{
+		public string Week { get; set; }
+		public string RootFolder { get; set; }
+		public IBreakdown TeamBreakdowns { get; set; }
 
-      public PointsAllowedReport( IKeepTheTime timekeeper ) : base( timekeeper )
+		public PointsAllowedReport( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
-         Week = timekeeper.Week;
-         if ( timekeeper.IsItPostSeason() )
-         {
-            Week = Constants.K_GAMES_IN_REGULAR_SEASON.ToString();
-         }
-         TeamBreakdowns = new PreStyleBreakdown();
-      }
+			Week = timekeeper.Week;
+			if ( timekeeper.IsItPostSeason() )
+			{
+				Week = Constants.K_GAMES_IN_REGULAR_SEASON.ToString();
+			}
+			TeamBreakdowns = new PreStyleBreakdown()
+			{
+				NumberLines = false
+			};
+		}
 
-      public override void RenderAsHtml()
-      {
-         Name = "Points Allowed Report";
-         Heading = $"{Name} Week {Season}:{Week}";
-         RootFolder = $"{Utility.OutputDirectory()}{Season}//Scores//";
-         FileOut = string.Format( "{0}Points-Allowed-{1}.htm", RootFolder, Week );
-         RenderSingle();
-      }
+		public override void RenderAsHtml()
+		{
+			Name = "Points Allowed Report";
+			Heading = $"{Name} Week {Season}:{Week}";
+			RootFolder = $"{Utility.OutputDirectory()}{Season}//Scores//";
+			FileOut = string.Format( "{0}Points-Allowed-{1}.htm", RootFolder, Week );
+			RenderSingle();
+		}
 
-      private void RenderSingle()
-      {
-         Ste = DefineSte();
-         Data = BuildDataTable();
+		private void RenderSingle()
+		{
+			Ste = DefineSte();
+			Data = BuildDataTable();
+			LoadDataTable();
+			Render();
+			Finish();
+		}
 
-         LoadDataTable();
+		private ReportColumn.ColourDelegate PickTotalColourDelegate( string positionAbbr )
+		{
+			ReportColumn.ColourDelegate theDelegate;
+			switch ( positionAbbr )
+			{
+				case "RB":
+					theDelegate = TotRbBgPicker;
+					break;
 
-         Render();
+				case "WR":
+					theDelegate = TotWrBgPicker;
+					break;
 
-         Finish();
-      }
+				case "QB":
+					theDelegate = TotQbBgPicker;
+					break;
 
-      private ReportColumn.ColourDelegate PickTotalColourDelegate( string positionAbbr )
-      {
-         ReportColumn.ColourDelegate theDelegate;
-         switch ( positionAbbr )
-         {
-            case "RB":
-               theDelegate = TotRbBgPicker;
-               break;
+				case "PK":
+					theDelegate = TotPkBgPicker;
+					break;
 
-            case "WR":
-               theDelegate = TotWrBgPicker;
-               break;
+				case "TE":
+					theDelegate = TotTeBgPicker;
+					break;
 
-            case "QB":
-               theDelegate = TotQbBgPicker;
-               break;
+				default:
+					theDelegate = TotBgPicker;
+					break;
+			}
+			return theDelegate;
+		}
 
-            case "PK":
-               theDelegate = TotPkBgPicker;
-               break;
+		private SimpleTableReport DefineSte()
+		{
+			var str = new SimpleTableReport( Heading )
+			{
+				ColumnHeadings = true,
+				DoRowNumbers = true
+			};
+			str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
+			str.AddColumn(
+			   new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "TOT" ) ) );
+			str.AddColumn(
+			   new ReportColumn( "QB", "QB", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "QB" ) ) );
+			str.AddColumn(
+			   new ReportColumn( "RB", "RB", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "RB" ) ) );
+			str.AddColumn(
+			   new ReportColumn( "WR", "WR", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "WR" ) ) );
+			str.AddColumn(
+			   new ReportColumn( "TE", "TE", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "TE" ) ) );
+			str.AddColumn(
+			   new ReportColumn( "PK", "PK", "{0:0.00}", typeof( decimal ), tally: true,
+			   colourDelegateIn: PickTotalColourDelegate( "PK" ) ) );
 
-            case "TE":
-               theDelegate = TotTeBgPicker;
-               break;
+			return str;
+		}
 
-            default:
-               theDelegate = TotBgPicker;
-               break;
-         }
-         return theDelegate;
+		private DataTable BuildDataTable()
+		{
+			var dt = new DataTable();
+			var cols = dt.Columns;
+			cols.Add( "TEAM", typeof( String ) );
+			cols.Add( "TOTAL", typeof( decimal ) );
+			cols.Add( "QB", typeof( string ) );
+			cols.Add( "RB", typeof( string ) );
+			cols.Add( "WR", typeof( string ) );
+			cols.Add( "TE", typeof( string ) );
+			cols.Add( "PK", typeof( string ) );
+			dt.DefaultView.Sort = "TOTAL DESC";
+			return dt;
+		}
 
-      }
-
-      private SimpleTableReport DefineSte()
-      {
-         var str = new SimpleTableReport( Heading );
-         str.ColumnHeadings = true;
-         str.DoRowNumbers = true;
-         str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
-         str.AddColumn( 
-            new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate("TOT") ) );
-         str.AddColumn( 
-            new ReportColumn( "QB", "QB", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate( "QB" ) ) );
-         str.AddColumn(
-            new ReportColumn( "RB", "RB", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate( "RB" ) ) );
-         str.AddColumn(
-            new ReportColumn( "WR", "WR", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate( "WR" ) ) );
-         str.AddColumn(
-            new ReportColumn( "TE", "TE", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate( "TE" ) ) );
-         str.AddColumn(
-            new ReportColumn( "PK", "PK", "{0:0.00}", typeof( decimal ), tally: true,
-            colourDelegateIn: PickTotalColourDelegate( "PK" ) ) );
-
-         return str;
-      }
-
-      private DataTable BuildDataTable()
-      {
-         var dt = new DataTable();
-         var cols = dt.Columns;
-         cols.Add( "TEAM", typeof( String ) );
-         cols.Add( "TOTAL", typeof( decimal ) );
-         cols.Add( "QB", typeof( string ) );
-         cols.Add( "RB", typeof( string ) );
-         cols.Add( "WR", typeof( string ) );
-         cols.Add( "TE", typeof( string ) );
-         cols.Add( "PK", typeof( string ) );
-
-         dt.DefaultView.Sort = "TOTAL DESC";
-         return dt;
-      }
-
-      private void LoadDataTable()
-      {
+		private void LoadDataTable()
+		{
 #if DEBUG2
          var tCount = 0;
 #endif
-         var asOfWeek = int.Parse( Week );
-         foreach ( KeyValuePair<string, NflTeam> teamPair in TeamList )
-         {
-            var team = teamPair.Value;
-            DataRow teamRow = Data.NewRow();
-            teamRow[ "TEAM" ] = team.NameOut();
-            teamRow[ "TOTAL" ] = 0;
-            FptsAllowed fptsAllowed = new FptsAllowed();
-            FptsAllowed totalFptsAllowed = new FptsAllowed();
+			var asOfWeek = int.Parse( Week );
+			foreach ( KeyValuePair<string, NflTeam> teamPair in TeamList )
+			{
+				var team = teamPair.Value;
+				DataRow teamRow = Data.NewRow();
+				teamRow[ "TEAM" ] = team.NameOut();
+				teamRow[ "TOTAL" ] = 0;
+				FptsAllowed fptsAllowed = new FptsAllowed();
+				FptsAllowed totalFptsAllowed = new FptsAllowed();
 
-            for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
-            {
-               if ( w > asOfWeek ) continue;
-               string theWeek = string.Format( "{0:0#}", w );
-               var ds = Utility.TflWs.GameForTeam( Season, theWeek, team.TeamCode );
-               if ( ds.Tables[ 0 ].Rows.Count != 1 )
-                  continue;
+				for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
+				{
+					if ( w > asOfWeek ) continue;
+					string theWeek = string.Format( "{0:0#}", w );
+					var ds = Utility.TflWs.GameForTeam( Season, theWeek, team.TeamCode );
+					if ( ds.Tables[ 0 ].Rows.Count != 1 )
+						continue;
 
-               fptsAllowed = CalculateFptsAllowed( team, theWeek, ds );
-               totalFptsAllowed.Add( fptsAllowed );
+					fptsAllowed = CalculateFptsAllowed( team, theWeek, ds );
+					totalFptsAllowed.Add( fptsAllowed );
+				}
 
-            }
+				teamRow[ "QB" ] = LinkFor( team.TeamCode, "QB", totalFptsAllowed.ToQbs );
+				teamRow[ "RB" ] = LinkFor( team.TeamCode, "RB", totalFptsAllowed.ToRbs );
+				teamRow[ "WR" ] = LinkFor( team.TeamCode, "WR", totalFptsAllowed.ToWrs );
+				teamRow[ "TE" ] = LinkFor( team.TeamCode, "TE", totalFptsAllowed.ToTes );
+				teamRow[ "PK" ] = LinkFor( team.TeamCode, "PK", totalFptsAllowed.ToPks );
 
-            teamRow[ "QB" ] = LinkFor( team.TeamCode, "QB", totalFptsAllowed.ToQbs);
-            teamRow[ "RB" ] = LinkFor( team.TeamCode, "RB", totalFptsAllowed.ToRbs);
-            teamRow[ "WR" ] = LinkFor( team.TeamCode, "WR", totalFptsAllowed.ToWrs);
-            teamRow[ "TE" ] = LinkFor( team.TeamCode, "TE", totalFptsAllowed.ToTes);
-            teamRow[ "PK" ] = LinkFor( team.TeamCode, "PK", totalFptsAllowed.ToPks);
-
-            teamRow[ "TOTAL" ] = totalFptsAllowed.TotPtsAllowed();
-            Data.Rows.Add( teamRow );
-            DumpBreakdowns( team.TeamCode );
+				teamRow[ "TOTAL" ] = totalFptsAllowed.TotPtsAllowed();
+				Data.Rows.Add( teamRow );
+				DumpBreakdowns( team.TeamCode );
 
 #if DEBUG2
             tCount++;
             if ( tCount > 0 )
                break;
 #endif
-         }
-      }
+			}
+		}
 
-      private void DumpBreakdowns( string teamCode )
-      {
-         DumpBreakdown( teamCode, "QB" );
-         DumpBreakdown( teamCode, "RB" );
-         DumpBreakdown( teamCode, "WR" );
-         DumpBreakdown( teamCode, "TE" );
-         DumpBreakdown( teamCode, "PK" );
-      }
+		private void DumpBreakdowns( string teamCode )
+		{
+			DumpBreakdown( teamCode, "QB" );
+			DumpBreakdown( teamCode, "RB" );
+			DumpBreakdown( teamCode, "WR" );
+			DumpBreakdown( teamCode, "TE" );
+			DumpBreakdown( teamCode, "PK" );
+		}
 
-      private void DumpBreakdown( string teamCode, string positionAbbr )
-      {
-         var breakdownKey = $"{teamCode}-{positionAbbr}-{Week}";
-         TeamBreakdowns.Dump( breakdownKey,
-            $"{RootFolder}\\pts-allowed\\{breakdownKey}.htm" );
-      }
+		private void DumpBreakdown( string teamCode, string positionAbbr )
+		{
+			var breakdownKey = $"{teamCode}-{positionAbbr}-{Week}";
+			TeamBreakdowns.Dump( breakdownKey,
+			   $"{RootFolder}\\pts-allowed\\{breakdownKey}.htm" );
+		}
 
-      private string LinkFor( string teamCode, string positionAbbr, decimal pts )
-      {
-         var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}-{Week}.htm'>{pts}";
-         return link;
-      }
+		private string LinkFor( string teamCode, string positionAbbr, decimal pts )
+		{
+			var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}-{Week}.htm'>{pts}";
+			return link;
+		}
 
-      private FptsAllowed CalculateFptsAllowed( 
-         NflTeam team, string theWeek, DataSet gameDs )
-      {
-         // Process Stats and Scores for the week
-         // save the calculations
-         var ftpsAllowed = new FptsAllowed();
-         var game = new NFLGame( gameDs.Tables[ 0 ].Rows[ 0 ] );
+		private FptsAllowed CalculateFptsAllowed(
+		   NflTeam team, 
+		   string theWeek, 
+		   DataSet gameDs )
+		{
+			// Process Stats and Scores for the week
+			// save the calculations
+			var ftpsAllowed = new FptsAllowed();
+			var game = new NFLGame( gameDs.Tables[ 0 ].Rows[ 0 ] );
 
-         List<NFLPlayer> playerList = new List<NFLPlayer>();
-         if ( game.IsAway( team.TeamCode ) )
-            playerList = game.LoadAllFantasyHomePlayers();
-         else
-            playerList = game.LoadAllFantasyAwayPlayers();
+			List<NFLPlayer> playerList = new List<NFLPlayer>();
+			if ( game.IsAway( team.TeamCode ) )
+				playerList = game.LoadAllFantasyHomePlayers( 
+					(DateTime?) game.GameDate,
+					String.Empty );
+			else
+				playerList = game.LoadAllFantasyAwayPlayers(
+					( DateTime? ) game.GameDate,
+					String.Empty );
 
-         var week = new NFLWeek( Season, theWeek );
+			var week = new NFLWeek( Season, theWeek );
 
-         var scorer = new YahooXmlScorer( week );
-         foreach ( var p in playerList )
-         {
-            var plyrPts = scorer.RatePlayer( p, week );
+			var scorer = new YahooXmlScorer( week );
+			foreach ( var p in playerList )
+			{
+				var plyrPts = scorer.RatePlayer( p, week );
 
-            if ( p.IsQuarterback() )
-            {
-               ftpsAllowed.ToQbs += plyrPts;
-               AddBreakdownLine( team, theWeek, p, plyrPts, "QB" );
-            }
-            else if ( p.IsRb() )
-            {
-               ftpsAllowed.ToRbs += plyrPts;
-               AddBreakdownLine( team, theWeek, p, plyrPts, "RB" );
-            }
-            else if ( p.IsWideout() )
-            {
-               ftpsAllowed.ToWrs += plyrPts;
-               AddBreakdownLine( team, theWeek, p, plyrPts, "WR" );
-            }
-            else if ( p.IsTe() )
-            {
-               ftpsAllowed.ToTes += plyrPts;
-               AddBreakdownLine( team, theWeek, p, plyrPts, "TE" );
-            }
-            else if ( p.IsKicker() )
-            {
-               ftpsAllowed.ToPks += plyrPts;
-               AddBreakdownLine( team, theWeek, p, plyrPts, "PK" );
-            }
-         }
+				if ( p.IsQuarterback() )
+				{
+					ftpsAllowed.ToQbs += plyrPts;
+					AddBreakdownLine( team, theWeek, p, plyrPts, "QB" );
+				}
+				else if ( p.IsRb() )
+				{
+					ftpsAllowed.ToRbs += plyrPts;
+					AddBreakdownLine( team, theWeek, p, plyrPts, "RB" );
+				}
+				else if ( p.IsWideout() )
+				{
+					ftpsAllowed.ToWrs += plyrPts;
+					AddBreakdownLine( team, theWeek, p, plyrPts, "WR" );
+				}
+				else if ( p.IsTe() )
+				{
+					ftpsAllowed.ToTes += plyrPts;
+					AddBreakdownLine( team, theWeek, p, plyrPts, "TE" );
+				}
+				else if ( p.IsKicker() )
+				{
+					ftpsAllowed.ToPks += plyrPts;
+					AddBreakdownLine( team, theWeek, p, plyrPts, "PK" );
+				}
+			}
 
-         return ftpsAllowed;
-      }
+			return ftpsAllowed;
+		}
 
-      private void AddBreakdownLine( 
-         NflTeam team, string theWeek, NFLPlayer p, decimal plyrPts, string abbr )
-      {
-         if ( plyrPts == 0 ) return;
+		private void AddBreakdownLine(
+		   NflTeam team, string theWeek, NFLPlayer p, decimal plyrPts, string abbr )
+		{
+			if ( plyrPts == 0 ) return;
 
-         var strPts = string.Format( "{0:0.0}", plyrPts );
-         strPts = strPts.PadLeft( 5 );
-         strPts = strPts.Substring(strPts.Length - 5);
-         TeamBreakdowns.AddLine(
-            breakdownKey: $"{ team.TeamCode}-{abbr}-{Week}",
-            line: $@"Wk:{
-               theWeek
-               } {p.PlayerName,-25} Pts : {strPts}"
-             );
-      }
+			var strPts = string.Format( "{0:0.0}", plyrPts );
+			strPts = strPts.PadLeft( 5 );
+			strPts = strPts.Substring( strPts.Length - 5 );
+			TeamBreakdowns.AddLine(
+			   breakdownKey: $"{ team.TeamCode}-{abbr}-{Week}",
+			   line: $@"Wk:{
+				  theWeek
+				  } {p.PlayerName,-25} Pts : {strPts}"
+				);
+		}
 
-      private decimal FractionOfTheSeason()
-      {
-         var multiplier = decimal.Parse( Week ) / Constants.K_WEEKS_IN_REGULAR_SEASON;
-         return multiplier;
-      }
+		public decimal FractionOfTheSeason()
+		{
+			var multiplier = ( decimal.Parse( Week ) ) / Constants.K_WEEKS_IN_REGULAR_SEASON;
+			return multiplier;
+		}
 
-      private string TotQbBgPicker( int theValue )
-      {
-         string sColour;
+		private string TotQbBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Season = 170;  //  giving up 10 a week
+			const int Good_Target_For_A_Season = 255;  //  15 a week
+			const int Average_Target_For_A_Season = 325;  //  19 a week
 
-         if ( theValue < (250 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < (290 * FractionOfTheSeason()) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+			string sColour;
 
-      private string TotBgPicker( int theValue )
-      {
-         string sColour;
+			if ( theValue < ( Excellent_Target_For_A_Season * FractionOfTheSeason() ) )
+				sColour = Constants.Colour.Excellent;
+			else if ( theValue < ( Good_Target_For_A_Season * FractionOfTheSeason() ) )
+				sColour = Constants.Colour.Good;
+			else if ( theValue < ( Average_Target_For_A_Season * FractionOfTheSeason() ) )
+				sColour = Constants.Colour.Average;
+			else
+				sColour = Constants.Colour.Bad;
+			return sColour;
+		}
 
-         if ( theValue < (1035 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < (1165 * FractionOfTheSeason()) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+		public string TotBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Season = 680;  //  giving up 40 a week
+			const int Good_Target_For_A_Season = 850;  //  50 a week
+			const int Average_Target_For_A_Season = 1350;  //  80 a week
+			string sColour;
+			var fraction = FractionOfTheSeason();
+			//Utility.Announce( $"Fraction:{fraction:0.00}" );
+			if ( theValue < ( Excellent_Target_For_A_Season * fraction ) )
+			{
+				//DebugMessage( Excellent_Target_For_A_Season, fraction, "excellent" );
+				sColour = Constants.Colour.Excellent;
+			}
+			else if ( theValue < ( Good_Target_For_A_Season * fraction ) )
+			{
+				//DebugMessage( Good_Target_For_A_Season, fraction, "good" );
+				sColour = Constants.Colour.Good;
+			}
+			else if ( theValue < ( Average_Target_For_A_Season * fraction ) )
+			{
+				//DebugMessage( Average_Target_For_A_Season, fraction, "average" );
+				sColour = Constants.Colour.Average;
+			}
+			else
+			{
+				//Utility.Announce( $"{theValue * fraction } is bad" );
+				sColour = Constants.Colour.Bad;
+			}
+			return sColour;
+		}
 
-      private string TotPkBgPicker( int theValue )
-      {
-         string sColour;
+		private static void DebugMessage( int target, decimal fraction, string theWord )
+		{
+			var theValue = target * fraction;
+			Utility.Announce( $"Less than {theValue:0.00} is {theWord}" );
+		}
 
-         if ( theValue < ( 100 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < ( 145 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+		private string TotPkBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Game = 4;
+			const int Good_Target_For_A_Game = 6;
+			const int Average_Target_For_A_Game = 8;
 
-      private string TotTeBgPicker( int theValue )
-      {
-         string sColour;
+			string sColour;
 
-         if ( theValue < ( 100 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < ( 130 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+			if ( theValue < ( Excellent_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Excellent;
+			else if ( theValue < ( Good_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Good;
+			else if ( theValue < ( Average_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Average;
+			else
+				sColour = Constants.Colour.Bad;
+			return sColour;
+		}
 
-      private string TotWrBgPicker( int theValue )
-      {
-         string sColour;
+		private string TotTeBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Game = 3;
+			const int Good_Target_For_A_Game = 5;
+			const int Average_Target_For_A_Game = 10;
 
-         if ( theValue < ( 320 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < ( 380 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+			string sColour;
 
-      private string TotRbBgPicker( int theValue )
-      {
-         string sColour;
+			if ( theValue < ( Excellent_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Excellent;
+			else if ( theValue < ( Good_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Good;
+			else if ( theValue < ( Average_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Average;
+			else
+				sColour = Constants.Colour.Bad;
+			return sColour;
+		}
 
-         if ( theValue < ( 225 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Good;
-         else if ( theValue < ( 300 * FractionOfTheSeason() ) )
-            sColour = Constants.Colour.Average;
-         else
-            sColour = Constants.Colour.Bad;
-         return sColour;
-      }
+		private string TotWrBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Game = 10;  
+			const int Good_Target_For_A_Game = 13;
+			const int Average_Target_For_A_Game = 22; 
 
-      public override string OutputFilename()
-      {
-         return FileOut;
-      }
+			string sColour;
 
-   }
+			if ( theValue < ( Excellent_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Excellent;
+			else if ( theValue < ( Good_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Good;
+			else if ( theValue < ( Average_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Average;
+			else
+				sColour = Constants.Colour.Bad;
+			return sColour;
+		}
 
-   public class FptsAllowed
-   {
-      public decimal ToQbs { get; set; }
-      public decimal ToRbs { get; set; }
-      public decimal ToWrs { get; set; }
-      public decimal ToTes { get; set; }
-      public decimal ToPks { get; set; }
+		public string TotRbBgPicker( int theValue )
+		{
+			const int Excellent_Target_For_A_Game = 5; 
+			const int Good_Target_For_A_Game = 8; 
+			const int Average_Target_For_A_Game = 19; 
 
-      internal decimal TotPtsAllowed()
-      {
-         return ToQbs + ToRbs + ToWrs + ToTes + ToPks;
-      }
+			string sColour;
+			if ( theValue < ( Excellent_Target_For_A_Game * Int32.Parse(Week) ) )
+				sColour = Constants.Colour.Excellent;
+			else if ( theValue < ( Good_Target_For_A_Game * Int32.Parse( Week ) ) )
+				sColour = Constants.Colour.Good;
+			else if ( theValue < ( Average_Target_For_A_Game * Int32.Parse( Week ) ) )
+			{
+				sColour = Constants.Colour.Average;
+			}
+			else
+			{
+				Utility.Announce( $"{theValue * Int32.Parse( Week )  } is bad" );
+				sColour = Constants.Colour.Bad;
+			}
+			return sColour;
+		}
 
-      internal void Add( FptsAllowed fptsAllowed )
-      {
-         ToQbs += fptsAllowed.ToQbs;
-         ToRbs += fptsAllowed.ToRbs;
-         ToWrs += fptsAllowed.ToWrs;
-         ToTes += fptsAllowed.ToTes;
-         ToPks += fptsAllowed.ToPks;
-      }
+		public override string OutputFilename()
+		{
+			return FileOut;
+		}
+	}
 
-   }
+	public class FptsAllowed
+	{
+		public decimal ToQbs { get; set; }
+		public decimal ToRbs { get; set; }
+		public decimal ToWrs { get; set; }
+		public decimal ToTes { get; set; }
+		public decimal ToPks { get; set; }
+
+		internal decimal TotPtsAllowed()
+		{
+			return ToQbs + ToRbs + ToWrs + ToTes + ToPks;
+		}
+
+		internal void Add( FptsAllowed fptsAllowed )
+		{
+			ToQbs += fptsAllowed.ToQbs;
+			ToRbs += fptsAllowed.ToRbs;
+			ToWrs += fptsAllowed.ToWrs;
+			ToTes += fptsAllowed.ToTes;
+			ToPks += fptsAllowed.ToPks;
+		}
+	}
 }
-

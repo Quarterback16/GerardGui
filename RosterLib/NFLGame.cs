@@ -103,6 +103,16 @@ namespace RosterLib
 			GameCode = "X";
 		}
 
+		internal List<NFLPlayer> LoadAllFantasyHomePlayers()
+		{
+			return LoadAllFantasyHomePlayers( GameDate, string.Empty );
+		}
+
+		internal List<NFLPlayer> LoadAllFantasyAwayPlayers()
+		{
+			return LoadAllFantasyAwayPlayers( GameDate, string.Empty );
+		}
+
 		public NFLGame( string weekIn, DateTime dateIn, string homeCodeIn, string awayCodeIn,
 						int homeScoreIn, int awayScoreIn, decimal spreadIn, decimal totalIn, string season, string gameCode )
 		{
@@ -2356,44 +2366,60 @@ namespace RosterLib
 			return AwayPlayers;
 		}
 
-		public List<NFLPlayer> LoadAllFantasyAwayPlayers( string catFilter = "" )
+		public List<NFLPlayer> LoadAllFantasyAwayPlayers(
+			DateTime? date,
+			string catFilter = ""
+			)
 		{
-			AwayPlayers = new List<NFLPlayer>();
-			if ( string.IsNullOrEmpty( catFilter ) )
+			if ( date == null )
 			{
-				AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_QUARTERBACK_CAT ) );
-				AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_RUNNINGBACK_CAT ) );
-				AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_RECEIVER_CAT ) );
-				AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, Constants.K_KICKER_CAT ) );
+				date = GameDate;
 			}
-			else
-				AwayPlayers.AddRange( LoadTeamPlayersForCat( AwayTeam, catFilter ) );
+			AwayPlayers = new List<NFLPlayer>();
+
+			AwayPlayers.AddRange( 
+				LoadTeamPlayersForCat( 
+					AwayTeam, 
+					catFilter, 
+					date ) );
 
 			return AwayPlayers;
 		}
 
-		public List<NFLPlayer> LoadAllFantasyHomePlayers( string catFilter = "" )
+		public List<NFLPlayer> LoadAllFantasyHomePlayers( 
+			DateTime? date,
+			string catFilter = ""
+			)
 		{
-			HomePlayers = new List<NFLPlayer>();
-			if ( string.IsNullOrEmpty( catFilter ) )
+			if ( date == null )
 			{
-				HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_QUARTERBACK_CAT ) );
-				HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_RUNNINGBACK_CAT ) );
-				HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_RECEIVER_CAT ) );
-				HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, Constants.K_KICKER_CAT ) );
+				date = GameDate;
 			}
-			else
-				HomePlayers.AddRange( LoadTeamPlayersForCat( HomeTeam, catFilter ) );
+			HomePlayers = new List<NFLPlayer>();
+
+			HomePlayers.AddRange( 
+				LoadTeamPlayersForCat( 
+					HomeTeam, 
+					catFilter,
+					date ) );
+
 			return HomePlayers;
 		}
 
-		private static IEnumerable<NFLPlayer> LoadTeamPlayersForCat( string teamCode, string playerCat )
+		private static IEnumerable<NFLPlayer> LoadTeamPlayersForCat( 
+			string teamCode, 
+			string playerCat,
+			DateTime? date	)
 		{
 			var players = new List<NFLPlayer>();
-			var ds = Utility.TflWs.GetTeamPlayers( teamCode, playerCat );
+			var ds = Utility.TflWs.GetTeamPlayersByDate( 
+				teamCode, 
+				playerCat, 
+				(DateTime) date );
 			var dt = ds.Tables[ "player" ];
 			if ( dt.Rows.Count == 0 ) return players;
-			players.AddRange( from DataRow dr in dt.Rows select new NFLPlayer( dr[ "PLAYERID" ].ToString() ) );
+			players.AddRange( from DataRow dr in dt.Rows
+							  select new NFLPlayer( dr[ "PLAYERID" ].ToString() ) );
 			return players;
 		}
 

@@ -906,7 +906,8 @@ namespace TFLLib
 		{
 			var keyValue = $"{"GetTeamPlayers-DataSet"}:{teamCode}:{strCat}";
 
-			var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" + teamCode + "' AND CATEGORY='" + strCat + "'";
+			var commandStr = "SELECT * FROM PLAYER where CURRTEAM ='" 
+				+ teamCode + "' AND CATEGORY='" + strCat + "'";
 			commandStr += " order by CATEGORY";
 			var ds = CacheCommand( keyValue, commandStr, "player", "GetTeamPlayers" );
 			return ds;
@@ -1220,6 +1221,87 @@ namespace TFLLib
 		#endregion SEASON
 
 		#region SERVE
+
+		public DataSet GetTeamPlayersByDate( 
+			string teamCode,
+			string catCode,
+			DateTime date )
+		{
+			var commandStr = $"SELECT * FROM SERVE where TEAMID='{teamCode}'";
+			var ds = GetNflDataSet( "serve", commandStr, "ServeDs" );
+			var dt = ds.Tables[ "SERVE" ];
+			var nullDate = new DateTime( 1899, 12, 30 );
+			var playersFound = 0;
+			//  Drop any out of range records
+			foreach ( DataRow dr in dt.Rows )
+			{
+				if ( dr.RowState == DataRowState.Deleted ) continue;
+
+				var dateTo = DateTime.Parse( dr[ "TO" ].ToString() );
+				var dateFrom = DateTime.Parse( dr[ "FROM" ].ToString() );
+
+				if ( ( dateFrom < date ) && ( ( dateTo < date ) && dateTo != nullDate ) )
+					dr.Delete(); //  happened before
+				else if (dateFrom > date )
+					dr.Delete(); //  happened after
+				else
+				{
+					if ( dateTo < date && dateTo != nullDate )
+					{
+						dr.Delete(); //  finished before date in question
+					}
+					else
+						playersFound++;
+				}
+			}
+			if ( !string.IsNullOrEmpty( catCode ) )
+			{
+				foreach ( DataRow dr in dt.Rows )
+				{
+					if ( dr.RowState == DataRowState.Deleted) continue;
+
+					var playerId = dr[ "PLAYERID" ].ToString();
+					var playerDs = GetPlayer( playerId );
+					var playerDt = playerDs.Tables[ "PLAYER" ];
+					foreach ( DataRow pdr in playerDt.Rows )
+					{
+						var cat = pdr[ "CATEGORY" ].ToString();
+						if ( cat != catCode )
+						{
+							dr.Delete();  //  wrong category
+						}
+					}
+				}
+			}
+			//  Serve ds needs to morph into a player ds
+			var resultDs = new DataSet();
+			var resultDt = new DataTable("player");
+			var playersGot = 0;
+			foreach ( DataRow filtereddr in dt.Rows )
+			{
+				if ( filtereddr.RowState == DataRowState.Deleted ) continue;
+				var playerId = filtereddr[ "PLAYERID" ].ToString();
+				var playerDs = GetPlayer( playerId );
+				if ( playersGot == 0 )
+				{
+					resultDt = playerDs.Tables[0];
+				}
+				else
+				{ 
+					var playerDt = playerDs.Tables[ "PLAYER" ];
+					foreach ( DataRow pdr in playerDt.Rows )
+					{
+						resultDt.ImportRow( pdr );
+					}
+				}
+				playersGot++;
+			}
+			resultDt.AcceptChanges();
+			var dtCopy = resultDt.Copy();
+			resultDs.Tables.Add( dtCopy );
+			resultDs.Tables[0].AcceptChanges();
+			return resultDs;
+		}
 
 		public DataSet MovesDs( string teamCode, DateTime dFrom, DateTime dTo )
 		{
@@ -2371,7 +2453,11 @@ namespace TFLLib
 			return null;
 		}
 
-		private DataSet GetNflDataSet( string tableName, string commandStr, string caller = "", bool logit = false )
+		private DataSet GetNflDataSet( 
+			string tableName, 
+			string commandStr, 
+			string caller = "", 
+			bool logit = false )
 		{
 			if ( logit )
 			{

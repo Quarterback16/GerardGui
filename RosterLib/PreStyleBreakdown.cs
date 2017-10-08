@@ -9,9 +9,12 @@ namespace RosterLib
 	{
 		public Hashtable Breakdowns { get; set; }
 
+		public bool NumberLines { get; set; }
+
 		public PreStyleBreakdown()
 		{
-			Breakdowns = new Hashtable();	
+			Breakdowns = new Hashtable();
+			NumberLines = true;
 		}
 
 		public void AddLine(string breakdownKey, string line)
@@ -39,12 +42,16 @@ namespace RosterLib
 			var i = 1;
 			var myEnumerator = theLines.GetEnumerator();
 			while ( myEnumerator.MoveNext() )
-				sw.WriteLine( string.Format( "{0:0#}  {1}", i++, myEnumerator.Current) );
+			{
+				var numPart = "  ";
+				if ( NumberLines ) numPart = $"{i++:0#}";
+				sw.WriteLine( $"{numPart}  {myEnumerator.Current}" );
+			}
 
 			sw.WriteLine( "</pre>" );
 			sw.Close();
 
-			Utility.Announce( string.Format( "   {0} has been rendered", outputFileName ) );
+			//Utility.Announce( $"   {outputFileName} has been rendered" );
 		}
 	}
 }

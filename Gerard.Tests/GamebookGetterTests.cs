@@ -28,7 +28,7 @@ namespace Gerard.Tests
 			var week = new NFLWeek( "2017", weekToDownload );
 			var sut = new Downloader(
 			   string.Format( "e:\\tfl\\nfl\\gamebooks\\week {0}\\", weekToDownload ) );
-			var uri = new Uri( "http://www.nfl.com/liveupdate/gamecenter/57238/CLE_Gamebook.pdf" );
+			var uri = new Uri( "http://www.nfl.com/liveupdate/gamecenter/57245/GB_Gamebook.pdf" );
 			var result = sut.Download( uri );
 			Assert.IsTrue( result );
 		}
