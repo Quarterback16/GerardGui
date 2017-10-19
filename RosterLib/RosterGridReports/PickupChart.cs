@@ -22,7 +22,7 @@ namespace RosterLib.RosterGridReports
 				ReportType = "Pickup Chart",
 				Folder = "Projections",
 				Season = Season,
-				InstanceName = string.Format( "Pickup-Chart-Week-{0:0#}", Week )
+				InstanceName = $"Pickup-Chart-Week-{Week:0#}"
 			};
 		}
 

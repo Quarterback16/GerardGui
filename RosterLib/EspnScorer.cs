@@ -26,20 +26,23 @@ namespace RosterLib
 
 		public bool ScoresOnly { get; set; }
 
-		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
+		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true )
 		{
 			// Points for Scores and points for stats
 			if ( week.WeekNo.Equals( 0 ) ) return 0;
 
-			// Get the points from the XML cache if it is there
-			var theKey = string.Format( "{0}:{1:00}:{2}", week.Season, week.WeekNo, plyr.PlayerCode );
-			if ( Master != null )
+			if ( takeCache )
 			{
-				var qty = Master.GetStat( theKey );
-				plyr.Points = qty;
-				if ( AnnounceIt )
-					AnnounceTotal( plyr, week );
-				return qty;
+				// Get the points from the XML cache if it is there
+				var theKey = $"{week.Season}:{week.WeekNo:00}:{plyr.PlayerCode}";
+				if ( Master != null )
+				{
+					var qty = Master.GetStat( theKey );
+					plyr.Points = qty;
+					if ( AnnounceIt )
+						AnnounceTotal( plyr, week );
+					return qty;
+				}
 			}
 
 			Week = week;  //  set the global week, other wise u will get the same week all the time

@@ -2330,15 +2330,15 @@ namespace RosterLib
 
 			var scorer = new YahooScorer( theWeek );
 			//  Lineup could be missing some people, manually entered games will have NO LINEUP
-			var playerList = LoadLineupPlayers( nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam );
+			var playerList = LoadLineupPlayers( 
+				nflTeam.TeamCode == HomeTeam ? HomeTeam : AwayTeam );
 			foreach ( var nflPlayer in playerList )
 			{
 				if ( !nflPlayer.IsFantasyPlayer() ) continue;
-				var qty = scorer.RatePlayer( nflPlayer, theWeek );
+				var qty = scorer.RatePlayer( nflPlayer, theWeek, false );
 				if ( qty > 0.0M )
 				{
-					Announce( string.Format( "{0} for {1} in {2}",
-					   qty, nflPlayer.PlayerName, Season + ":" + Week ) );
+					Announce( $"{qty} for {nflPlayer.PlayerName} in {Season + ":" + Week}" );
 
 					var yo = new YahooOutput(
 									  Season,
@@ -2347,7 +2347,7 @@ namespace RosterLib
 									  qty,
 									  Opponent( nflTeam.TeamCode ) );
 
-					Announce( string.Format( "adding {0}", yo.StatOut() ) );
+					//Announce( $"adding {yo.StatOut()}" );
 
 					YahooList.Add( yo );
 				}
@@ -2500,6 +2500,7 @@ namespace RosterLib
 				Logger = LogManager.GetCurrentClassLogger();
 
 			Logger.Trace( msg );
+			Console.WriteLine( msg );
 		}
 
 		private void LogInfo( string msg )

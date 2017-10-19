@@ -2,44 +2,44 @@
 
 namespace RosterLib.Interfaces
 {
-   public interface IKeepTheTime
-   {
-      string Season { get; set; }
+	public interface IKeepTheTime
+	{
+		string Season { get; set; }
 
-      string Week { get; set; }
+		string Week { get; set; }
 
-      bool IsItPreseason();
+		bool IsItPreseason();
 
-      bool IsItPostSeason();
+		bool IsItPostSeason();
 
-      bool IsItRegularSeason();
+		bool IsItRegularSeason();
 
-      bool IsItPeakTime();
+		bool IsItPeakTime();
 
-      DateTime GetDate();
+		DateTime GetDate();
 
-      bool IsDateDaysOld(int daysOld, DateTime theDate);
+		bool IsDateDaysOld( int daysOld, DateTime theDate );
 
-      bool IsItWednesdayOrThursday( DateTime focusDate );
+		bool IsItWednesdayOrThursday( DateTime focusDate );
 
-      bool IsItWednesday(DateTime focusDate);
+		bool IsItWednesday( DateTime focusDate );
 
-      string CurrentSeason( DateTime focusDate );
+		string CurrentSeason( DateTime focusDate );
 
 		string CurrentSeason();
 
-      string PreviousSeason( DateTime focusDate);
+		string PreviousSeason( DateTime focusDate );
 
-      string PreviousSeason();
+		string PreviousSeason();
 
-      string PreviousWeek();
+		string PreviousWeek();
 
-      int CurrentWeek( DateTime focusDate );
+		int CurrentWeek( DateTime focusDate );
 
-      bool IsItFridaySaturdayOrSunday( DateTime dateTime );
+		bool IsItFridaySaturdayOrSunday( DateTime dateTime );
 
-	   DateTime CurrentDateTime();
+		DateTime CurrentDateTime();
 
-	   DateTime GetSundayFor(DateTime when);
-   }
+		DateTime GetSundayFor( DateTime when );
+	}
 }

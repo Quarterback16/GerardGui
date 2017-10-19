@@ -20,8 +20,8 @@ namespace Gerard.Tests
 
 		private YahooScorer SystemUnderTest()
 		{
-			testWeek = new NFLWeek( "2016", "01" ); //  should use a fake week
-			testPlayer = new NFLPlayer( "WILSRU01" );  //  Russell Wilson SS QB
+			testWeek = new NFLWeek( "2017", "05" ); //  should use a fake week
+			testPlayer = new NFLPlayer( "WATSDE02" );  //  Russell Wilson SS QB
 			return new YahooScorer(testWeek);
 		}
 
@@ -31,8 +31,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestScoringAlgorith()
 		{
-			var result = sut.RatePlayer( testPlayer, testWeek);
-			Assert.AreEqual( expected: 14.0M, actual: result );  //  history
+			var result = sut.RatePlayer( testPlayer, testWeek, true);
+			Assert.AreEqual( expected: 35.54M, actual: result );  //  history
 		}
 	}
 }

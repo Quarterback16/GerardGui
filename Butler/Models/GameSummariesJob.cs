@@ -46,6 +46,12 @@ namespace Butler.Models
 					if ( TimeKeeper.CurrentWeek( DateTime.Now ) < 2 )
 						whyNot = "Wait till the first week is over";
 				}
+
+				if ( string.IsNullOrEmpty( whyNot ) )
+				{
+					if ( TimeKeeper.IsItPeakTime() )
+						whyNot = "Peak time - no noise please";
+				}
 			}
 
 			if ( !string.IsNullOrEmpty( whyNot ) )

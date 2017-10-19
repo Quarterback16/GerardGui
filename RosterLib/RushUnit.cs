@@ -236,14 +236,12 @@ namespace RosterLib
 				   Constants.K_STATCODE_RUSHING_CARRIES, season, week, runner.PlayerCode );
 
 				runner.TotStats = new PlayerStats();
-				int rushes;
-				if ( !int.TryParse( carries, out rushes ) )
+				if ( !int.TryParse( carries, out int rushes ) )
 					rushes = 0;
 
 				var receptions = Utility.TflWs.PlayerStats(
 				   Constants.K_STATCODE_PASSES_CAUGHT, season, week, runner.PlayerCode );
-				int catches;
-				if ( !int.TryParse( receptions, out catches ) )
+				if ( !int.TryParse( receptions, out int catches ) )
 					catches = 0;
 
 				runner.TotStats.Rushes = rushes;

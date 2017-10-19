@@ -21,7 +21,7 @@ namespace Butler.Models
       {
          Report.RenderAsHtml(); //  the old method that does the work
          Report.Finish();
-         var finishedMessage = string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+         var finishedMessage = $"Rendered {Report.Name} to {Report.OutputFilename()}";
          return finishedMessage;
       }
 

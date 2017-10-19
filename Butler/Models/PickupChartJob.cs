@@ -28,7 +28,7 @@ namespace Butler.Models
 		{
 			Report.RenderAsHtml(); //  the method that does the work
 			Report.Finish();
-			return string.Format( "Rendered {0} to {1}", Report.Name, Report.OutputFilename() );
+			return $"Rendered {Report.Name} to {Report.OutputFilename()}";
 		}
 
 		public override bool IsTimeTodo( out string whyNot )

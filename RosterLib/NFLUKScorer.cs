@@ -17,7 +17,7 @@ namespace RosterLib
 
 		public bool ScoresOnly { get; set; }
 
-		public Decimal RatePlayer(NFLPlayer plyr, NFLWeek weekIn )
+		public Decimal RatePlayer(NFLPlayer plyr, NFLWeek weekIn, bool takeCache = true )
 		{
 			//  Rate players on their projected F points for the next start
 			plyr.ProjectNextWeek();

@@ -36,15 +36,18 @@ namespace RosterLib
 
 		public bool ScoresOnly { get; set; }
 
-		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
+		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true )
 		{
 			// Points for Scores and points for stats
 			if ( week.WeekNo.Equals( 0 ) ) return 0;
 
-			//  Check the stats service first
-			if ( YahooStatService.IsStat( plyr.PlayerCode, week.Season, week.Week ) )
+			if ( takeCache )
 			{
-				return YahooStatService.GetStat( plyr.PlayerCode, week.Season, week.Week );
+				//  Check the stats service first
+				if ( YahooStatService.IsStat( plyr.PlayerCode, week.Season, week.Week ) )
+				{
+					return YahooStatService.GetStat( plyr.PlayerCode, week.Season, week.Week );
+				}
 			}
 
 			if ( plyr.TeamCode == null )

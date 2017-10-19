@@ -214,7 +214,11 @@ namespace RosterLib
 		public NflTeam( string codeIn )
 		{
 			if ( string.IsNullOrEmpty( codeIn ) ) return;
-			if ( codeIn == "??" ) return;
+			if ( codeIn == "??" )
+			{
+				TeamCode = codeIn;
+				return;
+			}
 
 			if ( codeIn == "BYE" )
 			{

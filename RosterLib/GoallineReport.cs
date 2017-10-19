@@ -174,8 +174,10 @@ namespace RosterLib
 			{
 				var t = new NflTeam( dr[ "TEAMID" ].ToString(), Season,
 												 Int32.Parse( dr[ "WINS" ].ToString() ),
-												 dr[ "TEAMNAME" ].ToString() );
-				t.MetricsHt = new Hashtable();
+												 dr[ "TEAMNAME" ].ToString() )
+				{
+					MetricsHt = new Hashtable()
+				};
 				TeamList.Add( t.TeamCode, t );
 			}
 		}

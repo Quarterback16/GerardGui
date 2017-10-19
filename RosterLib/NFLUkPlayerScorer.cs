@@ -17,7 +17,7 @@ namespace RosterLib
 
 		#region IRatePlayers Members
 
-		public Decimal RatePlayer(NFLPlayer plyr, NFLWeek weekIn)
+		public Decimal RatePlayer(NFLPlayer plyr, NFLWeek weekIn, bool takeCache = true )
 		{
 			//  Rate players on their projected F points for the next start
 			plyr.ProjectNextWeek();

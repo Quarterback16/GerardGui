@@ -29,5 +29,14 @@ namespace Gerard.Tests
 			var result = cut.HealthRating();
 			Assert.AreEqual( expected: 0.1M, actual: result );
 		}
+
+		[TestMethod]
+		public void TestActualPointsForDeshahnWatson()
+		{
+			var sut = new NFLPlayer("WATSDE02");
+			var game = new NFLGame("2017:05-M");
+			var result = sut.ActualFpts(game);
+			Assert.AreEqual( expected: 35.4M, actual: result );
+		}
 	}
 }

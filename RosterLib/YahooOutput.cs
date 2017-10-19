@@ -13,14 +13,19 @@ namespace RosterLib.Models
 
 		internal string FormatKey()
 		{
-			return string.Format( "{0}:{1}:{2}", Season, Week, PlayerId );
+			return $"{Season}:{Week}:{PlayerId}";
 		}
 
 		public YahooOutput()
 		{
 		}
 
-		public YahooOutput( string season, string week, string playerId, decimal quantity, string opponent )
+		public YahooOutput( 
+			string season, 
+			string week, 
+			string playerId, 
+			decimal quantity, 
+			string opponent )
 		{
 			Season = season;
 			Week = week;
@@ -42,7 +47,7 @@ namespace RosterLib.Models
 
 		public string StatOut()
 		{
-			return string.Format( "{0}:{1}", Quantity, Opponent );
+			return $"{Quantity}:{Opponent}";
 		}
 		public override string ToString()
 		{

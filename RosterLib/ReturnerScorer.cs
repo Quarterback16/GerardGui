@@ -18,7 +18,7 @@ namespace RosterLib
 
 		public bool ScoresOnly { get; set; }
 
-		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
+		public Decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true )
 		{
 			// Points for Scores and points for stats
 			if (week.WeekNo.Equals(0)) return 0;

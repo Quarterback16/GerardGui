@@ -85,6 +85,7 @@ namespace RosterLib
 			{
 				foreach ( KeyValuePair<string, PlayerGameMetrics> pair in GameMetrics )
 				{
+					Announce( $"{pair.Key}, {pair.Value}");
 					Console.WriteLine( "{0}, {1}", pair.Key, pair.Value );
 				}
 			}

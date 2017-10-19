@@ -1,6 +1,7 @@
 ﻿using RosterLib.Interfaces;
 using System.Collections.Generic;
 using System.Text;
+using System;
 
 namespace RosterLib.RosterGridReports
 {
@@ -23,7 +24,7 @@ namespace RosterLib.RosterGridReports
 
 		public override string OutputFilename()
 		{
-			return string.Format( "{0}{1}/{2}.htm", Utility.OutputDirectory(), Season, Name );
+			return $"{Utility.OutputDirectory()}{Season}/{Name}.htm";
 		}
 
 		public override void RenderAsHtml()
@@ -60,11 +61,20 @@ namespace RosterLib.RosterGridReports
 				if ( p.PlayerCode.Equals( "BRATCA01" ) )
 					p.DumpMetrics();
 #endif
+				var line = $"   {p.PlayerNameShort,25} : {pts,2} > {p.ActualStats(),8}";
 				if ( pts > 0 )
-					body.AppendLine( string.Format( "   {0,25} : {1,2} > {2,8}",
-						p.PlayerNameShort, pts, p.ActualStats() ) );
+				{
+					Announce( line );
+					body.AppendLine( line );
+				}
 				p.UpdateActuals( Dao );
 			}
+		}
+
+		private void Announce( string line )
+		{
+			Logger.Info( line );
+			Console.WriteLine(line);
 		}
 
 		private void OutputReport( string body )

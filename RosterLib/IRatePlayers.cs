@@ -7,7 +7,7 @@ namespace RosterLib
 	/// </summary>
 	public interface IRatePlayers
 	{
-		Decimal RatePlayer( NFLPlayer plyr, NFLWeek week );
+		Decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true );
 
 		NFLWeek Week { get; set; }
 

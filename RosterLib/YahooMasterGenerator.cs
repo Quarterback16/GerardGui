@@ -9,7 +9,9 @@ namespace RosterLib
 
 		public bool FullSeason { get; set; }
 
-		public YahooMasterGenerator( bool fullSeason, IKeepTheTime timekeeper ) : base( timekeeper )
+		public YahooMasterGenerator( 
+			bool fullSeason, 
+			IKeepTheTime timekeeper ) : base( timekeeper )
 		{
 			Name = "Yahoo Master Generator";
 			YahooMaster = new YahooMaster( "Yahoo", "YahooOutput.xml" );
@@ -33,9 +35,12 @@ namespace RosterLib
 			}
 			else
 			{
-				Logger.Info( "  Generating Yahoo xml for Season {0} Week {1}",
+				Logger.Info(
+					"  Generating Yahoo xml for Season {0} Week {1}",
 				   TimeKeeper.Season, TimeKeeper.Week );
-				YahooMaster.Calculate( TimeKeeper.Season, TimeKeeper.PreviousWeek() );
+				YahooMaster.Calculate( 
+					TimeKeeper.Season, 
+					TimeKeeper.PreviousWeek() );
 			}
 			YahooMaster.Dump2Xml( Logger );
 		}

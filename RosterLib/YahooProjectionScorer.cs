@@ -14,7 +14,7 @@ namespace RosterLib
 		public XmlCache Master { get; set; }
 		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
+		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true )
 		{
 			// Points for Scores and points for stats
 			if ( week.WeekNo.Equals( 0 ) ) return 0;

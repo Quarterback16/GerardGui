@@ -21,7 +21,7 @@ namespace RosterLib
 		public string Season { get; set; }
 		public bool AnnounceIt { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week )
+		public decimal RatePlayer( NFLPlayer plyr, NFLWeek week, bool takeCache = true )
 		{
 			Week = week;
 
