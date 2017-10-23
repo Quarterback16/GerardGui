@@ -1944,6 +1944,7 @@ namespace RosterLib
 		{
 			var dao = new DbfPlayerGameMetricsDao();
 			var pgm = dao.Get( PlayerCode, g.GameKey() );
+			CurrentGameMetrics = pgm;
 			return pgm.FantasyPoints;
 		}
 

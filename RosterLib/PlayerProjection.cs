@@ -107,8 +107,6 @@ namespace RosterLib
 					dr[ "PROJ" ] = 0;
 					dr[ "FP" ] = 0.0M;
 					dr[ "STATS" ] = "";
-					dr[ "ACTUAL" ] = 0;
-					dr[ "VAR" ] = 0.0M;
 					dt.Rows.Add( dr );
 					dr = dt.NewRow();
 					byeDone = true;
@@ -129,10 +127,13 @@ namespace RosterLib
 				dr[ "STATS" ] = yahooMsg.StatLine();
 				var projPts = yahooMsg.Player.Points;
 				dr[ "FP" ] = projPts;
-				var actPts = Player.ActualFpts( g );
-				dr[ "ACTUAL" ] = actPts;
-				dr[ "ACTUALSTAT" ] = Player.ActualStatsFor( g );
-				dr[ "VAR" ] = actPts - projPts;
+				if ( g.Played() )
+				{
+					var actPts = Player.ActualFpts( g );
+					dr[ "ACTUAL" ] = actPts;
+					dr[ "ACTUALSTAT" ] = Player.ActualStatsFor( g );
+					dr[ "VAR" ] = actPts - projPts;
+				}
 				dt.Rows.Add( dr );
 				gameCount++;
 			}

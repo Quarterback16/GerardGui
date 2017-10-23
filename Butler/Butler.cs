@@ -85,9 +85,15 @@ namespace Butler
 				MyJobs = new List<Job>();
 
 				MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
-				MyJobs.Add( new LogMailerJob( new MailMan2( configReader ), new LogFileDetector()) );  //  once daily
-				MyJobs.Add( new MediaMailerJob( 
-					new MailMan2( configReader ), new MediaLogDetector(), configReader, TimeKeeper ) );
+				MyJobs.Add( new LogMailerJob(
+					new MailMan2( configReader ), 
+					new LogFileDetector()) );  //  once daily
+
+				MyJobs.Add( new MediaMailerJob(
+					new MailMan2( configReader ), 
+					new MediaLogDetector(), 
+					configReader, 
+					TimeKeeper ) );
 
 				#region Looking back on the games just played
 

@@ -43,7 +43,7 @@ namespace RosterLib
 
 		public virtual string OutputFilename()
 		{
-			return string.Format( "{0}{1}/{2}.htm", Utility.OutputDirectory(), Season, Name );
+			return $"{Utility.OutputDirectory()}{Season}/{Name}.htm";
 		}
 
 		public virtual void RenderAsHtml()
@@ -58,8 +58,9 @@ namespace RosterLib
 
 		public virtual void Finish()
 		{
-			RunTime = Utility.StopTheWatch( Stopwatch, string.Format( "Finished: {0}", Name ) );
-			if ( string.IsNullOrEmpty( Name ) ) throw new ApplicationException( "Unnamed Report !!!" );
+			RunTime = Utility.StopTheWatch( Stopwatch, $"Finished: {Name}" );
+			if ( string.IsNullOrEmpty( Name ) )
+				throw new ApplicationException( "Unnamed Report !!!" );
 			MyRunStorer.StoreRun( Name, RunTime );
 			LastRun = DateTime.Now;
 		}

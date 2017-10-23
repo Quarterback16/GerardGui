@@ -48,12 +48,20 @@ namespace Butler.Models
 
 			if ( !IsNflRelated ) return string.IsNullOrEmpty( whyNot );
 
-#if DEBUG
-         Console.WriteLine( "Base:Reason for not doing>{0}", whyNot );
-#endif
-
 			if ( !string.IsNullOrEmpty( whyNot ) )
+			{
+				if ( TimeKeeper.IsItMondayMorning() )
+				{
+					whyNot = "Games in progress";
+				}
+			}
+			if ( !string.IsNullOrEmpty( whyNot ) )
+			{
+#if DEBUG
+				Console.WriteLine( $"Base:Reason for not doing > {whyNot}" );
+#endif
 				Logger.Info( $"  Not time because : {whyNot}" );
+			}
 
 			return string.IsNullOrEmpty( whyNot );
 		}

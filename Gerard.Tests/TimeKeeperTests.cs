@@ -79,6 +79,24 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
+		public void TestMondayMorning()
+		{
+			var sut = new TimeKeeper( 
+				new FakeClock( 
+					new DateTime( 2017, 10, 23, 2, 0, 0 ) ) );  // set clock to 2am on a Monday
+			Assert.IsTrue( sut.IsItMondayMorning() );
+		}
+
+		[TestMethod]
+		public void TestNotMondayMorning()
+		{
+			var sut = new TimeKeeper(
+				new FakeClock(
+					new DateTime( 2017, 10, 23, 14, 0, 0 ) ) );  // set clock to 2pm on a Monday
+			Assert.IsFalse( sut.IsItMondayMorning() );
+		}
+
+		[TestMethod]
 		public void TestStartOfSeason2017()
 		{
 			var sut = new TimeKeeper( new FakeClock( new DateTime( 2017, 08, 04 ) ) );

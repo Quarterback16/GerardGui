@@ -140,17 +140,19 @@ namespace RosterLib
 			DataTable dt = ds.Tables[ 0 ];
 			foreach ( DataRow dr in dt.Rows )
 			{
-				var pgm = new PlayerGameMetrics();
-				pgm.PlayerId = dr[ "PLAYERID" ].ToString();
-				pgm.GameKey = dr[ "GAMECODE" ].ToString();
-				pgm.ProjTDp = IntValue( dr, "projtdp" );
-				pgm.ProjTDr = DecimalValue( dr, "projtdr" );
-				pgm.ProjTDc = IntValue( dr, "projtdc" );
-				pgm.ProjYDp = IntValue( dr, "projydp" );
-				pgm.ProjYDr = IntValue( dr, "projydr" );
-				pgm.ProjYDc = IntValue( dr, "projydc" );
-				pgm.ProjFG = IntValue( dr, "projfg" );
-				pgm.ProjPat = IntValue( dr, "projpat" );
+				var pgm = new PlayerGameMetrics
+				{
+					PlayerId = dr[ "PLAYERID" ].ToString(),
+					GameKey = dr[ "GAMECODE" ].ToString(),
+					ProjTDp = IntValue( dr, "projtdp" ),
+					ProjTDr = DecimalValue( dr, "projtdr" ),
+					ProjTDc = IntValue( dr, "projtdc" ),
+					ProjYDp = IntValue( dr, "projydp" ),
+					ProjYDr = IntValue( dr, "projydr" ),
+					ProjYDc = IntValue( dr, "projydc" ),
+					ProjFG = IntValue( dr, "projfg" ),
+					ProjPat = IntValue( dr, "projpat" )
+				};
 				pgmList.Add( pgm );
 			}
 #if DEBUG

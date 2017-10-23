@@ -29,7 +29,6 @@ namespace RosterLib.RosterGridReports
 
 		public override void RenderAsHtml()
 		{
-			//TODO  process and add lines to a pre report
 			var body = new StringBuilder();
 			var gameList = Week.GameList();
 			foreach ( NFLGame g in gameList )
@@ -51,24 +50,31 @@ namespace RosterLib.RosterGridReports
 			Finish();
 		}
 
-		private void ProcessPlayerList( IEnumerable<NFLPlayer> plist, StringBuilder body )
+		public void ProcessPlayerList( IEnumerable<NFLPlayer> plist, StringBuilder body )
 		{
 			foreach ( var p in plist )
 			{
-				var pts = Scorer.RatePlayer( p, Week );
-				p.Points = pts;
-#if DEBUG
-				if ( p.PlayerCode.Equals( "BRATCA01" ) )
-					p.DumpMetrics();
-#endif
-				var line = $"   {p.PlayerNameShort,25} : {pts,2} > {p.ActualStats(),8}";
-				if ( pts > 0 )
-				{
-					Announce( line );
-					body.AppendLine( line );
-				}
-				p.UpdateActuals( Dao );
+				ProcessPlayer( body, p );
 			}
+		}
+
+		public void ProcessPlayer( StringBuilder body, NFLPlayer p )
+		{
+			var pts = Scorer.RatePlayer( p, Week, takeCache: false );
+			// By product is that the players Game Metrics are updated
+			p.Points = pts;
+
+#if DEBUG
+			if ( p.PlayerCode.Equals( "RIVEPH01" ) )
+				p.DumpMetrics();
+#endif
+			var line = $"   {p.PlayerNameShort,25} : {pts,2} > {p.ActualStats(),8}";
+			if ( pts > 0 )
+			{
+				Announce( line );
+				body.AppendLine( line );
+			}
+			p.UpdateActuals( Dao );
 		}
 
 		private void Announce( string line )
@@ -84,7 +90,7 @@ namespace RosterLib.RosterGridReports
 				ReportType = Name,
 				Folder = "Metrics",
 				Season = Season,
-				InstanceName = string.Format( "MetricsUpdates-{0:0#}", Week ),
+				InstanceName = $"MetricsUpdates-{Week:0#}",
 				Body = body
 			};
 			PreReport.RenderHtml();

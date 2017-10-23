@@ -1,6 +1,9 @@
 ﻿using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RosterLib;
+using RosterLib.RosterGridReports;
 using System;
+using System.Text;
 
 namespace Gerard.Tests
 {
@@ -25,6 +28,17 @@ namespace Gerard.Tests
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Console.WriteLine( whyNot );
 			Assert.IsFalse( result );
+		}
+
+		[TestMethod]
+		public void TestProcessOnePlayer()
+		{
+			var sut = new MetricsUpdateReport(
+				new FakeTimeKeeper( season: "2017", week: "07" ) );
+			var body = new StringBuilder();
+			var p = new NFLPlayer( "HUNDBR01" );
+			sut.ProcessPlayer( body, p );
+			Console.WriteLine(body.ToString());
 		}
 	}
 }

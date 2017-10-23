@@ -12,6 +12,9 @@ namespace RosterLib.RosterGridReports
 
 		public SimplePreReport Report { get; set; }
 
+		public PickupSummary PickupSummary { get; set; }
+
+
 		public PickupChart( IKeepTheTime timekeeper, int week ) : base( timekeeper )
 		{
 			Name = "Pickup Chart";
@@ -24,6 +27,7 @@ namespace RosterLib.RosterGridReports
 				Season = Season,
 				InstanceName = $"Pickup-Chart-Week-{Week:0#}"
 			};
+			PickupSummary = new PickupSummary(timekeeper, week);
 		}
 
 		public override void RenderAsHtml()
@@ -31,6 +35,7 @@ namespace RosterLib.RosterGridReports
 			Report.Body = GenerateBody();
 			Report.RenderHtml();
 			FileOut = Report.FileOut;
+			PickupSummary.RenderAsHtml();
 		}
 
 		public string GenerateBody()
@@ -238,6 +243,7 @@ namespace RosterLib.RosterGridReports
 			p.TeamCode, Week - 1, p.PlayerNameTo( 11 ) );
 			if ( p.PlayerCat.Equals( Constants.K_KICKER_CAT ) )
 			{
+				AddPickup( p, g );
 				return string.Format( " {0,-11}  {1}  {2,2:#0}{3} {4}",
 				   namePart,
 				   owners,
@@ -246,6 +252,7 @@ namespace RosterLib.RosterGridReports
 				   ActualOutput( g, p )
 				   );
 			}
+			AddPickup( p, g );
 			return string.Format( "{6}{0,-11}{7} {3}  {1}  {2,2:#0}{5} {4}",
 			   namePart,
 			   matchupLink,  //  defensiveRating,
@@ -256,6 +263,23 @@ namespace RosterLib.RosterGridReports
 			   ReturnerBit( p ),
 			   ShortYardageBit( p )
 			   );
+		}
+
+		private void AddPickup( NFLPlayer p, NFLGame g )
+		{
+			p.LoadOwner( Constants.K_LEAGUE_Yahoo );
+			if ( p.IsFreeAgent() )
+			{
+				PickupSummary.AddPickup(
+					new Pickup
+					{
+						Name = $"{p.PlayerNameTo( 20 )} ({p.TeamCode}) {p.PlayerPos,-10}",
+						Opp = $"{g.OpponentOut( p.TeamCode )}",
+						ProjPts = p.Points,
+						CategoryCode = p.PlayerCat,
+						ActualPts = ActualOutput( g, p )
+					} );
+			}
 		}
 
 		private string PlusMatchup( NFLPlayer p, NflTeam nextOppTeam, NflTeam pTeam )
@@ -315,13 +339,13 @@ namespace RosterLib.RosterGridReports
 
 		public string ActualOutput( NFLGame g, NFLPlayer p )
 		{
-			if ( !g.Played() )
+			if ( !g.Played(addDay:false) )
 				return "____";
 
 			Console.WriteLine( g.ScoreOut() );
 			if ( g.GameWeek == null ) g.GameWeek = new NFLWeek( g.Season, g.Week );
 			var scorer = new YahooScorer( g.GameWeek );
-			var nScore = scorer.RatePlayer( p, g.GameWeek );
+			var nScore = scorer.RatePlayer( p, g.GameWeek, takeCache:false );
 			return string.Format( " {0,2:#0} ", nScore );
 		}
 
@@ -396,7 +420,7 @@ namespace RosterLib.RosterGridReports
 
 		public override string ToString()
 		{
-			return string.Format( "{1} by {0,4}", Margin, Team );
+			return $"{Team} by {Margin,4}";
 		}
 	}
 

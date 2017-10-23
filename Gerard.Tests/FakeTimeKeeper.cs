@@ -61,6 +61,20 @@ namespace Gerard.Tests
 			TheDateTime = DateTime.Now;
 		}
 
+		public bool IsItMondayMorning()
+		{
+			var isIt = false;
+			var currTime = CurrentDateTime();
+			if ( currTime.DayOfWeek == DayOfWeek.Monday )
+			{
+				if ( currTime.Hour < 12 )
+				{
+					isIt = true;
+				}
+			}
+			return isIt;
+		}
+
 		public bool IsItWednesdayOrThursday( DateTime focusDate )
 		{
 			return false;

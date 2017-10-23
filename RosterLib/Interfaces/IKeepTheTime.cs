@@ -41,5 +41,7 @@ namespace RosterLib.Interfaces
 		DateTime CurrentDateTime();
 
 		DateTime GetSundayFor( DateTime when );
+
+		bool IsItMondayMorning();
 	}
 }

@@ -10,10 +10,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPlayerProjection()  //  25 sec 2015-08-14
 		{
-			var pp = new PlayerProjection( "BRADTO01", "2017" );
+			var pp = new PlayerProjection( "HUNDBR01", "2017" );
 			pp.Render();
 			var fileOut = pp.FileName();
-			Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );
+			Assert.IsTrue( File.Exists( fileOut ), $"Cannot find {fileOut}" );
 		}
 
 		[TestMethod]

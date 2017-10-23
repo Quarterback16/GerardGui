@@ -576,9 +576,14 @@ namespace RosterLib
 				  : DanGordan.WantsRevenge( AwayNflTeam, HomeNflTeam, GameDate );
 		}
 
-		public bool Played()
+		public bool Played(bool addDay = true)
 		{
-			return ( GameDate.AddDays( 1 ).Date < DateTime.Now.Date ) && ( HomeScore + AwayScore > 0 );
+			if ( addDay )
+			{
+				return ( GameDate.AddDays( 1 ).Date < DateTime.Now.Date ) && ( HomeScore + AwayScore > 0 );
+			}
+			else
+				return ( GameDate.Date < DateTime.Now.Date ) && ( HomeScore + AwayScore > 0 );
 		}
 
 		public bool WasRout()
@@ -854,29 +859,29 @@ namespace RosterLib
 
 		public string ScoreOut( string teamInFocus )
 		{
-			return teamInFocus == HomeTeam ? String.Format( "{0:#0}-{1:#0}", HomeScore, AwayScore ) : String.Format( "{0:#0}-{1:#0}", AwayScore, HomeScore );
+			return teamInFocus == HomeTeam ? $"{HomeScore:#0}-{AwayScore:#0}" : String.Format( "{0:#0}-{1:#0}", AwayScore, HomeScore );
 		}
 
 		public string ProjectedScoreOut( string teamInFocus )
 		{
-			return teamInFocus == HomeTeam ? String.Format( "{0:#0}-{1:#0}", ProjectedHomeScore, ProjectedAwayScore ) : String.Format( "{0:#0}-{1:#0}", ProjectedAwayScore, ProjectedHomeScore );
+			return teamInFocus == HomeTeam ? $"{ProjectedHomeScore:#0}-{ProjectedAwayScore:#0}" : String.Format( "{0:#0}-{1:#0}", ProjectedAwayScore, ProjectedHomeScore );
 		}
 
 		public string GameCodeOut()
 		{
 			//  used by NFLGambler
-			return string.Format( "{0}:{1}", Season, WeekOut() );
+			return $"{Season}:{WeekOut()}";
 		}
 
 		public string WeekCodeOut()
 		{
-			return string.Format( "{0}:{1:0#}", Season, Int32.Parse( Week ) );
+			return $"{Season}:{Int32.Parse( Week ):0#}";
 		}
 
 		public string GameKey()
 		{
 			//  used by NFLGambler
-			return string.Format( "{0}:{1}-{2}", Season, Week, GameCode );
+			return $"{Season}:{Week}-{GameCode}";
 		}
 
 		public string GameRow( string teamInFocus )

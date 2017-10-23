@@ -278,6 +278,7 @@
     <Compile Include="PerformanceReport.cs" />
     <Compile Include="PerformanceReportGenerator.cs" />
     <Compile Include="PgmMaster.cs" />
+    <Compile Include="Pickup.cs" />
     <Compile Include="PipeLine.cs" />
     <Compile Include="PlayerCache.cs" />
     <Compile Include="PlayerCareerReport.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="RosterGridReports\IWinOrLose.cs" />
     <Compile Include="RosterGridReports\MetricsUpdateReport.cs" />
     <Compile Include="RosterGridReports\PickupChart.cs" />
+    <Compile Include="RosterGridReports\PickupSummary.cs" />
     <Compile Include="RosterGridReports\PlayoffTeamsReport.cs" />
     <Compile Include="RosterGridReports\RetirePlayersReport.cs" />
     <Compile Include="RosterGridReports\TeamMetricsUpdateReport.cs" />

@@ -144,6 +144,7 @@
     <Compile Include="GerardTests.cs" />
     <Compile Include="MatchupReportTests.cs" />
     <Compile Include="PickupChartTests.cs" />
+    <Compile Include="PickupSummaryTests.cs" />
     <Compile Include="PlayerCsvTests.cs" />
     <Compile Include="PlayerProjectionGeneratorTests.cs" />
     <Compile Include="PlayerProjectionTests.cs" />
