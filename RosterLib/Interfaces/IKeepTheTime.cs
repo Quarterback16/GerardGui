@@ -24,6 +24,8 @@ namespace RosterLib.Interfaces
 
 		bool IsItWednesday( DateTime focusDate );
 
+		bool IsItTuesday();
+
 		string CurrentSeason( DateTime focusDate );
 
 		string CurrentSeason();

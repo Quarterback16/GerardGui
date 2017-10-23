@@ -172,6 +172,12 @@ namespace Gerard.Tests
 			return TheDateTime;
 		}
 
+		public bool IsItTuesday()
+		{
+			var focusDate = CurrentDateTime();
+			return focusDate.DayOfWeek == DayOfWeek.Tuesday;
+		}
+
 		public DateTime GetSundayFor( DateTime when )
 		{
 			var theSeason = Utility.SeasonFor( when );

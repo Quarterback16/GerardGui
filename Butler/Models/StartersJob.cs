@@ -35,6 +35,8 @@ namespace Butler.Models
                //  check if there is any new data
                whyNot = Report.CheckLastRunDate();
             }
+            if (TimeKeeper.IsItTueday())
+               whyNot = "Not on Tuesdays";
 #endif
 			}
 			if ( !string.IsNullOrEmpty( whyNot ) )

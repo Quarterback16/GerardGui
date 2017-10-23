@@ -1,45 +1,47 @@
-﻿using RosterLib.Interfaces;
-using RosterLib;
+﻿using RosterLib;
+using RosterLib.Interfaces;
 using System;
-using Butler.Implementations;
 
 namespace Butler.Models
 {
-   public class GameProjectionReportsJob : Job
-   {
-      public RosterGridReport Report { get; set; }
+	public class GameProjectionReportsJob : Job
+	{
+		public RosterGridReport Report { get; set; }
 
-      public GameProjectionReportsJob( IKeepTheTime timeKeeper )
-      {
-         Name = "Game Projection Reports";
-         Report = new GameProjectionsReport( timeKeeper );
-         TimeKeeper = timeKeeper;
-         Logger = NLog.LogManager.GetCurrentClassLogger();
-         IsNflRelated = true;
-      }
+		public GameProjectionReportsJob( IKeepTheTime timeKeeper )
+		{
+			Name = "Game Projection Reports";
+			Report = new GameProjectionsReport( timeKeeper );
+			TimeKeeper = timeKeeper;
+			Logger = NLog.LogManager.GetCurrentClassLogger();
+			IsNflRelated = true;
+		}
 
-      public override string DoJob()
-      {
-         return Report.DoReport();
-      }
+		public override string DoJob()
+		{
+			return Report.DoReport();
+		}
 
-      public override bool IsTimeTodo( out string whyNot )
-      {
-         base.IsTimeTodo( out whyNot );
+		public override bool IsTimeTodo( out string whyNot )
+		{
+			base.IsTimeTodo( out whyNot );
 
-         if ( string.IsNullOrEmpty( whyNot ) )
-         {
-            //  check if there is any new data
-            whyNot = Report.CheckLastRunDate();
-         }
-         if ( string.IsNullOrEmpty( whyNot ) )
-         {
-            if ( TimeKeeper.IsItPeakTime() )
-               whyNot = $"{DateTime.Now.TimeOfDay:t} is peak time";
-         }
-         if ( !string.IsNullOrEmpty( whyNot ) )
-            Logger.Info( "Skipped {1}: {0}", whyNot, Name );
-         return ( string.IsNullOrEmpty( whyNot ) );
-      }
-   }
+			if ( string.IsNullOrEmpty( whyNot ) )
+			{
+				//  check if there is any new data
+				whyNot = Report.CheckLastRunDate();
+			}
+			if ( string.IsNullOrEmpty( whyNot ) )
+			{
+				if ( TimeKeeper.IsItPeakTime() )
+					whyNot = $"{DateTime.Now.TimeOfDay:t} is peak time";
+			}
+			if ( TimeKeeper.IsItTuesday() )
+				whyNot = "Not on Tuesdays";
+
+			if ( !string.IsNullOrEmpty( whyNot ) )
+				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
+			return ( string.IsNullOrEmpty( whyNot ) );
+		}
+	}
 }

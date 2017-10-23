@@ -234,5 +234,11 @@ namespace RosterLib
 		{
 			return focusDate.DayOfWeek == DayOfWeek.Wednesday;
 		}
+
+		public bool IsItTuesday()
+		{
+			var focusDate = CurrentDateTime();
+			return focusDate.DayOfWeek == DayOfWeek.Tuesday;
+		}
 	}
 }
