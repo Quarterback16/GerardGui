@@ -18,5 +18,5 @@ using System.Reflection;
 [assembly: AssemblyCopyrightAttribute("Copyright (C) 2003-2005, Knoware")]
 [assembly: AssemblyVersionAttribute("703.14.*")]
 
-[assembly: System.CLSCompliant(true)]
+[assembly: System.CLSCompliant(false)]
 
