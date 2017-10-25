@@ -108,7 +108,7 @@ namespace RosterLib.RosterGridReports
 			   : team.Game.BookieTip.PredictedScoreFlipped();
 			var theLine = team.Game.TheLine( team.Team.TeamCode );
 			var url = team.Game.GameProjectionUrl();
-			return string.Format( "<a href='{0}'>{1}</a> {2,3}", url, predictedResult, theLine );
+			return $"<a href='{url}'>{predictedResult}</a> {theLine,3}";
 		}
 
 		private string GetW1Bit( IWinOrLose team, YahooCalculator c )
@@ -124,7 +124,7 @@ namespace RosterLib.RosterGridReports
 
 		private string NoneBit( IWinOrLose team )
 		{
-			var bit = string.Format( " <a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>none</a>                            ", team.Team.TeamCode, Week - 1 );
+			var bit = $" <a href='..\\Roles\\{team.Team.TeamCode}-Roles-{Week - 1:0#}.htm'>none</a>                            ";
 			return bit;
 		}
 
@@ -135,7 +135,7 @@ namespace RosterLib.RosterGridReports
 			{
 				bit = PlayerPiece( team.Team.PassUnit.W2, team.Game, c );
 			}
-			return string.Format( "{0,-36}", bit );
+			return $"{bit,-36}";
 		}
 
 		private string GetTEBit( IWinOrLose team, YahooCalculator c )
@@ -146,7 +146,7 @@ namespace RosterLib.RosterGridReports
 			{
 				bit = PlayerPiece( team.Team.PassUnit.TE, team.Game, c );
 			}
-			return string.Format( "{0,-36}", bit );
+			return $"{bit,-36}";
 		}
 
 		private string GetPKBit( IWinOrLose team, YahooCalculator c )
@@ -157,7 +157,7 @@ namespace RosterLib.RosterGridReports
 			{
 				bit = PlayerPiece( team.Team.KickUnit.PlaceKicker, team.Game, c );
 			}
-			return string.Format( "{0,-36}", bit );
+			return $"{bit,-36}";
 		}
 
 		private string GetQBBit( IWinOrLose team, YahooCalculator c )
@@ -166,7 +166,7 @@ namespace RosterLib.RosterGridReports
 
 			if ( team.Team.PassUnit.Q1 != null )
 				bit = PlayerPiece( team.Team.PassUnit.Q1, team.Game, c );
-			return string.Format( "{0,-36}", bit );
+			return $"{bit,-36}";
 		}
 
 		public string GetRunnerBit( IWinOrLose team, YahooCalculator c )
@@ -229,7 +229,7 @@ namespace RosterLib.RosterGridReports
 				Logger.Trace( "   >>> No QB1 for {0}", team.Team.Name );
 			}
 			Logger.Trace( "   >>> bit = {0}", bit );
-			return string.Format( "{0,-36}", bit );
+			return $"{bit,-36}";
 		}
 
 		public string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
@@ -268,17 +268,20 @@ namespace RosterLib.RosterGridReports
 		private void AddPickup( NFLPlayer p, NFLGame g )
 		{
 			p.LoadOwner( Constants.K_LEAGUE_Yahoo );
-			if ( p.IsFreeAgent() )
+			if ( p.IsFreeAgent() || p.Owner == "77" )
 			{
-				PickupSummary.AddPickup(
-					new Pickup
-					{
-						Name = $"{p.PlayerNameTo( 20 )} ({p.TeamCode}) {p.PlayerPos,-10}",
-						Opp = $"{g.OpponentOut( p.TeamCode )}",
-						ProjPts = p.Points,
-						CategoryCode = p.PlayerCat,
-						ActualPts = ActualOutput( g, p )
-					} );
+				var pu = new Pickup
+				{
+					Name = $"{p.PlayerNameTo( 20 )} ({p.TeamCode}) {p.PlayerPos,-10}",
+					Opp = $"{g.OpponentOut( p.TeamCode )}",
+					ProjPts = p.Points,
+					CategoryCode = p.PlayerCat,
+					Pos = p.PlayerPos,
+					ActualPts = ActualOutput( g, p )
+				};
+				if ( p.Owner == "77" )
+					pu.Name = pu.Name.ToUpper();
+				PickupSummary.AddPickup( pu );
 			}
 		}
 

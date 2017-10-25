@@ -59,7 +59,7 @@ namespace RosterLib
 			if ( string.IsNullOrEmpty( GameKey ) ) return 0;
 
 			Game = new NFLGame( GameKey );
-			WeekHasPassed = Game.Played(addDay:false);
+			WeekHasPassed = Game.Played();
 			if ( !WeekHasPassed ) return plyr.Points;
 
 			Week = week;  //  set the global week, other wise u will get the same week all the time

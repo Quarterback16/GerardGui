@@ -32,6 +32,7 @@ namespace RosterLib.RosterGridReports
 			Report.Body = GenerateBody();
 			Report.RenderHtml();
 			FileOut = Report.FileOut;
+			Pickups.Clear();
 		}
 
 		private string GenerateBody()
@@ -42,12 +43,12 @@ namespace RosterLib.RosterGridReports
 			var lastCategory = "X";
 			foreach ( Pickup pickup in Pickups )
 			{
-				if ( pickup.CategoryCode != lastCategory)
+				if ( pickup.RealCatCode() != lastCategory)
 				{
 					simple.AppendLine( string.Empty );
 					simple.AppendLine( pickup.Category() );
 					simple.AppendLine( string.Empty );
-					lastCategory = pickup.CategoryCode;
+					lastCategory = pickup.RealCatCode();
 				}
 				simple.AppendLine($"   {pickup.ToString()}");
 			}

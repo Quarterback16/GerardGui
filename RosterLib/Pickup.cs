@@ -14,10 +14,12 @@ namespace RosterLib
 
 		public string CategoryCode { get; set; }
 
+		public string  Pos { get; set; }
+
 		public string Category()
 		{
 			var s = "Unknown";
-			switch ( CategoryCode )
+			switch ( RealCatCode() )
 			{
 				case "1":
 					s = "QUARTERBACKS";
@@ -32,6 +34,10 @@ namespace RosterLib
 					break;
 
 				case "4":
+					s = "TIGHT ENDS";
+					break;
+
+				case "5":
 					s = "KICKERS";
 					break;
 
@@ -42,11 +48,35 @@ namespace RosterLib
 			return s;
 		}
 
+		public string RealCatCode()
+		{
+			var catOut = "5";
+			switch ( CategoryCode )
+			{
+				case Constants.K_QUARTERBACK_CAT:
+					catOut = "1";
+					break;
+
+				case "2":
+					catOut = "2";
+					break;
+
+				case "3":
+					if ( Pos.Contains( "TE" ) )
+						catOut = "4";
+					else
+						catOut = "3";
+					break;
+
+			}
+			return catOut;
+		}
+
 		public decimal SortPoints
 		{
 			get
 			{
-				return ( ( 10.0M - Decimal.Parse( CategoryCode ) ) * 100.0M ) + ProjPts;
+				return ( ( 10.0M - Decimal.Parse( RealCatCode() ) ) * 100.0M ) + ProjPts;
 			}
 		}
 

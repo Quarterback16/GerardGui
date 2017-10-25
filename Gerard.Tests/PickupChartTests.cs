@@ -10,7 +10,7 @@ namespace Gerard.Tests
 	public class PickupChartTests
 	{
 		[TestMethod]
-		public void TestDoPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
+		public void TestDoCurrentPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
 		{
 			var sut = new PickupChartJob( 
 				new TimeKeeper( clock: null ) );
@@ -32,7 +32,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoPickupChartJobSpecificWeek() 
 		{
-			var sut = new PickupChartJob( new FakeTimeKeeper( season:"2017", week:"08" ) );
+			var sut = new PickupChartJob( new FakeTimeKeeper( season:"2017", week:"07" ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
