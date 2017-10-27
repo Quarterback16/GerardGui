@@ -9,7 +9,7 @@ namespace Butler.Models
 	public class PickupChartJob : Job
 	{
 		public int Week { get; set; }
-
+		public bool Previous { get; set; }
 		public RosterGridReport Report { get; set; }
 
 		public PickupChartJob( IKeepTheTime timekeeper, bool previous = false )
@@ -20,7 +20,7 @@ namespace Butler.Models
 			Week = previous ? Int32.Parse( TimeKeeper.PreviousWeek() ) 
 				: TimeKeeper.CurrentWeek( DateTime.Now );
 			if ( Week == 0 ) Week = 1;  //  in preseason lets look ahead to the first game
-
+			Previous = previous;
 			Report = new PickupChart( TimeKeeper, Week );
 		}
 
@@ -41,6 +41,11 @@ namespace Butler.Models
 				whyNot = Report.CheckLastRunDate();
 				if ( TimeKeeper.IsItPeakTime() )
 					whyNot = "Peak time - no noise please";
+			}
+			if ( Previous )
+			{
+				if ( ! TimeKeeper.IsItWednesday(DateTime.Now) )
+					whyNot = "Only runs on Wednesday";
 			}
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
