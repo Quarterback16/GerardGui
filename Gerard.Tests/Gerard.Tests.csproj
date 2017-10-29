@@ -117,6 +117,7 @@
     <Compile Include="IsRetiredTest.cs" />
     <Compile Include="IterSortTests.cs" />
     <Compile Include="JobLogTests.cs" />
+    <Compile Include="LineupSummaryTests.cs" />
     <Compile Include="LineupTests.cs" />
     <Compile Include="LoadRunnersTests.cs" />
     <Compile Include="LogCleanupTests.cs" />

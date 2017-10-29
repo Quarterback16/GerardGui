@@ -1,4 +1,4 @@
-using NLog;
+﻿using NLog;
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -2198,7 +2198,18 @@ namespace TFLLib
 			OleDbConn.Close();
 		}
 
-		public void StoreProjection( int nProjected, string playerId )
+        public void StoreJersey( string jerseyNo, string playerId )
+        {
+            playerId = FixSingleQuotes( playerId );
+
+            string commandStr = $@"UPDATE PLAYER SET JERSEY = {
+                jerseyNo
+                } WHERE PLAYERID='{playerId}'";
+
+            ExecuteNflCommand( commandStr );
+        }
+
+        public void StoreProjection( int nProjected, string playerId )
 		{
 			playerId = FixSingleQuotes( playerId );
 
@@ -2275,12 +2286,22 @@ namespace TFLLib
 		{
 			playerId = FixSingleQuotes( playerId );
 			var commandStr =
-			   string.Format( "UPDATE PLAYER SET ROLE = '{1}' WHERE PLAYERID='{0}'", playerId, roleCode );
+			   $"UPDATE PLAYER SET ROLE = '{roleCode}' WHERE PLAYERID='{playerId}'";
 
 			ExecuteNflCommand( commandStr );
 		}
 
-		public void Sign( string playerId, string teamCode, DateTime when, string how )
+        public void ClearDefensiveRoles( string teamCode )
+        {
+            var commandStr =
+               $@"UPDATE PLAYER SET ROLE = ' ' WHERE CURRTEAM='{
+                   teamCode
+                   }' and (CATEGORY = '5' or CATEGORY = '6')";
+
+            ExecuteNflCommand( commandStr );
+        }
+
+        public void Sign( string playerId, string teamCode, DateTime when, string how )
 		{
 			playerId = FixSingleQuotes( playerId );
 			var formatStr =
@@ -2435,7 +2456,7 @@ namespace TFLLib
 			}
 			catch ( Exception ex )
 			{
-				WriteToLog( string.Format( "Failure to execute Command: {0} >> {1} ", commandStr, ex.Message ) );
+				WriteToLog( $"Failure to execute Command: {commandStr} >> {ex.Message} " );
 				throw;
 			}
 		}

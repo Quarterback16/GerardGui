@@ -41,7 +41,7 @@ namespace RosterLib.RosterGridReports
 				var inPlayoffs = false;
 				if ( team.Above500() )
 				{
-					bodyOut.AppendLine( string.Format( "{0,-25} {1}", team.NameOut(), team.RecordOut() ) );
+					bodyOut.AppendLine( $"{team.NameOut(),-25} {team.RecordOut()}" );
 					inPlayoffs = true;
 				}
 				Utility.TflWs.UpdatePlayoff( team.Season, team.TeamCode, inPlayoffs );

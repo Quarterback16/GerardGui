@@ -1,4 +1,4 @@
-using NLog;
+﻿using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -4987,8 +4987,12 @@ namespace RosterLib
 			var ds = Utility.TflWs.GetPlayer( TeamCode, strCat, roleFilter, strPos );
 			var dt = ds.Tables[ "player" ];
 
-			TraceIt( string.Format( "NFLTeam.AddPlayerData: adding {0} players in Cat {1} role {2} ",
-			   dt.Rows.Count, strCat, strPos ) );
+			TraceIt( 
+                string.Format( 
+                    "NFLTeam.AddPlayerData: adding {0} players in Cat {1} role {2} ",
+			        dt.Rows.Count, 
+                    strCat, 
+                    strPos ) );
 
 			if ( dt.Rows.Count != 0 )
 				foreach ( DataRow dr in dt.Rows )

@@ -107,6 +107,7 @@
     <Compile Include="Models\GoalLineReportJob.cs" />
     <Compile Include="Models\HotListsJob.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\LineupSummaryJob.cs" />
     <Compile Include="Models\LogCleanupJob.cs" />
     <Compile Include="Models\LogMailerJob.cs" />
     <Compile Include="Models\MediaJob.cs" />

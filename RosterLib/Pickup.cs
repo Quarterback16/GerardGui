@@ -82,7 +82,7 @@ namespace RosterLib
 
 		public override string ToString()
 		{
-			return $"{Name,-35} {Opp,-10} {ProjPts,5}  {ActualPts}";
+			return $"{Name,-40} {Opp,-10} {ProjPts,5}  {ActualPts}";
 		}
 	}
 

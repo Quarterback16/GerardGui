@@ -56,11 +56,13 @@ namespace Gerard.Tests
 			Assert.AreEqual( "DStewart", star );
 		}
 
-		public void TestUnitReportTeamPassDefence()
+        [TestMethod]
+        public void TestUnitReportTeamPassDefence()
 		{
 			//  Fake historian garantees job will run always
-			var sut = new NflTeam( "NG" );
+			var sut = new NflTeam( "MD" );
 			var r = sut.PdReport();
+            Console.WriteLine(r);
 			Assert.IsTrue( r.Length > 0 );
 		}
 

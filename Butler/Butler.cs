@@ -128,7 +128,8 @@ namespace Butler
 				MyJobs.Add( new SuggestedLineupsJob( TimeKeeper ) );
 				MyJobs.Add( new PickupChartJob( TimeKeeper ) );
 				MyJobs.Add( new PreviousPickupChartJob( TimeKeeper, Historian ) );
-				MyJobs.Add( new StartersJob( TimeKeeper ) );
+                MyJobs.Add( new LineupSummaryJob( TimeKeeper ) );
+                MyJobs.Add( new StartersJob( TimeKeeper ) );
 				MyJobs.Add( new PointsAllowedReportJob( TimeKeeper ) );
 
 				#endregion Looking forward to the upcoming games
