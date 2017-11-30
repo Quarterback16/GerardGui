@@ -21,7 +21,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimetoDoPlayerReports()
 		{
-			var sut = new PlayerReportsJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ),
+			var sut = new PlayerReportsJob( 
+                new FakeTimeKeeper( 
+                    isPreSeason: true, 
+                    isPeakTime: false ),
 				new FakeConfigReader() );
 			var isTime = sut.IsTimeTodo( out string whyNot );
 			Console.WriteLine( whyNot );
@@ -29,10 +32,10 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestEddieLacy()
+		public void TestDeshaunWatson()
 		{
-			var sut = new NFLPlayer( "CARRDE01" );
-			var outcome = sut.PlayerReport();
+			var sut = new NFLPlayer( "WATSDE02" );
+			var outcome = sut.PlayerReport(forceIt:true);
 			Console.WriteLine( "Report generated to {0}", outcome );
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}

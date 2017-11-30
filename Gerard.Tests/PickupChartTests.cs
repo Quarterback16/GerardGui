@@ -32,7 +32,11 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoPickupChartJobSpecificWeek() 
 		{
-			var sut = new PickupChartJob( new FakeTimeKeeper( season:"2017", week:"07" ) );
+			var sut = new PickupChartJob( 
+                new FakeTimeKeeper( 
+                    season:"2017", 
+                    week:"12" ) );
+
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -78,9 +82,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestActualOutput()
 		{
-			var sut = new PickupChart( new FakeTimeKeeper( season: "2015" ), week: 12 );
-			var p = new NFLPlayer( "STAFMA01" );
-			var g = new NFLGame( "2015:12-A" );
+			var sut = new PickupChart( 
+                new FakeTimeKeeper( season: "2017" ), week: 13 );
+			var p = new NFLPlayer( "PRESDA01" );
+			var g = new NFLGame( "2017:13-A" );
 			var result = sut.ActualOutput( g, p );
 			Assert.AreEqual( expected: " 34 ", actual: result );
 		}
@@ -89,13 +94,24 @@ namespace Gerard.Tests
 		public void TestProjectedOutput()
 		{
 			var sut = new YahooCalculator();
-			var p = new NFLPlayer( "STAFMA01" );
-			var g = new NFLGame( "2015:12-A" );
+			var p = new NFLPlayer( "DAWSPH01" );
+			var g = new NFLGame( "2017:10-A" );
 			var result = sut.Calculate( p, g );
-			Assert.AreEqual( expected: 20, actual: p.Points );
+			Assert.AreEqual( expected: 12, actual: p.Points );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestActualOutputDawson()
+        {
+            var sut = new PickupChart(
+                new FakeTimeKeeper( season: "2017" ), week: 10 );
+            var p = new NFLPlayer( "DAWSPH01" );
+            var g = new NFLGame( "2017:10-A" );
+            var result = sut.ActualOutput( g, p );
+            Assert.AreEqual( expected: "  5 ", actual: result);
+        }
+
+        [TestMethod]
 		public void TestGameHasBeenPlayed()
 		{
 			var g = new NFLGame( "2015:12-D" );
@@ -214,7 +230,17 @@ namespace Gerard.Tests
 			Assert.IsTrue( p.Points > 1 );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestProjectedPoints()
+        {
+            var sut = new YahooCalculator();
+            var p = new NFLPlayer( "DAWSPH01" );
+            var g = new NFLGame( "2017:10-A" );
+            sut.Calculate( p, g );
+            Assert.IsTrue( p.Points == 12 );
+        }
+
+        [TestMethod]
 		public void TestW2Bit()
 		{
 			var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week: 15 );
@@ -233,12 +259,13 @@ namespace Gerard.Tests
 		}
 
 		[TestMethod]
-		public void TestAjayiWeek16_2016()
+		public void TestPlayerPiece()
 		{
 			var c = new YahooCalculator();
-			var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week: 16 );
-			var p = new NFLPlayer( "AJAYJA01" );
-			var g = new NFLGame( "2016:16-B" );
+			var sut = new PickupChart( 
+                new FakeTimeKeeper( season: "2017" ), week: 13 );
+			var p = new NFLPlayer( "PRESDA01" );
+			var g = new NFLGame( "2017:13-A" );
 			var result = sut.PlayerPiece( p, g, c );
 			Console.WriteLine( "Piece is {0}", result );
 		}
@@ -260,5 +287,6 @@ namespace Gerard.Tests
 			team.Team.LoadRushUnit();
 			var bit = sut.GetRunnerBit( team, new YahooCalculator() );
 		}
+
 	}
 }

@@ -2,6 +2,7 @@
 using RosterLib;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Gerard.Tests
 {
@@ -21,13 +22,25 @@ namespace Gerard.Tests
 		public void TestReportSpecificWeek()
 		{
 			var sut = new PointsAllowedReport( 
-				new FakeTimeKeeper( season: "2017", week: "04" ) );
+				new FakeTimeKeeper( season: "2017", week: "02" ) );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestGettingRankFromString()
+        {
+            var theValue = "<a href='.//pts-allowed//NE-QB-01.htm'>31.02 (30)";
+            var pattern = @"\((.*?)\)";
+            var match = Regex.Match(theValue, pattern).Value;
+            match = match.Replace( '(', ' ' );
+            match = match.Replace( ')', ' ' );
+            int rankNo = int.Parse( match );
+            Assert.AreEqual( 30, rankNo );
+        }
+
+        [TestMethod]
 		public void TestReport()
 		{
 			for ( int i = 11; i < 18; i++ )

@@ -10,9 +10,13 @@ namespace Butler.Models
 	{
 		public int Week { get; set; }
 		public bool Previous { get; set; }
-		public RosterGridReport Report { get; set; }
+        public bool PlayerReports { get; set; }
+        public RosterGridReport Report { get; set; }
 
-		public PickupChartJob( IKeepTheTime timekeeper, bool previous = false )
+		public PickupChartJob( 
+            IKeepTheTime timekeeper, 
+            bool previous = false,
+            bool playerReports = false )
 		{
 			Name = "Pickup Chart";
 			TimeKeeper = timekeeper;
@@ -21,6 +25,7 @@ namespace Butler.Models
 				: TimeKeeper.CurrentWeek( DateTime.Now );
 			if ( Week == 0 ) Week = 1;  //  in preseason lets look ahead to the first game
 			Previous = previous;
+            PlayerReports = playerReports;
 			Report = new PickupChart( TimeKeeper, Week );
 		}
 

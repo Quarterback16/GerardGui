@@ -79,7 +79,7 @@ namespace RosterLib.RosterGridReports
 
 		private void Announce( string line )
 		{
-			Logger.Info( line );
+			Logger.Trace( line );
 			Console.WriteLine(line);
 		}
 

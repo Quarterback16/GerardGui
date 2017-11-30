@@ -17,7 +17,6 @@ namespace RosterLib
 
       public LoadPlayerGameMetric( YahooProjectedPointsMessage input )
       {
-         Logger = NLog.LogManager.GetCurrentClassLogger();
          if ( input.Game != null && input.Player != null )
             Process( input, new DbfPlayerGameMetricsDao() );
          else
@@ -27,16 +26,23 @@ namespace RosterLib
             else
                Logger.Error( "Input missing Player" );
          }
-
       }
 
-      private void Process( YahooProjectedPointsMessage input, IPlayerGameMetricsDao dao )
+      private void Process( 
+          YahooProjectedPointsMessage input, 
+          IPlayerGameMetricsDao dao )
       {
-         if ( dao == null ) throw new ArgumentNullException( "dao", "parameter is null" );
+         if ( dao == null )
+                throw new ArgumentNullException( 
+                    "dao", 
+                    "parameter is null" );
+
          if ( input != null )
          {
+            input.PlayerGameMetrics = dao.Get( 
+                input.Player.PlayerCode, 
+                input.Game.GameKey() );
 
-            input.PlayerGameMetrics = dao.Get( input.Player.PlayerCode, input.Game.GameKey() );
             if ( input.TestPlayer() )
             {
                Logger.Info( "PGM got {0}", input.PlayerGameMetrics );

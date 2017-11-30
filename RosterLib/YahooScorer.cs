@@ -19,7 +19,9 @@ namespace RosterLib
 
 		public bool WeekHasPassed { get; set; }
 
-		public string GameKey { get; set; }
+        public bool UseProjections { get; set; }
+
+        public string GameKey { get; set; }
 
 		public NFLGame Game { get; set; }
 
@@ -30,6 +32,7 @@ namespace RosterLib
 			PgmDao = new DbfPlayerGameMetricsDao();  //   should be injected
 			YahooStatService = new YahooStatService();
 			Logger = LogManager.GetCurrentClassLogger();
+            UseProjections = true;
 		}
 
 		#region IRatePlayers Members
@@ -44,9 +47,15 @@ namespace RosterLib
 			if ( takeCache )
 			{
 				//  Check the stats service first
-				if ( YahooStatService.IsStat( plyr.PlayerCode, week.Season, week.Week ) )
+				if ( YahooStatService.IsStat( 
+                    plyr.PlayerCode, 
+                    week.Season, 
+                    week.Week ) )
 				{
-					return YahooStatService.GetStat( plyr.PlayerCode, week.Season, week.Week );
+					return YahooStatService.GetStat( 
+                        plyr.PlayerCode, 
+                        week.Season, 
+                        week.Week );
 				}
 			}
 
@@ -55,11 +64,11 @@ namespace RosterLib
 				Logger.Error( "{0} has a null teamcode", plyr );
 				return 0;
 			}
-			GameKey = Week.GameCodeFor( plyr.TeamCode );
+			GameKey = Week.GameCodeFor( plyr.TeamCode );  //  slow?
 			if ( string.IsNullOrEmpty( GameKey ) ) return 0;
 
 			Game = new NFLGame( GameKey );
-			WeekHasPassed = Game.Played();
+			WeekHasPassed = Game.Played(addDay:false);
 			if ( !WeekHasPassed ) return plyr.Points;
 
 			Week = week;  //  set the global week, other wise u will get the same week all the time
@@ -236,7 +245,10 @@ namespace RosterLib
 			if ( WeekHasPassed )
 			{
 				ds = plyr.LastScores(
-				   forScoreType, Week.WeekNo, Week.WeekNo, Week.Season, id );
+				   forScoreType, 
+                   Week.WeekNo, 
+                   Week.WeekNo, 
+                   Week.Season, id );
 				nScores = ds.Tables[ 0 ].Rows.Count;
 				if ( forScoreType == Constants.K_SCORE_TD_PASS && id == "1" )
 					forScoreType = Constants.K_SCORE_TD_CATCH;
@@ -244,10 +256,14 @@ namespace RosterLib
 			}
 			else
 			{
-				//  use projections
-				var dao = new DbfPlayerGameMetricsDao();
-				var pgm = dao.GetPlayerWeek( GameKey, plyr.PlayerCode );
-				nScores = pgm.ProjectedScoresOfType( forScoreType, id );
+                if ( UseProjections )
+                {
+                    var dao = new DbfPlayerGameMetricsDao();
+                    var pgm = dao.GetPlayerWeek( GameKey, plyr.PlayerCode );
+                    nScores = pgm.ProjectedScoresOfType( forScoreType, id );
+                }
+                else
+                    nScores = 0;
 			}
 			var points = nScores * increment;
 

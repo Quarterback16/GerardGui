@@ -1,4 +1,4 @@
-using NLog;
+﻿using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -1023,8 +1023,9 @@ namespace RosterLib
 			{
 				var pr = new PlayerReport( PlayerCode );
 				pr.Render();
-			}
-			else
+                Announce( $"   Player report for {pr.Player} force rendered." );
+            }
+            else
 			{
 				if ( IsPlayerReport() ) return Url( PlayerName );
 
@@ -1041,12 +1042,19 @@ namespace RosterLib
 			var exists = File.Exists( reportFileName );
 
 			if ( exists )
-				TraceIt( string.Format( "A player report for {0} already exists", PlayerName ) );
+				TraceIt( $"A player report for {PlayerName} already exists" );
 
 			return exists;
 		}
 
-		public string PlayerReportFileName()
+        public bool IsPlayerProjection(string season)
+        {
+            var reportFileName = PlayerProjection(season,render:false);
+            var exists = File.Exists( reportFileName );
+            return exists;
+        }
+
+        public string PlayerReportFileName()
 		{
 			return $@"{Utility.OutputDirectory()}\players\{PlayerCode}.htm";
 		}
@@ -1081,10 +1089,13 @@ namespace RosterLib
 
 		#endregion Player Reports
 
-		public string PlayerProjection( string season )
+		public string PlayerProjection( string season, bool render = true )
 		{
-			var r = new PlayerProjection( PlayerCode, season );
-			r.Render();
+			var r = new PlayerProjection( 
+                PlayerCode, 
+                season );
+			if (render)
+                r.Render();
 			return r.FileName();
 		}
 
@@ -1092,11 +1103,13 @@ namespace RosterLib
 		{
 			var url = text;
 			if ( forceReport ) PlayerReport( forceIt: true );
-			if ( IsPlayerReport() )
-			{
-				var reportFileName = string.Format( @"{1}\players\{0}.htm", PlayerCode, Utility.OutputDirectory() );
-				url = string.Format( "<a href =\"file:///{0}\">{1}</a>", reportFileName, text );
-			}
+            if ( IsPlayerReport() )
+            {
+                var reportFileName = $@"{Utility.OutputDirectory()}\players\{PlayerCode}.htm";
+                url = $"<a href =\"file:///{reportFileName}\">{text}</a>";
+            }
+            else
+                url = url.PadRight( 40, ' ' ).Substring(0,40);
 			return url;
 		}
 

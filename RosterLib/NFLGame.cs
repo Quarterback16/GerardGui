@@ -1,4 +1,4 @@
-using NLog;
+﻿using NLog;
 using RosterLib.Interfaces;
 using RosterLib.Models;
 using RosterLib.Services;
@@ -578,6 +578,7 @@ namespace RosterLib
 
 		public bool Played(bool addDay = true)
 		{
+            if ( HomeScore + AwayScore < 3) return false;
 			if ( addDay )
 			{
 				return ( GameDate.AddDays( 1 ).Date < DateTime.Now.Date ) && ( HomeScore + AwayScore > 0 );
@@ -2556,11 +2557,14 @@ namespace RosterLib
 
 		public void CalculateSpreadResult()
 		{
+            //  dont use the actual score properties
+            var homescore = 0;
+            var awayscore = 0;
 			if ( Spread == 0 )
 			{
-				// OTB, give it to the home team 21-20
-				HomeScore = 21;
-				AwayScore = 20;
+                // OTB, give it to the home team 21-20
+                homescore = 21;
+                awayscore = 20;
 			}
 			else
 			{
@@ -2580,17 +2584,16 @@ namespace RosterLib
 
 				if ( Spread > 0 )
 				{
-					HomeScore = ( int ) winningScore;
-					AwayScore = ( int ) losingScore;
+					homescore = ( int ) winningScore;
+                    awayscore = ( int ) losingScore;
 				}
 				else
 				{
-					HomeScore = ( int ) losingScore;
-					AwayScore = ( int ) winningScore;
+					homescore = ( int ) losingScore;
+					awayscore = ( int ) winningScore;
 				}
 			}
-
-			BookieTip = new NFLResult( HomeTeam, HomeScore, AwayTeam, AwayScore );
+			BookieTip = new NFLResult( HomeTeam, homescore, AwayTeam, awayscore );
 		}
 
 		public virtual NFLResult GetPrediction( string predMethod )

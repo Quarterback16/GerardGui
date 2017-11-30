@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 
 namespace RosterLib
@@ -25,34 +25,51 @@ namespace RosterLib
 		/// </summary>
 		public void Render()
 		{
-			var str = new SimpleTableReport( "Player Profile " + Player.PlayerName );
-			str.AddStyle( "#container { text-align: left; background-color: #ccc; margin: 0 auto; border: 1px solid #545454; width: 641px; padding:10px; font: 13px/19px Trebuchet MS, Georgia, Times New Roman, serif; }" );
-			str.AddStyle( "#main { margin-left:1em; }" );
-			str.AddStyle( "#dtStamp { font-size:0.8em; }" );
-			str.AddStyle( ".end { clear: both; }" );
-			str.AddStyle( ".gponame { color:white; background:black }" );
-			str.AddStyle( "label { display:block; float:left; width:130px; padding: 3px 5px; margin: 0px 0px 5px 0px; text-align:right; }" );
-			str.AddStyle( "value { display:block; float:left; width:100px; padding: 3px 5px; margin: 0px 0px 5px 0px; text-align:left; font-weight: bold; color:blue }" );
-			str.AddStyle( "#notes { float:right; height:auto; width:308px; font-size: 88%; background-color: #ffffe1; border: 1px solid #666666; padding: 5px; margin: 0px 0px 10px 10px; color:#666666 }" );
-			str.AddStyle( "div.notes H4 { background-image: url(images/icon_info.gif); background-repeat: no-repeat; background-position: top left; padding: 3px 0px 3px 27px; border-width: 0px 0px 1px 0px; border-style: solid; border-color: #666666; color: #666666; font-size: 110%;}" );
-			str.ColumnHeadings = true;
-			str.DoRowNumbers = true;
-			str.ShowElapsedTime = false;
-			str.IsFooter = false;
-			str.AddColumn( new ReportColumn( "Week", "WEEK", "{0}" ) );
-			str.AddColumn( new ReportColumn( "Team", "TEAM", "{0}" ) );
-			str.AddColumn( new ReportColumn( "U-Res", "URES", "{0}" ) );
-			str.AddColumn( new ReportColumn( "EP", "EP", "{0:0.0}", true ) );
-			str.AddColumn( new ReportColumn( "Matchup", "MATCH", "{0}" ) );
-			str.AddColumn( new ReportColumn( "Stats", "STATS", "{0}" ) );
-			str.AddColumn( new ReportColumn( "F Pts", "FPTS", "{0}", true ) );
-			str.LoadBody( BuildTable() );
-			str.SubHeader = SubHeading();
-			str.RenderAsHtml( string.Format( "{0}players//{1}.htm",
-					Utility.OutputDirectory(), Player.PlayerCode ), true );
-		}
+            var fileName = $"{Utility.OutputDirectory()}players//{Player.PlayerCode}.htm";
+            var lastReportDate = GetLastReportDate( fileName );
+#if DEBUG
+            var rootDataPath = "e:\\tfl\\";
+#else
+            var rootDataPath = "d:\\shares\\tfl";
+#endif
+            var dData = GetDataDate( rootDataPath );
+            bool reportIsStale = dData > lastReportDate;
+            if ( reportIsStale )
+            {
+                var str = new SimpleTableReport( "Player Profile " + Player.PlayerName );
+                str.AddDenisStyle();
+                str.ColumnHeadings = true;
+			    str.DoRowNumbers = true;
+			    str.ShowElapsedTime = false;
+			    str.IsFooter = false;
+			    str.AddColumn( new ReportColumn( "Week", "WEEK", "{0}" ) );
+			    str.AddColumn( new ReportColumn( "Team", "TEAM", "{0}" ) );
+			    str.AddColumn( new ReportColumn( "U-Res", "URES", "{0}" ) );
+			    str.AddColumn( new ReportColumn( "EP", "EP", "{0:0.0}", true ) );
+			    str.AddColumn( new ReportColumn( "Matchup", "MATCH", "{0}" ) );
+			    str.AddColumn( new ReportColumn( "Stats", "STATS", "{0}" ) );
+			    str.AddColumn( new ReportColumn( "F Pts", "FPTS", "{0}", true ) );
+			    str.LoadBody( BuildTable() );
+			    str.SubHeader = SubHeading();
+			    str.RenderAsHtml( fileName, true );
+            }
+            else
+                Console.WriteLine($"player report for {Player.PlayerName} skipped");
+        }
 
-		private DataTable BuildTable()
+        private DateTime GetLastReportDate( string fileName )
+        {
+            var theDate = FileUtility.DateOf( fileName );
+            return theDate;
+        }
+
+        private DateTime GetDataDate(string sourceDir)
+        {
+            var theDate = FileUtility.DateOf( $"{sourceDir}\\nfl\\player.dbf" );
+            return theDate;
+        }
+
+        private DataTable BuildTable()
 		{
 			var dt = new DataTable();
 			var cols = dt.Columns;
@@ -128,13 +145,13 @@ namespace RosterLib
 		private string PlayerNotes()
 		{
 			//string s = HtmlLib.H4( "Notes", "style=\"outline-color: rgb(0, 0, 255); outline-style: solid; outline-width: 1px;\"" );
-			var s = HtmlLib.DivOpen( "id=\"notes\"" ) + string.Format( "<p>\n{0}</p>\n", Player.Bio ) + HtmlLib.DivClose();
+			var s = HtmlLib.DivOpen( "id=\"notes\"" ) + $"<p>\n{Player.Bio}</p>\n" + HtmlLib.DivClose();
 			return s;
 		}
 
 		private static string DataOut( string label, string val )
 		{
-			return string.Format( "<label>{0}:</label> <value>{1,8}</value>", label, val );
+			return $"<label>{label}:</label> <value>{val,8}</value>";
 		}
 	}
 }

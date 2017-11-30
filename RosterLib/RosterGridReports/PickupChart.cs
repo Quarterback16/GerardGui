@@ -13,9 +13,12 @@ namespace RosterLib.RosterGridReports
 		public SimplePreReport Report { get; set; }
 
 		public PickupSummary PickupSummary { get; set; }
+        public bool PlayerReports { get; set; }
 
-
-		public PickupChart( IKeepTheTime timekeeper, int week ) : base( timekeeper )
+        public PickupChart( 
+            IKeepTheTime timekeeper, 
+            int week,
+            bool playerReports = false ) : base( timekeeper )
 		{
 			Name = "Pickup Chart";
 			Season = timekeeper.CurrentSeason( DateTime.Now );
@@ -28,6 +31,7 @@ namespace RosterLib.RosterGridReports
 				InstanceName = $"Pickup-Chart-Week-{Week:0#}"
 			};
 			PickupSummary = new PickupSummary(timekeeper, week);
+            PlayerReports = playerReports;
 		}
 
 		public override void RenderAsHtml()
@@ -72,9 +76,9 @@ namespace RosterLib.RosterGridReports
 			var timeBit = TimeBit( team );
 
 			lineNo++;
-			bodyOut.Append( string.Format( "{0,2} {2} {1}", lineNo, gameBit, timeBit ) );
-			bodyOut.Append( string.Format( " {0}", qb ) );
-			bodyOut.Append( string.Format( " {0}", rb ) );
+			bodyOut.Append( $"{lineNo,2} {timeBit} {gameBit}" );
+			bodyOut.Append( $" {qb}" );
+			bodyOut.Append( $" {rb}" );
 			//    spit out the WR1 line
 			var wr1 = GetW1Bit( team, c );
 			bodyOut.Append( string.Format( " {0}", wr1 ) );
@@ -152,10 +156,12 @@ namespace RosterLib.RosterGridReports
 		private string GetPKBit( IWinOrLose team, YahooCalculator c )
 		{
 			var bit = NoneBit( team );
-
 			if ( team.Team.KickUnit.PlaceKicker != null )
 			{
-				bit = PlayerPiece( team.Team.KickUnit.PlaceKicker, team.Game, c );
+				bit = PlayerPiece( 
+                    team.Team.KickUnit.PlaceKicker, 
+                    team.Game, 
+                    c );
 			}
 			return $"{bit,-36}";
 		}
@@ -232,11 +238,16 @@ namespace RosterLib.RosterGridReports
 			return $"{bit,-36}";
 		}
 
-		public string PlayerPiece( NFLPlayer p, NFLGame g, YahooCalculator c )
+		public string PlayerPiece( 
+            NFLPlayer p, 
+            NFLGame g, 
+            YahooCalculator c )
 		{
 			var nextOppTeam = p.NextOpponentTeam( g );
 			var plusMatchup = PlusMatchup( p, nextOppTeam, p.CurrTeam );
-			var matchupLink = nextOppTeam.DefensiveUnitMatchUp( p.PlayerCat, plusMatchup );
+			var matchupLink = nextOppTeam.DefensiveUnitMatchUp( 
+                p.PlayerCat, 
+                plusMatchup );
 			var owners = p.LoadAllOwners();
 			c.Calculate( p, g );
 			var namePart = string.Format( "<a href='..\\Roles\\{0}-Roles-{1:0#}.htm'>{2}</a>",
@@ -270,18 +281,24 @@ namespace RosterLib.RosterGridReports
 			p.LoadOwner( Constants.K_LEAGUE_Yahoo );
 			if ( p.IsFreeAgent() || p.Owner == "77" )
 			{
-				var pu = new Pickup
-				{
-					Name = $"{p.PlayerNameTo( 20 )} ({p.TeamCode}) {p.PlayerPos,-10}",
-					Opp = $"{g.OpponentOut( p.TeamCode )}",
-					ProjPts = p.Points,
-					CategoryCode = p.PlayerCat,
-					Pos = p.PlayerPos,
+                var prevPts = p.Points;  // so we dont lose Points value
+                var pu = new Pickup
+                {
+                    Season = Season,
+                    Player = p,
+                    Name = $"{p.PlayerNameTo( 20 )} ({p.TeamCode}) {p.PlayerPos,-10}",
+                    Opp = $"{g.OpponentOut( p.TeamCode )}",
+                    ProjPts = p.Points,
+                    CategoryCode = p.PlayerCat,
+                    Pos = p.PlayerPos,
 					ActualPts = ActualOutput( g, p )
 				};
+                p.Points = prevPts;
 				if ( p.Owner == "77" )
 					pu.Name = pu.Name.ToUpper();
 				PickupSummary.AddPickup( pu );
+                if ( PlayerReports )
+                    p.PlayerReport(forceIt:true);
 			}
 		}
 
@@ -346,10 +363,19 @@ namespace RosterLib.RosterGridReports
 				return "____";
 
 			Console.WriteLine( g.ScoreOut() );
-			if ( g.GameWeek == null ) g.GameWeek = new NFLWeek( g.Season, g.Week );
-			var scorer = new YahooScorer( g.GameWeek );
-			var nScore = scorer.RatePlayer( p, g.GameWeek, takeCache:false );
-			return string.Format( " {0,2:#0} ", nScore );
+			if ( g.GameWeek == null )
+                g.GameWeek = new NFLWeek( g.Season, g.Week );
+
+            var scorer = new YahooScorer( g.GameWeek )
+            {
+                UseProjections = false
+            };
+            var nScore = scorer.RatePlayer( 
+                p, 
+                g.GameWeek, 
+                takeCache:false );
+
+			return $" {nScore,2:#0} ";
 		}
 
 		#endregion Bits and Pieces

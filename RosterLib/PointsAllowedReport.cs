@@ -11,20 +11,22 @@ namespace RosterLib
 		public string RootFolder { get; set; }
 		public IBreakdown TeamBreakdowns { get; set; }
 
-		public PointsAllowedReport( IKeepTheTime timekeeper ) : base( timekeeper )
+        public List<FptsAllowed> TotalFpAllowedList { get; set; }
+        public PointsAllowedReport( IKeepTheTime timekeeper ) : base( timekeeper )
 		{
 			Week = timekeeper.Week;
 			if ( timekeeper.IsItPostSeason() )
 			{
 				Week = Constants.K_GAMES_IN_REGULAR_SEASON.ToString();
 			}
-			TeamBreakdowns = new PreStyleBreakdown()
+			TeamBreakdowns = new PreStyleBreakdown
 			{
 				NumberLines = false
 			};
-		}
+            TotalFpAllowedList = new List<FptsAllowed>();
+        }
 
-		public override void RenderAsHtml()
+        public override void RenderAsHtml()
 		{
 			Name = "Points Allowed Report";
 			Heading = $"{Name} Week {Season}:{Week}";
@@ -42,7 +44,8 @@ namespace RosterLib
 			Finish();
 		}
 
-		private ReportColumn.ColourDelegate PickTotalColourDelegate( string positionAbbr )
+        private ReportColumn.ColourDelegate PickTotalColourDelegate( 
+            string positionAbbr )
 		{
 			ReportColumn.ColourDelegate theDelegate;
 			switch ( positionAbbr )
@@ -83,24 +86,53 @@ namespace RosterLib
 			};
 			str.AddColumn( new ReportColumn( "Team", "TEAM", "{0,-20}" ) );
 			str.AddColumn(
-			   new ReportColumn( "Total", "TOTAL", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "TOT" ) ) );
+			   new ReportColumn( 
+                   "Total", 
+                   "TOTAL", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: PickTotalColourDelegate( "TOT" ) ) );
 			str.AddColumn(
-			   new ReportColumn( "QB", "QB", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "QB" ) ) );
+			   new ReportColumn( 
+                   "QB", 
+                   "QB", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: Simple32BgPicker ) );
 			str.AddColumn(
-			   new ReportColumn( "RB", "RB", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "RB" ) ) );
+			   new ReportColumn( 
+                   "RB", 
+                   "RB", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: Simple32BgPicker ) );
 			str.AddColumn(
-			   new ReportColumn( "WR", "WR", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "WR" ) ) );
+			   new ReportColumn( 
+                   "WR", 
+                   "WR", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: Simple32BgPicker ) );
 			str.AddColumn(
-			   new ReportColumn( "TE", "TE", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "TE" ) ) );
+			   new ReportColumn( 
+                   "TE", 
+                   "TE", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: Simple32BgPicker ) );
 			str.AddColumn(
-			   new ReportColumn( "PK", "PK", "{0:0.00}", typeof( decimal ), tally: true,
-			   colourDelegateIn: PickTotalColourDelegate( "PK" ) ) );
-
+			   new ReportColumn( 
+                   "PK", 
+                   "PK", 
+                   "{0:0.00}", 
+                   typeof( decimal ), 
+                   tally: true,
+			       colourDelegateIn: Simple32BgPicker ) );
 			return str;
 		}
 
@@ -120,51 +152,206 @@ namespace RosterLib
 		}
 
 		private void LoadDataTable()
-		{
+        {
 #if DEBUG2
          var tCount = 0;
 #endif
-			var asOfWeek = int.Parse( Week );
-			foreach ( KeyValuePair<string, NflTeam> teamPair in TeamList )
-			{
-				var team = teamPair.Value;
-				DataRow teamRow = Data.NewRow();
-				teamRow[ "TEAM" ] = team.NameOut();
-				teamRow[ "TOTAL" ] = 0;
-				FptsAllowed fptsAllowed = new FptsAllowed();
-				FptsAllowed totalFptsAllowed = new FptsAllowed();
+            var asOfWeek = int.Parse( Week );
+            foreach ( KeyValuePair<string, NflTeam> teamPair in TeamList )
+            {
+                var team = teamPair.Value;
 
-				for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
-				{
-					if ( w > asOfWeek ) continue;
-					string theWeek = string.Format( "{0:0#}", w );
-					var ds = Utility.TflWs.GameForTeam( Season, theWeek, team.TeamCode );
-					if ( ds.Tables[ 0 ].Rows.Count != 1 )
-						continue;
+                FptsAllowed fptsAllowed = new FptsAllowed( team.TeamCode );
+                FptsAllowed totalFptsAllowed = new FptsAllowed( team.TeamCode );
 
-					fptsAllowed = CalculateFptsAllowed( team, theWeek, ds );
-					totalFptsAllowed.Add( fptsAllowed );
-				}
+                for ( var w = Constants.K_WEEKS_IN_REGULAR_SEASON; w > 0; w-- )
+                {
+                    if ( w > asOfWeek ) continue;
+                    string theWeek = string.Format( "{0:0#}", w );
 
-				teamRow[ "QB" ] = LinkFor( team.TeamCode, "QB", totalFptsAllowed.ToQbs );
-				teamRow[ "RB" ] = LinkFor( team.TeamCode, "RB", totalFptsAllowed.ToRbs );
-				teamRow[ "WR" ] = LinkFor( team.TeamCode, "WR", totalFptsAllowed.ToWrs );
-				teamRow[ "TE" ] = LinkFor( team.TeamCode, "TE", totalFptsAllowed.ToTes );
-				teamRow[ "PK" ] = LinkFor( team.TeamCode, "PK", totalFptsAllowed.ToPks );
+                    var ds = Utility.TflWs.GameForTeam( 
+                        Season, 
+                        theWeek, 
+                        team.TeamCode );
+                    if ( ds.Tables[ 0 ].Rows.Count != 1 )
+                        continue;
 
-				teamRow[ "TOTAL" ] = totalFptsAllowed.TotPtsAllowed();
-				Data.Rows.Add( teamRow );
-				DumpBreakdowns( team.TeamCode );
+                    fptsAllowed = CalculateFptsAllowed( team, theWeek, ds );
+
+                    totalFptsAllowed.Add( fptsAllowed );
+                    AccumulateFptsAllowed( fptsAllowed );
+                }
+                DumpBreakdowns( team.TeamCode );
 
 #if DEBUG2
             tCount++;
             if ( tCount > 0 )
                break;
 #endif
-			}
-		}
+            }
 
-		private void DumpBreakdowns( string teamCode )
+            RankTotalPoints();
+            RankPointsToQbs();
+            RankPointsToRbs();
+            RankPointsToWrs();
+            RankPointsToTes();
+            RankPointsToPks();
+
+            //  Build the output table
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                DataRow teamRow = Data.NewRow();
+                teamRow[ "TEAM" ] = item.TeamCode;
+                teamRow[ "TOTAL" ] = 0;
+                teamRow[ "QB" ] = LinkFor( item.TeamCode, "QB", item.ToQbs, item.ToQbsRank );
+                teamRow[ "RB" ] = LinkFor( item.TeamCode, "RB", item.ToRbs, item.ToRbsRank );
+                teamRow[ "WR" ] = LinkFor( item.TeamCode, "WR", item.ToWrs, item.ToWrsRank );
+                teamRow[ "TE" ] = LinkFor( item.TeamCode, "TE", item.ToTes, item.ToTesRank );
+                teamRow[ "PK" ] = LinkFor( item.TeamCode, "PK", item.ToPks, item.ToPksRank );
+
+                teamRow[ "TOTAL" ] = item.TotPtsAllowed();
+                Data.Rows.Add( teamRow );
+            }
+        }
+
+        private void AccumulateFptsAllowed( FptsAllowed fptsAllowed )
+        {
+            // get the right object
+            var fpts = GetFptsFor( fptsAllowed.TeamCode );
+            if ( fpts == null )
+            {
+                TotalFpAllowedList.Add( fptsAllowed );
+            }
+            else
+            {
+                fpts.IncrementBy( fptsAllowed );
+            }
+        }
+
+        private FptsAllowed GetFptsFor( string teamCode )
+        {
+            FptsAllowed fpts = null;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                if ( item.TeamCode.Equals(teamCode))
+                {
+                    fpts = item;
+                    break;
+                }
+            }
+            return fpts;
+        }
+
+        private void RankPointsToQbs()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.ToQbs,
+                    y.ToQbs ) );
+
+            var i = 32;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                item.ToQbsRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } QB:{item.ToQbs}" );
+                i--;
+            }
+        }
+
+        private void RankPointsToRbs()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.ToRbs,
+                    y.ToRbs ) );
+
+            var i = 32;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                item.ToRbsRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } RB:{item.ToRbs}" );
+                i--;
+            }
+        }
+
+        private void RankPointsToWrs()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.ToWrs,
+                    y.ToWrs ) );
+
+            var i = 32;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                item.ToWrsRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } WR:{item.ToWrs}" );
+                i--;
+            }
+        }
+
+        private void RankPointsToTes()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.ToTes,
+                    y.ToTes ) );
+
+            var i = 32;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                item.ToTesRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } WR:{item.ToTes}" );
+                i--;
+            }
+        }
+
+        private void RankPointsToPks()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.ToPks,
+                    y.ToPks ) );
+
+            var i = 32;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                item.ToPksRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } PK:{item.ToPks}" );
+                i--;
+            }
+        }
+
+        private void RankTotalPoints()
+        {
+            TotalFpAllowedList.Sort(
+                ( x, y ) => Decimal.Compare(
+                    x.TotPtsAllowed(),
+                    y.TotPtsAllowed() ) );
+
+            var i = 0;
+            foreach ( FptsAllowed item in TotalFpAllowedList )
+            {
+                i++;
+                item.TotalRank = i;
+                Console.WriteLine( $@"{item.TotalRank:0#}: {
+                    item.TeamCode
+                    } {
+                    item.TotPtsAllowed():0.00} QB:{item.ToQbs} RB:{item.ToRbs}" );
+            }
+        }
+
+        private void DumpBreakdowns( string teamCode )
 		{
 			DumpBreakdown( teamCode, "QB" );
 			DumpBreakdown( teamCode, "RB" );
@@ -180,9 +367,13 @@ namespace RosterLib
 			   $"{RootFolder}\\pts-allowed\\{breakdownKey}.htm" );
 		}
 
-		private string LinkFor( string teamCode, string positionAbbr, decimal pts )
+		private string LinkFor( 
+            string teamCode, 
+            string positionAbbr, 
+            decimal pts,
+            int rank)
 		{
-			var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}-{Week}.htm'>{pts}";
+			var link = $"<a href='.//pts-allowed//{teamCode}-{positionAbbr}-{Week}.htm'>{pts} ({rank})";
 			return link;
 		}
 
@@ -193,7 +384,7 @@ namespace RosterLib
 		{
 			// Process Stats and Scores for the week
 			// save the calculations
-			var ftpsAllowed = new FptsAllowed();
+			var ftpsAllowed = new FptsAllowed(team.TeamCode);
 			var game = new NFLGame( gameDs.Tables[ 0 ].Rows[ 0 ] );
 
 			List<NFLPlayer> playerList = new List<NFLPlayer>();
@@ -295,22 +486,22 @@ namespace RosterLib
 			if ( theValue < ( Excellent_Target_For_A_Season * fraction ) )
 			{
 				//DebugMessage( Excellent_Target_For_A_Season, fraction, "excellent" );
-				sColour = Constants.Colour.Excellent;
+				sColour = Constants.Colour.Bad;
 			}
 			else if ( theValue < ( Good_Target_For_A_Season * fraction ) )
 			{
 				//DebugMessage( Good_Target_For_A_Season, fraction, "good" );
-				sColour = Constants.Colour.Good;
+				sColour = Constants.Colour.Average;
 			}
 			else if ( theValue < ( Average_Target_For_A_Season * fraction ) )
 			{
 				//DebugMessage( Average_Target_For_A_Season, fraction, "average" );
-				sColour = Constants.Colour.Average;
+				sColour = Constants.Colour.Good;
 			}
 			else
 			{
 				//Utility.Announce( $"{theValue * fraction } is bad" );
-				sColour = Constants.Colour.Bad;
+				sColour = Constants.Colour.Excellent;
 			}
 			return sColour;
 		}
@@ -401,7 +592,21 @@ namespace RosterLib
 			return sColour;
 		}
 
-		public override string OutputFilename()
+        public string Simple32BgPicker( int theValue )
+        {
+            string sColour;
+            if ( theValue < 4 )
+                sColour = Constants.Colour.Excellent;
+            else if ( theValue < 10 )
+                sColour = Constants.Colour.Good;
+            else if ( theValue < 30 )
+                sColour = Constants.Colour.Average;
+            else
+                sColour = Constants.Colour.Bad;
+            return sColour;
+        }
+
+        public override string OutputFilename()
 		{
 			return FileOut;
 		}
@@ -409,12 +614,23 @@ namespace RosterLib
 
 	public class FptsAllowed
 	{
-		public decimal ToQbs { get; set; }
+        public string TeamCode { get; set; }
+        public decimal ToQbs { get; set; }
 		public decimal ToRbs { get; set; }
 		public decimal ToWrs { get; set; }
 		public decimal ToTes { get; set; }
 		public decimal ToPks { get; set; }
+        public int ToQbsRank { get; set; }
+        public int ToRbsRank { get; set; }
+        public int ToWrsRank { get; set; }
+        public int ToTesRank { get; set; }
+        public int ToPksRank { get; set; }
+        public int TotalRank { get; set; }
 
+        public FptsAllowed(string teamCode)
+        {
+            TeamCode = teamCode;
+        }
 		internal decimal TotPtsAllowed()
 		{
 			return ToQbs + ToRbs + ToWrs + ToTes + ToPks;
@@ -428,5 +644,14 @@ namespace RosterLib
 			ToTes += fptsAllowed.ToTes;
 			ToPks += fptsAllowed.ToPks;
 		}
-	}
+
+        internal void IncrementBy( FptsAllowed fptsAllowed )
+        {
+            ToQbs += fptsAllowed.ToQbs;
+            ToRbs += fptsAllowed.ToRbs;
+            ToWrs += fptsAllowed.ToWrs;
+            ToTes += fptsAllowed.ToTes;
+            ToPks += fptsAllowed.ToPks;
+        }
+    }
 }
