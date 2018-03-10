@@ -34,12 +34,14 @@ namespace Butler.Models
                 var regularity = 7;
                 if ( TimeKeeper.IsItPreseason() )
                     regularity += 14;
-                var sevenDaysAgo = DateTime.Now.Subtract( new TimeSpan( regularity, 0, 0, 0 ) ).Date;
+                var sevenDaysAgo = DateTime.Now.Subtract( 
+                    new TimeSpan( regularity, 0, 0, 0 ) ).Date;
                 if ( Historian.LastRun( Report ).Date > sevenDaysAgo )
                     whyNot = $"Has been done less than {regularity} days ago";
+                if (TimeKeeper.IsItTuesday())
+                    whyNot = "Not on Tuesdays";
             }
-            if ( TimeKeeper.IsItTuesday() )
-                whyNot = "Not on Tuesdays";
+
             if ( !string.IsNullOrEmpty( whyNot ) )
                 Logger.Info( "Skipped {1}: {0}", whyNot, Name );
             return ( string.IsNullOrEmpty( whyNot ) );

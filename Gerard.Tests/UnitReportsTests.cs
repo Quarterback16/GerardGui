@@ -29,7 +29,18 @@ namespace Gerard.Tests
 			Console.WriteLine( whyNot );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestRealTimetoDoUnitReportsJob()
+        {
+            //  Fake historian garantees job will run always
+            var sut = new UnitReportsJob(
+                new TimeKeeper(null),
+                new FakeHistorian());
+            Assert.IsTrue(sut.IsTimeTodo(out string whyNot));
+            Console.WriteLine(whyNot);
+        }
+
+        [TestMethod]
 		public void TestDoUnitReportsJob()
 		{
 			//  Fake historian garantees job will run always

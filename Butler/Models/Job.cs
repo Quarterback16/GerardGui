@@ -48,7 +48,14 @@ namespace Butler.Models
 
 			if ( !IsNflRelated ) return string.IsNullOrEmpty( whyNot );
 
-			if ( !string.IsNullOrEmpty( whyNot ) )
+            if (!TimeKeeper.IsItPreseason()
+                && !TimeKeeper.IsItRegularSeason()
+                && !TimeKeeper.IsItPostSeason())
+            {
+                whyNot = "Season is over";
+            }
+
+            if ( !string.IsNullOrEmpty( whyNot ) )
 			{
 				if ( TimeKeeper.IsItMondayMorning() )
 				{

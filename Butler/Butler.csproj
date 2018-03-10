@@ -82,6 +82,7 @@
     <Compile Include="Helpers\HoldList.cs" />
     <Compile Include="Helpers\XmlList.cs" />
     <Compile Include="Historian.cs" />
+    <Compile Include="HomeLocator.cs" />
     <Compile Include="Implementations\FantasyAssistant.cs" />
     <Compile Include="Implementations\SeasonScheduler.cs" />
     <Compile Include="Interfaces\IDetectMovies.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Models\UpdateActualsJob.cs" />
     <Compile Include="Models\UpdateTeamActualsJob.cs" />
     <Compile Include="Models\UpdateTflJob.cs" />
+    <Compile Include="Models\ViewQueueJob.cs" />
     <Compile Include="Models\YahooXmlFullJob.cs" />
     <Compile Include="Models\YahooXmlJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

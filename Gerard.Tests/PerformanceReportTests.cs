@@ -21,7 +21,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoPerformanceReportForParticularWeekJob()  // 2015-11-11 2 min
       {
-         var sut = new PerformanceReportJob( new FakeTimeKeeper( season:"2016", week:"18") );
+         var sut = new PerformanceReportJob(
+             new FakeTimeKeeper( 
+                 season:"2017", 
+                 week:"15") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

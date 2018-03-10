@@ -112,6 +112,7 @@
     <Compile Include="GoalLineReportJobTests.cs" />
     <Compile Include="GoallineReportTests.cs" />
     <Compile Include="GoogleChartTests.cs" />
+    <Compile Include="HomeLocatorTests.cs" />
     <Compile Include="HotListTests.cs" />
     <Compile Include="HtmlFileTests.cs" />
     <Compile Include="IsRetiredTest.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="UpdateActualsJobTests.cs" />
     <Compile Include="UpdateTeamActualsJobTests.cs" />
     <Compile Include="UtilityTests.cs" />
+    <Compile Include="ViewQueueJobTests.cs" />
     <Compile Include="WeekMasterTests.cs" />
     <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />

@@ -35,17 +35,20 @@ namespace Butler.Models
 
 		public static string GetDownloadFolder()
 		{
-			return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( DownloadFolder ) );
+			return System.Configuration.ConfigurationManager.AppSettings.Get( 
+                nameof( DownloadFolder ) );
 		}
 
 		public static string GetMagazineFolder()
 		{
-			return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineCollectionFolder ) );
+			return System.Configuration.ConfigurationManager.AppSettings.Get( 
+                nameof( MagazineCollectionFolder ) );
 		}
 
 		public static string GetMagazineDestinationFolder()
 		{
-			return System.Configuration.ConfigurationManager.AppSettings.Get( nameof( MagazineDestinationFolder ) );
+			return System.Configuration.ConfigurationManager.AppSettings.Get( 
+                nameof( MagazineDestinationFolder ) );
 		}
 
 		public MediaJob( string folder )
@@ -60,7 +63,6 @@ namespace Butler.Models
 			try
 			{
 				var itemCount = 0;
-
 				GetCandidates();
 				var collector = new Collector();
 				foreach ( var f in Candidates )
@@ -74,16 +76,13 @@ namespace Butler.Models
 						Logger.Trace( $"{f} is invalid");
 						continue;
 					}
-
 					if ( !mi.HasValidExt() )
 					{
 						Logger.Trace( $"{f} has invalid ext");
 						continue;
 					}
-
 					mi.MagazineFolder = MagazineCollectionFolder;
 					mi.Analyse();
-
 					if ( mi.IsTV )
 					{
 						if ( !collector.HaveIt( mi ) ) continue;
@@ -141,13 +140,18 @@ namespace Butler.Models
 			{
 				Candidates = new List<string>();
 
-				Candidates = Directory.GetFiles( DownloadFolder, "*.*", SearchOption.AllDirectories ).ToList();
+				Candidates = Directory.GetFiles( 
+                    DownloadFolder, 
+                    "*.*", 
+                    SearchOption.AllDirectories ).ToList();
 
-				Logger.Trace( $"Found {Candidates.Count} files in folder:{DownloadFolder}");
+				Logger.Trace( 
+                    $"Found {Candidates.Count} files in folder:{DownloadFolder}");
 			}
 			catch ( IOException ex )
 			{
-				Logger.Error( $"Invalid DL folder {DownloadFolder} :{ex.Message}");
+				Logger.Error( 
+                    $"Invalid DL folder {DownloadFolder} :{ex.Message}");
 			}
 		}
 

@@ -13,5 +13,6 @@ namespace Butler
 		public const string Verbose = "Verbose";
 		public const string PollInterval = "PollInterval";
 		public const string AutoStart = "AutoStart";
-	}
+        public const string ViewQueueFolder = "ViewQueueFolder";
+    }
 }

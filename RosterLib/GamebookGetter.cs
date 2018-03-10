@@ -45,9 +45,10 @@ namespace RosterLib
 						dlCount++;
 				}
 				seed++;
-			}
-			Console.WriteLine( "{0} downloaded", dlCount );
-			return dlCount;
+                Console.WriteLine( "" );
+            }
+            Console.WriteLine( "{0} downloaded", dlCount );
+            return dlCount;
 		}
 
 		public void SetOutputFolder( string folder )

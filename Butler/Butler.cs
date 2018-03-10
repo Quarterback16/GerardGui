@@ -140,12 +140,13 @@ namespace Butler
 				MyJobs.Add( new LogCleanupJob() );
 				MyJobs.Add( new TflDataBackupJob() );
 				MyJobs.Add( new MediaListsPublishJob() );
+                MyJobs.Add( new ViewQueueJob() );
 
-				#endregion Regular Always jobs
+                #endregion Regular Always jobs
 
-				#region Pre Season Jobs -- Long running so last in the job order
+                #region Pre Season Jobs -- Long running so last in the job order
 
-				MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
+                MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
 				MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new DeletePlayerReportsJob( TimeKeeper ) ); //  once off - pre season
 				MyJobs.Add( new RetirePlayersJob( TimeKeeper ) ); //  once off - pre season

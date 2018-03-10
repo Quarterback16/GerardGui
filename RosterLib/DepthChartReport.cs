@@ -37,8 +37,10 @@ namespace RosterLib
 		public override void RenderAsHtml()
 		{
 			LeagueInFocus = Constants.K_LEAGUE_Yahoo;
+            if (TimeKeeper.CurrentWeek(DateTime.Now) > 16  )
+                LeagueInFocus = Constants.K_LEAGUE_Gridstats_NFL1;
 
-			var totalPlayers = 0;
+            var totalPlayers = 0;
 			var season = new NflSeason( Season, teamsOnly: true );
 			foreach ( var team in season.TeamList )
 			{

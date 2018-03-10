@@ -73,7 +73,9 @@ namespace RosterLib
 
 		public bool IsItPostSeason()
 		{
-			return ( !IsItRegularSeason() && !IsItPreseason() );
+			return ( !IsItRegularSeason() 
+                && !IsItPreseason() 
+                && CurrentWeek(SystemClock.Now) > 0 );
 		}
 
 		public bool IsItQuietTime()

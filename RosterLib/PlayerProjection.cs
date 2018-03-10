@@ -72,8 +72,7 @@ namespace RosterLib
 
 		public string FileName()
 		{
-			return string.Format( "{0}{2}//PlayerProjections//{1}.htm", Utility.OutputDirectory(),
-								 Player.PlayerCode, Season );
+			return $"{Utility.OutputDirectory()}{Season}//PlayerProjections//{Player.PlayerCode}.htm";
 		}
 
 		private DataTable BuildTable()
