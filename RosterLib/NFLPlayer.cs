@@ -541,7 +541,12 @@ namespace RosterLib
 		{
 			var ds = Utility.TflWs.GetPlayer( PlayerCode );
 			var dt = ds.Tables[ "player" ];
-			if ( dt.Rows.Count == 1 )
+            if (dt == null)
+            {
+                Logger.Error($"Player not founf for {PlayerCode}");
+                return;
+            }
+            if ( dt.Rows.Count == 1 )
 				LoadPlayer( dt.Rows[ 0 ] );
 			else
 			{
