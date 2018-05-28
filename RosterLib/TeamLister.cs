@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Linq;
@@ -29,7 +29,7 @@ namespace RosterLib
 				_teamList.Add(t);
 			Heading = "Not Set";
 #if DEBUG
-			Utility.Announce(string.Format("TeamLister.init {0} teams added to the list", _teamList.Count));
+			Utility.Announce($"TeamLister.init {_teamList.Count} teams added to the list");
 #endif
 		}
 

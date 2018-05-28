@@ -1,6 +1,0 @@
-TFL Library
-~~~~~~~~~~~
-
-A DLL that allows the TFL database to be accessed by .NET.
-
-Requires VFPToolkit

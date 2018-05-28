@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -155,6 +163,7 @@
     <Compile Include="GridStatsOutput.cs" />
     <Compile Include="GS4Scorer.cs" />
     <Compile Include="GSTeam.cs" />
+    <Compile Include="Helpers\NLogAdaptor.cs" />
     <Compile Include="Helpers\SeasonScheduler.cs" />
     <Compile Include="Helpers\StyleHelper.cs" />
     <Compile Include="Helpers\SystemClock.cs" />
@@ -422,12 +431,16 @@
     <Content Include="Dependancies\Ninject.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Cache.csproj">
+      <Project>{85bb16a5-3c53-4e4f-a342-1103aa6f967e}</Project>
+      <Name>Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Helpers\Helpers.csproj">
       <Project>{dda0342a-a7e7-48d7-9cb3-4b7676269740}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TFLLib\TFLLib.csproj">
-      <Project>{a3a068ee-3471-4f63-aa69-3b5f57705283}</Project>
+    <ProjectReference Include="..\..\TFLLib\TFLLib.csproj">
+      <Project>{0991c340-e6de-45f2-8792-fbcb96b232de}</Project>
       <Name>TFLLib</Name>
     </ProjectReference>
   </ItemGroup>

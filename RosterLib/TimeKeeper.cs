@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib.Helpers;
 using RosterLib.Interfaces;
 using System;
@@ -31,17 +31,23 @@ namespace RosterLib
 		public TimeKeeper( IClock clock )
 		{
 			Logger = LogManager.GetCurrentClassLogger();
-			if ( clock == null )
-				SystemClock = new SystemClock();
-			else
-				SystemClock = clock;
+            if (clock == null)
+            {
+                Logger.Debug("Setting the Clock");
+
+                SystemClock = new SystemClock();
+            }
+            else
+                SystemClock = clock;
 			SetSchedule();
 		}
 
 		private void SetSchedule()
 		{
-			Season = CurrentSeason();
-			SeasonScheduler = new SeasonScheduler();
+            Logger.Debug("Setting the Schedule");
+            Season = CurrentSeason();
+            Logger.Debug($"Season={Season}");
+            SeasonScheduler = new SeasonScheduler();
 			ScheduleAvailable = SeasonScheduler.ScheduleAvailable( Season );
 			if ( !ScheduleAvailable ) return;
 			SeasonStarts = SeasonScheduler.SeasonStarts( Season );

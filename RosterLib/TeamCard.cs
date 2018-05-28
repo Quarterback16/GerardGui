@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 
 namespace RosterLib
@@ -29,9 +29,11 @@ namespace RosterLib
 
 		public string Render()
 		{
-			var fileOut = string.Format( "{0}{2}/TeamCards/TeamCard_{1}.htm", 
-				Utility.OutputDirectory(), Team.TeamCode, Team.Season );
-			var h = new HtmlFile(fileOut, "Team Card " + DateTime.Now.ToString("dd MMM yy HH:mm"));
+			var fileOut = $"{Utility.OutputDirectory()}{Team.Season}/TeamCards/TeamCard_{Team.TeamCode}.htm";
+			var h = new HtmlFile(
+                fileOut, 
+                "Team Card " 
+                + DateTime.Now.ToString("dd MMM yy HH:mm"));
 			h.AddToBody(CardOut());
 			h.Render();
             return fileOut;

@@ -543,7 +543,7 @@ namespace RosterLib
 			var dt = ds.Tables[ "player" ];
             if (dt == null)
             {
-                Logger.Error($"Player not founf for {PlayerCode}");
+                Logger.Error($"Player not found for {PlayerCode}");
                 return;
             }
             if ( dt.Rows.Count == 1 )

@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using RosterLib.Interfaces;
 using RosterLib.RosterGridReports;
 
@@ -26,7 +26,8 @@ namespace Butler.Models
 		public override bool IsTimeTodo( out string whyNot )
 		{
 			base.IsTimeTodo( out whyNot );
-			if ( !string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
+			if ( !string.IsNullOrEmpty( whyNot ) )
+                return ( string.IsNullOrEmpty( whyNot ) );
 
 			//  Is it already done?
 			var rpt = new DeletePlayerReportsReport( TimeKeeper );

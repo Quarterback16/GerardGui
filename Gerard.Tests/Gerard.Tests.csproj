@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Gerard.Tests</RootNamespace>
     <AssemblyName>Gerard.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -32,6 +32,16 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -57,16 +67,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -85,7 +86,6 @@
     <Compile Include="DefensiveReportsTests.cs" />
     <Compile Include="DeletePlayerReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
-    <Compile Include="DropBoxCopyTflToVesuviusJobTests.cs" />
     <Compile Include="DropboxCopyToReginaJobTests.cs" />
     <Compile Include="FakeClock.cs" />
     <Compile Include="FakeConfigReader.cs" />
@@ -205,17 +205,17 @@
       <Project>{dda0342a-a7e7-48d7-9cb3-4b7676269740}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\RosterLib\RosterLib.csproj">
+      <Project>{054a1e39-1899-4016-a77e-13f55f60e7e5}</Project>
+      <Name>RosterLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TFLLib\TFLLib.csproj">
+      <Project>{0991c340-e6de-45f2-8792-fbcb96b232de}</Project>
+      <Name>TFLLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Butler\Butler.csproj">
       <Project>{f06448e5-aa25-4ecc-92eb-fc2da2a6e7b4}</Project>
       <Name>Butler</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RosterLib\RosterLib.csproj">
-      <Project>{50635611-593a-4208-b7a5-09938c1b31b1}</Project>
-      <Name>RosterLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TFLLib\TFLLib.csproj">
-      <Project>{a3a068ee-3471-4f63-aa69-3b5f57705283}</Project>
-      <Name>TFLLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

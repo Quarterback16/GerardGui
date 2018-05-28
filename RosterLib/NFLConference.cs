@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Text;
 using NLog;
@@ -22,10 +22,13 @@ namespace RosterLib
 
 		public void AddDiv( string strDivName, string strDivCode )
 		{
-
-			Announce( string.Format( "NFLConference.AddDiv: {0} Adding {1}", Conference, strDivName ) );
-
-			var div = new NFLDivision( strDivName, Conference, strDivCode, Season, "" );
+			Announce( $"NFLConference.AddDiv: {Conference} Adding {strDivName}" );
+			var div = new NFLDivision( 
+                strDivName, 
+                Conference, 
+                strDivCode, 
+                Season, 
+                "" );
 			DivList.Add( div );
 		}
 
@@ -33,7 +36,6 @@ namespace RosterLib
 		{
 			if ( Logger == null )
 				Logger = LogManager.GetCurrentClassLogger();
-
 			Logger.Trace( "   " + message );
 		}
 
@@ -41,16 +43,19 @@ namespace RosterLib
 		{
 			if ( Logger == null )
 				Logger = LogManager.GetCurrentClassLogger();
-
 			Logger.Trace( "   " + message );
 		}
 
-		public void QuickAddDiv( string strDivName, string strDivCode )
+		public void QuickAddDiv(
+            string strDivName, 
+            string strDivCode )
 		{
-
-			Announce( string.Format( "NFLConference.QuickAddDiv: {0} Quick Adding {1}", Conference, strDivName ) );
-
-			var div = new NFLDivision( strDivName, Conference, strDivCode, Season );
+			Announce( $"NFLConference.QuickAddDiv: {Conference} Quick Adding {strDivName}" );
+			var div = new NFLDivision( 
+                strDivName, 
+                Conference, 
+                strDivCode, 
+                Season );
 			DivList.Add( div );
 		}
 
@@ -99,16 +104,23 @@ namespace RosterLib
 			return s;
 		}
 
-		public string SeasonProjection( string metricName, IPrognosticate predictor, DateTime projectionDate )
+		public string SeasonProjection(
+            string metricName,
+            IPrognosticate predictor,
+            DateTime projectionDate )
 		{
 			//  for each division, render projections
 			var sb = new StringBuilder();
 			foreach ( NFLDivision d in DivList )
 			{
-#if DEBUG
+#if QUICKRUN
 				if ( !d.Name.Equals( "West" ) ) continue;
 #endif
-				sb.Append( d.SeasonProjection( metricName, predictor, projectionDate ) );
+				sb.Append( 
+                    d.SeasonProjection( 
+                        metricName, 
+                        predictor, 
+                        projectionDate ) );
 			}
 			return sb.ToString();
 		}

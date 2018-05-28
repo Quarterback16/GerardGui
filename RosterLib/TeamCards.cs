@@ -13,19 +13,27 @@ namespace RosterLib
 
 		public bool DoPlayerReports { get; set; }
 
-		public TeamCards( IKeepTheTime timekeeper, bool doPlayerReports ) : base( timekeeper )
+		public TeamCards( 
+            IKeepTheTime timekeeper, 
+            bool doPlayerReports ) : base( timekeeper )
 		{
 			Name = "Team Cards";
 			DoPlayerReports = doPlayerReports;
 			Leagues = new List<RosterGridLeague>
 		   {
-			  new RosterGridLeague {Id = Constants.K_LEAGUE_Gridstats_NFL1, Name = "Gridstats GS1"}
+			  new RosterGridLeague
+              {
+                  Id = Constants.K_LEAGUE_Gridstats_NFL1,
+                  Name = "Gridstats GS1"
+              }
 		   };
 		}
 
 		public override void RenderAsHtml()
 		{
-			RosterReport = new NFLRosterReport( Season ) { Season = Season };
+			RosterReport = new NFLRosterReport( Season ) {
+                Season = Season
+            };
 			foreach ( var league in Leagues )
 			{
 				RosterReport.TeamCards();
@@ -36,7 +44,7 @@ namespace RosterLib
 
 		public override string OutputFilename()
 		{
-			var fileOut = string.Format( "{0}{2}/TeamCards/TeamCard_{1}.htm", Utility.OutputDirectory(), "SF", Season );
+			var fileOut = $"{Utility.OutputDirectory()}{Season}/TeamCards/TeamCard_{"SF"}.htm";
 			return fileOut;
 		}
 	}

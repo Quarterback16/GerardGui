@@ -1,4 +1,4 @@
-﻿using Helpers;
+using Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests
@@ -30,7 +30,10 @@ namespace Gerard.Tests
 		public void TestSendMailWithAttachment()
 		{
 			sut.AddRecipients( "quarterback16@iinet.com.au" );
-			sut.SendMail( message: "Test", subject: "Test", attachment: "l:\\RssScanner-2017-05-16.log" );
+			sut.SendMail(
+                message: "Test",
+                subject: "Test",
+                attachment: "l:\\RssScanner-2018-05-12.log" );
 		}
 
 		[TestMethod]

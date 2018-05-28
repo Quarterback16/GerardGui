@@ -1,4 +1,5 @@
-﻿using System.Data;
+using RosterLib.Helpers;
+using System.Data;
 using System.Linq;
 using TFLLib;
 
@@ -13,8 +14,8 @@ namespace RosterLib
 			OldLibrarian = new DataLibrarian(
 				Utility.NflConnectionString(),
 				Utility.TflConnectionString(),
-				Utility.CtlConnectionString()
-				);
+				Utility.CtlConnectionString(),
+                new NLogAdaptor() );
 		}
 
 		public bool LoadPlayerData( ITflDataService dataService )

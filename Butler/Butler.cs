@@ -1,4 +1,4 @@
-﻿using Butler.Interfaces;
+using Butler.Interfaces;
 using Butler.Models;
 using Helpers;
 using NLog;
@@ -84,7 +84,6 @@ namespace Butler
 
 				MyJobs = new List<Job>();
 
-				MyJobs.Add( new DropBoxCopyTflToVesuviusJob( TimeKeeper ) ); //  get any new TFL data from dropbox
 				MyJobs.Add( new LogMailerJob(
 					new MailMan2( configReader ),
 					new LogFileDetector()) );  //  once daily
@@ -140,6 +139,8 @@ namespace Butler
 				MyJobs.Add( new LogCleanupJob() );
 				MyJobs.Add( new TflDataBackupJob() );
 				MyJobs.Add( new MediaListsPublishJob() );
+                MyJobs.Add( new MediaListsPublishJob(
+                    destinationDir: "\\\\DeLooch\\users\\steve\\dropbox\\medialists\\"));
                 MyJobs.Add( new ViewQueueJob() );
 
                 #endregion Regular Always jobs
@@ -160,23 +161,23 @@ namespace Butler
 				#region  Dropbox copying
 
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
-				  "d:\\shares\\public\\dropbox\\gridstat\\{0}",
+				  "c:\\public\\dropbox\\gridstat\\{0}",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
 				  ) );
 
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
-				  "d:\\shares\\public\\dropbox\\gridstat\\tfl-out",
+				  "c:\\public\\dropbox\\gridstat\\tfl-out",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
 				  ) );
 
 				MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
 					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
-					"d:\\shares\\public\\dropbox\\lists\\"
+					"c:\\public\\dropbox\\lists\\"
 				) );
 
-				#endregion
+                #endregion
 
-				MyJobs.Add( new MediaJob() );  //  regular always lucky last
+                MyJobs.Add( new MediaJob() );  //  regular always lucky last
 
 				if ( Passes == 0 )
 					ReportProgress(

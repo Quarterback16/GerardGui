@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Linq;
@@ -39,8 +39,7 @@ namespace RosterLib
 			IsHuman = FigureOutHumanity();
 
 #if DEBUG
-			Utility.Announce( string.Format( "{0,-20} has {1} PlayoffStarters {2} PlayoffBackups {3} PlayoffOthers",
-				TeamOut(), PlayoffStarters, PlayoffBackups, PlayoffOthers ) );
+			Utility.Announce( $"{TeamOut(),-20} has {PlayoffStarters} PlayoffStarters {PlayoffBackups} PlayoffBackups {PlayoffOthers} PlayoffOthers" );
 #endif
 		}
 

@@ -440,7 +440,7 @@ namespace RosterLib
 			//RosterLib.Utility.Announce( "Loading others");
 			LoadOthers( catIn, strPos );
 #if DEBUG
-			//Utility.Announce( "Loading Injuries");
+			Utility.Announce( "Loading Injuries");
 #endif
 			LoadInjuries( catIn, strPos );
 		}

@@ -1,4 +1,4 @@
-﻿using Helpers;
+using Helpers;
 using Helpers.Interfaces;
 using Helpers.Models;
 using System;
@@ -41,7 +41,8 @@ namespace Butler.Models
 			foreach ( string key in keys )
 			{
 				var logitem = ( LogItem ) LogMaster.TheHt[ key ];
-				lastDate = MailLogFiles( logitem );
+                DumpLogItem(logitem);
+                lastDate = MailLogFiles( logitem );
 				//  mark as done
 				if ( lastDate != new DateTime( 1, 1, 1 ) )
 				{
@@ -57,11 +58,20 @@ namespace Butler.Models
 			return finishedMessage;
 		}
 
-		private DateTime MailLogFiles( LogItem logitem )
+        private void DumpLogItem(LogItem logitem)
+        {
+            Logger.Info($"LogDir:{logitem.LogDir}");
+            Logger.Info($"FileSpec:{logitem.Filespec}");
+            Logger.Info($"MailDate:{logitem.MailDate}");
+            Logger.Info($"Recipients:{logitem.Recipients}");
+            Logger.Info($"Subject:{logitem.Subject}");
+        }
+
+        private DateTime MailLogFiles( LogItem logitem )
 		{
 			var lastDate = new DateTime( 1, 1, 1 );
 			var filesFound = LogFileDetector.DetectLogFileIn( logitem.LogDir, logitem.Filespec, logitem.MailDate );
-			Logger.Info( $"Found {filesFound.Count} files" );
+			Logger.Info( $"Found {filesFound.Count} file(s)" );
 			foreach ( var file in filesFound )
 			{
 				MailMan.AddRecipients( logitem.Recipients );

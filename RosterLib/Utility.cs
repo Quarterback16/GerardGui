@@ -1,3 +1,4 @@
+using RosterLib.Helpers;
 using System;
 using System.Collections;
 using System.Configuration;
@@ -23,7 +24,10 @@ namespace RosterLib
          get
          {
             return _tflWs ?? (_tflWs = new DataLibrarian(
-               NflConnectionString(), TflConnectionString(), CtlConnectionString()));
+               NflConnectionString(),
+               TflConnectionString(),
+               CtlConnectionString(),
+               new NLogAdaptor()));
          }
          set { _tflWs = value; }
       }

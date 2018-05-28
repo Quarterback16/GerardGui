@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Butler</RootNamespace>
     <AssemblyName>Butler</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
@@ -35,6 +35,16 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -56,16 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -93,11 +94,11 @@
     <Compile Include="JobLog.cs" />
     <Compile Include="Models\AssignRolesJob.cs" />
     <Compile Include="Models\BalanceReportJob.cs" />
+    <Compile Include="Models\CopyJob.cs" />
     <Compile Include="Models\DefensiveReportsJob.cs" />
     <Compile Include="Models\DeletePlayerReportsJob.cs" />
     <Compile Include="Models\DepthChartJob.cs" />
     <Compile Include="Models\DropBoxCopyFromDeLoochJob.cs" />
-    <Compile Include="Models\DropBoxCopyTflToVesuviusJob.cs" />
     <Compile Include="Models\DropboxCopyToReginaJob.cs" />
     <Compile Include="Models\FantasyProjectionJob.cs" />
     <Compile Include="Models\FantasyReportJob.cs" />
@@ -154,21 +155,27 @@
     <Content Include="Doco\JobCreation.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Cache\Cache.csproj">
+      <Project>{85bb16a5-3c53-4e4f-a342-1103aa6f967e}</Project>
+      <Name>Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Helpers\Helpers.csproj">
       <Project>{dda0342a-a7e7-48d7-9cb3-4b7676269740}</Project>
       <Name>Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RosterLib\RosterLib.csproj">
-      <Project>{50635611-593a-4208-b7a5-09938c1b31b1}</Project>
+    <ProjectReference Include="..\..\RosterLib\RosterLib.csproj">
+      <Project>{054a1e39-1899-4016-a77e-13f55f60e7e5}</Project>
       <Name>RosterLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TFLLib\TFLLib.csproj">
-      <Project>{a3a068ee-3471-4f63-aa69-3b5f57705283}</Project>
+    <ProjectReference Include="..\..\TFLLib\TFLLib.csproj">
+      <Project>{0991c340-e6de-45f2-8792-fbcb96b232de}</Project>
       <Name>TFLLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

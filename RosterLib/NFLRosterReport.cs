@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using System.Xml;
@@ -51,7 +51,7 @@ namespace RosterLib
 
 			TraceIt( "NewRosterReport:LoadNFC Loading NFC");
 
-#if !DEBUG
+#if !QUICKRUN
 			Nfc.AddDiv( "East", "A" );
 			Nfc.AddDiv( "North", "B" );
 			Nfc.AddDiv( "South", "C" );
@@ -65,7 +65,7 @@ namespace RosterLib
 		{
 			TraceIt( "NewRosterReport:LoadAFC Loading AFC");
 
-#if !DEBUG
+#if !QUICKRUN
 			Afc.AddDiv( "East", "E" );
 			Afc.AddDiv( "North", "F" );
 			Afc.AddDiv( "South", "G" );
