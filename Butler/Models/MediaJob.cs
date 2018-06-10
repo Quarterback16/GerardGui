@@ -64,6 +64,7 @@ namespace Butler.Models
             try
 			{
 				var itemCount = 0;
+                var actionCount = 0;
 				GetCandidates();
 				var collector = new Collector();
 				foreach ( var f in Candidates )
@@ -90,38 +91,44 @@ namespace Butler.Models
 						if ( !collector.HaveIt( mi ) ) continue;
 						var newFile = collector.AddToTvCollection( mi );
 						Logger.Info( $"  Adding TV     - {newFile} ");
+                        actionCount++;
 					}
 					else if ( mi.IsMagazine )
 					{
 						var newFile = collector.MoveToMagQueue( mi );
 						Logger.Info( $"  Queing Mag    - {newFile} ");
-					}
-					else if ( mi.IsBook )
+                        actionCount++;
+                    }
+                    else if ( mi.IsBook )
 					{
 						var newFile = collector.MoveToViewQueue( mi );
 						Logger.Info( $"  Queing Book   - {newFile} ");
-					}
-					else if ( mi.IsNfl )
+                        actionCount++;
+                    }
+                    else if ( mi.IsNfl )
 					{
 						var newFile = collector.AddToNflCollection( mi );
 						Logger.Info( $"  Adding NFL    - {newFile} ");
-					}
-					else if ( mi.IsSoccer )
+                        actionCount++;
+                    }
+                    else if ( mi.IsSoccer )
 					{
 						var newFile = collector.AddToSoccerCollection( mi );
 						Logger.Info( $"  Adding Soccer - {newFile} ");
-					}
-					else if ( mi.IsMovie )
+                        actionCount++;
+                    }
+                    else if ( mi.IsMovie )
 					{
                         var newFile = collector.AddToMovieCollection( mi );
                         Logger.Info($"  Adding Movie  - {newFile} ");
+                        actionCount++;
                     }
                     else
 					{
 						Logger.Trace( $"   Not Recognised {f}");
 					}
 				}
-				finishedMessage = $"{itemCount} items processed";
+				finishedMessage = $"{actionCount} actions in {itemCount} items";
 			}
 			catch ( IOException wex )
 			{

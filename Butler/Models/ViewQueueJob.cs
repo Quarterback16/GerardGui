@@ -1,4 +1,4 @@
-﻿using Helpers;
+using Helpers;
 using NLog;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,7 +36,7 @@ namespace Butler.Models
             return homeLocator.HomeFolder;
         }
 
-        private static void ProcessItem(
+        private void ProcessItem(
             HomeLocator homeLocator, 
             Mover mover, 
             string item)
@@ -51,8 +51,8 @@ namespace Butler.Models
                 mover.MoveFile(
                     item,
                     destFile: newFile);
-                System.Console.WriteLine(
-                    $"moved file {fileName,20} to {newFile,60}");
+                Logger.Info(
+                    $"   moved file {fileName,20} to {newFile,60}");
             }
         }
 
