@@ -1,4 +1,4 @@
-﻿using Helpers.Models;
+using Helpers.Models;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -60,13 +60,15 @@ namespace Butler.Models
 		public override string DoJob()
 		{
 			var finishedMessage = string.Empty;
-			try
+            var fileBeingProcessed = string.Empty;
+            try
 			{
 				var itemCount = 0;
 				GetCandidates();
 				var collector = new Collector();
 				foreach ( var f in Candidates )
 				{
+                    fileBeingProcessed = f;
 					File.SetAttributes( f, FileAttributes.Normal );
 					itemCount++;
 					Logger.Trace( $"Candidate: {f} ");
@@ -111,10 +113,10 @@ namespace Butler.Models
 					}
 					else if ( mi.IsMovie )
 					{
-						var newFile = collector.AddToMovieCollection( mi );
-						Logger.Info( $"  Adding Movie  - {newFile} ");
-					}
-					else
+                        var newFile = collector.AddToMovieCollection( mi );
+                        Logger.Info($"  Adding Movie  - {newFile} ");
+                    }
+                    else
 					{
 						Logger.Trace( $"   Not Recognised {f}");
 					}
@@ -123,11 +125,14 @@ namespace Butler.Models
 			}
 			catch ( IOException wex )
 			{
-				Logger.Info( "IOException:  {0}", wex.Message );
+				Logger.Info(
+                    "IOException:  {0} file {1}",
+                    wex.Message,
+                    fileBeingProcessed);
 			}
 			catch ( Exception ex )
 			{
-				Logger.Error( ex.StackTrace );
+				Logger.Error( $"processing {fileBeingProcessed} {ex.StackTrace}" );
 				throw;
 			}
 			Logger.Info( "  {0}", finishedMessage );

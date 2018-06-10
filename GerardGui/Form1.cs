@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using RosterLib.Interfaces;
 using Butler;
 using System;
@@ -41,28 +41,37 @@ namespace GerardGui
 			CheckSetting( AppSettings.AutoStart );
 			CheckSetting( "PeakStartHour" );
 			CheckSetting( "PeakFinishHour" );
-			CheckSetting( "TvFolder" );
-			CheckSetting( "ViewQueueFolder" );
-			CheckSetting( "DownloadFolder" );
-			CheckSetting( "NflFolder" );
-			CheckSetting( "SoccerFolder" );
+			CheckFolderSetting( "TvFolder" );
+            CheckFolderSetting( "MovieFolder");
+            CheckFolderSetting( "ViewQueueFolder" );
+			CheckFolderSetting( "DownloadFolder" );
+			CheckFolderSetting( "NflFolder" );
+			CheckFolderSetting( "SoccerFolder" );
 			CheckDirExists( "output", Utility.OutputDirectory() );
 			CheckDirExists( "xml", Utility.XmlDirectory() );
 		}
 
-		private void CheckSetting( string setting )
+        private void CheckFolderSetting( string setting )
+        {
+            var folder = CheckSetting(setting);
+            CheckDirExists(setting, folder);
+        }
+
+		private string CheckSetting( string setting )
 		{
-			var theConfigSetting = ConfigurationManager.AppSettings.Get( setting );
+			var theConfigSetting = ConfigurationManager.AppSettings.Get(
+                setting );
 			InsertMessage( !string.IsNullOrEmpty( theConfigSetting )
-							  ? string.Format( "{0} set to {1}", setting, theConfigSetting )
-							  : string.Format( "{0} does not exist", setting ) );
+							  ? $"{setting} set to {theConfigSetting}"
+							  : $"{setting} does not exist!!!!!!!!!!!!!" );
+            return theConfigSetting;
 		}
 
 		private void CheckDirExists( string setting, string dir )
 		{
 			InsertMessage( System.IO.Directory.Exists( dir )
-							  ? string.Format( "{0} set to {1}", setting, dir )
-							  : string.Format( "{0} does not exist", dir ) );
+							  ? $"{setting} set to {dir} exists"
+							  : $"{dir} does not exist !!!!!!!!!!!!!" );
 		}
 
 		private void BackgroundWorker1_DoWork( object sender, DoWorkEventArgs e )

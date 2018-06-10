@@ -1,4 +1,4 @@
-﻿using Helpers.Models;
+using Helpers.Models;
 using RosterLib;
 using System;
 using System.IO;
@@ -155,7 +155,8 @@ namespace Butler
 
         private static string CopyMediaTo(MediaInfo mi, string folder)
         {
-            if (string.IsNullOrEmpty(folder)) return "No destination folder defined";
+            if (string.IsNullOrEmpty(folder))
+                return "No destination folder defined";
 
             var fromFile = mi.Info.FullName;  //  from DL dir
             var targetFile = $"{folder}{mi.Title}\\{mi.Info.Name}";  // to video root
