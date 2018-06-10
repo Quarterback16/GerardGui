@@ -53,7 +53,7 @@ namespace Butler.Models
                     destFile: newFile);
                 Logger.Info(
                     $@"   moved file {fileName,20} to {
-                        homeLocator.HomeFolder
+                        homeLocator.FolderPath
                         }");
             }
         }
@@ -77,7 +77,7 @@ namespace Butler.Models
                 Items = Directory.GetFiles(
                     path: ViewQueueFolder,
                     searchPattern: "*.*",
-                    searchOption: SearchOption.AllDirectories).ToList();
+                    searchOption: SearchOption.TopDirectoryOnly).ToList();
 
                 Logger.Info(
                     $"Found {Items.Count} files in folder:{ViewQueueFolder}");

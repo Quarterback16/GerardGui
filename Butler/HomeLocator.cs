@@ -8,6 +8,7 @@ namespace Butler
     public class HomeLocator
     {
         public string HomeFolder { get; set; }
+        public string FolderPath { get; set; }
         public List<string> ITFolderCollection { get; set; }
 
         public HomeLocator( string homeFolder )
@@ -93,12 +94,14 @@ namespace Butler
 
         private string HomePath(string category, string candidate, string fileName)
         {
-            return $@"{HomeFolder}{category}\{candidate}\{fileName}";
+            FolderPath = $@"{HomeFolder}{category}\{candidate}";
+            return $@"{FolderPath}\{fileName}";
         }
 
         private string HomePath(string category, string fileName)
         {
-            return $@"{HomeFolder}{category}\{fileName}";
+            FolderPath = $@"{HomeFolder}{category}";
+            return $@"{FolderPath}\{fileName}";
         }
 
         private static bool RelatesToCooking(string fileName)
