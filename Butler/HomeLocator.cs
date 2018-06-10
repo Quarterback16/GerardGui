@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Butler
 {
-    
+
     public class HomeLocator
     {
         public string HomeFolder { get; set; }
@@ -121,12 +120,12 @@ namespace Butler
                 foreach (var pathName in directories)
                 {
                     var stem = Path.GetFileName(pathName);
-                    if (stem.Length > 2)
+                    if (stem.Length > 1)
                         ITFolderCollection.Add(stem);
                 }
                 var lc = new LengthComparer();
                 ITFolderCollection.Sort(lc);
-                //DumpFolderCollection();
+                DumpFolderCollection();
             }
         }
 

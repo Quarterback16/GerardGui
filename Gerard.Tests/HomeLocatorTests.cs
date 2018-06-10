@@ -1,4 +1,4 @@
-﻿using Butler;
+using Butler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests
@@ -76,6 +76,16 @@ namespace Gerard.Tests
             var cut = new HomeLocator();
             Assert.AreEqual(
                 expected: $@"{cut.HomeFolder}Sherlock Holmes\{fileName}",
+                actual: cut.HomeFor(fileName));
+        }
+
+        [TestMethod]
+        public void HomeFor_BuildingMaintainableSoftware_ResultsCSharp()
+        {
+            var fileName = "Building Maintainable Software, C# Edition.pdf";
+            var cut = new HomeLocator();
+            Assert.AreEqual(
+                expected: $@"{cut.HomeFolder}IT\C#\{fileName}",
                 actual: cut.HomeFor(fileName));
         }
     }

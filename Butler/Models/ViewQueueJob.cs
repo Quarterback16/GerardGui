@@ -52,7 +52,9 @@ namespace Butler.Models
                     item,
                     destFile: newFile);
                 Logger.Info(
-                    $"   moved file {fileName,20} to {newFile,60}");
+                    $@"   moved file {fileName,20} to {
+                        homeLocator.HomeFolder
+                        }");
             }
         }
 
