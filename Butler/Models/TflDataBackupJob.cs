@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using System;
 
 namespace Butler.Models
@@ -12,7 +12,7 @@ namespace Butler.Models
         public TflDataBackupJob()
         {
             Name = "TFL DATA Backup";
-            SourceDir = "d:\\shares\\tfl";
+            SourceDir = "c:\\tfl";
             DestDir = "\\\\Regina\\Documents\\Backup\\tfl";
             Logger = NLog.LogManager.GetCurrentClassLogger();
         }
@@ -42,8 +42,8 @@ namespace Butler.Models
                 {
                     //  Is it already done? - check the date of the last backup
                     //  check the datestamp of the control files if different backup!
-                    if ( VesuviusControlFile() <= ReginaControlFile() )
-                        whyNot = $"Vesuvius date {VesuviusControlFile()} sameas Regina Date {ReginaControlFile()}";
+                    if ( HomeServerControlFile() <= NasControlFile() )
+                        whyNot = $"Vesuvius date {HomeServerControlFile()} sameas Regina Date {NasControlFile()}";
                 }
             }
             if ( !string.IsNullOrEmpty( whyNot ) )
@@ -51,13 +51,13 @@ namespace Butler.Models
             return ( string.IsNullOrEmpty( whyNot ) );
         }
 
-        private DateTime ReginaControlFile()
+        private DateTime NasControlFile()
         {
-            var theDate = FileUtility.DateOf( string.Format( "{0}\\nfl\\player.dbf", DestDir ) );
+            var theDate = FileUtility.DateOf( $"{DestDir}\\nfl\\player.dbf");
             return theDate;
         }
 
-        public DateTime VesuviusControlFile()
+        public DateTime HomeServerControlFile()
         {
             var theDate = FileUtility.DateOf( $"{SourceDir}\\nfl\\player.dbf");
             return theDate;

@@ -118,6 +118,7 @@ namespace Butler
             ITFolderCollection = new List<string>();
             if (!string.IsNullOrEmpty(HomeFolder))
             {
+
                 var directories = Directory.GetDirectories(
                     HomeFolder+@"IT\");
                 foreach (var pathName in directories)

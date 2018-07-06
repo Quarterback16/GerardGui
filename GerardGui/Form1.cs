@@ -26,7 +26,10 @@ namespace GerardGui
 			var startDate = new DateTime( 2000, 1, 1 );
 			var diffDays = versionInfo.Build;
 			var computedDate = startDate.AddDays( diffDays );
-			Text = string.Format( "Gerard the Butler {0} g built {1}", versionInfo.ToString(), computedDate.ToLongDateString() );
+			Text = string.Format(
+                "Gerard the Butler {0} g built {1}",
+                versionInfo.ToString(),
+                computedDate.ToLongDateString() );
 			PreFlightTests();
 			AutoStart = ConfigurationManager.AppSettings[ AppSettings.AutoStart ] == "true";
 			if (AutoStart)
