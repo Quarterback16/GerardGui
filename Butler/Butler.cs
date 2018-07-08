@@ -140,7 +140,7 @@ namespace Butler
 				MyJobs.Add( new TflDataBackupJob() );
 				MyJobs.Add( new MediaListsPublishJob() );
                 MyJobs.Add( new MediaListsPublishJob(
-                    destinationDir: "\\\\DeLooch\\users\\steve\\dropbox\\medialists\\"));
+                    destinationDir: "c:\\users\\quart\\dropbox\\medialists\\"));
                 MyJobs.Add( new ViewQueueJob() );
 
                 #endregion Regular Always jobs
