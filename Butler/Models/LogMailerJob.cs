@@ -70,7 +70,10 @@ namespace Butler.Models
         private DateTime MailLogFiles( LogItem logitem )
 		{
 			var lastDate = new DateTime( 1, 1, 1 );
-			var filesFound = LogFileDetector.DetectLogFileIn( logitem.LogDir, logitem.Filespec, logitem.MailDate );
+			var filesFound = LogFileDetector.DetectLogFileIn(
+                logitem.LogDir, 
+                logitem.Filespec,
+                logitem.MailDate );
 			Logger.Info( $"Found {filesFound.Count} file(s)" );
 			foreach ( var file in filesFound )
 			{

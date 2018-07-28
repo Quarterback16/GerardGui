@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -246,9 +246,23 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGetPlayers()
 		{
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), "TT" );
+			var sut = new DepthChartReport(
+                timekeeper: new FakeTimeKeeper( season: "2017" ),
+                teamCode: "TT" );
 			var res = sut.GetPlayers("W2");
 			Assert.IsTrue( res.Count == 1 );
 		}
-	}
+
+        [TestMethod]
+        public void TestLeagueInFocus()
+        {
+            var sut = new DepthChartReport(
+                timekeeper: new FakeTimeKeeper(
+                    theDate: new DateTime(2018,7,25)),
+                teamCode: "NE");
+            Assert.AreEqual(
+                expected: Constants.K_LEAGUE_Gridstats_NFL1,
+                actual: sut.LeagueToFocusOn());
+        }
+    }
 }

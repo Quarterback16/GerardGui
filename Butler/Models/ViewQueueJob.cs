@@ -26,17 +26,17 @@ namespace Butler.Models
 
         public override string DoJob()
         {
-            var homeLocator = new HomeLocator();
+            var homeLocator = new HomeLocator(Logger);
             var mover = new Mover();
-            GetItems();
-            foreach (var item in Items)
+            GetFiles();
+            foreach (var file in Items)
             {
-                ProcessItem(homeLocator, mover, item);
+                MoveFileToHomeLocation(homeLocator, mover, file);
             }
             return homeLocator.HomeFolder;
         }
 
-        private void ProcessItem(
+        private void MoveFileToHomeLocation(
             HomeLocator homeLocator, 
             Mover mover, 
             string item)
@@ -68,7 +68,7 @@ namespace Butler.Models
             return false;
         }
 
-        public void GetItems()
+        public void GetFiles()
         {
             try
             {

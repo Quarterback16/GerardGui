@@ -1,3 +1,4 @@
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ namespace Butler
 
     public class HomeLocator
     {
+        public Logger Logger { get; set; }
         public string HomeFolder { get; set; }
         public string FolderPath { get; set; }
         public List<string> ITFolderCollection { get; set; }
@@ -14,12 +16,29 @@ namespace Butler
         public HomeLocator( string homeFolder )
         {
             HomeFolder = homeFolder;
-            Console.WriteLine($"HomeFolder: {HomeFolder}");
+            Log($"HomeFolder: {HomeFolder}");
             LoadITFolderCollection();
+        }
+
+        private void Log(string message)
+        {
+            if (Logger != null)
+            {
+                Logger.Info(message);
+            }
+            else
+            {
+                Console.WriteLine(message);
+            }
         }
 
         public HomeLocator() : this(@"\\\\Regina\books\")
         {
+        }
+
+        public HomeLocator(Logger logger) : this(@"\\\\Regina\books\")
+        {
+            Logger = logger;
         }
 
         public string HomeFor( string fileName )
@@ -118,7 +137,6 @@ namespace Butler
             ITFolderCollection = new List<string>();
             if (!string.IsNullOrEmpty(HomeFolder))
             {
-
                 var directories = Directory.GetDirectories(
                     HomeFolder+@"IT\");
                 foreach (var pathName in directories)
@@ -139,7 +157,7 @@ namespace Butler
             foreach (var folder in ITFolderCollection)
             {
                 i++;
-                Console.WriteLine($"{i} - {folder}");
+                Log($"{i} - {folder}");
             }
         }
     }
@@ -148,6 +166,7 @@ namespace Butler
     {
         public int Compare(string x, string y)
         {
+            if (x == y) return 0;
             if (x.Length > y.Length)
                 return -1;
             if (x.Length < y.Length)

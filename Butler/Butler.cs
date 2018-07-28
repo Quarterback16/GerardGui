@@ -61,7 +61,10 @@ namespace Butler
 			Historian = new Historian();
 			Logger = LogManager.GetCurrentClassLogger();
 			Logger.Info( "-------------------------------------------------------------------------------------" );
-			Logger.Info( $"  ver:{Version} Working Directory:{ Directory.GetCurrentDirectory()}");
+			Logger.Info( $@"  ver:{
+                Version
+                } Working Directory:{
+                Directory.GetCurrentDirectory()}");
 		}
 
 		public void ReportProgress( string message )
@@ -161,18 +164,18 @@ namespace Butler
 				#region  Dropbox copying
 
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
-				  "c:\\public\\dropbox\\gridstat\\{0}",
+				  "c:\\users\\quart\\dropbox\\gridstat\\{0}",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
 				  ) );
 
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
-				  "c:\\public\\dropbox\\gridstat\\tfl-out",
+				  "c:\\users\\quart\\dropbox\\gridstat\\tfl-out",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
 				  ) );
 
 				MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
 					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
-					"c:\\public\\dropbox\\lists\\"
+					"c:\\users\\quart\\dropbox\\lists\\"
 				) );
 
                 #endregion
@@ -181,7 +184,8 @@ namespace Butler
 
 				if ( Passes == 0 )
 					ReportProgress(
-						$"{Version} - {MyJobs.Count} jobs defined -Starting...", ButlerConstants.ReportInTextArea );
+						$"{Version} - {MyJobs.Count} jobs defined -Starting...",
+                        ButlerConstants.ReportInTextArea );
 
 				while ( true )
 				{
@@ -195,9 +199,11 @@ namespace Butler
 						if ( job.IsTimeTodo( out string whyNot ) )
 						{
 							ReportProgress(
-								$"Doing job {job.Name}", ButlerConstants.ReportInTextArea );
+								$"Doing job {job.Name}",
+                                ButlerConstants.ReportInTextArea );
 							var outcome = job.Execute();
-							ReportProgress( outcome, ButlerConstants.ReportInTextArea );
+							ReportProgress( outcome,
+                                ButlerConstants.ReportInTextArea );
 						}
 						else
 							ReportProgress(
