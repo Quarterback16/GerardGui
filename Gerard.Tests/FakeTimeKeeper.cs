@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using RosterLib.Interfaces;
 using System;
 using System.Globalization;
@@ -44,6 +44,7 @@ namespace Gerard.Tests
 
 			_isItPreseason = isPreSeason;
 			_isPeakTime = isPeakTime;
+            
 			TheDateTime = DateTime.Now;
 		}
 

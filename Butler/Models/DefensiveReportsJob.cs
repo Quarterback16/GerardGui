@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using RosterLib.Interfaces;
 
 namespace Butler.Models
@@ -26,11 +26,6 @@ namespace Butler.Models
 			whyNot = string.Empty;
 
 			base.IsTimeTodo( out whyNot );
-			if ( string.IsNullOrEmpty( whyNot ) )
-			{
-				if ( !TimeKeeper.IsItRegularSeason() )
-					whyNot = "Its not the regular season yet";
-			}
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 #if !DEBUG2

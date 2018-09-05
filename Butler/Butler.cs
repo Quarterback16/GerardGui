@@ -1,3 +1,4 @@
+#define REGINA
 using Butler.Interfaces;
 using Butler.Models;
 using Helpers;
@@ -141,14 +142,18 @@ namespace Butler
 				MyJobs.Add( new RunReportJob( TimeKeeper ) );
 				MyJobs.Add( new LogCleanupJob() );
 				MyJobs.Add( new TflDataBackupJob() );
-				MyJobs.Add( new MediaListsPublishJob() );
+#if REGINA
+                MyJobs.Add( new MediaListsPublishJob() );
+#endif
                 MyJobs.Add( new MediaListsPublishJob(
                     destinationDir: "c:\\users\\quart\\dropbox\\medialists\\"));
+#if REGINA
                 MyJobs.Add( new ViewQueueJob() );
+#endif
 
-                #endregion Regular Always jobs
+#endregion Regular Always jobs
 
-                #region Pre Season Jobs -- Long running so last in the job order
+#region Pre Season Jobs -- Long running so last in the job order
 
                 MyJobs.Add( new PlayerCsvJob( TimeKeeper ) );
 				MyJobs.Add( new BalanceReportJob( TimeKeeper ) ); //  once off - pre season
@@ -159,28 +164,29 @@ namespace Butler
 				MyJobs.Add( new PlayerReportsJob( TimeKeeper, configReader ) );
 				MyJobs.Add( new PositionReportJob( TimeKeeper ) );
 
-				#endregion Pre Season Jobs -- Long running so last in the job order
+                #endregion Pre Season Jobs -- Long running so last in the job order
 
-				#region  Dropbox copying
-
-				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
+                #region  Dropbox copying
+#if REGINA
+                MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
 				  "c:\\users\\quart\\dropbox\\gridstat\\{0}",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
 				  ) );
-
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
 				  "c:\\users\\quart\\dropbox\\gridstat\\tfl-out",
 				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
 				  ) );
-
-				MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
+#endif
+                MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
 					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
 					"c:\\users\\quart\\dropbox\\lists\\"
 				) );
 
-                #endregion
 
+                #endregion
+#if REGINA
                 MyJobs.Add( new MediaJob() );  //  regular always lucky last
+#endif
 
 				if ( Passes == 0 )
 					ReportProgress(

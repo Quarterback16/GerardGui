@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 
@@ -7,7 +7,6 @@ namespace Gerard.Tests
 	[TestClass]
 	public class PlayerCsvTests
 	{
-		//[Ignore]  // fails speed test
 		[TestMethod]
 		public void TestDoPlayerCsvJob()  // 75 mins  2016-08-08
 		{
@@ -119,5 +118,21 @@ namespace Gerard.Tests
 			var nScores = ds.Tables[ 0 ].Rows.Count;
 			Assert.IsTrue( nScores.Equals( 1 ) );
 		}
-	}
+
+        [TestMethod]
+        public void TestAdpOut()
+        {
+            var sut = new RenderStatsToHtml(null);
+            var result = sut.AsDraftRound(96);
+            Assert.AreEqual("9.01", result);
+        }
+
+        [TestMethod]
+        public void TestAdpOutNumber1()
+        {
+            var sut = new RenderStatsToHtml(null);
+            var result = sut.AsDraftRound(1);
+            Assert.AreEqual("1.01", result);
+        }
+    }
 }

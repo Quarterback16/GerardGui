@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -20,7 +20,8 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestGeneratePlayerProjectionsJob()   // 85 mins 2016-08-21  (make sure debug mode is on)
       {
-         var sut = new GeneratePlayerProjectionsJob( new FakeTimeKeeper( isPreSeason:true, isPeakTime:false) );
+         var sut = new GeneratePlayerProjectionsJob(
+             new FakeTimeKeeper( isPreSeason:true, isPeakTime:false) );
          var resultOut = sut.DoJob();
          Assert.IsTrue( resultOut.Length > 0 );
       }
@@ -39,7 +40,10 @@ namespace Gerard.Tests
       public void TestSingleGameProjection()  //  17 sec  2015-08-11
       {
          var game = new NFLGame( "2016:18-C" );  //  MD@PS
-         var ppg = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2016", week: "18" ), playerCache:null);
+         var ppg = new PlayerProjectionGenerator(
+             new FakeTimeKeeper(
+                 season: "2016", week: "18" ),
+             playerCache:null);
          ppg.Execute( game );
          Assert.IsTrue(  ppg != null );
       }
@@ -49,7 +53,9 @@ namespace Gerard.Tests
       {
          var team = new NflTeam( "PS" );
          team.SetKicker();
-         Assert.AreEqual( expected: "Chris Boswell", actual: team.Kicker.PlayerName );
+         Assert.AreEqual(
+             expected: "Chris Boswell",
+             actual: team.Kicker.PlayerName );
       }
    }
 }

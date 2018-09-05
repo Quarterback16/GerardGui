@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -18,11 +18,20 @@ namespace Gerard.Tests
 			Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestTimetoDoDepthCharts()
+        {
+            var sut = new DefensiveReportsJob(
+                new FakeTimeKeeper(isPreSeason: true, isPeakTime: false));
+            Assert.IsFalse(sut.IsTimeTodo(out string whyNot));
+            Console.WriteLine(whyNot);
+        }
+
+        [TestMethod]
 		public void TestDefensivePatsyReport()
 		{
-			var week = new NFLWeek( "2017", "01" );
-			var ds = new DefensiveScorer( new FakeTimeKeeper( season: "2017" ) );
+			var week = new NFLWeek( "2018", "01" );
+			var ds = new DefensiveScorer( new FakeTimeKeeper( season: "2018" ) );
 			ds.RenderTeamToDefendAgainst( week );
 			Assert.IsTrue( File.Exists( ds.FileOut ), $"Cannot find {ds.FileOut}" );
 		}
