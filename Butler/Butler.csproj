@@ -145,6 +145,8 @@
     <Compile Include="Models\UpdateTeamActualsJob.cs" />
     <Compile Include="Models\UpdateTflJob.cs" />
     <Compile Include="Models\ViewQueueJob.cs" />
+    <Compile Include="Models\WeekPage.cs" />
+    <Compile Include="Models\WikiTable.cs" />
     <Compile Include="Models\YahooXmlFullJob.cs" />
     <Compile Include="Models\YahooXmlJob.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
