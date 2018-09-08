@@ -3,6 +3,7 @@ using RosterLib.RosterGridReports;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
 
 namespace Butler.Models
 {
@@ -33,7 +34,11 @@ namespace Butler.Models
                 "WHEN",
                 "MU",
                 "PRO",
-                "QB"
+                "QB",
+                "RB",
+                "W1",
+                "W2",
+                "TE"
             };
         }
 
@@ -80,7 +85,7 @@ namespace Butler.Models
             var dr = InternalTable.Body.NewRow();
             foreach (var column in Cols)
             {
-                dr[column] = "   ";
+                dr[column] = "  ";
             }
             InternalTable.Body.Rows.Add(dr);
         }
@@ -96,6 +101,11 @@ namespace Butler.Models
                 game,
                 YahooCalculator,
                 bLinks: false);
+            var wikiTeam = new WikiTeam(
+                game.AwayNflTeam,
+                game);
+            SetMainTeamRoles(dr, wikiTeam);
+
             InternalTable.Body.Rows.Add(dr);
         }
 
@@ -110,7 +120,35 @@ namespace Butler.Models
                 game,
                 YahooCalculator,
                 bLinks: false);
+            var wikiTeam = new WikiTeam(
+                game.HomeNflTeam,
+                game);
+            SetMainTeamRoles(dr, wikiTeam);
             InternalTable.Body.Rows.Add(dr);
+        }
+
+        private void SetMainTeamRoles(DataRow dr, WikiTeam wikiTeam)
+        {
+            dr["RB"] = PickupChart.GetRunnerBit(
+                team: wikiTeam,
+                calculator: YahooCalculator,
+                bLinks: false);
+            dr["W1"] = PickupChart.GetW1Bit(
+                team: wikiTeam,
+                calculator: YahooCalculator,
+                bLinks: false);
+            dr["W2"] = PickupChart.GetW2Bit(
+                team: wikiTeam,
+                calculator: YahooCalculator,
+                bLinks: false);
+            dr["TE"] = PickupChart.GetTEBit(
+                team: wikiTeam,
+                calculator: YahooCalculator,
+                bLinks: false);
+            dr["TE"] = PickupChart.GetPKBit(
+                team: wikiTeam,
+                calculator: YahooCalculator,
+                bLinks: false);
         }
 
         private static string TimeBit(NFLGame game)
@@ -125,22 +163,52 @@ namespace Butler.Models
             Rows.Add(WikiTableHeader());
             for (int i = 0; i < InternalTable.Body.Rows.Count; i++)
             {
-                Rows.Add(DataRowToWiki(InternalTable.Body.Rows[i]));
+                Rows.Add(
+                    DataRowToWiki(
+                        InternalTable.Body.Rows[i]));
             }
         }
 
-        private static string WikiTableHeader()
+        private string WikiTableHeader()
         {
-            return "|| **When** || **MU** || **PRO** ||  **QB**  ||";
+            var header = new StringBuilder();
+            header.Append("||");
+            foreach (var column in Cols)
+            {
+                header.Append(" **");
+                header.Append(column);
+                header.Append("** ||");
+            }
+            return header.ToString();
         }
 
-        private static string DataRowToWiki(DataRow dr)
+        private string DataRowToWiki(DataRow dr)
         {
-            var when = dr["WHEN"].ToString();
-            var matchUp = dr["MU"].ToString();
-            var pro = dr["PRO"].ToString();
-            var qb = dr["QB"].ToString();
-            return $"||  {when}  ||  {matchUp}   ||  {pro}   || {qb}  ||";
+            var line = new StringBuilder();
+            line.Append("||");
+            foreach (var column in Cols)
+            {
+                var contents = dr[column].ToString();
+                line.Append(" ");
+                line.Append(contents);
+                line.Append(" ||");
+            }
+            return line.ToString();
+        }
+
+        private class WikiTeam : IWinOrLose
+        {
+            public WikiTeam(NflTeam team, NFLGame game)
+            {
+                Game = game;
+                Team = team;
+            }
+
+            public NFLGame Game { get; set; }
+            public NflTeam Team { get; set; }
+            public bool Home { get; set; }
+            public bool IsWinner { get; set; }
+            public decimal Margin { get; set; }
         }
     }
 }

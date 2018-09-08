@@ -18,7 +18,7 @@ namespace Butler.Models
         public WeekPage(NFLWeek week)
         {
             Week = week;
-            OutputFile = $"output\\Projections\\{week}-wiki.txt";
+            OutputFile = $"output\\Projections\\wikiout\\{week}-wiki.txt";
             WikiTable = new WikiTable(week.WeekNo);
         }
 

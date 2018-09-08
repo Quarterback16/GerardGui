@@ -60,11 +60,11 @@ namespace Butler.Models
 
         private void DumpLogItem(LogItem logitem)
         {
-            Logger.Info($"LogDir:{logitem.LogDir}");
-            Logger.Info($"FileSpec:{logitem.Filespec}");
-            Logger.Info($"MailDate:{logitem.MailDate}");
-            Logger.Info($"Recipients:{logitem.Recipients}");
-            Logger.Info($"Subject:{logitem.Subject}");
+            Logger.Trace($"LogDir:{logitem.LogDir}");
+            Logger.Trace($"FileSpec:{logitem.Filespec}");
+            Logger.Trace($"MailDate:{logitem.MailDate}");
+            Logger.Trace($"Recipients:{logitem.Recipients}");
+            Logger.Trace($"Subject:{logitem.Subject}");
         }
 
         private DateTime MailLogFiles( LogItem logitem )
@@ -74,11 +74,11 @@ namespace Butler.Models
                 logitem.LogDir, 
                 logitem.Filespec,
                 logitem.MailDate );
-			Logger.Info( $"Found {filesFound.Count} file(s)" );
+			Logger.Trace( $"Found {filesFound.Count} file(s)" );
 			foreach ( var file in filesFound )
 			{
 				MailMan.AddRecipients( logitem.Recipients );
-				Logger.Info( $"There are {MailMan.RecipientCount()} recipients" );
+				Logger.Trace( $"There are {MailMan.RecipientCount()} recipients" );
 				var errorMsg = MailMan.SendMail(
 					message: "Log file",
 					subject: logitem.Subject,
@@ -89,7 +89,7 @@ namespace Butler.Models
 						logitem.LogDir,
 						LogFileDetector.FilePartFile( logitem.LogDir, file ) );
 					LogsMailed++;
-					Logger.Info( $"Emailed {file} ({logitem.Subject})" );
+					Logger.Trace( $"Emailed {file} ({logitem.Subject})" );
 				}
 				else
 				{
