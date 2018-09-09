@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using RosterLib.RosterGridReports;
@@ -34,8 +34,8 @@ namespace Gerard.Tests
 		{
 			var sut = new PickupChartJob( 
                 new FakeTimeKeeper( 
-                    season:"2017", 
-                    week:"16" ) );
+                    season:"2018", 
+                    week:"01" ) );
 
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
@@ -254,7 +254,10 @@ namespace Gerard.Tests
 			};
 			team.Team.LoadPassUnit();
 			team.Team.PassUnit.SetReceiverRoles();
-			var bit = sut.GetW2Bit( team, new YahooCalculator() );
+			var bit = sut.GetPlayerBit(
+                team.Team.PassUnit.W2,
+                team,
+                new YahooCalculator() );
 			Assert.AreEqual( "CHogan", team.Team.PassUnit.W2.PlayerNameShort );
 		}
 

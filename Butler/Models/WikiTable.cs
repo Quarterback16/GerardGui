@@ -35,10 +35,18 @@ namespace Butler.Models
                 "MU",
                 "PRO",
                 "QB",
+                "QBA",
                 "RB",
+                "RBA",
                 "W1",
+                "W1A",
                 "W2",
-                "TE"
+                "W2A",
+                "TE",
+                "TEA",
+                "PK",
+                "PKA",
+                "Notes"
             };
         }
 
@@ -96,11 +104,10 @@ namespace Butler.Models
             dr["WHEN"] = TimeBit(game);
             dr["MU"] = game.AwayNflTeam.TeamCode;
             dr["PRO"] = game.BookieTip.AwayScore;
-            dr["QB"] = PickupChart.PlayerPiece(
+            dr["QB"] = PickupChart.PlayerWikiPiece(
                 game.AwayNflTeam.PassUnit.Q1,
                 game,
-                YahooCalculator,
-                bLinks: false);
+                YahooCalculator);
             var wikiTeam = new WikiTeam(
                 game.AwayNflTeam,
                 game);
@@ -115,11 +122,10 @@ namespace Butler.Models
             dr["WHEN"] = "    ";
             dr["MU"] = game.HomeNflTeam.TeamCode;
             dr["PRO"] = game.BookieTip.HomeScore;
-            dr["QB"] = PickupChart.PlayerPiece(
+            dr["QB"] = PickupChart.PlayerWikiPiece(
                 game.HomeNflTeam.PassUnit.Q1,
                 game,
-                YahooCalculator,
-                bLinks: false);
+                YahooCalculator);
             var wikiTeam = new WikiTeam(
                 game.HomeNflTeam,
                 game);
@@ -129,23 +135,26 @@ namespace Butler.Models
 
         private void SetMainTeamRoles(DataRow dr, WikiTeam wikiTeam)
         {
-            dr["RB"] = PickupChart.GetRunnerBit(
+            dr["RB"] = PickupChart.GetRunnerWikiBit(
+                team: wikiTeam,
+                calculator: YahooCalculator);
+            dr["W1"] = PickupChart.GetPlayerWikiBit(
+                wikiTeam.Team.PassUnit.W1,
                 team: wikiTeam,
                 calculator: YahooCalculator,
                 bLinks: false);
-            dr["W1"] = PickupChart.GetW1Bit(
+            dr["W2"] = PickupChart.GetPlayerWikiBit(
+                wikiTeam.Team.PassUnit.W2,
                 team: wikiTeam,
                 calculator: YahooCalculator,
                 bLinks: false);
-            dr["W2"] = PickupChart.GetW2Bit(
+            dr["TE"] = PickupChart.GetPlayerWikiBit(
+                wikiTeam.Team.PassUnit.TE,
                 team: wikiTeam,
                 calculator: YahooCalculator,
                 bLinks: false);
-            dr["TE"] = PickupChart.GetTEBit(
-                team: wikiTeam,
-                calculator: YahooCalculator,
-                bLinks: false);
-            dr["TE"] = PickupChart.GetPKBit(
+            dr["PK"] = PickupChart.GetPlayerWikiBit(
+                wikiTeam.Team.KickUnit.PlaceKicker,
                 team: wikiTeam,
                 calculator: YahooCalculator,
                 bLinks: false);
