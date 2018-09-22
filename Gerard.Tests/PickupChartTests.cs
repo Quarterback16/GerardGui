@@ -86,7 +86,7 @@ namespace Gerard.Tests
                 new FakeTimeKeeper( season: "2017" ), week: 13 );
 			var p = new NFLPlayer( "PRESDA01" );
 			var g = new NFLGame( "2017:13-A" );
-			var result = sut.ActualOutput( g, p );
+			var result = sut.ActualOutput( g, p, null );
 			Assert.AreEqual( expected: " 34 ", actual: result );
 		}
 
@@ -107,7 +107,7 @@ namespace Gerard.Tests
                 new FakeTimeKeeper( season: "2017" ), week: 10 );
             var p = new NFLPlayer( "DAWSPH01" );
             var g = new NFLGame( "2017:10-A" );
-            var result = sut.ActualOutput( g, p );
+            var result = sut.ActualOutput( g, p, null );
             Assert.AreEqual( expected: "  5 ", actual: result);
         }
 

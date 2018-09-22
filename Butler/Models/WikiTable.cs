@@ -132,6 +132,7 @@ namespace Butler.Models
             dr["QBA"] = PickupChart.ActualOutput(
                 game: game,
                 player: team.PassUnit.Q1,
+                runners: null,
                 isReport:false);
             SetMainTeamRoles(dr, wikiTeam);
             InternalTable.Body.Rows.Add(dr);
@@ -163,6 +164,7 @@ namespace Butler.Models
             dr["RBA"] = PickupChart.ActualOutput(
                 game: wikiTeam.Game,
                 player: wikiTeam.Team.RunUnit.AceBack,
+                runners: wikiTeam.Team.RunUnit.Starters,
                 isReport: false);
             dr["W1"] = PickupChart.GetPlayerWikiBit(
                 wikiTeam.Team.PassUnit.W1,
@@ -172,6 +174,7 @@ namespace Butler.Models
             dr["W1A"] = PickupChart.ActualOutput(
                 game: wikiTeam.Game,
                 player: wikiTeam.Team.PassUnit.W1,
+                runners: null,
                 isReport: false);
             dr["W2"] = PickupChart.GetPlayerWikiBit(
                 wikiTeam.Team.PassUnit.W2,
@@ -181,6 +184,7 @@ namespace Butler.Models
             dr["W2A"] = PickupChart.ActualOutput(
                 game: wikiTeam.Game,
                 player: wikiTeam.Team.PassUnit.W2,
+                runners: null,
                 isReport: false);
             dr["TE"] = PickupChart.GetPlayerWikiBit(
                 wikiTeam.Team.PassUnit.TE,
@@ -190,6 +194,7 @@ namespace Butler.Models
             dr["TEA"] = PickupChart.ActualOutput(
                 game: wikiTeam.Game,
                 player: wikiTeam.Team.PassUnit.TE,
+                runners: null,
                 isReport: false);
             dr["PK"] = PickupChart.GetPlayerWikiBit(
                 wikiTeam.Team.KickUnit.PlaceKicker,
@@ -199,6 +204,7 @@ namespace Butler.Models
             dr["PKA"] = PickupChart.ActualOutput(
                 game: wikiTeam.Game,
                 player: wikiTeam.Team.KickUnit.PlaceKicker,
+                runners: null,
                 isReport: false);
         }
 
