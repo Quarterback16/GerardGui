@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -29,7 +29,7 @@ namespace Gerard.Tests
 		public void TestGenerateYahooXmlForEntireSeason()
 		{
 			var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
-			m.Calculate( "2017" );
+			m.Calculate( "2018" );
 			m.Dump2Xml();
 		}
 

@@ -264,5 +264,13 @@ namespace Gerard.Tests
                 expected: Constants.K_LEAGUE_Gridstats_NFL1,
                 actual: sut.LeagueToFocusOn());
         }
+
+        [TestMethod]
+        public void TestRunUnitDump()
+        {
+            var sut = new NflTeam("CI");
+            sut.LoadRushUnit();
+            sut.RunUnit.DumpUnit();
+        }
     }
 }

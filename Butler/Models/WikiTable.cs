@@ -118,7 +118,7 @@ namespace Butler.Models
             var dr = InternalTable.Body.NewRow();
             if (showWhen)
                 dr["WHEN"] = TimeBit(game);
-            dr["MU"] = team.TeamCode;
+            dr["MU"] = TeamBit(team);
             dr["PRO"] = ProjectedTeamScore(projectedScore);
             if (game.Played() )
                 dr["ACT"] = ActualTeamScore(actualScore);
@@ -136,6 +136,14 @@ namespace Butler.Models
                 isReport:false);
             SetMainTeamRoles(dr, wikiTeam);
             InternalTable.Body.Rows.Add(dr);
+        }
+
+        private static string TeamBit(NflTeam team)
+        {
+            var bit = team.TeamCode;
+            if (team.IsPlayoffBound)
+                bit = $"**{bit}**";
+            return bit;
         }
 
         private static string ProjectedTeamScore(int score)

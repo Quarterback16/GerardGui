@@ -13,7 +13,7 @@ namespace Gerard.Tests
         [TestInitialize]
         public void Setup()
         {
-            var week = new NFLWeek(2018, 3);
+            var week = new NFLWeek(2018, 8);
             _sut = new WeekPage(week);
         }
 

@@ -41,7 +41,7 @@ namespace Butler.Models
 			foreach ( string key in keys )
 			{
 				var logitem = ( LogItem ) LogMaster.TheHt[ key ];
-                DumpLogItem(logitem);
+                //DumpLogItem(logitem);
                 lastDate = MailLogFiles( logitem );
 				//  mark as done
 				if ( lastDate != new DateTime( 1, 1, 1 ) )
