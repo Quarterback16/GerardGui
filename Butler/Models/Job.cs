@@ -1,4 +1,4 @@
-﻿using Butler.Helpers;
+using Butler.Helpers;
 using Butler.Interfaces;
 using NLog;
 using RosterLib;
@@ -75,14 +75,23 @@ namespace Butler.Models
 
 		public string Execute()
 		{
-			SetupJob();
-			// Implement the work stuff ur self with an override,
-			// but we want "standard" setups and teardowns
-			var result = DoJob();
+            //  Template Pattern
+            try
+            {
+                SetupJob();
+                // Implement the work stuff ur self with an override,
+                // but we want "standard" setups and teardowns
+                var result = DoJob();
 
-			TeardownJob();
+                TeardownJob();
 
-			return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message);
+                return ex.Message;
+            }
 		}
 
 		public virtual string DoJob()

@@ -35,7 +35,7 @@ namespace Gerard.Tests
 			var sut = new PickupChartJob( 
                 new FakeTimeKeeper( 
                     season:"2018", 
-                    week:"09" ) );
+                    week:"11" ) );
 
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );

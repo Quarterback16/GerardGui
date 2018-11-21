@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Butler.Models;
@@ -124,8 +124,8 @@ namespace Gerard.Tests
          var configs = new List<PerformanceReportConfig>();
          var rpt = new PerformanceReportConfig
          {
-            Category = Constants.K_QUARTERBACK_CAT,
-            Position = "QB",
+            Category = Constants.K_RECEIVER_CAT,
+            Position = "WR",
             Scorer = gs,
             Week = theWeek,
             WeeksToGoBack = 4

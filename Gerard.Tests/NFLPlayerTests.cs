@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 
 namespace Gerard.Tests
@@ -36,7 +36,56 @@ namespace Gerard.Tests
 			var sut = new NFLPlayer("WATSDE02");
 			var game = new NFLGame("2017:05-M");
 			var result = sut.ActualFpts(game);
-			Assert.AreEqual( expected: 35.4M, actual: result );
+			Assert.AreEqual( expected: 35.5M, actual: result );
 		}
-	}
+
+        [TestMethod]
+        public void Player_WhenScoredInLastGame_ReturnsTrue()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper = new FakeTimeKeeper("2018", "09");
+            Assert.IsTrue(sut.ScoredLastGame(timeKeeper) );
+        }
+
+        [TestMethod]
+        public void Player_WhenScoredInLastGameAllowingForBye_ReturnsTrue()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper
+                = new FakeTimeKeeper("2018", "08"); // game after bye week, tee hee
+            Assert.IsTrue(sut.ScoredLastGame(timeKeeper));
+        }
+
+        [TestMethod]
+        public void Player_WhenScoredInLastTwoAllowingForBye_ReturnsTrue()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper = new FakeTimeKeeper("2018", "09");
+            Assert.IsTrue(sut.ScoredLastTwo(timeKeeper));
+        }
+
+        [TestMethod]
+        public void PlayerScoredTwoWeeksAgo_WhenInWeek1_ReturnsFalse()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper = new FakeTimeKeeper("2018", "01");
+            Assert.IsFalse(sut.ScoredLastTwo(timeKeeper));
+        }
+
+        [TestMethod]
+        public void PlayerScoredLastWeek_WhenInWeek1_ReturnsFalse()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper = new FakeTimeKeeper("2018", "01");
+            Assert.IsFalse(sut.ScoredLastGame(timeKeeper));
+        }
+
+        [TestMethod]
+        public void PlayerScoredTwoWeeksAgo_WhenInWeek2_ReturnsFalse()
+        {
+            var sut = new NFLPlayer("MOORDA04");
+            var timeKeeper = new FakeTimeKeeper("2018", "02");
+            Assert.IsFalse(sut.ScoredLastTwo(timeKeeper));
+        }
+    }
 }
