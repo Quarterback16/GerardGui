@@ -258,7 +258,11 @@ namespace Gerard.Tests
 
       private static string TestYahooWideReceivers()
       {
-         var fileOut = WeeklyEspnPerformance( "3", Int32.Parse( Utility.CurrentWeek() ), "YH", "WR" );
+         var fileOut = WeeklyEspnPerformance(
+             "3",
+             Int32.Parse( Utility.CurrentWeek() ),
+             "YH",
+             "WR" );
          Assert.IsTrue( File.Exists( fileOut ) );
          return fileOut;
       }
