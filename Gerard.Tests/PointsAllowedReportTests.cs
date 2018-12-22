@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
 using System.IO;
@@ -22,7 +22,7 @@ namespace Gerard.Tests
 		public void TestReportSpecificWeek()
 		{
 			var sut = new PointsAllowedReport( 
-				new FakeTimeKeeper( season: "2017", week: "02" ) );
+				new FakeTimeKeeper( season: "2018", week: "09" ) );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
@@ -156,5 +156,40 @@ namespace Gerard.Tests
 
 			Assert.AreEqual( 2, playerList.Count );
 		}
+
+        [TestMethod]
+        public void TestDallasGameWeek9()
+        {
+            var testSeason = "2018";
+            var testWeek = "09";
+            var ds = Utility.TflWs.GameForTeam(
+                season: testSeason,
+                week: testWeek,
+                teamCode: "DC");
+            Assert.IsTrue(ds.Tables[0].Rows.Count == 1);
+
+            var game = new NFLGame(ds.Tables[0].Rows[0]);
+            var playerList = game.LoadAllFantasyAwayPlayers(
+                    date: (DateTime?)game.GameDate,
+                    catFilter: String.Empty);
+            Assert.IsTrue(playerList.Count > 0);
+            var week = new NFLWeek(testSeason, testWeek);
+            var scorer = new YahooXmlScorer(week);
+            var qbCount = 0;
+            var qbPts = 0.0M;
+            foreach (var p in playerList)
+            {
+                if (p.IsQuarterback())
+                {
+                    qbCount++;
+                    qbPts += scorer.RatePlayer(
+                        p,
+                        week,
+                        takeCache: false);
+                }
+            }
+            Assert.IsTrue(qbCount > 0);
+            Assert.IsTrue(qbPts > 0.0M);
+        }
 	}
 }

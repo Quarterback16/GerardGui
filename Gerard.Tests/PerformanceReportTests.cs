@@ -23,8 +23,8 @@ namespace Gerard.Tests
       {
          var sut = new PerformanceReportJob(
              new FakeTimeKeeper( 
-                 season:"2017", 
-                 week:"15") );
+                 season:"2018", 
+                 week:"04") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }

@@ -37,7 +37,7 @@ namespace Gerard.Tests
 		public void TestGenerateYahooXmlForOneWeek()
 		{
 			var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
-			m.Calculate( season: "2017", week: "01" );
+			m.Calculate( season: "2018", week: "09" );
 			m.Dump2Xml();
 		}
 

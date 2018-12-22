@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib.Services;
 using System.Linq;
 
@@ -30,5 +30,13 @@ namespace Gerard.Tests
          var result = sut.LoadStats( "RYANMA01", "2016", "17" );
          Assert.IsTrue( result.Any() );
       }
-   }
+
+        [TestMethod]
+        public void TestAnyStatsForMarcusMariota()
+        {
+            var sut = new YahooStatService();
+            var result = sut.GetStat("MARIMA02", "2018", "09");
+            Assert.IsTrue(result > 0.0M);
+        }
+    }
 }

@@ -95,6 +95,7 @@
     <Compile Include="Models\AssignRolesJob.cs" />
     <Compile Include="Models\BalanceReportJob.cs" />
     <Compile Include="Models\CopyJob.cs" />
+    <Compile Include="Models\DataIntegrityJob.cs" />
     <Compile Include="Models\DefensiveReportsJob.cs" />
     <Compile Include="Models\DeletePlayerReportsJob.cs" />
     <Compile Include="Models\DepthChartJob.cs" />
