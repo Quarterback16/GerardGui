@@ -134,12 +134,13 @@ namespace Butler
                 MyJobs.Add( new LineupSummaryJob( TimeKeeper ) );
                 MyJobs.Add( new StartersJob( TimeKeeper ) );
 				MyJobs.Add( new PointsAllowedReportJob( TimeKeeper ) );
+                MyJobs.Add(new DataIntegrityJob(TimeKeeper));
 
-				#endregion Looking forward to the upcoming games
+                #endregion Looking forward to the upcoming games
 
-				#region Regular Always jobs
+                #region Regular Always jobs
 
-				MyJobs.Add( new RunReportJob( TimeKeeper ) );
+                MyJobs.Add( new RunReportJob( TimeKeeper ) );
 				MyJobs.Add( new LogCleanupJob() );
 				MyJobs.Add( new TflDataBackupJob() );
 #if REGINA

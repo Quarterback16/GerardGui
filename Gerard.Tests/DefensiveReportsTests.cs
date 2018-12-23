@@ -31,7 +31,8 @@ namespace Gerard.Tests
 		public void TestDefensivePatsyReport()
 		{
 			var week = new NFLWeek( "2018", "01" );
-			var ds = new DefensiveScorer( new FakeTimeKeeper( season: "2018" ) );
+			var ds = new DefensiveScorer(
+                new FakeTimeKeeper( season: "2018" ) );
 			ds.RenderTeamToDefendAgainst( week );
 			Assert.IsTrue( File.Exists( ds.FileOut ), $"Cannot find {ds.FileOut}" );
 		}

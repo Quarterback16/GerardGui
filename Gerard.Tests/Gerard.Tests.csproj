@@ -85,6 +85,7 @@
     <Compile Include="DataLibrarianTests.cs" />
     <Compile Include="DbfPlayerGameMetricsDaoTests.cs" />
     <Compile Include="DefensiveReportsTests.cs" />
+    <Compile Include="DefensiveScoringCalculatorTests.cs" />
     <Compile Include="DeletePlayerReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
     <Compile Include="DropboxCopyToReginaJobTests.cs" />

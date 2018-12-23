@@ -21,6 +21,10 @@ namespace Butler.Models
             var checker = new DataIntegrityChecker(
                 season: TimeKeeper.CurrentSeason(),
                 week: TimeKeeper.CurrentWeek(DateTime.Now));
+            checker.CheckScores();
+            checker.CheckStats();
+            checker.CheckGames();
+            checker.CheckLineups();
             var finishedMessage = $@"Data Integrity checks completed{
                 DateTime.Now
                 }";
