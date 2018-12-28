@@ -85,6 +85,7 @@
     <Compile Include="Historian.cs" />
     <Compile Include="HomeLocator.cs" />
     <Compile Include="Implementations\FantasyAssistant.cs" />
+    <Compile Include="Implementations\MessageSender.cs" />
     <Compile Include="Implementations\SeasonScheduler.cs" />
     <Compile Include="Interfaces\IDetectMovies.cs" />
     <Compile Include="Interfaces\IHistorian.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Models\MediaJob.cs" />
     <Compile Include="Models\MediaListsPublishJob.cs" />
     <Compile Include="Models\MediaMailerJob.cs" />
+    <Compile Include="Models\MissingDataJob.cs" />
     <Compile Include="Models\OldRosterGridJob.cs" />
     <Compile Include="Models\OutputProjectionsJob.cs" />
     <Compile Include="Models\PerformanceReportJob.cs" />
@@ -173,6 +175,10 @@
     <ProjectReference Include="..\..\TFLLib\TFLLib.csproj">
       <Project>{0991c340-e6de-45f2-8792-fbcb96b232de}</Project>
       <Name>TFLLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gerard.Messages\Gerard.Messages.csproj">
+      <Project>{ebb8fb67-0b66-4c48-804f-70f8d2193668}</Project>
+      <Name>Gerard.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

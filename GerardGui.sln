@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "..\Cache\Cache.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RosterLib", "..\RosterLib\RosterLib.csproj", "{054A1E39-1899-4016-A77E-13F55F60E7E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gerard.Messages", "Gerard.Messages\Gerard.Messages.csproj", "{EBB8FB67-0B66-4C48-804F-70F8D2193668}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,14 @@ Global
 		{054A1E39-1899-4016-A77E-13F55F60E7E5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{054A1E39-1899-4016-A77E-13F55F60E7E5}.Release|x86.ActiveCfg = Release|Any CPU
 		{054A1E39-1899-4016-A77E-13F55F60E7E5}.Release|x86.Build.0 = Release|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Debug|x86.Build.0 = Debug|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Release|x86.ActiveCfg = Release|Any CPU
+		{EBB8FB67-0B66-4C48-804F-70F8D2193668}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

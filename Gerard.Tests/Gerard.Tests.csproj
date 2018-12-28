@@ -100,6 +100,7 @@
     <Compile Include="Fakes\FakeLoadPassUnit.cs" />
     <Compile Include="Fakes\FakeNFLGame2.cs" />
     <Compile Include="Fakes\FakePassUnit.cs" />
+    <Compile Include="Fakes\FakeSender.cs" />
     <Compile Include="FaMarketTests.cs" />
     <Compile Include="FantasyReportJobTests.cs" />
     <Compile Include="FantasyReportTests.cs" />
@@ -133,6 +134,7 @@
     <Compile Include="MediaJobTests.cs" />
     <Compile Include="MediaLogDetectorTests.cs" />
     <Compile Include="MediaMailerJobTests.cs" />
+    <Compile Include="MissingPlayerDataCheckerTests.cs" />
     <Compile Include="NflDivisionTests.cs" />
     <Compile Include="NFLPlayerTests.cs" />
     <Compile Include="NflScheduleTests.cs" />
@@ -219,6 +221,10 @@
     <ProjectReference Include="..\Butler\Butler.csproj">
       <Project>{f06448e5-aa25-4ecc-92eb-fc2da2a6e7b4}</Project>
       <Name>Butler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gerard.Messages\Gerard.Messages.csproj">
+      <Project>{EBB8FB67-0B66-4C48-804F-70F8D2193668}</Project>
+      <Name>Gerard.Messages</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
