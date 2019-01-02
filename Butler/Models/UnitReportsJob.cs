@@ -1,4 +1,4 @@
-﻿using Butler.Interfaces;
+using Butler.Interfaces;
 using RosterLib;
 using RosterLib.Interfaces;
 using System;
@@ -11,7 +11,9 @@ namespace Butler.Models
 
         public IHistorian Historian { get; set; }
 
-        public UnitReportsJob( IKeepTheTime timekeeper, IHistorian historian )
+        public UnitReportsJob(
+            IKeepTheTime timekeeper,
+            IHistorian historian )
         {
             Name = "Unit Reports";
             Report = new UnitReport( timekeeper );

@@ -124,17 +124,24 @@ namespace Butler
 				MyJobs.Add( new OutputProjectionsJob( TimeKeeper, Historian ) );  //  needs game projections
 				MyJobs.Add( new FantasyProjectionJob( TimeKeeper ) );
 				MyJobs.Add( new HotListsJob( TimeKeeper ) );
-				MyJobs.Add( new UnitReportsJob( TimeKeeper, Historian ) );
+				MyJobs.Add( new UnitReportsJob(
+                    TimeKeeper,
+                    Historian ) );
 				MyJobs.Add( new TeamCardsJob( TimeKeeper ) );
 				MyJobs.Add( new OldRosterGridJob( TimeKeeper ) );
 				MyJobs.Add( new DefensiveReportsJob( TimeKeeper ) );
 				MyJobs.Add( new SuggestedLineupsJob( TimeKeeper ) );
 				MyJobs.Add( new PickupChartJob( TimeKeeper, previous:false, playerReports:true ) );
-				MyJobs.Add( new PreviousPickupChartJob( TimeKeeper, Historian ) );
+				MyJobs.Add( new PreviousPickupChartJob(
+                    TimeKeeper,
+                    Historian ) );
                 MyJobs.Add( new LineupSummaryJob( TimeKeeper ) );
                 MyJobs.Add( new StartersJob( TimeKeeper ) );
 				MyJobs.Add( new PointsAllowedReportJob( TimeKeeper ) );
-                MyJobs.Add(new DataIntegrityJob(TimeKeeper));
+                MyJobs.Add( new DataIntegrityJob(TimeKeeper));
+                MyJobs.Add( new MissingDataJob(
+                    TimeKeeper,
+                    Historian));
 
                 #endregion Looking forward to the upcoming games
 

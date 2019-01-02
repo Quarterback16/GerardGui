@@ -1,4 +1,4 @@
-﻿using RosterLib.Interfaces;
+using RosterLib.Interfaces;
 using NLog;
 using RosterLib;
 using RosterLib.RosterGridReports;
@@ -15,7 +15,9 @@ namespace Butler.Models
 
       public RosterGridReport Report { get; set; }
 
-      public PreviousPickupChartJob( IKeepTheTime timekeeper, IHistorian historian )
+      public PreviousPickupChartJob(
+          IKeepTheTime timekeeper,
+          IHistorian historian )
       {
          Name = "Previous Pickup Chart";
          TimeKeeper = timekeeper;

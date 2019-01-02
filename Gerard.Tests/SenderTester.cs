@@ -14,6 +14,7 @@ namespace Gerard.Tests
         {
             _sut = new ShuttleSender();
         }
+
         [TestMethod]
         public void Sender_SendsMessageToQueue()
         {
