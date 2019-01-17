@@ -1,6 +1,7 @@
 using Butler.Messaging;
 using Gerard.Messages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NLog;
 
 namespace Gerard.Tests
 {
@@ -12,7 +13,8 @@ namespace Gerard.Tests
         [TestInitialize]
         public void Setup()
         {
-            _sut = new ShuttleSender();
+            _sut = new ShuttleSender(
+                LogManager.GetCurrentClassLogger());
         }
 
         [TestMethod]

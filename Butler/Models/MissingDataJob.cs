@@ -25,7 +25,7 @@ namespace Butler.Models
         public override string DoJob()
         {
             var checker = new MissingPlayerDataChecker(
-                new ShuttleSender());
+                new ShuttleSender(Logger));
             //TODO: expand to other teams
             checker.CheckPlayers("SF");
             var finishedMessage = $@"Missing Player Data checks completed{
