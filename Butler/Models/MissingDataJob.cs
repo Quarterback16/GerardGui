@@ -54,7 +54,7 @@ namespace Butler.Models
                     new TimeSpan(regularity, 0, 0, 0)).Date;
                 var lastRun = Historian.LastRun(
                     "MissingPlayerDataChecker").Date;
-                if ( lastRun > sevenDaysAgo)
+                if (lastRun > sevenDaysAgo)
                     whyNot = $"Has been done less than {regularity} days ago";
             }
 
