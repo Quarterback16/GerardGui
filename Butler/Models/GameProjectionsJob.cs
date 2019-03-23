@@ -50,9 +50,11 @@ namespace Butler.Models
 
             if (string.IsNullOrEmpty(whyNot))
             {
-                if (!SeasonScheduler.ScheduleAvailable(TimeKeeper.CurrentSeason()))
+                if (!SeasonScheduler.ScheduleAvailable(
+                    TimeKeeper.CurrentSeason()))
                 {
-                    whyNot = "The schedule is not yet available for " + TimeKeeper.CurrentSeason();
+                    whyNot = "The schedule is not yet available for "
+                        + TimeKeeper.CurrentSeason();
                 }
             }
             if (string.IsNullOrEmpty(whyNot))

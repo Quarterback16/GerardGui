@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -20,19 +20,20 @@ namespace Butler.Models
 		{
 			var br = new BalanceReport( _timeKeeper );
 			br.Render();
-			return string.Format( "Rendered {0} to {1}", br.Name, br.OutputFilename() );
+			return $"Rendered {br.Name} to {br.OutputFilename()}";
 		}
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
 			base.IsTimeTodo( out whyNot );
-			if ( !string.IsNullOrEmpty( whyNot ) ) return ( string.IsNullOrEmpty( whyNot ) );
+			if ( !string.IsNullOrEmpty( whyNot ) )
+                return ( string.IsNullOrEmpty( whyNot ) );
 
 			//  Is it already done?
 			var rpt = new BalanceReport( _timeKeeper );
 			var outFile = rpt.OutputFilename();
 			if ( System.IO.File.Exists( outFile ) )
-				whyNot = string.Format( "{0} exists already", outFile );
+				whyNot = $"{outFile} exists already";
 			else
 			{
 				if ( !_timeKeeper.IsItPreseason() )

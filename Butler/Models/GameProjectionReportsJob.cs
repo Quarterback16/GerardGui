@@ -1,4 +1,5 @@
-﻿using RosterLib;
+using RosterLib;
+using RosterLib.Helpers;
 using RosterLib.Interfaces;
 using System;
 
@@ -8,14 +9,17 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
-		public GameProjectionReportsJob( IKeepTheTime timeKeeper )
+        public ISeasonScheduler SeasonScheduler { get; set; }
+
+        public GameProjectionReportsJob( IKeepTheTime timeKeeper )
 		{
 			Name = "Game Projection Reports";
 			Report = new GameProjectionsReport( timeKeeper );
 			TimeKeeper = timeKeeper;
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
-		}
+            SeasonScheduler = new SeasonScheduler();
+        }
 
 		public override string DoJob()
 		{
@@ -26,7 +30,14 @@ namespace Butler.Models
 		{
 			base.IsTimeTodo( out whyNot );
 
-			if ( string.IsNullOrEmpty( whyNot ) )
+            if (!SeasonScheduler.ScheduleAvailable(
+                TimeKeeper.CurrentSeason()))
+            {
+                whyNot = "The schedule is not yet available for "
+                    + TimeKeeper.CurrentSeason();
+            }
+
+            if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				//  check if there is any new data
 				whyNot = Report.CheckLastRunDate();

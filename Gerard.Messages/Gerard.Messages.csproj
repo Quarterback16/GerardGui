@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DataFixCommand.cs" />
     <Compile Include="ICommand.cs" />
+    <Compile Include="NewsArticleCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
