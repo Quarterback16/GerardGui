@@ -23,8 +23,8 @@ namespace Gerard.Tests
             _sut.Send(
                 new DataFixCommand
                 {
-                    FirstName = "Steve",
-                    LastName = "Colonna",
+                    FirstName = "Jimmy",
+                    LastName = "Garoppolo",
                     TeamCode = "SF"
                 });
         }

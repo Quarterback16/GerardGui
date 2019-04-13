@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -11,7 +11,9 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPlayerReportsJob()
 		{
-			var sut = new PlayerReportsJob( new TimeKeeper( null ), new FakeConfigReader() );
+			var sut = new PlayerReportsJob(
+                new TimeKeeper( null ),
+                new FakeConfigReader() );
 			sut.DoJob();
 			var run = sut.Report.LastRun;
 			Console.WriteLine( "Last Run : {0}", run );

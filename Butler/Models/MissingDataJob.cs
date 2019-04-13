@@ -27,7 +27,12 @@ namespace Butler.Models
             var checker = new MissingPlayerDataChecker(
                 new ShuttleSender(Logger));
             //TODO: expand to other teams
+            checker.CheckPlayers("AC");
+            checker.CheckPlayers("AF");
+            checker.CheckPlayers("BB");
+            checker.CheckPlayers("BR");
             checker.CheckPlayers("SF");
+            checker.CheckPlayers("NE");
             var finishedMessage = $@"Missing Player Data checks completed{
                 DateTime.Now
                 }";
@@ -48,12 +53,12 @@ namespace Butler.Models
             if (string.IsNullOrEmpty(whyNot))
             {
                 var regularity = 7;
-                if (TimeKeeper.IsItPreseason())
-                    regularity += 14;
+                //if (TimeKeeper.IsItPreseason())
+                //    regularity += 14;
                 var sevenDaysAgo = DateTime.Now.Subtract(
                     new TimeSpan(regularity, 0, 0, 0)).Date;
                 var lastRun = Historian.LastRun(
-                    "MissingPlayerDataChecker").Date;
+                    nameof(MissingPlayerDataChecker)).Date;
                 if (lastRun > sevenDaysAgo)
                     whyNot = $"Has been done less than {regularity} days ago";
             }
