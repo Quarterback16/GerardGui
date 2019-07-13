@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,10 @@ namespace Gerard.Tests
 		public void TestWeeklyProjection()
 		{
 			var w = new NFLWeek( "2014", "06" );
-			var sut = new PlayerProjectionGenerator( new FakeTimeKeeper( season: "2014", week: "06" ), null );
+			var sut = new PlayerProjectionGenerator(
+                new FakeTimeKeeper(
+                    season: "2014",
+                    week: "06" ), null );
 			var nGames = 0;
 			for ( var i = 0; i < w.GameList().Count; i++ )
 			{
@@ -36,7 +39,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGettingGamePrediction()
 		{
-			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2014:01-A" ) };
+			var msg = new PlayerGameProjectionMessage
+                {
+                    Game = new NFLGame( "2014:01-A" )
+                };
 			var sut = new GetGamePrediction( msg );
 			Assert.IsNotNull( msg.Prediction );
 			Utility.Announce( msg.Prediction.PredictedScore() );

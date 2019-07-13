@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System.IO;
 
@@ -36,7 +36,7 @@ namespace Gerard.Tests
 			var pp = new PlayerProjection( "MANNPE01", "2014" );
 			pp.Render();
 			var fileOut = pp.FileName();
-			Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );
+			Assert.IsTrue( File.Exists( fileOut ), $"Cannot find {fileOut}" );
 		}
 
 		[TestMethod]
@@ -56,7 +56,6 @@ namespace Gerard.Tests
 			var fileOut = pp.FileName();
 			Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );
 		}
-
 
 		[TestMethod]
 		public void TestPlayerProjectionPrediction()

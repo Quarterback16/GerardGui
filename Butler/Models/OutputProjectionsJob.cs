@@ -1,4 +1,4 @@
-﻿using Butler.Interfaces;
+using Butler.Interfaces;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -10,7 +10,9 @@ namespace Butler.Models
 
       public IHistorian Historian { get; set; }
 
-      public OutputProjectionsJob( IKeepTheTime timekeeper, IHistorian historian) : base( timekeeper )
+      public OutputProjectionsJob(
+          IKeepTheTime timekeeper,
+          IHistorian historian) : base( timekeeper )
 		{
          Name = "Team Output Projections";
          Report = new ScoreTally( timekeeper );

@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System.IO;
 using Butler.Models;
@@ -12,7 +12,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestFantasyProjectionJob()  // 29 mins 2016-08-08 
       {
-         var sut = new FantasyProjectionJob(new FakeTimeKeeper( season: "2016", week: "00"));
+         var sut = new FantasyProjectionJob(
+             new FakeTimeKeeper(
+                 season: "2016",
+                 week: "00"));
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue(run.Date.Equals(DateTime.Now.Date));
@@ -22,8 +25,7 @@ namespace Gerard.Tests
       public void TestTimeToDoFantasyProjectionJob()
       {
          var sut = new FantasyProjectionJob(new FakeTimeKeeper());
-         string whyNot;
-         Assert.IsFalse(sut.IsTimeTodo(out whyNot));
+         Assert.IsFalse(sut.IsTimeTodo(out string whyNot));
          Console.WriteLine(whyNot);
       }
 
@@ -32,10 +34,17 @@ namespace Gerard.Tests
       public void TestRenderAllFantasyProjections()
       {
          //  test a league using yahoo scoring - takes a fair while
-         //  out put goes here g:\FileSync\SyncProjects\GerardGui\Gerard.Tests\bin\Debug\Output\2014\Projections\
+         //  output goes here g:\FileSync\SyncProjects\GerardGui\Gerard.Tests\bin\Debug\Output\2014\Projections\
          var dao = new DbfPlayerGameMetricsDao();  //  Could use a Fake here
          var scorer = new YahooProjectionScorer();  //  Could use a Fake here
-         var sut = new FantasyProjectionReport( "2015", "04", dao, scorer ) {League = Constants.K_LEAGUE_Yahoo};
+         var sut = new FantasyProjectionReport(
+             season: "2015",
+             week: "04",
+             dao: dao,
+             scorer: scorer)
+            {
+                 League = Constants.K_LEAGUE_Yahoo
+            };
          sut.RenderAll();
          var fileOut = sut.FileName();
          Assert.IsTrue( File.Exists(fileOut ) );
@@ -47,8 +56,14 @@ namespace Gerard.Tests
          //  shorter test 7 mins just on running backs
          var dao = new DbfPlayerGameMetricsDao();  //  Could use a Fake here
          var scorer = new YahooProjectionScorer();  //  Could use a Fake here
-         var sut = new FantasyProjectionReport("2014", "14", dao, scorer) {
-            League = Constants.K_LEAGUE_Yahoo};
+         var sut = new FantasyProjectionReport(
+             "2019",
+             "01",
+             dao,
+             scorer)
+            {
+                League = Constants.K_LEAGUE_Yahoo
+            };
          sut.RenderRunningbacks();
          var fileOut = sut.FileName();
          Assert.IsTrue(File.Exists(fileOut));
