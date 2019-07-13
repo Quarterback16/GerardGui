@@ -183,6 +183,7 @@
     <Compile Include="Models\DropboxCopyToReginaJob.cs" />
     <Compile Include="Models\FantasyProjectionJob.cs" />
     <Compile Include="Models\FantasyReportJob.cs" />
+    <Compile Include="Models\FantasyScoreCardJob.cs" />
     <Compile Include="Models\FreeAgentMarketJob.cs" />
     <Compile Include="Models\GameProjectionReportsJob.cs" />
     <Compile Include="Models\GameSummariesJob.cs" />

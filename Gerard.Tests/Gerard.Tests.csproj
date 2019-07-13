@@ -239,6 +239,7 @@
     <Compile Include="PlayerProjectionGeneratorTests.cs" />
     <Compile Include="PlayerProjectionTests.cs" />
     <Compile Include="PlayerReportTests.cs" />
+    <Compile Include="PlayerScorecardTests.cs" />
     <Compile Include="PlayoffTeamsTests.cs" />
     <Compile Include="PointsAllowedReportTests.cs" />
     <Compile Include="PositionReportJobTests.cs" />
