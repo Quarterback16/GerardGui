@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 using System;
@@ -17,22 +17,22 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-			var fileOut = string.Empty;
-			var theWeek = new NFLWeek( TimeKeeper.Season, TimeKeeper.Week );
+            var theWeek = new NFLWeek(
+                seasonIn: TimeKeeper.Season,
+                weekIn: TimeKeeper.Week );
 			foreach ( NFLGame game in theWeek.GameList() )
 			{
 				var summary = new GameSummary( game );
 				summary.Render();
-				fileOut = summary.FileName();
-			}
+                var fileOut = summary.FileName();
+            }
 			var finishedMessage = $"Finished {Name}";
 			return finishedMessage;
 		}
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
-			whyNot = string.Empty;
-			base.IsTimeTodo( out whyNot );
+            base.IsTimeTodo( out whyNot );
 
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{

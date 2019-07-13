@@ -1,4 +1,4 @@
-﻿using RosterLib;
+using RosterLib;
 using RosterLib.Interfaces;
 
 namespace Butler.Models
@@ -23,10 +23,12 @@ namespace Butler.Models
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
-			whyNot = string.Empty;
-			base.IsTimeTodo( out whyNot );
+            base.IsTimeTodo( out whyNot );
 
-			if ( string.IsNullOrEmpty( whyNot ) )
+            if (!TimeKeeper.IsItRegularSeason())
+                whyNot = "The Season hasnt started yet";
+            
+            if ( string.IsNullOrEmpty( whyNot ) )
 				//  check if there is any new data
 				whyNot = Report.CheckLastRunDate();
 			if ( string.IsNullOrEmpty( whyNot ) )
@@ -34,8 +36,10 @@ namespace Butler.Models
 				if ( TimeKeeper.IsItPeakTime() )
 					whyNot = "Peak time - no noise please";
 			}
-			if ( TimeKeeper.IsItTuesday() )
+			if ( string.IsNullOrEmpty(whyNot)
+                && TimeKeeper.IsItTuesday() )
 				whyNot = "Not on Tuesdays";
+
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Logger.Info( "Skipped {1}: {0}", whyNot, Name );
 			return ( string.IsNullOrEmpty( whyNot ) );

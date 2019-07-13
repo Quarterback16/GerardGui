@@ -37,7 +37,9 @@ namespace Gerard.Tests
 			Week = "00";
 		}
 
-		public FakeTimeKeeper( bool isPreSeason, bool isPeakTime )
+		public FakeTimeKeeper(
+            bool isPreSeason,
+            bool isPeakTime)
 		{
 			Season = "2017";
 			Week = isPreSeason ? "00" : "01";
@@ -48,14 +50,27 @@ namespace Gerard.Tests
 			TheDateTime = DateTime.Now;
 		}
 
-		public FakeTimeKeeper( string season )
+        public FakeTimeKeeper(
+            string season,
+            string week,
+            DateTime theDate)
+        {
+            Season = season;
+            Week = week;
+            TheDateTime = theDate;
+        }
+
+
+        public FakeTimeKeeper( string season )
 		{
 			Season = season;
 			Week = "00";
 			TheDateTime = DateTime.Now;
 		}
 
-		public FakeTimeKeeper( string season, string week )
+		public FakeTimeKeeper(
+            string season,
+            string week)
 		{
 			Season = season;
 			Week = week;

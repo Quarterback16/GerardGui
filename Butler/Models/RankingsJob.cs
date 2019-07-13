@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 using System;
@@ -11,19 +11,24 @@ namespace Butler.Models
 
       public DateTime RankDate { get; set; }
 
-      public RankingsJob( IKeepTheTime timekeeper, bool force = false )
+      public RankingsJob(
+          IKeepTheTime timekeeper,
+          bool force = false)
       {
          Name = "Rankings Job";
          TimeKeeper = timekeeper;
          Logger = LogManager.GetCurrentClassLogger();
-         TeamRanker = new TeamRanker( TimeKeeper ) { ForceReRank = force };
+         TeamRanker = new TeamRanker( TimeKeeper )
+             {
+                 ForceReRank = force
+             };
          RankDate = TimeKeeper.CurrentDateTime();
          IsNflRelated = true;
       }
 
       public override string DoJob()
 		{
-			TeamRanker.RankTeams( RankDate );
+			TeamRanker.RankTeams( RankDate, "RPTS" );
 			return $"Rendered {Name} to {TeamRanker.FileOut}";
 		}
 
