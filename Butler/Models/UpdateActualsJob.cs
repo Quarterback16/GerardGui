@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 using RosterLib.RosterGridReports;
@@ -16,7 +16,7 @@ namespace Butler.Models
 		public UpdateActualsJob( IKeepTheTime timeKeeper )
 		{
 			Name = "Update Actual Player Game Metrics";
-			Report = new MetricsUpdateReport( timeKeeper );   //  do this
+			Report = new MetricsUpdateReport( timeKeeper );
 			TimeKeeper = timeKeeper;
 			Report.TimeKeeper = timeKeeper;
 			Logger = LogManager.GetCurrentClassLogger();

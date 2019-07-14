@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using RosterLib.RosterGridReports;
@@ -14,7 +14,8 @@ namespace Gerard.Tests
 		public void TestUpdateActualsJob()
 		{
 			//  season starts at 2 as this is a prior week retrospective job
-			var sut = new UpdateActualsJob( new FakeTimeKeeper( season: "2017", week: "03" ) );
+			var sut = new UpdateActualsJob(
+                new FakeTimeKeeper( season: "2018", week: "02" ) );
 			sut.DoJob();
 			var run = sut.Report.LastRun;
 			Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
@@ -23,7 +24,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimetoDoUpdateActuals()
 		{
-			var sut = new UpdateActualsJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: true ) );
+			var sut = new UpdateActualsJob(
+                new FakeTimeKeeper( isPreSeason: true, isPeakTime: true ) );
 			var result = sut.IsTimeTodo( out string whyNot );
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Console.WriteLine( whyNot );
