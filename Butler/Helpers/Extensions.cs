@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using System.Reflection;
@@ -134,21 +134,23 @@ namespace Butler.Helpers
    {
       public static void Example()
 		{
-			var userlist = new List<ExampleUser>();
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Bryan" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1986, 11, 4 ), Firstname = "Michael" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1977, 2, 2 ), Firstname = "Arjan" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1990, 6, 13 ), Firstname = "Pieter" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1988, 10, 1 ), Firstname = "Ruben" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Bastiaan" } );
-			userlist.Add( new ExampleUser { Birthday = new DateTime( 1987, 8, 21 ), Firstname = "Pieter" } );
+            var userlist = new List<ExampleUser>
+            {
+                new ExampleUser { Birthday = new DateTime(1988, 10, 1), Firstname = "Bryan" },
+                new ExampleUser { Birthday = new DateTime(1986, 11, 4), Firstname = "Michael" },
+                new ExampleUser { Birthday = new DateTime(1977, 2, 2), Firstname = "Arjan" },
+                new ExampleUser { Birthday = new DateTime(1990, 6, 13), Firstname = "Pieter" },
+                new ExampleUser { Birthday = new DateTime(1988, 10, 1), Firstname = "Ruben" },
+                new ExampleUser { Birthday = new DateTime(1987, 8, 21), Firstname = "Bastiaan" },
+                new ExampleUser { Birthday = new DateTime(1987, 8, 21), Firstname = "Pieter" }
+            };
 
-			var unsorted = "Unsorted: " + Environment.NewLine;
+            var unsorted = "Unsorted: " + Environment.NewLine;
 			var builder = new System.Text.StringBuilder();
 			builder.Append( unsorted );
 			foreach ( ExampleUser user in userlist )
 			{
-				builder.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+				builder.Append( $"{user.Birthday.ToString("dd-MM-yyyy")} / {user.Firstname} {Environment.NewLine}" );
 			}
 			unsorted = builder.ToString();
 
@@ -158,7 +160,7 @@ namespace Butler.Helpers
 			builder1.Append( sorted1 );
 			foreach ( ExampleUser user in userlist )
 			{
-				builder1.Append( String.Format( "{0} / {1} {2}", user.Birthday.ToString( "dd-MM-yyyy" ), user.Firstname, Environment.NewLine ) );
+				builder1.Append( $"{user.Birthday.ToString("dd-MM-yyyy")} / {user.Firstname} {Environment.NewLine}");
 			}
 			sorted1 = builder1.ToString();
 

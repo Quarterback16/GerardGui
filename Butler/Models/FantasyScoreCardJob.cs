@@ -16,7 +16,9 @@ namespace Butler.Models
             Name = "Fantasy Scorecards";
             Report = new FantasyScorecardReport(
                 timekeeper,
-                new DbfPlayerGameMetricsDao());
+                new DbfPlayerGameMetricsDao(),
+                new PlayerLister(),
+                "??");
             TimeKeeper = timekeeper;
             Logger = LogManager.GetCurrentClassLogger();
             IsNflRelated = true;

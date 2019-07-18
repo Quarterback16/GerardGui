@@ -14,18 +14,30 @@ namespace Gerard.Tests
         [TestInitialize]
         public void Setup()
         {
+            var playerList = new PlayerLister
+            {
+                CatCode = "1",
+                StartersOnly = true
+            };
+            
+            playerList.Collect(
+                catCode: "2",
+                sPos: "RB",
+                fantasyLeague: Constants.K_LEAGUE_Gridstats_NFL1);
+
             var pgmDao = new DbfPlayerGameMetricsDao();
             _sut = new FantasyScorecardReport(
                 new FakeTimeKeeper(
-                    season: "2018",
-                    week: "21"),
-                pgmDao);
+                    season: "2019",
+                    week: "00"),
+                pgmDao,
+                playerList,
+                playerType: "RB");
         }
 
         [TestMethod]
         public void Sut_GeneratesReportFile()
         {
-            _sut.PlayerIds.Add("MAHOPA01");
             _sut.RenderAsHtml();
             Assert.IsTrue(
                 File.Exists(_sut.FileOut),
