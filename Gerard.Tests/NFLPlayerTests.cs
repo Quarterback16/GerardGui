@@ -87,5 +87,26 @@ namespace Gerard.Tests
             var timeKeeper = new FakeTimeKeeper("2018", "02");
             Assert.IsFalse(sut.ScoredLastTwo(timeKeeper));
         }
+
+        [TestMethod]
+        public void NewbieModifier_ForRookie_Is20()
+        {
+            var sut = new NFLPlayer("JACOJO02");
+            Assert.AreEqual(0.20M, sut.NewbieModifier());
+        }
+
+        [TestMethod]
+        public void NewbieModifier_ForMahoms_Is100()
+        {
+            var sut = new NFLPlayer("MAHOPA01");
+            Assert.AreEqual(1.0M, sut.NewbieModifier());
+        }
+
+        [TestMethod]
+        public void NewbieModifier_ForNickFoles_Is20()
+        {
+            var sut = new NFLPlayer("FOLENI01");
+            Assert.AreEqual(0.13M, sut.NewbieModifier());
+        }
     }
 }

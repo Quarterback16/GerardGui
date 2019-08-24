@@ -2,7 +2,6 @@ using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 using RosterLib.RosterGridReports;
-using System;
 
 namespace Butler.Models
 {
@@ -17,8 +16,7 @@ namespace Butler.Models
             Report = new FantasyScorecardReport(
                 timekeeper,
                 new DbfPlayerGameMetricsDao(),
-                new PlayerLister(),
-                "??");
+                new PlayerLister());
             TimeKeeper = timekeeper;
             Logger = LogManager.GetCurrentClassLogger();
             IsNflRelated = true;

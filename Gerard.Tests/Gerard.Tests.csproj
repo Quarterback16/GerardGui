@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActualStatsTests.cs" />
+    <Compile Include="AdpMasterTests.cs" />
     <Compile Include="AssignRolesTests.cs" />
     <Compile Include="BalanceReportTests.cs" />
     <Compile Include="ButlerProcessingTests.cs" />

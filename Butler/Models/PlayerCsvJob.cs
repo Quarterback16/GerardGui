@@ -1,5 +1,6 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
+using RosterLib.Helpers;
 using RosterLib.Interfaces;
 
 namespace Butler.Models
@@ -12,7 +13,10 @@ namespace Butler.Models
 		{
 			Name = "Players CSV";
 			TimeKeeper = timeKeeper;
-			var rpt = new PlayerCsv( timeKeeper )
+			var rpt = new PlayerCsv(
+                timeKeeper,
+                new AdpMaster(
+                    $"{Utility.OutputDirectory()}XML\\adp.csv"))
 			{
 				DoProjections = TimeKeeper.IsItPreseason()
 			};
@@ -23,8 +27,7 @@ namespace Butler.Models
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
-			whyNot = string.Empty;
-			base.IsTimeTodo( out whyNot );
+            base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				//  Check that you have already done it for today (happens in Dev a lot)

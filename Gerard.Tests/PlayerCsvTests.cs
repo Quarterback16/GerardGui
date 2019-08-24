@@ -10,7 +10,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoPlayerCsvJob()  // 75 mins  2016-08-08
 		{
-			var sut = new PlayerCsvJob( new TimeKeeper( null ) );
+			var sut = new PlayerCsvJob(
+                new TimeKeeper( null ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -18,7 +19,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimeToDoPlayerCsvJob()
 		{
-			var sut = new PlayerCsvJob( new FakeTimeKeeper( season: "2016", week: "12" ) );
+			var sut = new PlayerCsvJob(
+                new FakeTimeKeeper(
+                    season: "2016",
+                    week: "12" ) );
 			var outcome = sut.IsTimeTodo( out string whyNot );
 			Assert.IsFalse( outcome );
 			Assert.IsFalse( string.IsNullOrEmpty( whyNot ) );

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
@@ -20,9 +20,11 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimetoDoStartersReport()
 		{
-			var sut = new StartersJob(new FakeTimeKeeper( season:"2015", week:"10" ) );
-			string whyNot;
-			Assert.IsTrue(sut.IsTimeTodo(out whyNot));
-		}
+			var sut = new StartersJob(
+                new FakeTimeKeeper(
+                    season:"2015",
+                    week:"10" ) );
+            Assert.IsTrue(sut.IsTimeTodo(out _));
+        }
    }
 }
