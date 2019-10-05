@@ -104,7 +104,8 @@ namespace Butler
 				MyJobs.Add( new YahooXmlJob( TimeKeeper ) );
 				MyJobs.Add( new PerformanceReportJob( TimeKeeper ) );
 				MyJobs.Add( new FantasyReportJob( TimeKeeper ) );
-				MyJobs.Add( new DepthChartJob( TimeKeeper ) );
+                MyJobs.Add( new FantasyScoreCardJob(TimeKeeper));
+                MyJobs.Add( new DepthChartJob( TimeKeeper ) );
 				MyJobs.Add( new StatGridJob( TimeKeeper ) );
 				MyJobs.Add( new PlayOffTeamsJob( TimeKeeper ) );
 				MyJobs.Add( new UpdateActualsJob( TimeKeeper ) );

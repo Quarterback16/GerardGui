@@ -112,7 +112,11 @@ namespace Gerard.Tests
       {
          var dao = new DbfPlayerGameMetricsDao();  //  Could use a Fake here
          var scorer = new YahooProjectionScorer();  //  Could use a Fake here
-         var sut = new FantasyProjectionReport("2013", "2", dao, scorer) {League = Constants.K_LEAGUE_Rants_n_Raves};
+         var sut = new FantasyProjectionReport(
+			 season: "2013",
+			 week: "2",
+			 dao: dao,
+			 scorer: scorer) {League = Constants.K_LEAGUE_Rants_n_Raves};
          sut.RenderAll();
          var fileOut = sut.FileName();
          Assert.IsTrue(File.Exists(fileOut));

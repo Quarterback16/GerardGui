@@ -251,6 +251,7 @@
     <Compile Include="ReasonablenessCheckerTests.cs" />
     <Compile Include="RecordActualsTests.cs" />
     <Compile Include="RetirePlayersTests.cs" />
+    <Compile Include="RoleAssignmentReportTests.cs" />
     <Compile Include="RookieReportJobTests.cs" />
     <Compile Include="RunReportJobTests.cs" />
     <Compile Include="RushUnitTests.cs" />

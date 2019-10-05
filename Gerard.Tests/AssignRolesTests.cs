@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using Butler.Models;
@@ -12,7 +12,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDoAssignRolesJob()  //  8 mins
       {
-         var sut = new AssignRolesJob(new TimeKeeper(null));
+         var sut = new AssignRolesJob(
+             new FakeTimeKeeper(
+                 season: "2019",
+                 week: "01"));
          var outcome = sut.DoJob();
          Assert.IsFalse(string.IsNullOrEmpty(outcome));
       }
@@ -20,7 +23,7 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoJob()
       {
-			var sut = new AssignRolesJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ) );
+		 var sut = new AssignRolesJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: false ) );
          Assert.IsFalse(sut.IsTimeTodo(out string whyNot));
          Console.WriteLine(whyNot);
       }
@@ -79,7 +82,7 @@ namespace Gerard.Tests
          var sut = new NflTeam("SL");
          sut.LoadPassUnit();
          Assert.IsTrue(sut.PassUnit.Quarterbacks.Count > 0);
-         Utility.Announce(string.Format("Loaded {0} QBs", sut.PassUnit.Quarterbacks.Count));
+         Utility.Announce($"Loaded {sut.PassUnit.Quarterbacks.Count} QBs");
 
          sut.PassUnit.AnalyseQuarterbacks("2014", "04");
       }

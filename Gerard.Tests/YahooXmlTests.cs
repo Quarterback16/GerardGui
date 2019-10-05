@@ -12,7 +12,9 @@ namespace Gerard.Tests
 		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
 			var sut = new YahooXmlJob( 
-                new FakeTimeKeeper( season: "2017", week: "15" ) );
+                new FakeTimeKeeper(
+                    season: "2019",
+                    week: "03" ) );
 			var outcome = sut.DoJob();  // does the previous week
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -36,8 +38,12 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGenerateYahooXmlForOneWeek()
 		{
-			var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
-			m.Calculate( season: "2018", week: "09" );
+			var m = new YahooMaster(
+                "Yahoo",
+                "YahooOutput.xml");
+			m.Calculate(
+                season: "2019",
+                week: "02");
 			m.Dump2Xml();
 		}
 

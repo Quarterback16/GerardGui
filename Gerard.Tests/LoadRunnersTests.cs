@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 
 namespace Gerard.Tests
@@ -26,7 +26,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestLoaderFindsRunners()
 		{
-			var result = cut.Load( "NE" );
+			var result = cut.Load( "PS" );
 			Assert.IsTrue( result .Count > 0);
 		}
 	}

@@ -9,10 +9,12 @@ namespace Butler.Models
 
         public string DestDir { get; set; }
 
-        public TflDataBackupJob()
+        public TflDataBackupJob(string sourceDir = "c:\\tfl")
         {
             Name = "TFL DATA Backup";
-            SourceDir = "c:\\tfl";
+
+            SourceDir = sourceDir;
+
             DestDir = "\\\\Regina\\Documents\\Backup\\tfl";
             Logger = NLog.LogManager.GetCurrentClassLogger();
         }
@@ -20,10 +22,17 @@ namespace Butler.Models
         public override string DoJob()
         {
             //  copy tfl dir to Regina
-
+            var destDir = $@"{
+                DestDir
+                }\\{
+                Utility.UniversalDate(DateTime.Now)
+                }\\";
+            Utility.EnsureDirectory(destDir);
             // To copy a file to another location and
             // overwrite the destination file if it already exists.
-            var outcome = FileUtility.CopyDirectory( SourceDir, DestDir );
+            var outcome = FileUtility.CopyDirectory(
+                SourceDir,
+                destDir );
             if ( string.IsNullOrEmpty( outcome ) )
                 return $"Copied {SourceDir} to {DestDir}";
             Logger.Error( outcome );

@@ -51,7 +51,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPullMetrics()
 		{
-			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2016:01-N" ) };
+			var msg = new PlayerGameProjectionMessage { Game = new NFLGame( "2019:01-A" ) };
 			var sut = new GetGamePrediction( msg );
 			var sut2 = new PullMetricsFromPrediction( msg );
 			Assert.IsNotNull( sut2 );

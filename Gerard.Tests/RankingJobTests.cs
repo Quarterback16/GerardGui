@@ -12,9 +12,10 @@ namespace Gerard.Tests
 		public void TestRankingJob()
 		{
 			var sut = new RankingsJob(
-                new FakeTimeKeeper(
+                timekeeper: new FakeTimeKeeper(
                     season: "2019",
-                    week:  "00" ));
+                    week:  "01" ),
+                force: true);
 			sut.DoJob();
 			var fileOut = sut.TeamRanker.FileOut;
 			Assert.IsTrue(

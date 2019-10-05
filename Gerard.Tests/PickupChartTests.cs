@@ -291,5 +291,12 @@ namespace Gerard.Tests
 			var bit = sut.GetRunnerBit( team, new YahooCalculator() );
 		}
 
+		[TestMethod]
+		public void TestOwners()
+		{
+			var p = new NFLPlayer("MAHOPA01");
+			var result = p.LoadAllOwners();
+			Assert.AreEqual("CC  77  TS", result);
+		}
 	}
 }

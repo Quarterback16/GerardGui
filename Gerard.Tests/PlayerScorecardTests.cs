@@ -28,7 +28,7 @@ namespace Gerard.Tests
             _sut = new FantasyScorecardReport(
                 new FakeTimeKeeper(
                     season: "2019",
-                    week: "00"),
+                    week: "01"),
                 pgmDao,
                 playerList);
         }

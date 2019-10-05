@@ -1,25 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Butler.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests
 {
-   [TestClass]
-   public class TflBackupTests
-   {
-      [TestMethod]
-      public void TestTimetoDoTflBackupJob()
-      {
-         var sut = new TflDataBackupJob();
-         string whyNot;
-         Assert.IsFalse(sut.IsTimeTodo(out whyNot));
-      }
+    [TestClass]
+    public class TflBackupTests
+    {
+        [TestMethod]
+        public void TestTimetoDoTflBackupJob()
+        {
+            var sut = new TflDataBackupJob("e:\\tfl");
+            Assert.IsFalse(sut.IsTimeTodo(out _));
+        }
 
-      [TestMethod]
-      public void TestDoTflBackupJob()
-      {
-         var sut = new TflDataBackupJob();
-         var outcome = sut.DoJob();
-         Assert.IsFalse(string.IsNullOrEmpty(outcome));
-      }
-   }
+        [TestMethod]
+        public void TestDoTflBackupJob()
+        {
+            var sut = new TflDataBackupJob("e:\\tfl");
+            var outcome = sut.DoJob();
+            Assert.IsFalse(string.IsNullOrEmpty(outcome));
+        }
+    }
 }
