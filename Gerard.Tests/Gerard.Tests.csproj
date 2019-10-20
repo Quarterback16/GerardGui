@@ -188,6 +188,7 @@
     <Compile Include="FaMarketTests.cs" />
     <Compile Include="FantasyReportJobTests.cs" />
     <Compile Include="FantasyReportTests.cs" />
+    <Compile Include="FantasyScoreCardJobTests.cs" />
     <Compile Include="FileUtilityTests.cs" />
     <Compile Include="FrequencyTableTests.cs" />
     <Compile Include="GameProjectionReportsJobTests.cs" />

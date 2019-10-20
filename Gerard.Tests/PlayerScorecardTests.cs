@@ -137,5 +137,16 @@ namespace Gerard.Tests
                 File.Exists(_sut.FileOut),
                 $"Cannot find {_sut.FileOut}");
         }
+
+        [TestMethod]
+        public void Sut_GeneratesAllReportFile()
+        {
+            _sut.PlayerList = null;
+            _sut.RenderAsHtml();
+            Assert.IsTrue(
+                File.Exists(_sut.FileOut),
+                $"Cannot find {_sut.FileOut}");
+        }
+
     }
 }

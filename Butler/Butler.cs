@@ -132,7 +132,10 @@ namespace Butler
 				MyJobs.Add( new OldRosterGridJob( TimeKeeper ) );
 				MyJobs.Add( new DefensiveReportsJob( TimeKeeper ) );
 				MyJobs.Add( new SuggestedLineupsJob( TimeKeeper ) );
-				MyJobs.Add( new PickupChartJob( TimeKeeper, previous:false, playerReports:true ) );
+				MyJobs.Add( new PickupChartJob(
+                    TimeKeeper,
+                    previous:false,
+                    playerReports:true ) );
 				MyJobs.Add( new PreviousPickupChartJob(
                     TimeKeeper,
                     Historian ) );

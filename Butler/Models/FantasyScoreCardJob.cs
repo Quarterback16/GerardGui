@@ -24,6 +24,7 @@ namespace Butler.Models
 
         public override string DoJob()
         {
+            //  loop through all positions
             Report.RenderAsHtml(); //  the old method that does the work
             Report.Finish();
             var finishedMessage = $"Rendered {Report.Name} to {Report.OutputFilename()}";
