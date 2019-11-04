@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGetGamebooksForCurrentWeek()
 		{
-			const string weekToDownload = "07";
+			const string weekToDownload = "09";
 
 			var week = new NFLWeek(
                 seasonIn: "2019",
@@ -28,7 +28,6 @@ namespace Gerard.Tests
 		{
 			const string weekToDownload = "01";
 
-			var week = new NFLWeek( "2017", weekToDownload );
 			var sut = new Downloader(
 			   $"e:\\tfl\\nfl\\gamebooks\\week {weekToDownload}\\" );
 			var uri = new Uri( "http://www.nfl.com/liveupdate/gamecenter/57245/GB_Gamebook.pdf" );

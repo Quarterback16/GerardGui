@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
@@ -44,7 +44,9 @@ namespace Gerard.Tests
 		public void TestDoUnitReportsJob()
 		{
 			//  Fake historian garantees job will run always
-			var sut = new UnitReportsJob( new FakeTimeKeeper( season: "2017" ), new FakeHistorian() );
+			var sut = new UnitReportsJob(
+                new FakeTimeKeeper(season: "2019"),
+                new FakeHistorian());
 			var r = sut.DoJob();
 			Assert.IsTrue( r.Length > 0 );
 			Console.WriteLine( r );
