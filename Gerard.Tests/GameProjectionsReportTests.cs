@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 
 namespace Gerard.Tests
@@ -17,7 +17,19 @@ namespace Gerard.Tests
 			cut.RenderAsHtml();
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestGameProjectionsReportStructure()
+        {
+            var cut = new GameProjectionsReport(
+                new FakeTimeKeeper(
+                    "2019",
+                    "12"));
+            Assert.IsNotNull(cut);
+            cut.RenderAsHtml(structOnly: true);
+        }
+
+
+        [TestMethod]
 		public void TestSingleGameProjectionsReport()
 		{
 			var cut = new NFLGame( "2017:01-I" );

@@ -182,18 +182,14 @@ namespace Butler
 #if REGINA
                 MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
 				  "c:\\users\\quart\\dropbox\\gridstat\\{0}",
-				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}"
-				  ) );
+				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\{0}" ) );
 				MyJobs.Add( new DropboxCopyToReginaJob( TimeKeeper,
 				  "c:\\users\\quart\\dropbox\\gridstat\\tfl-out",
-				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out"
-				  ) );
+				  "\\\\Regina\\web\\medialists\\dropbox\\gridstat\\tfl-out" ) );
 #endif
                 MyJobs.Add( new DropBoxCopyFromDeLoochJob( TimeKeeper,
 					"\\\\DeLooch\\users\\steve\\dropbox\\lists\\",
-					"c:\\users\\quart\\dropbox\\lists\\"
-				) );
-
+					"c:\\users\\quart\\dropbox\\lists\\" ) );
 
                 #endregion
 #if REGINA

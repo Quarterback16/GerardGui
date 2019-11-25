@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -28,7 +28,6 @@ namespace Butler.Models
         //  new business logic as to when to do the job
         public override bool IsTimeTodo( out string whyNot )
         {
-            whyNot = string.Empty;
             base.IsTimeTodo( out whyNot );
 
             if ( string.IsNullOrEmpty( whyNot ) )

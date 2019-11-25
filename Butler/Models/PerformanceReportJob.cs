@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -17,8 +17,7 @@ namespace Butler.Models
 
 		public override bool IsTimeTodo( out string whyNot )
 		{
-			whyNot = string.Empty;
-			base.IsTimeTodo( out whyNot );
+            base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				if ( !TimeKeeper.IsItRegularSeason() )

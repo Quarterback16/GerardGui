@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
 using System.IO;
@@ -19,7 +19,7 @@ namespace Gerard.Tests
 				PositionCategory = Constants.K_RECEIVER_CAT
 			};
 			var sut = new PositionReport(
-				new FakeTimeKeeper( season: "2017", week: "05" ),
+				new FakeTimeKeeper( season: "2019", week: "10" ),
 				options );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
@@ -42,8 +42,8 @@ namespace Gerard.Tests
 				PositionCategory = Constants.K_RUNNINGBACK_CAT
 			};
 			var sut = new PositionReport(
-				new FakeTimeKeeper( season: "2016" ),
-				options );
+                new FakeTimeKeeper(season: "2019", week: "10"),
+                options );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
@@ -60,8 +60,8 @@ namespace Gerard.Tests
 				PositionCategory = Constants.K_RECEIVER_CAT
 			};
 			var sut = new PositionReport(
-			new FakeTimeKeeper( season: "2016" ),
-			options );
+                new FakeTimeKeeper(season: "2019", week: "10"),
+                options );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
@@ -78,8 +78,8 @@ namespace Gerard.Tests
 				PositionCategory = Constants.K_QUARTERBACK_CAT
 			};
 			var sut = new PositionReport(
-				new TimeKeeper( null ),
-				options );
+                new FakeTimeKeeper(season: "2019", week: "10"),
+                options);
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
@@ -96,8 +96,8 @@ namespace Gerard.Tests
 				PositionCategory = Constants.K_KICKER_CAT
 			};
 			var sut = new PositionReport(
-				new FakeTimeKeeper( season: "2016" ),
-				options );
+                new FakeTimeKeeper(season: "2019", week: "10"),
+                options );
 			sut.RenderAsHtml();
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 			Console.WriteLine( "{0} created.", sut.FileOut );
@@ -105,17 +105,20 @@ namespace Gerard.Tests
 
 		public bool IsWr( NFLPlayer p )
 		{
-			return ( p.PlayerCat == Constants.K_RECEIVER_CAT ) && p.Contains( "WR", p.PlayerPos );
+			return ( p.PlayerCat == Constants.K_RECEIVER_CAT )
+                && p.Contains( "WR", p.PlayerPos );
 		}
 
 		public bool IsRb( NFLPlayer p )
 		{
-			return ( p.PlayerCat == Constants.K_RUNNINGBACK_CAT ) && p.Contains( "RB", p.PlayerPos );
+			return ( p.PlayerCat == Constants.K_RUNNINGBACK_CAT )
+                && p.Contains( "RB", p.PlayerPos );
 		}
 
 		public bool IsQb( NFLPlayer p )
 		{
-			return ( p.PlayerCat == Constants.K_QUARTERBACK_CAT ) && p.Contains( "QB", p.PlayerPos );
+			return ( p.PlayerCat == Constants.K_QUARTERBACK_CAT )
+                && p.Contains( "QB", p.PlayerPos );
 		}
 
 		public bool IsPk( NFLPlayer p )

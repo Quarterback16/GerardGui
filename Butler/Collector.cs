@@ -134,7 +134,8 @@ namespace Butler
 
         private string CopyTvTo(MediaInfo mi, string folder)
         {
-            if (string.IsNullOrEmpty(folder)) return "No destination folder defined";
+            if (string.IsNullOrEmpty(folder))
+                return "No destination folder defined";
 
             var fromFile = mi.Info.FullName;  //  from DL dir
             var targetFile = $"{folder}{mi.Title}\\Season {mi.Season:0#}\\{mi.Info.Name}";  // to video root
@@ -171,7 +172,10 @@ namespace Butler
                 return "No Soccer folder defined";
 
             var targetFile = $"{SoccerFolder}{mi.Title}";  // to video root
-            return CopyIt(targetFile, fromFile, mi.Info.Name);
+            return CopyIt(
+                targetFile,
+                fromFile,
+                mi.Info.Name);
         }
 
         public string AddToNflCollection(MediaInfo mi)
@@ -194,7 +198,10 @@ namespace Butler
             {
                 var fromFile = mi.Info.FullName;
                 var targetFile = $"{MagazineDestinationFolder}{mi.Info.Name}";
-                return CopyIt(targetFile, fromFile, mi.Info.Name);
+                return CopyIt(
+                    targetFile: targetFile,
+                    fromFile: fromFile,
+                    name: mi.Info.Name);
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -209,7 +216,10 @@ namespace Butler
             {
                 var fromFile = mi.Info.FullName;
                 var targetFile = $"{ViewQueueFolder}{mi.Info.Name}";
-                return CopyIt(targetFile, fromFile, mi.Info.Name);
+                return CopyIt(
+                    targetFile: targetFile,
+                    fromFile: fromFile,
+                    name: mi.Info.Name);
             }
             catch (UnauthorizedAccessException ex)
             {

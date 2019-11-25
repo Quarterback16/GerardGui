@@ -104,20 +104,27 @@ namespace Butler
             return false;
         }
 
-        private static bool RelatesTo(string specialCategory, string fileName)
+        private static bool RelatesTo(
+            string specialCategory,
+            string fileName)
         {
             if (fileName.ToUpper().Contains(specialCategory.ToUpper()))
                 return true;
             return false;
         }
 
-        private string HomePath(string category, string candidate, string fileName)
+        private string HomePath(
+            string category,
+            string candidate,
+            string fileName)
         {
             FolderPath = $@"{HomeFolder}{category}\{candidate}";
             return $@"{FolderPath}\{fileName}";
         }
 
-        private string HomePath(string category, string fileName)
+        private string HomePath(
+            string category,
+            string fileName)
         {
             FolderPath = $@"{HomeFolder}{category}";
             return $@"{FolderPath}\{fileName}";

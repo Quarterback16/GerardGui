@@ -23,8 +23,12 @@ namespace Butler.Models
 
 		public override string DoJob()
 		{
-			return Report.DoReport();
-		}
+            Report.RenderAsHtml(structOnly: false);
+            Report.Finish();
+            var finishedMessage = $"Rendered {Name} to {Report.OutputFilename()}";
+            Logger.Info("  {0}", finishedMessage);
+            return finishedMessage;
+        }
 
 		public override bool IsTimeTodo( out string whyNot )
 		{

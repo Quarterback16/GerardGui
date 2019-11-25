@@ -61,7 +61,8 @@ namespace Gerard.Tests
         }
 
 
-        public FakeTimeKeeper( string season )
+        public FakeTimeKeeper(
+            string season )
 		{
 			Season = season;
 			Week = "00";

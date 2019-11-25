@@ -17,7 +17,8 @@ namespace Butler.Models
         {
             Name = "View Queue Job";
             Logger = logger;
-            ViewQueueFolder = ConfigurationManager.AppSettings[AppSettings.ViewQueueFolder];
+            ViewQueueFolder = ConfigurationManager.AppSettings[
+                AppSettings.ViewQueueFolder];
         }
 
         public ViewQueueJob() : this(LogManager.GetCurrentClassLogger())
@@ -37,8 +38,8 @@ namespace Butler.Models
         }
 
         private void MoveFileToHomeLocation(
-            HomeLocator homeLocator, 
-            Mover mover, 
+            HomeLocator homeLocator,
+            Mover mover,
             string item)
         {
             var fileName = Path.GetFileName(item);
@@ -62,7 +63,7 @@ namespace Butler.Models
         {
             if (fileName == "Bitcoin Explained.epub")
             {
-                System.Console.WriteLine( $"{fileName,20} is a test file; skipping");
+                System.Console.WriteLine($"{fileName,20} is a test file; skipping");
                 return true;
             }
             return false;
