@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using RosterLib.RosterGridReports;
 using System;
@@ -20,9 +20,16 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void Summary_GeneratesOutput()
 		{
-			var sut = new PickupSummary(
-				new FakeTimeKeeper( season: "2017", week: "08" ), 8 );
-			sut.RenderAsHtml();
+            var sut = new PickupSummary(
+                new FakeTimeKeeper(
+                    season: "2019",
+                    week: "13"),
+                week: 13)
+            {
+                LeagueId = Constants.K_LEAGUE_Rants_n_Raves
+            };
+
+            sut.RenderAsHtml();
 			Console.WriteLine( $"{sut.Name} rendered to {sut.FileOut}");
 			Assert.IsTrue( File.Exists( sut.FileOut ) );
 		}
@@ -31,31 +38,39 @@ namespace Gerard.Tests
 		public void Summary_AcceptsPickups()
 		{
 			var sut = new PickupSummary(
-				new FakeTimeKeeper( season: "2017", week: "08" ), 8 );
+				new FakeTimeKeeper(
+                    season: "2019",
+                    week: "13"),
+                week: 13 );
 			sut.AddPickup( new Pickup
 			{
-				Name = "KForbath",
+                LeagueId = Constants.K_LEAGUE_Yahoo,
+                Name = "KForbath",
 				CategoryCode = Constants.K_KICKER_CAT,
 				Opp = "@MV -10",
 				ProjPts = 22
 			} );
 			sut.AddPickup( new Pickup
 			{
-				Name = "ABrown",
+                LeagueId = Constants.K_LEAGUE_Yahoo,
+                Name = "ABrown",
 				CategoryCode = Constants.K_RECEIVER_CAT,
+                Pos = "WR",
 				Opp = "@CI -6",
 				ProjPts = 22
 			} );
 			sut.AddPickup( new Pickup
 			{
-				Name = "SColonna",
+                LeagueId = Constants.K_LEAGUE_Yahoo,
+                Name = "SColonna",
 				CategoryCode = Constants.K_QUARTERBACK_CAT,
 				Opp = "@SF +6",
 				ProjPts = 100
 			} );
 			sut.AddPickup( new Pickup
 			{
-				Name = "APeterson",
+                LeagueId = Constants.K_LEAGUE_Yahoo,
+                Name = "APeterson",
 				CategoryCode = Constants.K_RUNNINGBACK_CAT,
 				Opp = "@HT +9",
 				ProjPts = 6

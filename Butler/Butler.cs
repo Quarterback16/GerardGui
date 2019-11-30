@@ -228,8 +228,9 @@ namespace Butler
 					Logger.Info( "-------------------------------------------------------------------------------------" );
 					Logger.Info( $"Butler ran for {et.TimeOut()}" );
 					Logger.Info( "=====================================================================================" );
+                    Logger.Info($"Passes: {Passes} Pass Quota: {PassQuota}");
 
-					ReportProgress( $"Pass Number {Passes} done - next pass ({Pollinterval}) {DateTime.Now.AddMinutes( Pollinterval ):HH:mm}");
+                    ReportProgress( $"Pass Number {Passes} done - next pass ({Pollinterval}) {DateTime.Now.AddMinutes( Pollinterval ):HH:mm}");
 					if ( Passes >= PassQuota ) break;
 					Thread.Sleep( Pollinterval * 60 * 1000 ); //  <pollInterval> hours
 

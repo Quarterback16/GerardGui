@@ -45,7 +45,9 @@ namespace Gerard.Tests
 		{
 			//  Fake historian garantees job will run always
 			var sut = new UnitReportsJob(
-                new FakeTimeKeeper(season: "2019"),
+                new FakeTimeKeeper(
+                    season: "2019",
+                    week: "12"),
                 new FakeHistorian());
 			var r = sut.DoJob();
 			Assert.IsTrue( r.Length > 0 );

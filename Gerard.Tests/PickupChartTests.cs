@@ -44,7 +44,10 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestTimetoDoPickupChartReport()
 		{
-			var sut = new PickupChartJob( new FakeTimeKeeper( isPreSeason: true, isPeakTime: true ) );
+			var sut = new PickupChartJob(
+                new FakeTimeKeeper(
+                    isPreSeason: true,
+                    isPeakTime: true) );
 			var result = sut.IsTimeTodo( out string whyNot );
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Console.WriteLine( whyNot );
@@ -56,7 +59,8 @@ namespace Gerard.Tests
 		{
 			var sut = new PickupChartJob(
 			   new TimeKeeper(
-				  clock: new FakeClock( new DateTime( 2017, 2, 26, 3, 0, 0 ) ) ) );
+				  clock: new FakeClock(
+                      new DateTime( 2017, 2, 26, 3, 0, 0 ) ) ) );
 			var result = sut.IsTimeTodo( out string whyNot );
 			if ( !string.IsNullOrEmpty( whyNot ) )
 				Console.WriteLine( whyNot );
@@ -66,7 +70,9 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoPickupChartJobNow()
 		{
-			var sut = new PickupChartJob( new TimeKeeper( null ) );
+			var sut = new PickupChartJob(
+                new TimeKeeper(
+                    clock: null ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -74,7 +80,9 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDoPreviousPickupChartJobNow()
 		{
-			var sut = new PickupChartJob( new TimeKeeper( null ), previous: true );
+			var sut = new PickupChartJob(
+                new TimeKeeper( null ),
+                previous: true );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -215,7 +223,7 @@ namespace Gerard.Tests
 		public void TestKicker()
 		{
 			var sut = new NflTeam( "SF" );
-			var sn = sut.LoadKickUnit();
+			sut.LoadKickUnit();
 			Assert.IsNotNull( sut.KickUnit );
 			Assert.IsNotNull( sut.KickUnit.PlaceKicker );
 		}
@@ -243,7 +251,9 @@ namespace Gerard.Tests
         [TestMethod]
 		public void TestW2Bit()
 		{
-			var sut = new PickupChart( new FakeTimeKeeper( season: "2016" ), week: 15 );
+			var sut = new PickupChart(
+                new FakeTimeKeeper(season: "2016"),
+                week: 15);
 			var g = new NFLGame( "2016:15-M" );
 			var team = new Winner
 			{
@@ -289,6 +299,7 @@ namespace Gerard.Tests
 			team.Team.PassUnit.SetReceiverRoles();
 			team.Team.LoadRushUnit();
 			var bit = sut.GetRunnerBit( team, new YahooCalculator() );
+            Console.WriteLine(bit);
 		}
 
 		[TestMethod]

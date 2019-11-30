@@ -59,5 +59,14 @@ namespace Gerard.Tests
 			Console.WriteLine( "Report generated to {0}", outcome );
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
-	}
+
+        [TestMethod]
+        public void TestAndyDalton()
+        {
+            var sut = new NFLPlayer("DALTAN02");
+            var outcome = sut.PlayerReport(true);
+            Console.WriteLine("Report generated to {0}", outcome);
+            Assert.IsFalse(string.IsNullOrEmpty(outcome));
+        }
+    }
 }
