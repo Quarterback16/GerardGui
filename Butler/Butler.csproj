@@ -164,6 +164,8 @@
     <Compile Include="Historian.cs" />
     <Compile Include="HomeLocator.cs" />
     <Compile Include="Implementations\FantasyAssistant.cs" />
+    <Compile Include="Implementations\PropBet.cs" />
+    <Compile Include="Implementations\Record.cs" />
     <Compile Include="Implementations\SeasonScheduler.cs" />
     <Compile Include="Interfaces\IDetectMovies.cs" />
     <Compile Include="Interfaces\IHistorian.cs" />
