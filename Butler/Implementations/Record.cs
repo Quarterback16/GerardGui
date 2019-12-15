@@ -34,6 +34,8 @@ namespace Butler.Implementations
             if (TotalGames() == 0)
                 return 0.0M;
             var percent = Wins / (decimal)TotalGames();
+            if (percent == 0.0M)
+                return percent;
             var odds = 1.0M / percent;
             odds -= 1.0M;
             return odds;

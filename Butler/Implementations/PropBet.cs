@@ -1,6 +1,5 @@
 using RosterLib;
 using System;
-using RosterLib.Interfaces;
 
 namespace Butler.Implementations
 {
@@ -19,8 +18,25 @@ namespace Butler.Implementations
             string statType,
             int quantity)
         {
+            return Calculate(
+                p,
+                statType,
+                quantity,
+                GameScenario.None);
+        }
+
+        public Record Calculate(
+            NFLPlayer p,
+            string statType,
+            int quantity,
+            GameScenario gameScenario = GameScenario.ShortFavourite )
+        {
             Player = p;
-            Console.WriteLine($"Prop Bet for {p.PlayerName}");
+            Console.WriteLine($@"Prop Bet for {
+                p.PlayerName
+                } {
+                PropScenario(gameScenario)
+                }");
             Console.WriteLine();
             StatType = statType;
             Quantity = quantity;
@@ -36,6 +52,11 @@ namespace Butler.Implementations
                     continue;
                 if (! performance.Game.Played())
                     continue;
+                if (!performance.PlayerPlayed())
+                    continue;
+                if (   !(gameScenario == GameScenario.None)
+                    && !performance.GameMatchesScenario(gameScenario))
+                    continue;
 
                 string propResult;
                 if (performance.PerfStats.YDp >= Quantity
@@ -49,9 +70,21 @@ namespace Butler.Implementations
                     record.Losses++;
                     propResult = "Loss";
                 }
-                Console.WriteLine($"{performance}  {propResult}");
+                var result = $"{performance}  {propResult}";
+                result = result.Replace("&nbsp;", " ");
+                Console.WriteLine(result);
             }
             return record;
         }
-	}
+
+        private static string PropScenario(
+            GameScenario gameScenario)
+        {
+            if (gameScenario == GameScenario.None)
+                return String.Empty;
+
+            return gameScenario.ToString();
+        }
+    }
+
 }

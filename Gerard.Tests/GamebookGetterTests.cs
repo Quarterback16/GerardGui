@@ -11,7 +11,7 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestGetGamebooksForCurrentWeek()
 		{
-			const string weekToDownload = "13";
+			const string weekToDownload = "15";
 
 			var week = new NFLWeek(
                 seasonIn: "2019",
@@ -38,8 +38,8 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestOutputDirectory()
 		{
-			var week = new NFLWeek( "2015", "03" );
-			var sut = new GamebookGetter( new Downloader( "g:\\tfl\\nfl\\gamebooks\\week 03\\" ) );
+			var sut = new GamebookGetter(
+                new Downloader( "g:\\tfl\\nfl\\gamebooks\\week 03\\" ) );
 			var result = sut.Downloader.OutputFolder;
 			Assert.AreEqual( result, "g:\\tfl\\nfl\\gamebooks\\week 03\\" );
 			Assert.IsTrue( System.IO.Directory.Exists( result ) );
