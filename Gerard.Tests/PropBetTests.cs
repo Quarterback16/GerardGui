@@ -187,5 +187,76 @@ namespace Gerard.Tests
                 }   $:{result3.Dollars():#0.00}");
         }
 
+        [TestMethod]
+        public void TestJimmyG()
+        {
+            var propYds = 250;
+            var p = new NFLPlayer("GAROJI01");
+            var result = sut.Calculate(
+                p: p,
+                statType: "P",
+                quantity: propYds);
+            Assert.IsNotNull(result);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result
+                }   Odds: {
+                result.OddsOut()
+                }   $:{result.Dollars():#0.00}");
+
+            Console.WriteLine();
+            var result2 = sut.Calculate(
+                p: p,
+                statType: "P",
+                quantity: propYds,
+                GameScenario.LongFavourite);
+            Assert.IsNotNull(result2);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result2
+                }   Odds: {
+                result2.OddsOut()
+                }   $:{result2.Dollars():#0.00}");
+
+            Console.WriteLine();
+            var result3 = sut.Calculate(
+                p: p,
+                statType: "P",
+                quantity: propYds,
+                GameScenario.ShortFavourite);
+            Assert.IsNotNull(result3);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result3
+                }   Odds: {
+                result3.OddsOut()
+                }   $:{result3.Dollars():#0.00}");
+        }
+
+
+        [TestMethod]
+        public void TestOdds()
+        {
+            var result = new Record(2,2);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result
+                }   Odds: {
+                result.OddsOut()
+                }   $:{result.Dollars():#0.00}");
+            Assert.AreEqual(2.00M, result.Dollars());
+        }
+
+        [TestMethod]
+        public void TestOddsForPercent()
+        {
+            var result = new Record(74,26);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result
+                }   Odds: {
+                result.OddsOut()
+                }   $:{result.Dollars():#0.00}");
+        }
     }
 }

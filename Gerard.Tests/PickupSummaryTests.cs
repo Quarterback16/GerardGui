@@ -23,10 +23,10 @@ namespace Gerard.Tests
             var sut = new PickupSummary(
                 new FakeTimeKeeper(
                     season: "2019",
-                    week: "13"),
-                week: 13)
+                    week: "16"),
+                week: 16)
             {
-                LeagueId = Constants.K_LEAGUE_Rants_n_Raves
+                LeagueId = Constants.K_LEAGUE_Yahoo
             };
 
             sut.RenderAsHtml();

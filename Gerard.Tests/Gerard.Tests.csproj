@@ -288,6 +288,7 @@
     <Compile Include="ViewQueueJobTests.cs" />
     <Compile Include="WeekMasterTests.cs" />
     <Compile Include="WikiOutputTests.cs" />
+    <Compile Include="WizSeasonTests.cs" />
     <Compile Include="XmlLoaderTests.cs" />
     <Compile Include="YahooCalculatorTests.cs" />
     <Compile Include="YahooProjectionScorerTests.cs" />

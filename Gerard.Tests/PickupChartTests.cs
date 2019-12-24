@@ -24,7 +24,7 @@ namespace Gerard.Tests
 			var sut = new PickupChartJob(
 				new TimeKeeper( 
 					new FakeClock(
-						new DateTime( 2017, 10, 27, 14, 0, 0 ) ) ) );
+						new DateTime( 2019, 12, 23, 14, 0, 0 ) ) ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -35,7 +35,7 @@ namespace Gerard.Tests
 			var sut = new PickupChartJob( 
                 new FakeTimeKeeper( 
                     season:"2018", 
-                    week:"15" ) );
+                    week:"16" ) );
 
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
