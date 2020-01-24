@@ -1,4 +1,4 @@
-﻿using Helpers;
+using Helpers;
 using Helpers.Interfaces;
 using Helpers.Models;
 using RosterLib.Interfaces;
@@ -35,7 +35,8 @@ namespace Butler.Models
 			TimeKeeper = timekeeper;
 		}
 
-		private void InstructMailMan( IConfigReader configReader )
+		private void InstructMailMan(
+            IConfigReader configReader )
 		{
 			var recipients = configReader.GetSetting( K_RecipientsKey );
 			if ( string.IsNullOrEmpty( recipients ) )
@@ -45,7 +46,8 @@ namespace Butler.Models
 			MailMan.AddRecipients( recipients );
 		}
 
-		public override bool IsTimeTodo( out string whyNot )
+		public override bool IsTimeTodo(
+            out string whyNot )
 		{
 			whyNot = string.Empty;
 			base.IsTimeTodo( out whyNot );

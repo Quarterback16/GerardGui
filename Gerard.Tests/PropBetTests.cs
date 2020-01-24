@@ -233,6 +233,38 @@ namespace Gerard.Tests
                 }   $:{result3.Dollars():#0.00}");
         }
 
+        [TestMethod]
+        public void TestDereckCarr()
+        {
+            var propYds = 200;  //  week 17
+            var p = new NFLPlayer("CARRDE01");
+            var result = sut.Calculate(
+                p: p,
+                statType: "P",
+                quantity: propYds);
+            Assert.IsNotNull(result);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result
+                }   Odds: {
+                result.OddsOut()
+                }   $:{result.Dollars():#0.00}");
+
+            Console.WriteLine();
+            var result2 = sut.Calculate(
+                p: p,
+                statType: "P",
+                quantity: propYds,
+                GameScenario.ShortDog);
+            Assert.IsNotNull(result2);
+            Console.WriteLine();
+            Console.WriteLine($@"Record: {
+                result2
+                }   Odds: {
+                result2.OddsOut()
+                }   $:{result2.Dollars():#0.00}");
+
+        }
 
         [TestMethod]
         public void TestOdds()
