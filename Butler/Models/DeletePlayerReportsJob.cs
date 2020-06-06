@@ -8,7 +8,8 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
-		public DeletePlayerReportsJob( IKeepTheTime timeKeeper ) : base( timeKeeper )
+		public DeletePlayerReportsJob( IKeepTheTime timeKeeper )
+            : base( timeKeeper )
 		{
 			Name = "Delete Player Reports";
 			Report = new DeletePlayerReportsReport( TimeKeeper );
@@ -22,7 +23,6 @@ namespace Butler.Models
 			return Report.DoReport();
 		}
 
-		//  new business logic as to when to do the job
 		public override bool IsTimeTodo( out string whyNot )
 		{
 			base.IsTimeTodo( out whyNot );

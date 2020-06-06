@@ -1,4 +1,4 @@
-﻿using Butler.Models;
+using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gerard.Tests
@@ -9,7 +9,9 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestOldRosterGridJob()  //  2015-12-09  2 mins
       {
-         var sut = new OldRosterGridJob( new FakeTimeKeeper( season:"2017") );
+         var sut = new OldRosterGridJob(
+             new FakeTimeKeeper(
+                 season:"2020") );
          var outcome = sut.DoJob();
          Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
       }
