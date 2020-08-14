@@ -1,5 +1,6 @@
 using RosterLib;
 using System;
+using System.IO;
 
 namespace Butler.Models
 {
@@ -27,14 +28,26 @@ namespace Butler.Models
                 }\\{
                 Utility.UniversalDate(DateTime.Now)
                 }\\";
-            Utility.EnsureDirectory(destDir);
+            Utility.EnsureDirectory(
+                destDir);
             // To copy a file to another location and
             // overwrite the destination file if it already exists.
             var outcome = FileUtility.CopyDirectory(
                 SourceDir,
                 destDir );
-            if ( string.IsNullOrEmpty( outcome ) )
+            if (string.IsNullOrEmpty(outcome))
+            {
+                // cleanup another folder
+                var cleanDir = $@"{
+                    DestDir
+                    }\\{
+                    Utility.UniversalDate(
+                        DateTime.Now.AddDays(-15))
+                    }\\";
+
+                Directory.Delete(cleanDir, true);
                 return $"Copied {SourceDir} to {DestDir}";
+            }
             Logger.Error( outcome );
             return outcome;
         }

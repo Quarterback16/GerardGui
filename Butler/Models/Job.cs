@@ -44,7 +44,8 @@ namespace Butler.Models
 			whyNot = string.Empty;
 			if ( OnHold() ) whyNot = "Job is on hold";
 
-			if ( !string.IsNullOrEmpty( whyNot ) ) return string.IsNullOrEmpty( whyNot );
+			if ( !string.IsNullOrEmpty( whyNot ) )
+                return string.IsNullOrEmpty( whyNot );
 
 			if ( !IsNflRelated )
                 return string.IsNullOrEmpty( whyNot );
@@ -58,7 +59,8 @@ namespace Butler.Models
 
             if ( string.IsNullOrEmpty( whyNot ) )
 			{
-				if ( TimeKeeper.IsItMondayMorning() )
+				if (TimeKeeper.IsItRegularSeason()
+                    && TimeKeeper.IsItMondayMorning() )
 				{
 					whyNot = "Games in progress";
 				}

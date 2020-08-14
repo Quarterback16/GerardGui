@@ -11,10 +11,12 @@ namespace Butler.Models
 
         public ISeasonScheduler SeasonScheduler { get; set; }
 
-        public GameProjectionReportsJob( IKeepTheTime timeKeeper )
+        public GameProjectionReportsJob(
+            IKeepTheTime timeKeeper )
 		{
 			Name = "Game Projection Reports";
-			Report = new GameProjectionsReport( timeKeeper );
+			Report = new GameProjectionsReport(
+                timeKeeper );
 			TimeKeeper = timeKeeper;
 			Logger = NLog.LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;

@@ -11,7 +11,8 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestStartersJob()  //  2015-11-17  6 mins (only QBs)
       {
-         var sut = new StartersJob( new TimeKeeper(null) );
+         var sut = new StartersJob(
+             new TimeKeeper(null) );
          sut.DoJob();
          var run = sut.Report.LastRun;
          Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );

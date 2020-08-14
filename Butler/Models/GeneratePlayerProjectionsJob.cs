@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Helpers;
 using RosterLib.Interfaces;
@@ -19,7 +19,12 @@ namespace Butler.Models
             TimeKeeper = timeKeeper;
             Logger = LogManager.GetCurrentClassLogger();
             IsNflRelated = true;
-            Report = new PlayerProjectionGenerator( timeKeeper, playerCache: null ) { Name = Name };
+            Report = new PlayerProjectionGenerator(
+                timeKeeper,
+                playerCache: null )
+            {
+                Name = Name
+            };
             SeasonScheduler = new SeasonScheduler();
         }
 

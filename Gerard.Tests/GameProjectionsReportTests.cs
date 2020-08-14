@@ -11,8 +11,8 @@ namespace Gerard.Tests
 		{
 			var cut = new GameProjectionsReport(
 				new FakeTimeKeeper(
-					"2016",
-					"06" ) );
+					"2020",
+					"00" ) );
 			Assert.IsNotNull( cut );
 			cut.RenderAsHtml();
 		}

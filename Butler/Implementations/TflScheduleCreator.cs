@@ -98,9 +98,9 @@ namespace Butler.Implementations
             string homeTeamCode)
         {
             var formatStr =
-               "INSERT INTO SCHED (SEASON, WEEK, GAMENO, GAMEDATE, GAMEHOUR, AWAYTEAM, HOMETEAM)";
+               "INSERT INTO SCHED (SEASON, WEEK, GAMENO, GAMEDATE, GAMEHOUR, AWAYTEAM, HOMETEAM, GAMELIVE, STADIUM, AWAYSCORE, HOMESCORE, SPREAD, TOTAL, MYTIP, HOME_TDP, AWAY_TDP, HOME_TDR, AWAY_TDR, HOME_FG, AWAY_FG, HOME_TDD, AWAY_TDD, HOME_TDS, AWAY_TDS, ID)";
 
-            formatStr += "VALUES( '{0}','{1}','{2}','{3}',{{{4:MM/dd/yyyy}}},{5},{6}  )";
+            formatStr += " VALUES( '{0}','{1}','{2}',{{{3:MM/dd/yyyy}}},'{4}','{5}','{6}', .f., ' ', 0, 0, 0, 0.0, '  ',0,0,0,0,0,0,0,0,0,0,0 )";
             var commandStr = string.Format(
                 formatStr,
                 season,

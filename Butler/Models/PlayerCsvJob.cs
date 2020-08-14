@@ -9,7 +9,8 @@ namespace Butler.Models
 	{
 		public RosterGridReport Report { get; set; }
 
-		public PlayerCsvJob( IKeepTheTime timeKeeper )
+		public PlayerCsvJob(
+            IKeepTheTime timeKeeper )
 		{
 			Name = "Players CSV";
 			TimeKeeper = timeKeeper;
@@ -25,7 +26,8 @@ namespace Butler.Models
 			Logger = LogManager.GetCurrentClassLogger();
 		}
 
-		public override bool IsTimeTodo( out string whyNot )
+		public override bool IsTimeTodo(
+            out string whyNot )
 		{
             base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )

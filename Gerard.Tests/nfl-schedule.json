@@ -1,0 +1,2051 @@
+[
+  {
+    "round": "1",
+    "gamedate": "2020-09-10 20:20",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 16:05",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 16:25",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 16:25",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-13 20:20",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-14 19:15",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "1",
+    "gamedate": "2020-09-14 22:10",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-17 20:20",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 16:05",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 16:25",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 16:25",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-20 20:20",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "2",
+    "gamedate": "2020-09-21 20:15",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-24 20:20",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 16:05",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 16:05",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 16:25",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 16:25",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 16:25",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-27 20:20",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "3",
+    "gamedate": "2020-09-28 20:15",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-01 20:20",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 16:05",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 16:25",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 16:25",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-04 20:20",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "4",
+    "gamedate": "2020-10-05 20:15",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-08 20:20",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 16:05",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 16:25",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 16:25",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-11 20:20",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "5",
+    "gamedate": "2020-10-12 20:15",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-15 20:20",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 16:05",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 16:05",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 16:25",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-18 20:20",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "6",
+    "gamedate": "2020-10-19 20:15",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-22 20:20",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 16:05",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 16:25",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 16:25",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-25 20:20",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "7",
+    "gamedate": "2020-10-26 20:15",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-10-29 20:20",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 16:05",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 16:25",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 16:25",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-01 20:20",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "8",
+    "gamedate": "2020-11-02 20:15",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-05 20:20",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 16:05",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 16:25",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 16:25",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-08 20:20",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "9",
+    "gamedate": "2020-11-09 20:15",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-12 20:20",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 16:05",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 16:05",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 16:05",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 16:25",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 16:25",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-15 20:20",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "10",
+    "gamedate": "2020-11-16 20:15",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-19 20:20",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 16:05",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 16:25",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-22 20:20",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "11",
+    "gamedate": "2020-11-23 20:15",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-26 12:30",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-26 16:30",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-26 20:20",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 16:05",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 16:05",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 16:25",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-29 20:20",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "12",
+    "gamedate": "2020-11-30 20:15",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-03 20:20",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 13:00",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 16:05",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 16:05",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 16:25",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 16:25",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-06 20:20",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "13",
+    "gamedate": "2020-12-07 20:15",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-10 20:20",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 16:05",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 16:05",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 16:25",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 16:25",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 16:25",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-13 20:20",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "14",
+    "gamedate": "2020-12-14 20:15",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-17 20:20",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-19 13:00",
+    "League": "NFL",
+    "HomeTeam": "TT",
+    "AwayTeam": "DL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-19 13:00",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-19 13:00",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-19 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "HT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-19 13:00",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "AF",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "MV",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 13:00",
+    "League": "NFL",
+    "HomeTeam": "MD",
+    "AwayTeam": "NE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 16:05",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 16:25",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "KC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-20 20:20",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "15",
+    "gamedate": "2020-12-21 20:15",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-25 16:30",
+    "League": "NFL",
+    "HomeTeam": "New Orleans Saints",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-26 13:00",
+    "League": "NFL",
+    "HomeTeam": "LC",
+    "AwayTeam": "DB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-26 13:00",
+    "League": "NFL",
+    "HomeTeam": "OR",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-26 13:00",
+    "League": "NFL",
+    "HomeTeam": "NJ",
+    "AwayTeam": "CL",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-26 13:00",
+    "League": "NFL",
+    "HomeTeam": "AC",
+    "AwayTeam": "SF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-26 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "TB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "JJ",
+    "AwayTeam": "CH",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "WR",
+    "AwayTeam": "CP",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "PS",
+    "AwayTeam": "IC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "CI",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "BR",
+    "AwayTeam": "NG",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 13:00",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 16:05",
+    "League": "NFL",
+    "HomeTeam": "SS",
+    "AwayTeam": "LR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 16:25",
+    "League": "NFL",
+    "HomeTeam": "DC",
+    "AwayTeam": "PE",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-27 20:20",
+    "League": "NFL",
+    "HomeTeam": "GB",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "16",
+    "gamedate": "2020-12-28 20:15",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "BB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "DL",
+    "AwayTeam": "MV",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "TB",
+    "AwayTeam": "AF",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "HT",
+    "AwayTeam": "TT",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "NE",
+    "AwayTeam": "NJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "CL",
+    "AwayTeam": "PS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "NG",
+    "AwayTeam": "DC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "KC",
+    "AwayTeam": "LC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "PE",
+    "AwayTeam": "WR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "IC",
+    "AwayTeam": "JJ",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "CI",
+    "AwayTeam": "BR",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "BB",
+    "AwayTeam": "MD",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "CP",
+    "AwayTeam": "New Orleans Saints",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 13:00",
+    "League": "NFL",
+    "HomeTeam": "CH",
+    "AwayTeam": "GB",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 16:25",
+    "League": "NFL",
+    "HomeTeam": "LR",
+    "AwayTeam": "AC",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 16:25",
+    "League": "NFL",
+    "HomeTeam": "SF",
+    "AwayTeam": "SS",
+    "EventType": "schedule"
+  },
+  {
+    "round": "17",
+    "gamedate": "2021-01-03 16:25",
+    "League": "NFL",
+    "HomeTeam": "DB",
+    "AwayTeam": "OR",
+    "EventType": "schedule"
+  }
+]
+

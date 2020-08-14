@@ -172,10 +172,12 @@
     <Compile Include="Implementations\FantasyAssistant.cs" />
     <Compile Include="Implementations\PropBet.cs" />
     <Compile Include="Implementations\Record.cs" />
+    <Compile Include="Implementations\ScheduleEventStore.cs" />
     <Compile Include="Implementations\SeasonScheduler.cs" />
     <Compile Include="Implementations\TflScheduleCreator.cs" />
     <Compile Include="Interfaces\IDetectMovies.cs" />
     <Compile Include="Interfaces\IEvent.cs" />
+    <Compile Include="Interfaces\IEventStore.cs" />
     <Compile Include="Interfaces\IGameProcessor.cs" />
     <Compile Include="Interfaces\IHistorian.cs" />
     <Compile Include="Interfaces\IHoldList.cs" />

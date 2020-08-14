@@ -273,6 +273,7 @@
     <Compile Include="GamebookGetterTests.cs" />
     <Compile Include="TestPlayerCache.cs" />
     <Compile Include="TflBackupTests.cs" />
+    <Compile Include="TflScheduleCreatorTests.cs" />
     <Compile Include="TimeKeeperTests.cs" />
     <Compile Include="TippingCompJobTests.cs" />
     <Compile Include="TippingControllerTests.cs" />
@@ -321,6 +322,9 @@
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="nfl-schedule.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
