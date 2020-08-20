@@ -1,6 +1,7 @@
 using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
+using System.Collections.Generic;
 
 namespace Gerard.Tests
 {
@@ -13,7 +14,9 @@ namespace Gerard.Tests
 			var sut = new PlayerCsvJob(
                 new TimeKeeper( null ) );
 			var outcome = sut.DoJob();
-			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+			Assert.IsFalse(
+                string.IsNullOrEmpty(
+                    outcome ) );
 		}
 
 		[TestMethod]
@@ -137,6 +140,31 @@ namespace Gerard.Tests
             var sut = new RenderStatsToHtml(null);
             var result = sut.AsDraftRound(1);
             Assert.AreEqual("1.01", result);
+        }
+
+        [TestMethod]
+        public void TestLister()
+        {
+            var sut = new PlayerCsv(
+                timekeeper: new TimeKeeper(null),
+                adpMaster: null)
+            {
+                DoProjections = false
+            };
+            sut.Configs = new List<StarterConfig>
+            {
+			    new StarterConfig
+                {
+                   Category = Constants.K_RUNNINGBACK_CAT,
+                   Position = "RB"
+                },
+			};
+            sut.CollectPlayers();
+            foreach (var item in sut.Lister.PlayerList)
+            {
+                System.Console.WriteLine(item);
+            }
+
         }
     }
 }

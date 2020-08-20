@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 
 namespace Gerard.Tests
@@ -272,5 +272,25 @@ namespace Gerard.Tests
 			var cut = new PullMetricsFromPrediction( msg );
 			Assert.IsTrue( msg.Game.PlayerGameMetrics.Count > 12 );
 		}
-	}
+
+        [TestMethod]
+        public void Test3DBackdoesnotLosesStats()
+        {
+            var g = new NFLGame("2020:01-F");
+            var msg = new PlayerGameProjectionMessage()
+            {
+                Player = new NFLPlayer("INGRMA02"),
+                Game = g,
+                Prediction = g.GetPrediction("unit"),
+                PlayerGameMetrics = new PlayerGameMetrics()
+            };
+            var cut = new PullMetricsFromPrediction(msg);
+            //  game metrics should be updated
+            Assert.IsTrue(msg.Game.PlayerGameMetrics.Count > 12);
+            foreach (var item in msg.Game.PlayerGameMetrics)
+            {
+                System.Console.WriteLine(item);
+            }
+        }
+    }
 }

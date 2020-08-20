@@ -51,6 +51,13 @@ namespace Gerard.Tests
         }
 
         [TestMethod]
+        public void AdpMasterGet_WithoutLoadForCmc_PerformsImplicitLoad()
+        {
+            var adp = _sut.GetAdp("Christian McCaffrey");
+            Assert.AreEqual("1.01", adp);
+        }
+
+        [TestMethod]
         public void AdpMasterGet_ForSaquon_Returns102()
         {
             _sut.Load();
