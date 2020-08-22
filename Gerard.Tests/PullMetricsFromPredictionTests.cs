@@ -279,7 +279,6 @@ namespace Gerard.Tests
             var g = new NFLGame("2020:01-F");
             var msg = new PlayerGameProjectionMessage()
             {
-                Player = new NFLPlayer("INGRMA02"),
                 Game = g,
                 Prediction = g.GetPrediction("unit"),
                 PlayerGameMetrics = new PlayerGameMetrics()

@@ -35,13 +35,16 @@ namespace Gerard.Tests
 			foreach ( var t in s.TeamList )
 			{
 				var isError = false;
-				var sut = new DepthChartReport( new FakeTimeKeeper( season: theSeason ), t.TeamCode );
+				var sut = new DepthChartReport(
+                    new FakeTimeKeeper( season: theSeason ),
+                    t.TeamCode );
 				sut.Execute();
 				if ( sut.HasIntegrityError() )
 				{
 					isError = true;
 					sut.DumpErrors();
-					Utility.Announce( string.Format( "   Need to fix Depth Chart {0}", t.Name ) );
+					Utility.Announce(
+                        $"   Need to fix Depth Chart {t.Name}" );
 				}
 				t.LoadRushUnit();
 				if ( t.RunUnit.HasIntegrityError() )
@@ -49,7 +52,7 @@ namespace Gerard.Tests
 					isError = true;
 					t.RunUnit.DumpUnit();
 					t.RunUnit.DumpErrors();
-					Utility.Announce( string.Format( "   Need to fix  Rushing Unit {0}", t.Name ) );
+					Utility.Announce( $"   Need to fix  Rushing Unit {t.Name}" );
 				}
 				t.LoadPassUnit();
 				if ( t.PassUnit.HasIntegrityError() )
@@ -76,14 +79,16 @@ namespace Gerard.Tests
 		{
 			const string teamCode = "KC";
 			var t = new NflTeam( teamCode );
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), teamCode );
+			var sut = new DepthChartReport(
+                new FakeTimeKeeper( season: "2017" ),
+                teamCode );
 			sut.Execute();
 			var isError = false;
 			if ( sut.HasIntegrityError() )
 			{
 				isError = true;
 				sut.DumpErrors();
-				Utility.Announce( string.Format( "   Need to fix Depth Chart {0}", t.Name ) );
+				Utility.Announce( $"   Need to fix Depth Chart {t.Name}" );
 			}
 			t.LoadRushUnit();
 			if ( t.RunUnit.HasIntegrityError() )
@@ -105,14 +110,17 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDepthChartConstructor()
 		{
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ) );
+			var sut = new DepthChartReport(
+                new FakeTimeKeeper(
+                    season: "2017" ) );
 			Assert.IsNotNull( sut );
 		}
 
 		[TestMethod]
 		public void TestDepthChartLoadsStarters()
 		{
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2016" ), "SF" )
+			var sut = new DepthChartReport(
+                new FakeTimeKeeper( season: "2016" ), "SF" )
 			{
 				LeagueInFocus = "YH"
 			};
@@ -123,7 +131,9 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestDepthChartFor49ers()
 		{
-			var sut = new DepthChartReport( new FakeTimeKeeper( season: "2017" ), "GB" )
+			var sut = new DepthChartReport(
+                new FakeTimeKeeper( season: "2020" ),
+                "SF" )
 			{
 				LeagueInFocus = "G1"
 			};

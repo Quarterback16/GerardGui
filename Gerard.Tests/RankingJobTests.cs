@@ -23,7 +23,22 @@ namespace Gerard.Tests
                 $"Cannot find {fileOut}");
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestCurrentRankingJob()
+        {
+            var sut = new RankingsJob(
+                timekeeper: new TimeKeeper(
+                    clock: null),
+                force: true);
+            sut.DoJob();
+            var fileOut = sut.TeamRanker.FileOut;
+            System.Console.WriteLine($"Metrics output to {fileOut}");
+            Assert.IsTrue(
+                File.Exists(fileOut),
+                $"Cannot find {fileOut}");
+        }
+
+        [TestMethod]
 		public void TestInterceptionRatio()
 		{
 			var ratio = TeamRanker.InterceptionRatio(
