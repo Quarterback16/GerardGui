@@ -36,7 +36,8 @@ namespace Gerard.Tests
 			var pp = new PlayerProjection( "MANNPE01", "2014" );
 			pp.Render();
 			var fileOut = pp.FileName();
-			Assert.IsTrue( File.Exists( fileOut ), $"Cannot find {fileOut}" );
+			Assert.IsTrue(
+                File.Exists( fileOut ), $"Cannot find {fileOut}" );
 		}
 
 		[TestMethod]
@@ -51,10 +52,14 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestPlayerProjectionMattForte2015()
 		{
-			var pp = new PlayerProjection( "FORTMA01", "2015" );
+			var pp = new PlayerProjection(
+                playerId: "FORTMA01",
+                season: "2015");
 			pp.Render();
 			var fileOut = pp.FileName();
-			Assert.IsTrue( File.Exists( fileOut ), string.Format( "Cannot find {0}", fileOut ) );
+			Assert.IsTrue(
+                File.Exists(fileOut),
+                $"Cannot find {fileOut}");
 		}
 
 		[TestMethod]
@@ -67,5 +72,35 @@ namespace Gerard.Tests
 			Assert.AreEqual( 1, prediction.AwayTDp, "Away TDp should be 1" );
 			Assert.AreEqual( 1, prediction.AwayFg, "Away FG should be 1" );
 		}
-	}
+
+        [TestMethod]
+        public void TestPlayerProjectionChrisCarson2020()
+        {
+            TestPlayer(
+                "CARSCH01",
+                "2020");
+        }
+
+        [TestMethod]
+        public void TestPlayerProjectionDerrickHenry2020()
+        {
+            TestPlayer(
+                "HENRDE01",
+                "2020");
+        }
+
+        private static void TestPlayer(
+            string playerId,
+            string season)
+        {
+            var pp = new PlayerProjection(
+                playerId: playerId,
+                season: season);
+            pp.Render();
+            var fileOut = pp.FileName();
+            Assert.IsTrue(
+                File.Exists(fileOut),
+                $"Cannot find {fileOut}");
+        }
+    }
 }

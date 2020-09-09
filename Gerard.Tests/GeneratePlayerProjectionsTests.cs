@@ -29,10 +29,10 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestTimetoDoGeneratePlayerProjectionsJob()
       {
-         var sut = new GeneratePlayerProjectionsJob( new TimeKeeper( clock: null ) );
-         string whyNot;
-         var result = sut.IsTimeTodo( out whyNot );
-         Assert.IsTrue(result);
+         var sut = new GeneratePlayerProjectionsJob(
+             new TimeKeeper( clock: null ) );
+            var result = sut.IsTimeTodo(out string whyNot);
+            Assert.IsTrue(result);
          Console.WriteLine(whyNot);
       }
 

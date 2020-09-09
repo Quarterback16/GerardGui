@@ -11,7 +11,8 @@ namespace Butler.Models
 
         public ISeasonScheduler SeasonScheduler { get; set; }
 
-        public GameProjectionsJob(IKeepTheTime timeKeeper)
+        public GameProjectionsJob(
+            IKeepTheTime timeKeeper)
         {
             Name = "Game Projections";
             var week = $"{timeKeeper.CurrentWeek(DateTime.Now):00}";

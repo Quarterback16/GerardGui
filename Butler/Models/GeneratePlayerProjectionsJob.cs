@@ -36,7 +36,10 @@ namespace Butler.Models
 
             //  do any unplayed games
             Logger.Info( "   Doing whole season" );
-            var s = new NflSeason( TimeKeeper.Season, loadGames: true, loadDivisions: false ); //  long time to load
+            var s = new NflSeason(
+                TimeKeeper.Season,
+                loadGames: true,
+                loadDivisions: false); //  long time to load
             foreach ( var game in s.GameList )
                 if ( !game.Played() )
                     gameList.Add( game );
