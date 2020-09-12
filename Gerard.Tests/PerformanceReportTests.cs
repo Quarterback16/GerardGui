@@ -13,7 +13,8 @@ namespace Gerard.Tests
         [TestMethod]
         public void TestDoPerformanceReportJob()  // 2015-11-11 2 min
         {
-            var sut = new PerformanceReportJob(new TimeKeeper(null));
+            var sut = new PerformanceReportJob(
+                new TimeKeeper(null));
             var outcome = sut.DoJob();
             Assert.IsFalse(string.IsNullOrEmpty(outcome));
         }
@@ -23,8 +24,8 @@ namespace Gerard.Tests
         {
             var sut = new PerformanceReportJob(
                 new FakeTimeKeeper(
-                    season: "2018",
-                    week: "04"));
+                    season: "2019",
+                    week: "17"));
             var outcome = sut.DoJob();
             Assert.IsFalse(string.IsNullOrEmpty(outcome));
         }
