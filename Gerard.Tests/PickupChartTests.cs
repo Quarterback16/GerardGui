@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using RosterLib.RosterGridReports;
 using System;
+using System.Collections.Generic;
 
 namespace Gerard.Tests
 {
@@ -27,7 +28,7 @@ namespace Gerard.Tests
 			var sut = new PickupChartJob(
 				new TimeKeeper( 
 					new FakeClock(
-						new DateTime( 2019, 12, 23, 14, 0, 0 ) ) ) );
+						new DateTime( 2020, 09, 15, 14, 0, 0 ) ) ) );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -37,8 +38,8 @@ namespace Gerard.Tests
 		{
 			var sut = new PickupChartJob( 
                 new FakeTimeKeeper( 
-                    season:"2018", 
-                    week:"16" ) );
+                    season:"2020", 
+                    week:"01" ) );
 
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
@@ -117,7 +118,32 @@ namespace Gerard.Tests
                 actual: result );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestActualOutputCommittee()
+        {
+            var sut = new PickupChart(
+                new FakeTimeKeeper(
+                    season: "2020"),
+                week: 01);
+            var g = new NFLGame("2020:01-F");
+            var runners = new List<NFLPlayer>
+            {
+                new NFLPlayer(
+                    "INGRMA02"),
+                new NFLPlayer(
+                    "DOBBJ.01")
+            };
+            var result = sut.ActualOutput(
+                game: g,
+                player: null,
+                runners: runners);
+            Assert.AreEqual(
+                expected: "17",
+                actual: result);
+        }
+
+
+        [TestMethod]
 		public void TestProjectedOutput()
 		{
 			var sut = new YahooCalculator();
@@ -317,11 +343,38 @@ namespace Gerard.Tests
 			team.Team.LoadPassUnit();
 			team.Team.PassUnit.SetReceiverRoles();
 			team.Team.LoadRushUnit();
-			var bit = sut.GetRunnerBit( team, new YahooCalculator() );
+			var bit = sut.GetRunnerBit(
+                team,
+                new YahooCalculator() );
             Console.WriteLine(bit);
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestRunnerBit_Dual()
+        {
+            var sut = new PickupChart(
+                new FakeTimeKeeper(
+                    season: "2020"),
+                    week: 1);
+            var g = new NFLGame("2020:01-F");
+            var team = new Winner
+            {
+                Team = g.Team("BR"),
+                Margin = Math.Abs(g.Spread),
+                Home = g.IsHome("BR"),
+                Game = g
+            };
+            team.Team.LoadPassUnit();
+            team.Team.PassUnit.SetReceiverRoles();
+            team.Team.LoadRushUnit();
+            var bit = sut.GetRunnerBit(
+                team,
+                new YahooCalculator());
+            Console.WriteLine(bit);
+            Assert.IsTrue(bit.Length == 121);
+        }
+
+        [TestMethod]
 		public void TestOwners()
 		{
 			var p = new NFLPlayer("MAHOPA01");
