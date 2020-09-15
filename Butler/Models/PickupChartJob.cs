@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 using RosterLib.RosterGridReports;
@@ -26,7 +26,9 @@ namespace Butler.Models
 			if ( Week == 0 ) Week = 1;  //  in preseason lets look ahead to the first game
 			Previous = previous;
             PlayerReports = playerReports;
-			Report = new PickupChart( TimeKeeper, Week );
+			Report = new PickupChart(
+                TimeKeeper,
+                Week );
 		}
 
 		public override string DoJob()

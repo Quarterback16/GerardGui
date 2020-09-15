@@ -13,9 +13,12 @@ namespace Gerard.Tests
 		public void TestDoCurrentPickupChartJob()  //  1 min on 2015-09-01, 10 min with Projection Genrations turn on
 		{
 			var sut = new PickupChartJob( 
-				new TimeKeeper( clock: null ) );
+				new TimeKeeper(
+                    clock: null ) );
 			var outcome = sut.DoJob();
-			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+			Assert.IsFalse(
+                string.IsNullOrEmpty(
+                    outcome ) );
 		}
 
 		[TestMethod]
@@ -87,15 +90,31 @@ namespace Gerard.Tests
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestGamePlayedFlag()
+        {
+            var g = new NFLGame("2020:01-A");
+            var hasBeenPlayed = g.Played(
+                addDay: false);
+            Assert.IsTrue(hasBeenPlayed);
+        }
+
+        [TestMethod]
 		public void TestActualOutput()
 		{
 			var sut = new PickupChart( 
-                new FakeTimeKeeper( season: "2017" ), week: 13 );
-			var p = new NFLPlayer( "PRESDA01" );
-			var g = new NFLGame( "2017:13-A" );
-			var result = sut.ActualOutput( g, p, null );
-			Assert.AreEqual( expected: " 34 ", actual: result );
+                new FakeTimeKeeper(
+                    season: "2020" ),
+                week: 01 );
+			var p = new NFLPlayer( "MAHOPA01" );
+			var g = new NFLGame( "2020:01-A" );
+			var result = sut.ActualOutput(
+                game: g,
+                player: p,
+                runners: null );
+			Assert.AreEqual(
+                expected: " 34 ",
+                actual: result );
 		}
 
 		[TestMethod]

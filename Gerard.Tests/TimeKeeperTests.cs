@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
 using System;
 
@@ -57,7 +57,26 @@ namespace Gerard.Tests
 			Assert.AreEqual( sut.CurrentWeek(), 0 );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestCurrentWeekOnATuesdayInAustralia()
+        {
+            var sut = new TimeKeeper(
+                null);
+            Assert.AreEqual(sut.CurrentWeek(), 1);
+        }
+
+        [TestMethod]
+        public void TestGetUsDate()
+        {
+            var sut = new TimeKeeper(
+                null);
+            var result = sut.GetUsDate();
+            Assert.AreEqual(
+                DateTime.Now.AddDays(-1).Day,
+                result.Day );
+        }
+
+        [TestMethod]
 		public void TestCurrentSeasonPost()
 		{
 			var sut = new TimeKeeper( new FakeClock( new DateTime( 2016, 02, 15 ) ) );  // set clock to Feb-2016

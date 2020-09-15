@@ -48,6 +48,16 @@ namespace Gerard.Tests
         }
 
         [TestMethod]
+        public void Player_WhenScoredInCurrentGame_ReturnsFalse()
+        {
+            var sut = new NFLPlayer("EDWACL01");
+            var timeKeeper = new TimeKeeper(null);
+            Assert.IsFalse(
+                sut.ScoredLastGame(
+                    timeKeeper));
+        }
+
+        [TestMethod]
         public void Player_WhenScoredInLastGameAllowingForBye_ReturnsTrue()
         {
             var sut = new NFLPlayer("MOORDA04");
