@@ -142,7 +142,6 @@ namespace Gerard.Tests
                 actual: result);
         }
 
-
         [TestMethod]
 		public void TestProjectedOutput()
 		{
@@ -167,11 +166,33 @@ namespace Gerard.Tests
         [TestMethod]
 		public void TestGameHasBeenPlayed()
 		{
-			var g = new NFLGame( "2015:12-D" );
+			var g = new NFLGame( "2020:02-A" );
 			Assert.IsTrue( g.Played() );
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void TestActualScoreInGameBit()
+        {
+            //var sut = new PickupChart(
+            //    new FakeTimeKeeper(
+            //        season: "2020"),
+            //    week: 02);
+            var g = new NFLGame("2020:02-A");
+            //var t = new NflTeam("CL");
+            var winner = new Winner
+            {
+                PointsFor = g.BookieTip.WinningScore(),
+                Team = g.Team("CL"),
+                Margin = Math.Abs(g.Spread),
+                Home = g.IsHome("CL"),
+                Game = g
+            };
+            var gamebit = PickupChart.GameBit(
+                winner);
+
+        }
+
+        [TestMethod]
 		public void TestCurrentWeek()
 		{
 			var sut = new PickupChartJob( new FakeTimeKeeper() );
