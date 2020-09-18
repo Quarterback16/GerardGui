@@ -16,7 +16,8 @@ namespace Gerard.Tests
             var sut = new PerformanceReportJob(
                 new TimeKeeper(null));
             var outcome = sut.DoJob();
-            Assert.IsFalse(string.IsNullOrEmpty(outcome));
+            Assert.IsFalse(
+                string.IsNullOrEmpty(outcome));
         }
 
         [TestMethod]

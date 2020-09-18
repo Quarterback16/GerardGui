@@ -20,9 +20,13 @@ namespace Gerard.Tests
 
 		private YahooScorer SystemUnderTest()
 		{
-			testWeek = new NFLWeek( "2017", "05" ); //  should use a fake week
-			testPlayer = new NFLPlayer( "WATSDE02" );
-			return new YahooScorer(testWeek);
+			testWeek = new NFLWeek(
+                "2017",
+                "05" ); //  should use a fake week
+			testPlayer = new NFLPlayer(
+                "WATSDE02" );
+			return new YahooScorer(
+                testWeek);
 		}
 
 		#endregion

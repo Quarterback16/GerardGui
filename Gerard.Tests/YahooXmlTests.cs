@@ -12,25 +12,32 @@ namespace Gerard.Tests
 		public void TestDoYahooXmlJob()  //  9 mins 2015-09-20, 23 mins home
 		{
 			var sut = new YahooXmlJob( 
-                new FakeTimeKeeper(
-                    season: "2019",
-                    week: "03" ) );
+                new TimeKeeper(
+                    clock: null ));
 			var outcome = sut.DoJob();  // does the previous week
-			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
+			Assert.IsFalse(
+                string.IsNullOrEmpty(
+                    outcome ) );
 		}
 
 		[TestMethod]
 		public void TestTimetoDo_YahooXmlJob()
 		{
-			var sut = new YahooXmlJob( new TimeKeeper( null ) );
-			Assert.IsFalse( sut.IsTimeTodo( out string whyNot ) );
-			Console.WriteLine( whyNot );
+			var sut = new YahooXmlJob(
+                new TimeKeeper( null ) );
+			Assert.IsFalse(
+                sut.IsTimeTodo(
+                    out string whyNot ) );
+			Console.WriteLine(
+                whyNot );
 		}
 
 		[TestMethod]
 		public void TestGenerateYahooXmlForEntireSeason()
 		{
-			var m = new YahooMaster( "Yahoo", "YahooOutput.xml" );
+			var m = new YahooMaster(
+                "Yahoo",
+                "YahooOutput.xml" );
 			m.Calculate( "2019" );
 			m.Dump2Xml();
 		}
@@ -50,11 +57,17 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestLineupLoad()
 		{
-			var LineupDs = Utility.TflWs.GetLineup( "NO", "2015", 8 );
-			var lineup = new Lineup( LineupDs );
-			Utility.Announce( $"NFLGame.LoadLineupPlayers {lineup.PlayerList.Count} players in lineup" );
+			var LineupDs = Utility.TflWs.GetLineup(
+                teamCode: "NO",
+                season: "2015",
+                week: 8 );
+			var lineup = new Lineup(
+                LineupDs );
+			Utility.Announce(
+                $"NFLGame.LoadLineupPlayers {lineup.PlayerList.Count} players in lineup" );
 			lineup.DumpLineup();
-			Assert.IsTrue( lineup.PlayerList.Count > 0 );
+			Assert.IsTrue(
+                lineup.PlayerList.Count > 0 );
 		}
 
 		[TestMethod]

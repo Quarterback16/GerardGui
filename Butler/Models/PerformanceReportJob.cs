@@ -6,16 +6,19 @@ namespace Butler.Models
 {
 	public class PerformanceReportJob : ReportJob
 	{
-		public PerformanceReportJob( IKeepTheTime timekeeper )
+		public PerformanceReportJob(
+            IKeepTheTime timekeeper )
 		{
 			Name = "Performance Report job";
-			Report = new PerformanceReportGenerator( timekeeper );
+			Report = new PerformanceReportGenerator(
+                timekeeper );
 			TimeKeeper = timekeeper;
 			Logger = LogManager.GetCurrentClassLogger();
 			IsNflRelated = true;
 		}
 
-		public override bool IsTimeTodo( out string whyNot )
+		public override bool IsTimeTodo(
+            out string whyNot )
 		{
             base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )

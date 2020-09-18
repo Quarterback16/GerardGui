@@ -1,3 +1,4 @@
+using Butler;
 using Butler.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RosterLib;
@@ -12,8 +13,8 @@ namespace Gerard.Tests
 		public void TestUnitReportsJob()  //  2015-11-26  5 min : DEBUG, 133 min : DEBUG2
 		{
 			var sut = new UnitReportsJob( 
-				new FakeTimeKeeper( season: "2017" ), 
-				new FakeHistorian() );
+				new TimeKeeper( clock: null ), 
+				new Historian() );
 			var outcome = sut.DoJob();
 			Assert.IsFalse( string.IsNullOrEmpty( outcome ) );
 		}
@@ -32,7 +33,6 @@ namespace Gerard.Tests
         [TestMethod]
         public void TestRealTimetoDoUnitReportsJob()
         {
-            //  Fake historian garantees job will run always
             var sut = new UnitReportsJob(
                 new TimeKeeper(null),
                 new FakeHistorian());
@@ -43,7 +43,6 @@ namespace Gerard.Tests
         [TestMethod]
 		public void TestDoUnitReportsJob()
 		{
-			//  Fake historian garantees job will run always
 			var sut = new UnitReportsJob(
                 new FakeTimeKeeper(
                     season: "2019",

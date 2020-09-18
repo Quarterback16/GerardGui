@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -8,19 +8,22 @@ namespace Butler.Models
 	{
 		public bool FullSeason { get; set; }
 
-		public YahooXmlJob( IKeepTheTime timekeeper )
+		public YahooXmlJob(
+            IKeepTheTime timekeeper )
 		{
 			Name = "Yahoo Xml job";
-			Report = new YahooMasterGenerator( FullSeason, timekeeper );
+			Report = new YahooMasterGenerator(
+                FullSeason,
+                timekeeper );
 			TimeKeeper = timekeeper;
 			IsNflRelated = true;
 			Logger = LogManager.GetCurrentClassLogger();
 		}
 
-		public override bool IsTimeTodo( out string whyNot )
+		public override bool IsTimeTodo(
+            out string whyNot )
 		{
-			whyNot = string.Empty;
-			base.IsTimeTodo( out whyNot );
+            base.IsTimeTodo( out whyNot );
 			if ( string.IsNullOrEmpty( whyNot ) )
 			{
 				if ( TimeKeeper.IsItPeakTime() )
