@@ -1,4 +1,4 @@
-﻿using Butler;
+using Butler;
 using Butler.Helpers;
 using Butler.Models;
 using Helpers.Models;
@@ -126,20 +126,27 @@ namespace Gerard.Tests
       [TestMethod]
       public void TestDataIntegrityCheckerWeek2013_1()
       {
-         var sut = new DataIntegrityChecker();
-         sut.Season = "2013";
-         sut.Week = 1;
-         sut.CheckScores();
-         Assert.IsTrue(sut.ScoresChecked > 0);
+            var sut = new DataIntegrityChecker
+            {
+                Season = "2020",
+                Week = 3
+            };
+            sut.CheckScores();
+            Assert.IsTrue(
+                sut.ScoresChecked > 0);
       }
 
       [TestMethod]
       public void TestDataIntegrityChecker2013()
       {
-         var sut = new DataIntegrityChecker();
-         sut.Season = "2013";
-         sut.CheckScores();
-         Assert.IsTrue(sut.ScoresChecked > 0 && sut.Errors == 0);
+            var sut = new DataIntegrityChecker
+            {
+                Season = "2013"
+            };
+            sut.CheckScores();
+         Assert.IsTrue(
+             sut.ScoresChecked > 0
+             && sut.Errors == 0);
       }
 
       [TestMethod]

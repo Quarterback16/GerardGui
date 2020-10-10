@@ -16,7 +16,8 @@ namespace Butler.Models
             IHistorian historian )
         {
             Name = "Unit Reports";
-            Report = new UnitReport( timekeeper );
+            Report = new UnitReport(
+                timekeeper );
             Historian = historian;
             Logger = NLog.LogManager.GetCurrentClassLogger();
             IsNflRelated = true;
@@ -28,18 +29,19 @@ namespace Butler.Models
             return Report.DoReport();
         }
 
-        public override bool IsTimeTodo( out string whyNot )
+        public override bool IsTimeTodo(
+            out string whyNot )
         {
             base.IsTimeTodo( out whyNot );
             if ( string.IsNullOrEmpty( whyNot ) )
             {
-                var regularity = 7;
-                if ( TimeKeeper.IsItPreseason() )
-                    regularity += 14;
-                var sevenDaysAgo = DateTime.Now.Subtract( 
-                    new TimeSpan( regularity, 0, 0, 0 ) ).Date;
-                if ( Historian.LastRun( Report ).Date > sevenDaysAgo )
-                    whyNot = $"Has been done less than {regularity} days ago";
+                //var regularity = 7;
+                //if ( TimeKeeper.IsItPreseason() )
+                //    regularity += 14;
+                //var sevenDaysAgo = DateTime.Now.Subtract( 
+                //    new TimeSpan( regularity, 0, 0, 0 ) ).Date;
+                //if ( Historian.LastRun( Report ).Date > sevenDaysAgo )
+                //    whyNot = $"Has been done less than {regularity} days ago";
                 if (TimeKeeper.IsItTuesday())
                     whyNot = "Not on Tuesdays";
             }

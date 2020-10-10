@@ -24,10 +24,14 @@ namespace Gerard.Tests
 		{
 			//  Fake historian garantees job will run always
 			var sut = new UnitReportsJob( 
-				new FakeTimeKeeper( season: "2017" ), 
+				new FakeTimeKeeper(
+                    season: "2017" ), 
 				new FakeHistorian() );
-			Assert.IsTrue( sut.IsTimeTodo( out string whyNot ) );
-			Console.WriteLine( whyNot );
+			Assert.IsTrue(
+                sut.IsTimeTodo(
+                    out string whyNot ) );
+			Console.WriteLine(
+                whyNot );
 		}
 
         [TestMethod]
@@ -36,7 +40,9 @@ namespace Gerard.Tests
             var sut = new UnitReportsJob(
                 new TimeKeeper(null),
                 new FakeHistorian());
-            Assert.IsTrue(sut.IsTimeTodo(out string whyNot));
+            Assert.IsTrue(
+                sut.IsTimeTodo(
+                    out string whyNot));
             Console.WriteLine(whyNot);
         }
 
@@ -84,7 +90,8 @@ namespace Gerard.Tests
 		public void TestOutputFileName()
 		{
 			//  Fake historian garantees job will run always
-			var sut = new UnitReport( new FakeTimeKeeper( season: "2015" ) );
+			var sut = new UnitReport(
+                new FakeTimeKeeper( season: "2015" ) );
 			var result = sut.OutputFilename();
 			Console.WriteLine( result );
 			Assert.IsFalse( string.IsNullOrEmpty( result ) );
@@ -94,11 +101,17 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestUnitReportSD()
 		{
-			var sut = new UnitReport( new FakeTimeKeeper( season: "2015" ) )
+			var sut = new UnitReport(
+                new FakeTimeKeeper(
+                    season: "2015" ) )
 			{
-				SeasonMaster = Masters.Sm.GetSeason( "2015", teamsOnly: true )
+				SeasonMaster = Masters.Sm.GetSeason(
+                    "2015",
+                    teamsOnly: true )
 			};
-			sut.TeamUnits( "2015", "2015SD" );
+			sut.TeamUnits(
+                "2015",
+                "2015SD" );
 		}
 	}
 }
