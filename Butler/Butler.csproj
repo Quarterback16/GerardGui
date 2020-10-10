@@ -170,6 +170,8 @@
     <Compile Include="Historian.cs" />
     <Compile Include="HomeLocator.cs" />
     <Compile Include="Implementations\FantasyAssistant.cs" />
+    <Compile Include="Implementations\GameLine.cs" />
+    <Compile Include="Implementations\LineMaster.cs" />
     <Compile Include="Implementations\PropBet.cs" />
     <Compile Include="Implementations\Record.cs" />
     <Compile Include="Implementations\ScheduleEventStore.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="Interfaces\IHistorian.cs" />
     <Compile Include="Interfaces\IHoldList.cs" />
     <Compile Include="Interfaces\IJob.cs" />
+    <Compile Include="Interfaces\ILineMaster.cs" />
     <Compile Include="Interfaces\ISuggestLineups.cs" />
     <Compile Include="JobLog.cs" />
     <Compile Include="Messaging\ShuttleSender.cs" />
@@ -206,6 +209,7 @@
     <Compile Include="Models\HotListsJob.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\LineupSummaryJob.cs" />
+    <Compile Include="Models\LoadLineJob.cs" />
     <Compile Include="Models\LogCleanupJob.cs" />
     <Compile Include="Models\LogMailerJob.cs" />
     <Compile Include="Models\MediaJob.cs" />
