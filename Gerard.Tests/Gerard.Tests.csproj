@@ -173,6 +173,7 @@
     <Compile Include="DeletePlayerReportsTests.cs" />
     <Compile Include="DepthChartTests.cs" />
     <Compile Include="DropboxCopyToReginaJobTests.cs" />
+    <Compile Include="EspnScorerTests.cs" />
     <Compile Include="FakeClock.cs" />
     <Compile Include="FakeConfigReader.cs" />
     <Compile Include="FakeLoadRunners.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="FakeNflTeam.cs" />
     <Compile Include="FakeRushUnit.cs" />
     <Compile Include="Fakes\FakeJob.cs" />
+    <Compile Include="Fakes\FakeLineMaster.cs" />
     <Compile Include="Fakes\FakeLoadPassUnit.cs" />
     <Compile Include="Fakes\FakeNFLGame2.cs" />
     <Compile Include="Fakes\FakePassUnit.cs" />
@@ -206,8 +208,10 @@
     <Compile Include="IsRetiredTest.cs" />
     <Compile Include="IterSortTests.cs" />
     <Compile Include="JobLogTests.cs" />
+    <Compile Include="LineMasterTests.cs" />
     <Compile Include="LineupSummaryTests.cs" />
     <Compile Include="LineupTests.cs" />
+    <Compile Include="LoadLineJobTests.cs" />
     <Compile Include="LoadRunnersTests.cs" />
     <Compile Include="LogCleanupTests.cs" />
     <Compile Include="LogDirectoryFinderTests.cs" />

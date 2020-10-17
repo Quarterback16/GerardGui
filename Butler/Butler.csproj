@@ -160,6 +160,7 @@
     <Compile Include="Butler.cs" />
     <Compile Include="ButlerConstants.cs" />
     <Compile Include="Collector.cs" />
+    <Compile Include="Dto\GameLineDto.cs" />
     <Compile Include="Events\ResultEvent.cs" />
     <Compile Include="Events\ScheduleEvent.cs" />
     <Compile Include="Helpers\DiskDetector.cs" />

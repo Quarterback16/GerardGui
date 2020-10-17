@@ -49,8 +49,8 @@ namespace Gerard.Tests
                 "Yahoo",
                 "YahooOutput.xml");
 			m.Calculate(
-                season: "2019",
-                week: "02");
+                season: "2020",
+                week: "01");
 			m.Dump2Xml();
 		}
 

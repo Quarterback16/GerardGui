@@ -1,4 +1,4 @@
-﻿using NLog;
+using NLog;
 using RosterLib;
 using RosterLib.Interfaces;
 
@@ -22,7 +22,9 @@ namespace Butler.Models
 	      CheckLastRun = true;
       }
 
-      public ReportJob( IKeepTheTime timekeeper, RosterGridReport report )
+      public ReportJob(
+          IKeepTheTime timekeeper,
+          RosterGridReport report )
       {
          Report = report;
          TimeKeeper = timekeeper;

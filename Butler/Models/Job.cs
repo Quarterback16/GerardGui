@@ -39,7 +39,8 @@ namespace Butler.Models
 			TimeKeeper = timekeeper;
 		}
 
-		public virtual bool IsTimeTodo( out string whyNot )
+		public virtual bool IsTimeTodo(
+            out string whyNot )
 		{
 			whyNot = string.Empty;
 			if ( OnHold() ) whyNot = "Job is on hold";
