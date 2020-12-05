@@ -189,7 +189,13 @@ namespace Gerard.Tests
 			return TheDateTime;
 		}
 
-		public bool IsItTuesday()
+        public bool IsItMonday()
+        {
+            var focusDate = CurrentDateTime();
+            return focusDate.DayOfWeek == DayOfWeek.Monday;
+        }
+
+        public bool IsItTuesday()
 		{
 			var focusDate = CurrentDateTime();
 			return focusDate.DayOfWeek == DayOfWeek.Tuesday;

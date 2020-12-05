@@ -12,10 +12,14 @@ namespace Gerard.Tests
 		[TestMethod]
 		public void TestCurrentReport()
 		{
-			var sut = new PointsAllowedReport( new TimeKeeper( null ) );
+			var sut = new PointsAllowedReport(
+                new TimeKeeper( null ) );
 			sut.RenderAsHtml();
-			Assert.IsTrue( File.Exists( sut.FileOut ) );
-			Console.WriteLine( "{0} created.", sut.FileOut );
+			Assert.IsTrue(
+                File.Exists( sut.FileOut ) );
+			Console.WriteLine(
+                "{0} created.",
+                sut.FileOut );
 		}
 
 		[TestMethod]

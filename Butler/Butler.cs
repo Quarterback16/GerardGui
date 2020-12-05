@@ -1,4 +1,5 @@
 #define REGINA
+using Butler.Implementations;
 using Butler.Interfaces;
 using Butler.Models;
 using Helpers;
@@ -114,11 +115,14 @@ namespace Butler
 				MyJobs.Add( new GameSummariesJob( TimeKeeper ) );
 				MyJobs.Add( new GoalLineReportJob( TimeKeeper ) );
 
-				#endregion Looking back on the games just played
+                #endregion Looking back on the games just played
 
-				#region Looking forward to the upcoming games
+                #region Looking forward to the upcoming games
 
-				MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
+                MyJobs.Add( new LoadLineJob(
+                    TimeKeeper,
+                    new LineMaster()));
+                MyJobs.Add( new GameProjectionsJob( TimeKeeper ) ); //  once in pre season then once a week regular - always
 				MyJobs.Add( new GeneratePlayerProjectionsJob( TimeKeeper ) );
 				MyJobs.Add( new GameProjectionReportsJob( TimeKeeper ) );
 				MyJobs.Add( new RookiesJob( TimeKeeper ) );

@@ -10,7 +10,9 @@ namespace Gerard.Tests
         public void HomeLocator_OnInstantiationWithNoParameter_DefaultsToRegina()
         {
             var cut = new HomeLocator();
-            Assert.IsTrue(cut.HomeFolder.Equals(@"\\regina\books\") );
+            Assert.IsTrue(
+                cut.HomeFolder.Equals(@"\\\\Regina\books\"),
+                $"Actual home directory is {cut.HomeFolder}");
         }
 
         [TestMethod]
@@ -83,6 +85,16 @@ namespace Gerard.Tests
         public void HomeFor_BuildingMaintainableSoftware_ResultsCSharp()
         {
             var fileName = "Building Maintainable Software, C# Edition.pdf";
+            var cut = new HomeLocator();
+            Assert.AreEqual(
+                expected: $@"{cut.HomeFolder}IT\C#\{fileName}",
+                actual: cut.HomeFor(fileName));
+        }
+
+        [TestMethod]
+        public void HomeFor_Price_ResultsCSharp()
+        {
+            var fileName = "Price M. C# 9 and .NET 5.  Modern Cross-Platform Development 5ed 2020.pdf";
             var cut = new HomeLocator();
             Assert.AreEqual(
                 expected: $@"{cut.HomeFolder}IT\C#\{fileName}",

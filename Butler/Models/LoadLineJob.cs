@@ -34,6 +34,13 @@ namespace Butler.Models
                     whyNot = "Peak time - no noise please";
             }
 
+            if (string.IsNullOrEmpty(whyNot))
+            {
+                if (TimeKeeper.IsItTuesday()
+                    || TimeKeeper.IsItMonday())
+                    whyNot = "Not on Game days";
+            }
+
             if (!string.IsNullOrEmpty(whyNot))
                 Logger.Info("Skipped {1}: {0}", whyNot, Name);
 
@@ -82,6 +89,9 @@ namespace Butler.Models
             NFLGame game,
             GameLine gameLine)
         {
+            if (gameLine.Total == 0.0M)
+                gameLine.Total = 42.5M;
+
             game.StoreGameLine(
                 gameLine.Spread,
                 gameLine.Total);

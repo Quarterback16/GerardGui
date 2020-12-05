@@ -43,9 +43,15 @@ namespace Butler
 
         public string HomeFor( string fileName )
         {
-            var fileNameNoExt = Path.GetFileNameWithoutExtension(fileName);
+            var fileNameNoExt = Path.GetFileNameWithoutExtension(
+                fileName);
             const string category = "IT";
             var home = string.Empty;
+
+            //  Check for specific cases prior to the general algorithm
+            if (RelatesToCsharp(fileName))
+                return HomePath(@"IT\C#", fileName);
+
             foreach (var candidate in ITFolderCollection)
             {
                 if (fileNameNoExt.ToUpper().Contains(candidate.ToUpper()))
@@ -94,6 +100,13 @@ namespace Butler
             if (RelatesTo(specialCategory, fileName))
                 return HomePath(specialCategory, fileName);
             return home;
+        }
+
+        private static bool RelatesToCsharp(string fileName)
+        {
+            if (fileName.ToUpper().Contains("C# "))
+                return true;
+            return false;
         }
 
         private static bool RelatesToHomeCare(string fileName)

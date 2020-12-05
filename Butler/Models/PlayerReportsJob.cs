@@ -1,4 +1,4 @@
-﻿using Helpers.Interfaces;
+using Helpers.Interfaces;
 using RosterLib;
 using RosterLib.Interfaces;
 using System;
@@ -11,7 +11,10 @@ namespace Butler.Models
 
 		private const string K_PlayerReportsTodo = "PlayerReportsToDo";
 
-		public PlayerReportsJob( IKeepTheTime timeKeeper, IConfigReader configReader ) : base( timeKeeper )
+		public PlayerReportsJob(
+            IKeepTheTime timeKeeper,
+            IConfigReader configReader )
+            : base( timeKeeper )
 		{
 			var reportsToDo = configReader.GetSetting( K_PlayerReportsTodo );
 			Name = "Player Reports";

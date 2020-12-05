@@ -12,6 +12,7 @@ namespace Butler.Implementations
     public class LineMaster : ILineMaster
     {
         public Logger Logger { get; private set; }
+        public string Port { get; set; }
 
         public Dictionary<string,string> TeamCode { get; set; }
         public Dictionary<string, GameLine> Lines { get; set; }
@@ -21,12 +22,16 @@ namespace Butler.Implementations
             LoadTeamCodes();
             Lines = new Dictionary<string, GameLine>();
             LoadLatestLines();
+            Port = "5000";
+#if DEBUG
+            Port = "44344";  // local testing on Elsie
+#endif
         }
 
         private void LoadLatestLines()
         {
-            // for the next 7 days
-            for (int i = 0; i < 3; i++)
+            // for the next 5 days
+            for (int i = 0; i < 5; i++)
             {
                 //   get lines from API
                 var gameDate = DateTime.Now.AddDays(i);
@@ -55,7 +60,7 @@ namespace Butler.Implementations
                 gameDate);
             var gameLine = new GameLine
             {
-                Spread = Math.Abs(gameLineDto.Spread),
+                Spread = -1.0M * gameLineDto.Spread,
                 Total = gameLineDto.Total
             };
             Lines.Add(
@@ -113,7 +118,7 @@ namespace Butler.Implementations
                 {  "GB" ,"GB" },
                 {  "DET","DL" }
             };
-            Info($"Loaded {TeamCode.Count} team codes");
+            //Info($"Loaded {TeamCode.Count} team codes");
         }
 
         public GameLine GetLine(
@@ -125,7 +130,14 @@ namespace Butler.Implementations
                 gameDate,
                 homeTeamCode);
             if (Lines.ContainsKey(key))
-                return Lines[key];
+            {
+                var theLine = Lines[key];
+                if (theLine.Spread.Equals(0.0M)
+                    && theLine.Total > 0.0M)
+                    // pickem
+                    theLine.Spread = 0.5M;
+                return theLine;
+            }
             return result;
         }
 
@@ -140,7 +152,7 @@ namespace Butler.Implementations
         {
             try
             {
-                const string url = "https://localhost:44344/line";
+                var url = $"https://localhost:{Port}/line";
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(
                     url);
                 httpWebRequest.ContentType = "application/json";
@@ -163,13 +175,14 @@ namespace Butler.Implementations
             }
         }
 
-        public static List<GameLineDto> LoadLines(
+        public List<GameLineDto> LoadLines(
             DateTime forDate)
         {
+            var url = $@"http://katla:5000/line/{forDate:yyyyMMdd}";
+//            var url = $@"https://localhost:44344/line/{forDate:yyyyMMdd}";
             try
             {
                 var dto = new List<GameLineDto>();
-                var url = $@"https://localhost:44344/line/{forDate.ToString("yyyyMMdd")}";
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(
                     url);
                 httpWebRequest.ContentType = "application/json";
@@ -184,11 +197,12 @@ namespace Butler.Implementations
                         rawResponse);
 
                 }
+                //Info($"success: {url}");
                 return dto;
             }
             catch (Exception ex)
             {
-
+                Info($"{url}: {ex.Message}");
                 throw;
             }
         }

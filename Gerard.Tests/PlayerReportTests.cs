@@ -17,7 +17,8 @@ namespace Gerard.Tests
 			sut.DoJob();
 			var run = sut.Report.LastRun;
 			Console.WriteLine( "Last Run : {0}", run );
-			Assert.IsTrue( run.Date.Equals( DateTime.Now.Date ) );
+			Assert.IsTrue(
+                run.Date.Equals( DateTime.Now.Date ) );
 		}
 
 		[TestMethod]
